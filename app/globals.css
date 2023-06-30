@@ -1,7 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url("https://use.typekit.net/xvl5aez.css");
+@import url("https://fonts.googleapis.com/css2?family=Zeyada&display=swap");
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -36,4 +37,12 @@ body {
 
 h1 {
   line-height: 90px !important;
+}
+
+@font-face {
+  font-family: "owners2";
+  src: url("/fonts/owners/owners-black.otf") format("otf"),
+    url("/fonts/owners/owners-black.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
