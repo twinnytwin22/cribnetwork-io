@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 function Footer() {
     return (
-        <footer className="bg-white rounded-lg shadow dark:bg-black w-screen">
+        <footer className="bg-white rounded-lg shadow dark:bg-black w-full">
             <div className="w-full max-w-screen-2xl mx-auto p-4 md:py-8">
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <Link href="/" className="flex items-center">
@@ -12,7 +12,7 @@ function Footer() {
                         <Image src="/images/SMALL_B_criblogo.png" className="h-8 mr-3 dark:hidden block" alt="Crib Logo" width={145} height={100} priority />
 
                     </Link>
-                    <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-zinc-500 sm:mb-0 dark:text-zinc-400">
+                    <ul className="hidden flex-wrap items-center mb-6 text-sm font-medium text-zinc-500 sm:mb-0 dark:text-zinc-400">
                         <li>
                             <a href="#" className="mr-4 hover:underline md:mr-6">About</a>
                         </li>
