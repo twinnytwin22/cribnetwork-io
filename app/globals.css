@@ -33,3 +33,7 @@ body {
   stroke-linejoin: round;
   stroke-linecap: round;
 }
+
+h1 {
+  line-height: 90px !important;
+}

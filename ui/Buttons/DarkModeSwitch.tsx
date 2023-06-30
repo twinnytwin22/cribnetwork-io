@@ -33,7 +33,7 @@ const DarkModeSwitch = () => {
         htmlFor="darkModeSwitch"
         className="flex items-center cursor-pointer"
       >
-        <div className="relative w-10 h-4 bg-zinc-600 rounded-full shadow-inner items-center">
+        <div className="relative w-10 h-4 bg-red-300 rounded-full shadow-inner items-center">
           <div
             className={`absolute left-0 top-0 w-4 h-4 border-zinc-600 border bg-white rounded-full transition-transform duration-300 ease-in-out transform ${currentTheme === "dark" ? "translate-x-6" : "translate-x-0"
               }`}
