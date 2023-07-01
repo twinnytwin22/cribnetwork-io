@@ -3,7 +3,7 @@ import React from 'react'
 import DarkModeSwitch from '../Buttons/DarkModeSwitch'
 import Link from 'next/link'
 import Image from 'next/image'
-import ContactButton from '../Misc/ContactButton'
+import ContactButton from '../Buttons/ContactButton'
 
 function NavBar() {
     return (
