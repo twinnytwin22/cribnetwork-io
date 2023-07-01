@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { useState } from "react";
 
-const ContactForm = () => {
+const ContactForm = ({ handleClose }) => {
   const [formData, setFormData] = useState({
     email: "",
     subject: "",
@@ -129,7 +129,7 @@ const ContactForm = () => {
           </Link>
         </div>
 
-        {status === "success" && <p className="text-sm">Email sent!</p>}
+        {status === "success" && handleClose()}
         {status === "error" && <p>Error sending email, please try again.</p>}
       </form>
     </div>
