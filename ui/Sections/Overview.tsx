@@ -4,8 +4,8 @@ import Circles from '../Misc/NetworkBall'
 function Overview() {
     return (
         <section className="bg-zinc-100 dark:bg-zinc-950 w-full overflow-x-hidden">
-            <div className='grid md:grid-cols-2 w-full place-items-center max-w-screen-2xl mx-auto py-24 '>
-                <div className='w-full max-w-lg px-4'>
+            <div className='grid md:grid-cols-2 w-full  max-w-screen-2xl mx-auto py-24 items-center'>
+                <div className='w-full max-w-lg px-4 items-center'>
                     <div className='border-b border-zinc-600 w-full mb-8'>
                         <h1 className="mb-4 text-4xl font-normal tracking-normal  text-zinc-900 md:text-5xl lg:text-7xl dark:text-white max-w-screen-lg mx-auto font-[owners]">
                             <span className="underline underline-offset-3 decoration-8 decoration-red-300 ">      Overview</span>

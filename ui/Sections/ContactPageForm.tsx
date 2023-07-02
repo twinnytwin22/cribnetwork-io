@@ -41,7 +41,7 @@ const ContactForm = ({ handleClose }) => {
       <h1 className=" text-5xl tracking-tight font-bold text-center text-black dark:text-white font-[owners]">
         Let's Chat!
       </h1>
-      <p className="text-center -mt-2 mb-8">or email us at info@cribnetwork.io</p>
+      <p className="text-center -mt-2 mb-8text-black dark:text-white ">or email us at info@cribnetwork.io</p>
       <form onSubmit={handleSubmit} className="flex flex-col w-full space-y-8 font-medium">
         <div>
           <label htmlFor="email" className="block mb-2 text-sm text-black dark:text-white">
