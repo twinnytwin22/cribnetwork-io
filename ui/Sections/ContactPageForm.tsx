@@ -1,4 +1,5 @@
 'use client'
+import { bookingUrl } from "@/lib/site/constants";
 import Link from "next/link";
 import React from "react";
 import { useState } from "react";
@@ -120,7 +121,7 @@ const ContactForm = ({ handleClose }) => {
           >
             Send message
           </button>
-          <Link href='https://outlook.office365.com/owa/calendar/CRIBScheduledCalls@cribnetwork.io/bookings/'>
+          <Link href={bookingUrl}>
             <button
 
               className="py-3 font-[owners] px-5 text-xs md:text-sm font-light text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105"

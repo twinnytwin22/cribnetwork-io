@@ -1,0 +1,1 @@
+export const bookingUrl = 'https://outlook.office365.com/owa/calendar/CRIB@cribnetwork.io/bookings/'
