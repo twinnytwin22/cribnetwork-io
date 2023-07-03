@@ -8,7 +8,7 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between  bg-white dark:bg-zinc-900 w-full max-w-screen">
+    <main className="flex min-h-screen flex-col items-center justify-between  bg-white dark:bg-black  w-full max-w-screen">
       <HomeHeader />
       <SocialProof />
       <Overview2 />

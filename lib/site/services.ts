@@ -15,7 +15,7 @@ import {
 } from "react-icons/lia";
 
 import { TbSocial } from "react-icons/tb";
-import { MdOutlineSocialDistance } from "react-icons/md";
+import { MdOutlineSocialDistance, MdOutlineWeb } from "react-icons/md";
 
 export const services = [
   // {
@@ -45,6 +45,13 @@ export const services = [
     url: "https://example.com/content-marketing",
     description:
       "Attract, engage, and convert your audience with high-quality and relevant content that drives results.",
+  },
+  {
+    title: "Blockchain Development",
+    icon: MdOutlineWeb,
+    url: "https://example.com/blockchain-web3",
+    description:
+      "Leverage decentralized technologies to create secure, transparent, and decentralized applications, and smart contracts.",
   },
   {
     title: "Conversion Rate Optimization (CRO)",
@@ -89,19 +96,13 @@ export const services = [
       "Build and engage your social media following organically through strategic content and community management.",
   },
   {
-    title: "Paid Media",
+    title: "Paid Media / Social",
     icon: LiaBullhornSolid,
     url: "https://example.com/paid-media",
     description:
-      "Drive targeted traffic and increase brand visibility through paid advertising campaigns across various channels.",
+      "Drive targeted traffic and increase brand visibility through paid advertising and social media campaigns across various channels.",
   },
-  {
-    title: "Paid Social",
-    icon: MdOutlineSocialDistance,
-    url: "https://example.com/paid-social",
-    description:
-      "Promote your brand, products, or services to a specific audience segment through paid social media campaigns.",
-  },
+
   // {
   //   title: "Partnerships",
   //   icon: LiaPhotoVideoSolid,
