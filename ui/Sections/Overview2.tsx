@@ -8,8 +8,8 @@ function Overview2() {
     const pClass = 'text-zinc-900 dark:text-zinc-100 text-lg text-center'
 
     return (
-        <div className='bg-white dark:bg-black w-screen py-24'>
-            <div className='grid grid-cols-3 max-w-screen-2xl w-full mx-auto place-items-start'>
+        <div className='bg-white dark:bg-black w-full py-24'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-screen-2xl w-full mx-auto place-items-start'>
                 <div className={cardClass}>
                     <div className='w-32 mx-auto dark:invert'>{serviceSvg}</div>
 

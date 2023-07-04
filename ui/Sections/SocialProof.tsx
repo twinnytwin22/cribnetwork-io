@@ -2,7 +2,7 @@ import React from 'react'
 
 function SocialProof() {
     return (
-        <section className="bg-zinc-100 dark:bg-zinc-950 w-screen">
+        <section className="bg-zinc-100 dark:bg-zinc-950 w-full">
             <div className="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-16 lg:px-6">
                 <dl className="grid max-w-screen-md gap-8 mx-auto text-zinc-900 sm:grid-cols-2 dark:text-white">
                     <div className="flex flex-col items-center justify-center">
