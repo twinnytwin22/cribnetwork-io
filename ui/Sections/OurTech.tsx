@@ -1,11 +1,12 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 function OurTech() {
     return (
         <div id="tech" className="w-full py-32 bg-zinc-100 dark:bg-zinc-950 border-b border-zinc-300 dark:border-zinc-800">
             <div className="grid grid-cols-1 md:grid-cols-2 max-w-screen-2xl w-full mx-auto  px-8">
                 <div className="flex flex-col space-y-10 w-full mb-12 text-zinc-900 dark:text-zinc-300">
-                    <div className="space-y-2 w-full ">
+                    <Link href='https://www.prns.app/' className="space-y-2 w-full ">
                         <Image
                             className="invert dark:invert-0 mx-auto"
                             src="/logos/prns.png"
@@ -15,7 +16,7 @@ function OurTech() {
                             height={100}
                         />
                         <p className="w-40 text-center text-sm mx-auto">Administration and education tools for pro musicians.</p>
-                    </div>
+                    </Link>
                     <div className="w-full mx-auto flex-col flex">
                         <div className="flex items-center space-x-3 mx-auto w-full justify-center mb-2">
                             <Image
