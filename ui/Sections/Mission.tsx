@@ -3,8 +3,8 @@ import Circles from '../Misc/NetworkBall'
 
 function Mission() {
     return (
-        <section id="about" className="bg-zinc-100 dark:bg-zinc-950 w-full">
-            <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-2xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+        <section id="about" className="bg-zinc-100 dark:bg-zinc-950 w-full border-b border-zinc-300 dark:border-zinc-800">
+            <div className="gap-16 items-center py-8 px-8 mx-auto max-w-screen-2xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
                 <div className="font-light text-zinc-900 dark:text-zinc-300 text-2xl">
                     <h2 className="mb-4 text-4xl lg:text-5xl tracking-tight font-extrabold text-black dark:text-white ">
                         Moving ideas

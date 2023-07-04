@@ -3,7 +3,7 @@ import React from 'react'
 
 function HomeHeader() {
   return (
-    <section className="bg-white dark:bg-black mt-16 w-full overflow-x-hidden">
+    <section className="bg-white dark:bg-black mt-16 w-full overflow-x-hidden border-b border-zinc-300 dark:border-zinc-800">
       <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-32 lg:px-12 overflow-x-hidden">
         <a href="#" className="hidden justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-zinc-700 bg-zinc-100 rounded-full dark:bg-zinc-800 dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-700" role="alert">
           <span className="text-xs bg-primary-600 rounded-full text-white px-4 py-1.5 mr-3">New</span> <span className="text-sm font-medium">Flowbite is out! See what's new</span>

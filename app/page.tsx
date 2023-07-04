@@ -1,5 +1,6 @@
 import HomeHeader from '@/ui/Headers/HomeHeader'
 import Mission from '@/ui/Sections/Mission'
+import OurTech from '@/ui/Sections/OurTech'
 import Overview from '@/ui/Sections/Overview'
 import Overview2 from '@/ui/Sections/Overview2'
 import Services from '@/ui/Sections/Services'
@@ -14,6 +15,7 @@ export default function Home() {
       <Overview2 />
       <Mission />
       <Services />
+      <OurTech />
     </main>
   )
 }
