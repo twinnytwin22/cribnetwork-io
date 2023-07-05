@@ -17,7 +17,7 @@ function OurTech() {
                         />
                         <p className="w-40 text-center text-sm mx-auto">Administration and education tools for pro musicians.</p>
                     </Link>
-                    <div className="w-full mx-auto flex-col flex">
+                    <Link href='https://subport.xyz' className="w-full mx-auto flex-col flex">
                         <div className="flex items-center space-x-3 mx-auto w-full justify-center mb-2">
                             <Image
                                 src="/logos/subport.png"
@@ -31,7 +31,7 @@ function OurTech() {
                         </div>
                         <p className="w-40 text-center text-sm mx-auto">Marketing and promotion tools for independent creators.</p>
 
-                    </div>
+                    </Link>
                 </div>
                 <div>
                     <h1 className="text-4xl md:text-5xl font-bold font-[owners] mb-4 text-black dark:text-white">
