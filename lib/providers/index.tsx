@@ -3,6 +3,8 @@ import * as React from "react";
 import dynamic from "next/dynamic";
 
 import { Suspense } from "react";
+import { AuthContextProvider } from "@/app/context/auth";
+import InvoiceContextProvider from "@/app/context/invoice";
 
 const ThemeProvider = dynamic(
     async () => {
@@ -15,13 +17,16 @@ const ThemeProvider = dynamic(
 
 export const Providers = ({ children, }: { children: React.ReactNode }) => {
     return (
-        <Suspense>
+        <AuthContextProvider>
+            <Suspense>
 
-            <ThemeProvider enableSystem={true} attribute="class" defaultTheme="dark">
-                {children}
-
-            </ThemeProvider>
-        </Suspense>
+                <ThemeProvider enableSystem={true} attribute="class" defaultTheme="dark">
+                    <InvoiceContextProvider>
+                        {children}
+                    </InvoiceContextProvider>
+                </ThemeProvider>
+            </Suspense>
+        </AuthContextProvider>
 
     );
 };

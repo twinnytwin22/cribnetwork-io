@@ -12,7 +12,7 @@ function Footer() {
                         <Image src="/images/SMALL_B_criblogo.png" className="h-8 mr-3 dark:hidden block" alt="Crib Logo" width={145} height={100} priority />
 
                     </Link>
-                    <ul className="hidden flex-wrap items-center mb-6 text-sm font-medium text-zinc-500 sm:mb-0 dark:text-zinc-400">
+                    <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-zinc-500 sm:mb-0 dark:text-zinc-400">
                         <li>
                             <a href="#" className="mr-4 hover:underline md:mr-6">About</a>
                         </li>
@@ -20,7 +20,7 @@ function Footer() {
                             <a href="#" className="mr-4 hover:underline md:mr-6">Privacy Policy</a>
                         </li>
                         <li>
-                            <a href="#" className="mr-4 hover:underline md:mr-6">Licensing</a>
+                            <Link href="/login" className="mr-4 hover:underline md:mr-6">Sign In</Link>
                         </li>
                         <li>
                             <a href="#" className="hover:underline">Contact</a>

@@ -1,0 +1,188 @@
+'use client'
+import { Suspense, cache, createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { createClientComponentClient, Session } from "@supabase/auth-helpers-nextjs";
+import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
+
+interface AuthContextProps {
+    user: any;
+    signOut: () => void;
+    signInWithGoogle: () => Promise<void>;
+    signInWithSpotify: () => Promise<void>;
+    profile: any;
+    isLoading: boolean
+}
+
+const AuthContext = createContext<AuthContextProps>({
+    user: null,
+    signOut: () => { },
+    profile: null,
+    signInWithGoogle: () => Promise.resolve(),
+    signInWithSpotify: () => Promise.resolve(),
+    isLoading: false
+});
+
+const supabase = createClientComponentClient()
+
+
+export const AuthContextProvider = ({
+    children,
+}: {
+    children: React.ReactNode;
+}) => {
+    const [user, setUser] = useState<any>(null);
+    const [profile, setProfile] = useState<any>(null);
+    const [isProfileFetched, setIsProfileFetched] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [signingIn, setIsSigningIn] = useState(false)
+    const router = useRouter();
+
+    const fetchProfile = cache(async (id: string) => {
+        try {
+            setIsLoading(true);
+            const { data, error } = await supabase
+                .from("users")
+                .select("id, username")
+                .eq("id", id)
+                .single();
+            if (error) {
+                throw error;
+            }
+
+            setProfile(data);
+            setIsProfileFetched(true);
+            setIsLoading(false);
+            setIsSigningIn(false)
+        } catch (error) {
+            console.error("Error fetching profile data:", error);
+            setIsLoading(false);
+        }
+    });
+
+    const onAuthStateChanged = async () => {
+        if (!user) {
+            try {
+                const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+
+                if (sessionError) {
+                    throw sessionError;
+                }
+
+                if (session && !signingIn) {
+                    const { data: authUser, error: authError } = await supabase.auth.getUser();
+
+                    if (authError) {
+                        throw authError;
+                    }
+
+                    if (authUser?.user) {
+                        setUser(authUser?.user);
+
+                        if (!isProfileFetched) {
+                            await fetchProfile(authUser.user.id);
+                        }
+
+                        return;
+                    }
+                }
+
+                setUser(null);
+                setProfile(null);
+                setIsProfileFetched(false);
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        }
+    };
+
+
+
+    const value = useMemo(
+        () => ({
+            user,
+            profile,
+            isLoading,
+            signInWithGoogle: async () => {
+                setIsSigningIn(true)
+                try {
+                    const { error } = await supabase.auth.signInWithOAuth({ provider: "google" });
+                    setIsSigningIn(false)
+
+                    if (error) {
+                        alert('nah')
+                        throw error;
+                    }
+                } catch (error) {
+                    console.error("Error signing in with Google:", error);
+                }
+            },
+            signInWithSpotify: async () => {
+                setIsSigningIn(true)
+                try {
+                    const { error } = await supabase.auth.signInWithOAuth({ provider: "spotify" });
+                    setIsSigningIn(false)
+                    if (error) {
+                        throw error;
+                    }
+                } catch (error) {
+                    console.error("Error signing in with Spotify:", error);
+                }
+            },
+            signOut: async () => {
+                try {
+                    await supabase.auth.signOut();
+                    setUser(null);
+                    setProfile(null);
+                    setIsProfileFetched(false);
+                    router.refresh()
+                } catch (error) {
+                    console.error("Error signing out:", error);
+                }
+            },
+
+        }),
+        [user, profile, router, isLoading]
+    );
+
+    const { data: { subscription: AuthListener } } =
+        supabase.auth.onAuthStateChange((event, session) => {
+            if (event == 'SIGNED_IN') {
+                router.refresh()
+            }
+            if (event == 'SIGNED_OUT') {
+                router.refresh()
+            }
+        })
+
+    useEffect(() => {
+        onAuthStateChanged();
+
+        return () => {
+            AuthListener?.unsubscribe();
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [AuthListener, value]);
+
+
+    return (
+        <Suspense>
+            <AuthContext.Provider value={value}>
+                {
+                    children
+                }
+            </AuthContext.Provider>
+        </Suspense>
+    );
+};
+
+export const useAuthProvider = () => {
+    const {
+        user,
+        signOut,
+        profile,
+        signInWithGoogle,
+        signInWithSpotify,
+        isLoading,
+    } = useContext(AuthContext);
+    return { user, signOut, profile, signInWithGoogle, signInWithSpotify, isLoading };
+};
