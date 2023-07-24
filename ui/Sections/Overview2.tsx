@@ -5,7 +5,7 @@ import { FaArrowRight } from 'react-icons/fa'
 import Link from 'next/link'
 function Overview2() {
     const cardClass = 'hover:shadow-zinc-200 hover:shadow-2xl dark:hover:shadow-zinc-800 max-w-md w-full mx-auto ease-in-out duration-500 p-12 px-16'
-    const headingClass = 'text-2xl md:text-3xl font-bold text-center text-black dark:text-white font-[owners]'
+    const headingClass = 'text-2xl md:text-3xl font-bold text-center text-black dark:text-white font-owners'
     const pClass = 'text-zinc-800 dark:text-zinc-200 text-lg text-center'
 
     return (
@@ -20,7 +20,7 @@ function Overview2() {
                         for seamless integration, exceptional customer engagement, and measurable results.</p>
                     <a href='#services' className='flex items-center space-x-2 font-bold mx-auto justify-center text-zinc-900 dark:text-zinc-100'>
 
-                        <h1 className='font-[owners]'>
+                        <h1 className='font-owners'>
                             Learn More
                         </h1>
                         <FaArrowRight />
@@ -34,7 +34,7 @@ function Overview2() {
                         Our solutions revolutionize operations, maximizing efficiency, agility, and growth.
                         From AI-driven automation to immersive experiences, stay ahead in the digital era.</p>
                     <div className='flex items-center space-x-2 font-bold mx-auto justify-center text-zinc-900 dark:text-zinc-100'>
-                        <h1 className='font-[owners]'>
+                        <h1 className='font-owners'>
                             Learn More
                         </h1>
                         <FaArrowRight />
@@ -48,7 +48,7 @@ function Overview2() {
                         Enhance customer experiences, drive revenue growth, and achieve sustainable
                         success with our seamless solutions.</p>
                     <div className='flex items-center space-x-2 font-bold mx-auto justify-center text-zinc-900 dark:text-zinc-100'>
-                        <h1 className='font-[owners]'>
+                        <h1 className='font-owners'>
                             Learn More
                         </h1>
                         <FaArrowRight />

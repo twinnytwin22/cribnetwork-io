@@ -34,7 +34,7 @@ function OurTech() {
                     </Link>
                 </div>
                 <div>
-                    <h1 className="text-4xl md:text-5xl font-bold font-[owners] mb-4 text-black dark:text-white">
+                    <h1 className="text-4xl md:text-5xl font-bold font-owners mb-4 text-black dark:text-white">
                         Our Technology
                     </h1>
                     <p className="text-xl max-w-lg w-full text-zinc-800 dark:text-zinc-300">

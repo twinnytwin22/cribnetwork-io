@@ -39,7 +39,7 @@ const ContactForm = ({ handleClose }) => {
 
   return (
     <div className="w-full p-12 mx-auto max-w-screen-md z-[100] h-full  isolate relative">
-      <h1 className=" text-5xl tracking-tight font-bold text-center text-black dark:text-white font-[owners]">
+      <h1 className=" text-5xl tracking-tight font-bold text-center text-black dark:text-white font-owners">
         Let's Chat!
       </h1>
       <p className="text-center -mt-2 mb-8text-black dark:text-white ">or email us at info@cribnetwork.io</p>
@@ -117,14 +117,14 @@ const ContactForm = ({ handleClose }) => {
         <div className="flex space-x-3">
           <button
             type="submit"
-            className="py-3 font-[owners] px-5 text-xs md:text-sm font-light text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105"
+            className="py-3 font-owners px-5 text-xs md:text-sm font-light text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105"
           >
             Send message
           </button>
           <Link href={bookingUrl}>
             <button
 
-              className="py-3 font-[owners] px-5 text-xs md:text-sm font-light text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105"
+              className="py-3 font-owners px-5 text-xs md:text-sm font-light text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105"
             >
               Schedule a Call            </button>
           </Link>
