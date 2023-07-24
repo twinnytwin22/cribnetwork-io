@@ -32,7 +32,7 @@ function Mission() {
                         ideas beyond imagination.
                     </p>
                 </div>
-                <div className='scale-90 mx-auto justify-center flex overflow-x-visible center'>
+                <div className=' scale-75 md:scale-90 mx-auto justify-center flex overflow-x-visible center'>
                     <Circles />
                 </div>
             </div>
