@@ -11,13 +11,27 @@ export async function middleware(req: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession();
 
-  // if (session) {
-  //   return user;
-  // } else {
-  //   return res;
-  //  }
+  // Set headers for your website
+  const headers = {
+    "Content-Security-Policy": "your-content-security-policy",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-Content-Type-Options": "nosniff",
+    // "Referrer-Policy": "your-referrer-policy",
+    //"Permissions-Policy": "your-permissions-policy",
+  };
+
+  // Set headers in the response
+  for (const [header, value] of Object.entries(headers)) {
+    res.headers.set(header, value);
+  }
+
+  if (session) {
+    return user;
+  } else {
+    return res;
+  }
 }
 
-//export const config = {
-//  matcher: ["/portal/:path*"],
-//};
+export const config = {
+  matcher: ["/portal/:path*"],
+};
