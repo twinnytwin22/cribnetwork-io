@@ -15,6 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <link rel="stylesheet" href="globals.css" />
 
       <body className='max-w-screen w-full relative'>
         <Providers>

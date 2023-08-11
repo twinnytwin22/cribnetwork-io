@@ -1,4 +1,9 @@
+const { v4: uuidv4 } = require('uuid');
+
+const nonce = uuidv4()
+
 const securityHeaders = [
+  
     {
       key: "X-Frame-Options",
       value: "SAMEORIGIN",
