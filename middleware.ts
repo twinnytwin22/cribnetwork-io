@@ -23,7 +23,7 @@ export async function middleware(req: NextRequest) {
     `frame-src 'self'; ` +
     `object-src 'none'`;
 
-  res.headers.set("Content-Security-Policy", cspHeaderValue);
+  // res.headers.set("Content-Security-Policy", cspHeaderValue);
 
   // if (session) {
   //   return user;
