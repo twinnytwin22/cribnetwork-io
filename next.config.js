@@ -1,9 +1,5 @@
 const securityHeaders = [
     {
-      key: "Content-Security-Policy",
-      value: "your-content-security-policy",
-    },
-    {
       key: "X-Frame-Options",
       value: "SAMEORIGIN",
     },
@@ -13,11 +9,11 @@ const securityHeaders = [
     },
     {
       key: "Referrer-Policy",
-      value: "your-referrer-policy",
+      value: "same-origin",
     },
     {
       key: "Permissions-Policy",
-      value: "your-permissions-policy",
+      value: "accelerometer=(self), camera=(self), geolocation=(self), microphone=(self)",
     },
   ];
   
