@@ -1,5 +1,5 @@
 import sgMail from "@sendgrid/mail";
-import { NextResponse } from "next/server";
+//import { NextResponse } from "next/server";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 

@@ -1,10 +1,6 @@
-import { supabase } from "@/lib/providers/supabase/supabaseClient";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
 
-import { Auth } from "@supabase/auth-ui-react";
-import React, { Suspense } from "react";
-import { siteAccentColor } from "@/lib/site/constants";
-import { useAuthProvider } from "../context/auth";
+import React from "react";
+
 import AuthComponent from "@/ui/Auth/AuthComponent";
 
 function page() {

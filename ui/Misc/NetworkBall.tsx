@@ -2,7 +2,7 @@ import React from 'react';
 
 const Circles = () => {
     return (
-        <div className=" justify-center items-center w-full max-w-lg relative text-black dark:text-white scale-75 mx-auto justify-center lg:scale-100">
+        <div className="  items-center w-full max-w-lg relative text-black dark:text-white scale-75 mx-auto justify-center lg:scale-100">
             <div className="w-[500px] h-[500px]  justify-center items-center rounded-full   relative border border-black dark:border-white">
                 <p className="text-base font-bold absolute top-2 left-56">Boost.</p>
                 <p className="text-xs font-light absolute top-7 left-[153px] text-center w-48">Powering Growth, Amplifying Results.</p>

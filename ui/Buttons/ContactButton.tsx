@@ -1,5 +1,5 @@
 'use client'
-import { m, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 import { ContactModal } from "../Sections/ContactModal";
 import { useContactButtonStore } from "@/lib/stores/contactButtonStore";

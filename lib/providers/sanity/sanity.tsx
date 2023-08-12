@@ -2,8 +2,7 @@
 const projectId = process.env.SANITY_PROJECT_ID
 const dataset = process.env.SANITY_DATASET
 const apiVersion = '2021-10-21'
-const useCdn = true
-const noCdn = false
+
 const baseUrl = `https://${projectId}.api.sanity.io/v${apiVersion}/data/query/${dataset}?query`
 const getOptions = { method: 'GET', headers: { 'Content-Type': "application/json" } }
 
