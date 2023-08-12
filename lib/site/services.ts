@@ -26,11 +26,39 @@ export const services = [
   //     "Boost your sales by leveraging affiliate partnerships and driving targeted traffic to your website.",
   //  },
   {
-    title: "Shopify",
+    title: "CMS Development",
     icon: LiaLandmarkSolid,
     url: "https://example.com/shopify",
     description:
-      "Expand your business by selling products on Shopify, a popular e-commerce platform.",
+      "Integrate existing or develop new content management systems and tools with our business.",
+  },
+  {
+    title: "Website Development",
+    icon: LiaCodeSolid,
+    url: "https://example.com/website-development",
+    description:
+      "Create a stunning and user-friendly website that represents your brand and converts visitors into customers.",
+  },
+  {
+    title: "Proprietary Solutions",
+    icon: LiaCubeSolid,
+    url: "https://example.com/proprietary-solutions",
+    description:
+      "Unlock the power of proprietary solutions tailored to your business needs and gain a competitive edge.",
+  },
+  {
+    title: "Project Management",
+    icon: LiaPhotoVideoSolid,
+    url: "https://example.com/creator-community",
+    description:
+      "Streamline your organizations processes, allocate resources efficiently, and ensure successful project execution.",
+  },
+  {
+    title: "Email & SMS",
+    icon: LiaEnvelopeSolid,
+    url: "https://example.com/email-sms",
+    description:
+      "Build strong relationships with your audience through targeted email and SMS marketing campaigns.",
   },
   {
     title: "Branding & Creative",
@@ -60,20 +88,7 @@ export const services = [
     description:
       "Optimize your website or landing pages to maximize conversions and improve your overall ROI.",
   },
-  {
-    title: "Creator Community (UGC)",
-    icon: LiaPhotoVideoSolid,
-    url: "https://example.com/creator-community",
-    description:
-      "Harness the power of user-generated content (UGC) and collaborate with creators to amplify your brand message.",
-  },
-  {
-    title: "Email & SMS",
-    icon: LiaEnvelopeSolid,
-    url: "https://example.com/email-sms",
-    description:
-      "Build strong relationships with your audience through targeted email and SMS marketing campaigns.",
-  },
+
   // {
   //   title: "Influencer",
   //   icon: YourIconComponent, // Assign your custom icon component here
@@ -124,20 +139,7 @@ export const services = [
     description:
       "Improve your website's visibility and rank higher in search engine results to attract organic traffic.",
   },
-  {
-    title: "Website Development",
-    icon: LiaCodeSolid,
-    url: "https://example.com/website-development",
-    description:
-      "Create a stunning and user-friendly website that represents your brand and converts visitors into customers.",
-  },
-  {
-    title: "Proprietary Solutions",
-    icon: LiaCubeSolid,
-    url: "https://example.com/proprietary-solutions",
-    description:
-      "Unlock the power of proprietary solutions tailored to your business needs and gain a competitive edge.",
-  },
+
   {
     title: "Media Publishing",
     icon: LiaNewspaperSolid,

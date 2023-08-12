@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { AuthContextProvider } from "@/app/context/auth";
 import InvoiceContextProvider from "@/app/context/invoice";
+import SiteContextProvider from "@/app/context/siteContext";
 
 const ThemeProvider = dynamic(
     async () => {
@@ -18,14 +19,16 @@ const ThemeProvider = dynamic(
 export const Providers = ({ children, }: { children: React.ReactNode }) => {
     return (
         <AuthContextProvider>
-            <Suspense>
+            <SiteContextProvider>
+                <Suspense>
 
-                <ThemeProvider enableSystem={true} attribute="class" defaultTheme="dark">
-                    <InvoiceContextProvider>
-                        {children}
-                    </InvoiceContextProvider>
-                </ThemeProvider>
-            </Suspense>
+                    <ThemeProvider enableSystem={true} attribute="class" defaultTheme="dark">
+                        <InvoiceContextProvider>
+                            {children}
+                        </InvoiceContextProvider>
+                    </ThemeProvider>
+                </Suspense>
+            </SiteContextProvider>
         </AuthContextProvider>
 
     );
