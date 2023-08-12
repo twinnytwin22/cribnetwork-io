@@ -31,6 +31,7 @@ function HomeHeader() {
     <section className="relative mt-16 w-full overflow-hidden border-b border-zinc-300 dark:border-zinc-800">
       {/* Next/Image component for the background image */}
       <Image
+        priority
         src={backgroundImage}
         alt="Background"
         layout="fill"
