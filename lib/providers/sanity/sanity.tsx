@@ -34,8 +34,12 @@ export async function getBlogPosts() {
     const image = res[0].coverImage
     const imageRes = imageBuilder(image)
     console.log(imageRes, 'IMAGE')
-
-    return res;
+    const slugs = res.map(({ slug }) => slug.current)
+    if (res) {
+        return { res: res, slugs, images: imageRes, success: true }
+    } else {
+        throw new Error
+    };
 }
 
 // utils/imageUtils.js
@@ -45,7 +49,7 @@ export async function getBlogPosts() {
 // imageUtils.js
 
 export function imageBuilder(inputString: any) {
-    const imageRef = inputString.asset._ref
+    const imageRef = inputString?.asset._ref
     const parts = imageRef.split('-');
     const imageId = parts.slice(1, -2).join('-'); // Extract the image ID
     const dimensions = parts[parts.length - 2]; // Extract the dimensions

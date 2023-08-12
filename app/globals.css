@@ -102,3 +102,43 @@ h1 {
   filter: blur(45px);
   transform: translateZ(0);
 }
+
+.image-container {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  background: url("/images/azwindmill.jpg") no-repeat;
+  background-size: cover;
+}
+
+.image-mask {
+  width: calc(50% - 30px); /* Adjust the width and spacing as needed */
+  height: 100px; /* Adjust the height as needed */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: white;
+  z-index: 1; /* Ensure the mask is on top of the background image */
+}
+
+.clip-path-left {
+  left: 0;
+  clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
+}
+
+.clip-path-right {
+  right: 0;
+  clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.mask-left {
+  left: 0;
+  -webkit-mask-image: linear-gradient(to left, transparent 0%, black 100%);
+  mask-image: linear-gradient(to left, transparent 0%, black 100%);
+}
+
+.mask-right {
+  right: 0;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 100%);
+}

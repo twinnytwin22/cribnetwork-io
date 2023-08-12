@@ -4,11 +4,10 @@ import { create } from 'zustand';
 import { useStore } from 'zustand';
 import DarkModeSwitch from '../Buttons/DarkModeSwitch';
 import Link from 'next/link';
-import Image, { ImageLoaderProps } from 'next/image';
+import Image from 'next/image';
 import ContactButton from '../Buttons/ContactButton';
 import { imageBuilder } from '@/lib/providers/sanity/sanity';
 //import { imageLoader } from '@/lib/providers/sanity/imageLoader';
-type ImageLoader = (props: ImageLoaderProps) => string;
 
 const useMobileMenuStore = create((set: any) => ({
     isMobileMenuOpen: false,
