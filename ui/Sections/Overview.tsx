@@ -29,7 +29,7 @@ function Overview() {
                         <div className='p-10'>
                             <h1 className={headingClass}>{card.title}</h1>
                             <p className={pClass}>{card.description}</p>
-                            <Link href={`#${card.title.toLowerCase()}`} className='flex items-center space-x-2 font-bold mx-auto justify-center text-zinc-900 dark:text-zinc-100'>
+                            <Link href={card.href} className='flex items-center space-x-2 font-bold mx-auto justify-center text-zinc-900 dark:text-zinc-100'>
                                 <h1 className='font-owners'>Learn More</h1>
                                 <FaArrowRight />
                             </Link>
@@ -50,17 +50,22 @@ export const cardData = [
         title: 'Services',
         description: "Tailored multichannel solutions powered by innovative technology. Stand out in today's competitive landscape with our comprehensive services for seamless integration, exceptional customer engagement, and measurable results.",
         backgroundImage: '/images/cribcoded.jpg', // Replace with the actual path
+        href: '#services'
     },
     {
         icon: techIcon,
         title: 'Technology',
         description: 'Driving digital transformation with advanced technology. Our solutions revolutionize operations, maximizing efficiency, agility, and growth. From AI-driven automation to immersive experiences, stay ahead in the digital era.',
         backgroundImage: '/images/cribcoder.jpg', // Replace with the actual path
+        href: '#technology'
+
     },
     {
         icon: impactSvg,
         title: 'Impact',
         description: 'Empowering businesses for success. Unlock your full potential with our transformative multichannel services and innovative technology. Enhance customer experiences, drive revenue growth, and achieve sustainable success with our seamless solutions.',
         backgroundImage: '/images/impact.jpg', // Replace with the actual path
+        href: '/about'
+
     },
 ];
