@@ -34,10 +34,9 @@ function HomeHeader() {
         priority
         src={backgroundImage}
         alt="Background"
-        layout="fill"
-        objectFit="cover"
+        fill
         quality={75}
-        className='z-0 grayscale contrast-125 brightness-125 '
+        className='z-0 grayscale contrast-125 brightness-125 object-cover'
         style={{ transform: `translateY(${scrollY * 0.5}px)` }}
       />
 

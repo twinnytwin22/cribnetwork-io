@@ -33,8 +33,8 @@ const ImageMask = () => {
     return (
 
         <div className="grid grid-cols-2 gap-4 mt-8">
-            <Image width={150} height={350} className="w-full object-cover h-[350px] rounded-lg" src="/images/cribcoder.jpg" alt="office content 1" />
-            <Image width={150} height={350} className="mt-4 w-full lg:mt-10 h-[350px]  rounded-lg" src="/images/cribcoded.jpg" alt="office content 2" />
+            <Image width={150} height={350} className="w-full object-cover h-[350px] hover:-translate-y-8 duration-300 ease-in-out rounded-lg" src="/images/programmer-close.jpg" alt="office content 1" />
+            <Image width={150} height={350} className="mt-4 w-full lg:mt-10 h-[350px] object-cover rounded-lg hover:-translate-y-8 duration-300 ease-in-out" src="/images/programmer-far.jpg" alt="office content 2" />
         </div>
 
 
