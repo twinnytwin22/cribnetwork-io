@@ -20,7 +20,7 @@ function NavBar({ settings }: { settings: any }) {
     const { isMobileMenuOpen, toggleMobileMenu } = useStore(useMobileMenuStore);
 
     return (
-        <nav className="bg-white dark:bg-black fixed w-full z-20 top-0 left-0 border-b border-zinc-200 dark:border-zinc-600">
+        <nav className="bg-white dark:bg-black fixed w-full z-20 top-0 left-0 border-b border-zinc-200 dark:border-zinc-700">
             <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link href="/" className="flex items-center">
                     <Image

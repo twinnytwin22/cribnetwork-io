@@ -1,8 +1,14 @@
+import { supabaseAdmin } from '@/lib/providers/supabase/supabase-lib-admin'
+import { supabase } from '@/lib/site/constants'
+import AccountForm from '@/ui/Sections/Account'
 import React from 'react'
+async function page() {
 
-function page() {
+    const { data: session } = await supabaseAdmin.auth.getSession()
     return (
-        <div>page</div>
+        <div>
+            <AccountForm session={session?.session} />
+        </div>
     )
 }
 

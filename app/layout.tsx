@@ -2,7 +2,7 @@
 import NavBar from '@/ui/Navigation/NavBar'
 import './globals.css'
 import Providers from '@/lib/providers'
-import Footer from '@/ui/Navigation/Footer'
+import { Footer } from '@/ui/Navigation/Footer'
 import { getSiteSettings } from '@/lib/providers/sanity/sanity'
 
 export const metadata = {
@@ -29,8 +29,9 @@ export default async function RootLayout({
       <body className='max-w-screen w-full relative'>
         <Providers>
           <NavBar settings={settings} />
-          {children}
-
+          <div className='relative'>
+            {children}
+          </div>
           <Footer />
         </Providers></body>
     </html>
