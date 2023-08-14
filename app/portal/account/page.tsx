@@ -1,9 +1,12 @@
-import { supabase } from '@/lib/site/constants'
 import AccountForm from '@/ui/Sections/Account'
 import React from 'react'
 
-async function page() {
-    <div></div>
+function page() {
+    return (
+        <div className='relative flex place-items-center h-full mx-auto w-full'>
+            <AccountForm />
+        </div>
+    )
 }
 
 export default page

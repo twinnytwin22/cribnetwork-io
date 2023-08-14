@@ -4,12 +4,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { fbUrl, igUrl, twitterUrl } from '@/lib/site/constants';
 import { usePathname } from 'next/navigation';
+import { useContactButtonStore } from '@/lib/stores/contactButtonStore';
 export const Footer = () => {
     const pathname = usePathname()
 
     if (pathname.startsWith('/portal')) {
         return null
     }
+
+    const setOpen = useContactButtonStore((state: any) => state.setOpen);
+    const handleOpenModal = () => {
+        setOpen(true);
+    };
     return (
         <footer className="bg-white dark:bg-black border-t border-zinc-200 dark:border-zinc-800 relative z-10">
             <div className="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
@@ -89,12 +95,12 @@ export const Footer = () => {
                                 Helpful Links
                             </p>
                             <nav className="flex flex-col mt-4 space-y-2 text-sm text-zinc-500 dark:text-zinc-300">
-                                <a className="hover:opacity-75"> Contact </a>
+                                <div onClick={handleOpenModal} className="hover:opacity-75"> Contact </div>
                                 <a className="hover:opacity-75"> FAQs </a>
                                 <Link href='/login' className="hover:opacity-75"> Sign In </Link>
                             </nav>
                         </div>
-                        <div>
+                        <div className='hidden'>
                             <p className="font-medium">
                                 Legal
                             </p>

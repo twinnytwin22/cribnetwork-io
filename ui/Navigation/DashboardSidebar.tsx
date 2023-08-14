@@ -14,15 +14,15 @@ function DashboardSidebar({ isOpen }) {
         >
             <div className="overflow-y-auto py-5 px-3 h-full ">
 
-                <ul className="space-y-2">
+                <ul className="space-y-2 mt-8">
                     <li>
-                        <a
-                            href="#"
+                        <Link
+                            href="/portal"
                             className="flex items-center p-2 text-base font-medium text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group"
                         >
 
                             <span className="ml-3">Overview</span>
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <Link

@@ -11,7 +11,7 @@ export async function POST(request: Request) {
   const password = String(formData.get("password"));
   const supabase = createRouteHandlerClient({ cookies });
 
-  await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -19,7 +19,15 @@ export async function POST(request: Request) {
     },
   });
 
-  return NextResponse.redirect(`${requestUrl.origin}/portal`, {
-    status: 301,
-  });
+  if (error) {
+    console.log(error);
+    return NextResponse.redirect(`${requestUrl.origin}/register?error`, {
+      status: 301,
+    });
+  }
+  if (data) {
+    return NextResponse.redirect(`${requestUrl.origin}/register?confirm`, {
+      status: 301,
+    });
+  }
 }

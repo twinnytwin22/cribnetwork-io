@@ -12,7 +12,7 @@ function Overview() {
 
     return (
         <div className='bg-white dark:bg-black w-full py-24 px-8 border-b border-zinc-300 dark:border-zinc-800'>
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-screen-2xl w-full mx-auto place-items-start'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-screen-2xl w-full mx-auto place-items-start gap-4'>
                 {cardData.map((card, index) => (
                     <div className={cardClass} key={index}>
                         <div className='w-full h-48 relative rounded-t-lg'>

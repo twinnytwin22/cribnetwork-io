@@ -8,7 +8,7 @@ import Image from 'next/image';
 import ContactButton from '../Buttons/ContactButton';
 import { imageBuilder } from '@/lib/providers/sanity/sanity';
 //import { imageLoader } from '@/lib/providers/sanity/imageLoader';
-
+import { usePathname } from 'next/navigation';
 const useMobileMenuStore = create((set: any) => ({
     isMobileMenuOpen: false,
     toggleMobileMenu: () => set((state: { isMobileMenuOpen: any; }) => ({ isMobileMenuOpen: !state.isMobileMenuOpen })),
@@ -18,6 +18,10 @@ const useMobileMenuStore = create((set: any) => ({
 function NavBar({ settings }: { settings: any }) {
     const image = imageBuilder(settings?.logo)
     const { isMobileMenuOpen, toggleMobileMenu } = useStore(useMobileMenuStore);
+    const hiddenView = ['/login', ' /portal/']
+    const pathname = usePathname()
+    const isHidden = pathname.startsWith('/portal') || pathname.startsWith('/login')
+    console.log(isHidden)
 
     return (
         <nav className="bg-white dark:bg-black fixed w-full z-20 top-0 left-0 border-b border-zinc-200 dark:border-zinc-700">
@@ -68,7 +72,8 @@ function NavBar({ settings }: { settings: any }) {
                     className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isMobileMenuOpen ? '' : 'hidden'
                         }`}
                     id="navbar-sticky"
-                >
+                >                      {!isHidden &&
+
                     <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium  rounded-sm md:flex-row md:space-x-12 md:mt-0 md:border-0">
                         <li>
                             <Link
@@ -102,7 +107,7 @@ function NavBar({ settings }: { settings: any }) {
                                 Contact
                             </a>
                         </li>
-                    </ul>
+                    </ul>}
                 </div>
             </div>
         </nav>
