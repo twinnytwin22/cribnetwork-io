@@ -18,10 +18,8 @@ const useMobileMenuStore = create((set: any) => ({
 function NavBar({ settings }: { settings: any }) {
     const image = imageBuilder(settings?.logo)
     const { isMobileMenuOpen, toggleMobileMenu } = useStore(useMobileMenuStore);
-    const hiddenView = ['/login', ' /portal/']
     const pathname = usePathname()
     const isHidden = pathname.startsWith('/portal') || pathname.startsWith('/login')
-    console.log(isHidden)
 
     return (
         <nav className="bg-white dark:bg-black fixed w-full z-20 top-0 left-0 border-b border-zinc-200 dark:border-zinc-700">
@@ -33,9 +31,6 @@ function NavBar({ settings }: { settings: any }) {
                         alt="Crib Logo"
                         width={145}
                         height={100}
-                    // quality={100}
-                    // priority
-                    //  loader={imageLoader}
                     />
 
                 </Link>

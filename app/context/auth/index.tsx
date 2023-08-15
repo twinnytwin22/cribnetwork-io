@@ -105,7 +105,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
       unsubscribeAuthListener
     ]
   );
-  console.log(pathname)
+  // console.log(pathname)
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
