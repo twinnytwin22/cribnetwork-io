@@ -19,7 +19,8 @@ function PortalLayout({ children }: { children: React.ReactNode }) {
                 >
                     &#9776; {/* Hamburger icon */}
                 </button>
-                <div className='md:ml-64 mx-auto h-full  bg-zinc-100 dark:bg-zinc-950 transition-transform '>
+                <div className='md:ml-64 mx-auto min-h-screen  bg-zinc-100 dark:bg-zinc-950 transition-transform flex items-center'>
+
                     {children}
                 </div>
             </div>

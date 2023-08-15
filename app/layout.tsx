@@ -5,7 +5,8 @@ import Providers from '@/lib/providers'
 import { Footer } from '@/ui/Navigation/Footer'
 import { getSiteSettings } from '@/lib/providers/sanity/sanity'
 import Script from 'next/script'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export const metadata = {
   title: 'CRIB',
   description: 'Connect. Revolutionize. Innovate. Boost.',
@@ -32,7 +33,10 @@ export default async function RootLayout({
           <NavBar settings={settings} />
           <div className='relative'>
             {children}
+            <ToastContainer theme='dark' />
+
           </div>
+
           <Footer />
         </Providers></body>
     </html>

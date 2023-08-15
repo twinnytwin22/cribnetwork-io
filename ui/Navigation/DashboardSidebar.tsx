@@ -5,7 +5,7 @@ import React from 'react'
 
 function DashboardSidebar({ isOpen }) {
     const { user, signOut } = useAuthProvider()
-    console.log(user)
+    ///   console.log(user)
     return (
         <aside
             className="fixed  left-0 z-0 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-zinc-200 md:translate-x-0 dark:bg-black dark:border-zinc-800"
@@ -33,7 +33,7 @@ function DashboardSidebar({ isOpen }) {
 
                         </Link>
                     </li>
-                    <li>
+                    <li className='hidden'>
                         <Link
                             href="/portal/invoicing"
                             className="flex items-center p-2 text-base font-medium text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group"

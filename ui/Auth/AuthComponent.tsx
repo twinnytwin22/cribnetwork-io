@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense, useState } from "react";
+import React from "react";
 import { useAuthProvider } from "@/app/context/auth";
 import Link from "next/link";
 import Image from "next/image";
@@ -7,8 +7,7 @@ import { usePathname } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 function AuthComponent() {
     const pathname = usePathname()
-    const { user, signOut, isLoading } = useAuthProvider();
-    const [authFlow, setAuthFlow] = useState('login')
+    const { user, isLoading } = useAuthProvider();
     if (isLoading) {
         return (<></>)
     }
@@ -141,7 +140,7 @@ const LoginForm = () => {
 };
 
 const SignUpForm = () => {
-    const pathname = usePathname()
+    // const pathname = usePathname()
     const params = useSearchParams().toString()
     console.log(params)
     const renderStep1 = () => {

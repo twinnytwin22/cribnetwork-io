@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { Session, } from '@supabase/auth-helpers-nextjs'
 import { supabase } from '@/lib/site/constants'
 import { useAuthProvider } from '@/app/context/auth'
+import { toast } from 'react-toastify'
 export default function AccountForm() {
     const [loading, setLoading] = useState(true)
     const [fullname, setFullname] = useState<string | null>(null)
@@ -10,7 +11,7 @@ export default function AccountForm() {
     const [website, setWebsite] = useState<string | null>(null)
     const [avatar_url, setAvatarUrl] = useState<string | null>(null)
     const { user } = useAuthProvider()
-    console.log(user, "USER")
+    // console.log(user, "USER")
     const getProfile = useCallback(async () => {
         if (user) {
             try {
@@ -67,9 +68,9 @@ export default function AccountForm() {
                 updated_at: new Date().toISOString(),
             })
             if (error) throw error
-            alert('Profile updated!')
+            toast('Profile updated!')
         } catch (error) {
-            alert(JSON.stringify(error))
+            toast.error(JSON.stringify(error))
         } finally {
             setLoading(false)
         }
@@ -128,7 +129,7 @@ export default function AccountForm() {
 
             <div className="mb-4">
                 <button
-                    className="button primary block w-full"
+                    className="button primary bg-zinc-700 rounded-small border border-zinc-600 hover:bg-zinc-900 hover:border-zinc-700 block w-full text-white ease-in-out duration-300 text-sm p-1.5"
                     onClick={() => updateProfile({ fullname, username, website, avatar_url })}
                     disabled={loading}
                 >
