@@ -9,7 +9,6 @@ const getOptions = { method: 'GET', headers: { 'Content-Type': "application/json
 
 async function fetchSanity(query: string) {
     const res = await fetch(`${baseUrl}=${query}`, getOptions)
-    // const testRes = await fetch('https://6d8w1e5g.api.sanity.io/v2021-10-21/data/query/production?query=*%5B_type%20%3D%3D%20%22siteSettings%22%5D', getOptions)
     const data = await res.json()
     if (data) {
         return data.result
@@ -48,14 +47,24 @@ export async function getBlogPosts() {
 // imageUtils.js
 
 export function imageBuilder(inputString: any) {
-    const imageRef = inputString?.asset._ref
+    const imageRef = inputString?.asset._ref;
     const parts = imageRef.split('-');
     const imageId = parts.slice(1, -2).join('-'); // Extract the image ID
     const dimensions = parts[parts.length - 2]; // Extract the dimensions
+    const extension = parts[parts.length - 1]; // Extract the image extension
 
     const baseURL = "https://cdn.sanity.io/images/6d8w1e5g/production/";
-    const imageURL = `${baseURL}${imageId}-${dimensions}.png`;
+    const imageURL = `${baseURL}${imageId}-${dimensions}.${extension}`;
 
     return imageURL;
+}
+
+
+export async function getPageContent() {
+    const query: string = '*%5B_type%20%3D%3D%20%22page%22%5D'
+    const res = await fetchSanity(query)
+
+    const homePage = res[0]
+    return { homePage }
 
 }

@@ -4,13 +4,16 @@ import Image from 'next/image'; // Import next/image
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { MicrosoftLogo, AlchemyLogo } from '../Misc/SvgLogos';
+import { useImagePath } from '@/lib/site/constants';
+import { imageBuilder } from '@/lib/providers/sanity/sanity';
 
 const backgroundImage = '/images/maninspace.jpg'; // Replace with the actual path
 
-function HomeHeader() {
+function HomeHeader({ content }) {
   const setOpen = useContactButtonStore((state: any) => state.setOpen);
+  const image = imageBuilder(content.image)
   const [scrollY, setScrollY] = useState(0);
-
+  //console.log(image)
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
@@ -32,7 +35,7 @@ function HomeHeader() {
       {/* Next/Image component for the background image */}
       <Image
         priority
-        src={backgroundImage}
+        src={image}
         alt="Background"
         fill
         quality={75}
@@ -59,9 +62,9 @@ function HomeHeader() {
           </span>
         </h1>
         <p className='uppercase font-semibold py-2 pb-6 tracking-wider text-zinc-300'>Connect. Revolutionize. Innovate. Boost.</p>
-        <p className="mb-8 text-lg font-normal lg:text-xl sm:px-16 xl:px-48 text-zinc-400 max-w-screen-lg mx-auto">Here at CRIB we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+        <p className="mb-8 text-lg font-normal lg:text-xl sm:px-16 xl:px-48 text-zinc-400 max-w-screen-lg mx-auto">{content.description}</p>
         <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-          <Link href="/about" className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-sm bg-primary-700 hover:bg-primary-800 focus:ring-2 focus:ring-red-200 ">
+          <Link href={content?.url || '/about'} className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-sm bg-primary-700 hover:bg-primary-800 focus:ring-2 focus:ring-red-200 ">
             Learn more
             <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
           </Link>
