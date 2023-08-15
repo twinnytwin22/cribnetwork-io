@@ -16,7 +16,7 @@ function Overview({ content }: any) {
     const renderedContent = content.items.slice().reverse(); // Reverse the array
 
 
-    return content && (
+    return renderedContent && (
         <div className='bg-white dark:bg-black w-full py-24 px-8 border-b border-zinc-300 dark:border-zinc-800'>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-screen-2xl w-full mx-auto place-items-start gap-4'>
                 {renderedContent.map((card, index) => (
@@ -35,10 +35,11 @@ function Overview({ content }: any) {
                         <div className='p-10'>
                             <h1 className={headingClass}>{card.itemHeading}</h1>
                             <p className={pClass}>{card.description}</p>
-                            <Link href={card.url} className='flex items-center space-x-2 font-bold mx-auto justify-center text-zinc-900 dark:text-zinc-100'>
-                                <h1 className='font-owners'>Learn More</h1>
-                                <FaArrowRight />
-                            </Link>
+                            {card.urL &&
+                                <Link href={card?.url} className='flex items-center space-x-2 font-bold mx-auto justify-center text-zinc-900 dark:text-zinc-100'>
+                                    <h1 className='font-owners'>Learn More</h1>
+                                    <FaArrowRight />
+                                </Link>}
                         </div>
                     </div>
                 ))}

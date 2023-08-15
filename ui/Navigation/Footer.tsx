@@ -5,9 +5,10 @@ import Link from 'next/link';
 import { fbUrl, igUrl, twitterUrl } from '@/lib/site/constants';
 import { usePathname } from 'next/navigation';
 import { useContactButtonStore } from '@/lib/stores/contactButtonStore';
+import { useAuthProvider } from '@/app/context/auth';
 export const Footer = () => {
     const pathname = usePathname()
-
+    const { user } = useAuthProvider()
     if (pathname.startsWith('/portal')) {
         return null
     }
@@ -97,7 +98,8 @@ export const Footer = () => {
                             <nav className="flex flex-col mt-4 space-y-2 text-sm text-zinc-500 dark:text-zinc-300">
                                 <div onClick={handleOpenModal} className="hover:opacity-75"> Contact </div>
                                 <a className="hover:opacity-75"> FAQs </a>
-                                <Link href='/login' className="hover:opacity-75"> Sign In </Link>
+                                {user ? <p className="hover:opacity-75">My Account</p> :
+                                    <Link href='/login' className="hover:opacity-75"> Sign In </Link>}
                             </nav>
                         </div>
                         <div className='hidden'>
