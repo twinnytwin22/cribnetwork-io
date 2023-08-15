@@ -14,7 +14,7 @@ function Overview({ content }: any) {
 
 
     const renderedContent = content.items.slice().reverse(); // Reverse the array
-
+    console.log(content)
 
     return renderedContent && (
         <div className='bg-white dark:bg-black w-full py-24 px-8 border-b border-zinc-300 dark:border-zinc-800'>
@@ -35,7 +35,7 @@ function Overview({ content }: any) {
                         <div className='p-10'>
                             <h1 className={headingClass}>{card.itemHeading}</h1>
                             <p className={pClass}>{card.description}</p>
-                            {card.urL &&
+                            {card.url &&
                                 <Link href={card?.url} className='flex items-center space-x-2 font-bold mx-auto justify-center text-zinc-900 dark:text-zinc-100'>
                                     <h1 className='font-owners'>Learn More</h1>
                                     <FaArrowRight />
