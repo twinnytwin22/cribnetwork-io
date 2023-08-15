@@ -31,11 +31,11 @@ export default async function RootLayout({
       <body className='max-w-screen w-full relative bg-white dark:bg-black'>
         <Providers>
           <NavBar settings={settings} />
-          <div className='relative'>
+          <main className='relative'>
             {children}
             <ToastContainer theme='dark' />
 
-          </div>
+          </main>
 
           <Footer />
         </Providers></body>
