@@ -2,7 +2,7 @@
 import React from 'react'
 import { useAuthProvider } from '../context/auth'
 
-function page() {
+function Portal() {
     const { user, profile } = useAuthProvider()
     return (
         <div className='relative place-items-center min-h-full mx-auto w-full p-8'>
@@ -15,4 +15,4 @@ function page() {
     )
 }
 
-export default page
+export default Portal
