@@ -14,7 +14,7 @@ function Overview({ content }: any) {
 
 
     const renderedContent = content.items.slice().reverse(); // Reverse the array
-    console.log(content)
+   // console.log(content)
 
     return renderedContent && (
         <div className='bg-white dark:bg-black w-full py-24 px-8 border-b border-zinc-300 dark:border-zinc-800'>

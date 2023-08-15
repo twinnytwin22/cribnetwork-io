@@ -98,7 +98,7 @@ export const Footer = () => {
                             <nav className="flex flex-col mt-4 space-y-2 text-sm text-zinc-500 dark:text-zinc-300">
                                 <div onClick={handleOpenModal} className="hover:opacity-75"> Contact </div>
                                 <a className="hover:opacity-75"> FAQs </a>
-                                {user ? <p className="hover:opacity-75">My Account</p> :
+                                {user ? <Link href="/portal" className="hover:opacity-75">My Account</Link> :
                                     <Link href='/login' className="hover:opacity-75"> Sign In </Link>}
                             </nav>
                         </div>
