@@ -6,7 +6,6 @@ import React, { useEffect, useState } from 'react';
 import { MicrosoftLogo, AlchemyLogo } from '../Misc/SvgLogos';
 import { imageBuilder } from '@/lib/providers/sanity/sanity';
 
-const backgroundImage = '/images/maninspace.jpg'; // Replace with the actual path
 
 function HomeHeader({ content }) {
   const setOpen = useContactButtonStore((state: any) => state.setOpen);

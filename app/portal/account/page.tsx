@@ -1,8 +1,8 @@
 
-import { PortalPageTitle } from '@/lib/hooks/PortalPageTitle'
+import { PortalPageTitle } from '@/lib/hooks/portalPageTitle'
 import AccountForm from '@/ui/Sections/Account'
 import React from 'react'
-function AccountPage() {
+async function page() {
     return (
         <section className='w-full h-full mx-auto relative'>
             <PortalPageTitle title='Account Settings' toolTip='Get ya mind right' />
@@ -13,6 +13,6 @@ function AccountPage() {
     )
 }
 
-export default AccountPage
+export default page
 
 
