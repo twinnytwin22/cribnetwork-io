@@ -4,7 +4,6 @@ import Image from 'next/image'; // Import next/image
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { MicrosoftLogo, AlchemyLogo } from '../Misc/SvgLogos';
-import { useImagePath } from '@/lib/site/constants';
 import { imageBuilder } from '@/lib/providers/sanity/sanity';
 
 const backgroundImage = '/images/maninspace.jpg'; // Replace with the actual path

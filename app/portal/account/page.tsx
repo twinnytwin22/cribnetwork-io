@@ -1,7 +1,6 @@
-import { PortalPageTitle } from '@/lib/hooks/usePortalPageTitle'
+import { PortalPageTitle } from '@/lib/hooks/PortalPageTitle'
 import AccountForm from '@/ui/Sections/Account'
 import React, { useState } from 'react'
-import { BsFillQuestionSquareFill } from 'react-icons/bs'
 function AccountPage() {
     return (
         <section className='w-full h-full mx-auto relative'>
