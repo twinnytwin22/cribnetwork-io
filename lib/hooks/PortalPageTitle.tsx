@@ -1,13 +1,11 @@
 'use client'
 import { BsFillQuestionSquareFill } from "react-icons/bs";
-
+import { useState } from 'react'
 export const PortalPageTitle = ({ title, toolTip, subtitle }: { title: string, subtitle?: string | null, toolTip?: string | null | boolean }) => {
     const [showTooltip, setShowTooltip] = useState(false);
-
     const handleSetTooltip = () => {
         setShowTooltip(true);
     };
-
     const handleHideTooltip = () => {
         setShowTooltip(false);
     };
@@ -35,6 +33,3 @@ export const PortalPageTitle = ({ title, toolTip, subtitle }: { title: string, s
     );
 };
 
-function useState(arg0: boolean): [any, any] {
-    throw new Error("Function not implemented.");
-}
