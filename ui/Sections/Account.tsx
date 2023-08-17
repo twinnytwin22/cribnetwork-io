@@ -12,6 +12,7 @@ export default function AccountForm() {
     const [avatar_url, setAvatarUrl] = useState<string | null>(null)
     const { user } = useAuthProvider()
     // console.log(user, "USER")
+
     const getProfile = useCallback(async () => {
         if (user) {
             try {
