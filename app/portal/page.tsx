@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { useAuthProvider } from '../context/auth'
-import { PortalPageTitle } from '@/lib/hooks/portalPageTitle'
+import { PortalPageTitle } from '@/lib/hooks/PortalPageTitle'
 function Portal() {
     const { user, profile } = useAuthProvider()
     return (

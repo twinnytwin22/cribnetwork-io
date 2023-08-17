@@ -1,5 +1,5 @@
 
-import { PortalPageTitle } from '@/lib/hooks/portalPageTitle'
+import { PortalPageTitle } from '@/lib/hooks/PortalPageTitle'
 import AccountForm from '@/ui/Sections/Account'
 import React from 'react'
 function AccountPage() {

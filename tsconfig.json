@@ -29,6 +29,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "lib/providers/sanity/imageLoader.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "lib/providers/sanity/imageLoader.tsx", "lib/hooks/PortalPageTitle.tsx"],
   "exclude": ["node_modules"]
 }
