@@ -1,6 +1,5 @@
 'use client'
 import { useCallback, useEffect, useState } from 'react'
-import { Session, } from '@supabase/auth-helpers-nextjs'
 import { supabase } from '@/lib/site/constants'
 import { useAuthProvider } from '@/app/context/auth'
 import { toast } from 'react-toastify'
