@@ -1,6 +1,6 @@
 import { PortalPageTitle } from '@/lib/hooks/PortalPageTitle'
 import AccountForm from '@/ui/Sections/Account'
-import React, { useState } from 'react'
+import React from 'react'
 function AccountPage() {
     return (
         <section className='w-full h-full mx-auto relative'>
