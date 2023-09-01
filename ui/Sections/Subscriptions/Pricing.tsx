@@ -15,6 +15,7 @@ export default function Pricing({
   products,
   subscription
 }) {
+  console.log(products)
   const intervals = Array.from(
     new Set(
       products.flatMap((product) =>
