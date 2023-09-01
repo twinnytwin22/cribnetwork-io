@@ -1,12 +1,12 @@
 'use client'
 import React, { createContext, useContext, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
 import { useAuthStore, AuthState } from "./store";
 import { useRouter, usePathname } from "next/navigation";
 import { supabase } from "@/lib/site/constants";
 import { AuthChangeEvent, Session } from "@supabase/gotrue-js";
 import { toast } from "react-toastify";
+import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
 
 const refresh = () => {
   window.location.reload();
@@ -15,11 +15,11 @@ const refresh = () => {
 export const AuthContext = createContext<AuthState>(useAuthStore.getState());
 const fetchProfile = async (id: string) => {
   const { data, error } = await supabase
-    .from("profiles")
+    .from("users")
     .select("*")
     .eq("id", id)
     .single();
-
+console.log(data)
   if (error) {
     throw error;
   }

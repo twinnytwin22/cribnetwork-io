@@ -22,7 +22,7 @@ export { createProfile }
 const fetchNewProfile = async (id: string, setProfile: any, setIsProfileFetched: any) => {
     try {
         const { data, error } = await supabaseAdmin
-            .from("profiles")
+            .from("users")
             .select("id, username, website, avatar_url, wallet_address, city, state, country")
             .eq("id", id)
             .single();

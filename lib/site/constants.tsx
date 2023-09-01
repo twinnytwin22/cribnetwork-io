@@ -6,12 +6,12 @@ export const twitterUrl = 'https://twitter.com/TheCribNetwork'
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export function useImagePath(url: string) {
-    const imagePath = `https://qjfdpaecmjljkboepipm.supabase.co/storage/v1/object/public/avatars/${url}`;
+    const imagePath = `https://tvuqvrbxusmicpmjqpus.supabase.co/storage/v1/object/public/avatars/${url}`;
     return imagePath;
 }
 
 export function useBgImagePath(url: string) {
-    const imagePath = `https://qjfdpaecmjljkboepipm.supabase.co/storage/v1/object/public/profile_backgrounds/${url}`;
+    const imagePath = `https://tvuqvrbxusmicpmjqpus.supabase.co/storage/v1/object/public/profile_backgrounds/${url}`;
     return imagePath;
 }
 

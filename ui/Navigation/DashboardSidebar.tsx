@@ -1,10 +1,11 @@
 'use client'
 import { useAuthProvider } from '@/app/context/auth'
+import { PortalPageTitle } from '@/lib/hooks/PortalPageTitle'
 import Link from 'next/link'
 import React from 'react'
 
 function DashboardSidebar({ isOpen }) {
-    const { user, signOut } = useAuthProvider()
+    const { user, signOut, profile } = useAuthProvider()
     ///   console.log(user)
     return (
         <aside
@@ -13,7 +14,14 @@ function DashboardSidebar({ isOpen }) {
             id="drawer-navigation"
         >
             <div className="overflow-y-auto py-5 px-3 h-full ">
-
+            {profile && 
+            <div className='scale-75 -ml-2'>
+                <PortalPageTitle
+                title={`Hello, ${profile.full_name}`}
+                subtitle={user.email}
+                toolTip={false}
+            />
+            </div>}
                 <ul className="space-y-2 mt-8">
                     <li>
                         <Link

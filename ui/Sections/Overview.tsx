@@ -9,7 +9,7 @@ import { imageBuilder } from '@/lib/providers/sanity/sanity';
 
 function Overview({ content }: any) {
     const cardClass = 'hover:shadow-zinc-200 hover:shadow-2xl dark:hover:shadow-zinc-800 max-w-md w-full mx-auto ease-in-out duration-500  ';
-    const headingClass = 'text-2xl md:text-3xl font-bold text-center text-black dark:text-white font-owners';
+    const headingClass = 'text-2xl md:text-3xl font-medium text-center text-black dark:text-white font-owners';
     const pClass = 'text-zinc-800 dark:text-zinc-200 text-lg text-center';
 
 

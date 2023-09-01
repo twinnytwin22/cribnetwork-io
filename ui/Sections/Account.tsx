@@ -18,7 +18,7 @@ export default function AccountForm() {
                 setLoading(true)
 
                 let { data, error, status } = await supabase
-                    .from('profiles')
+                    .from('users')
                     .select(`full_name, username, website, avatar_url`)
                     .eq('id', user?.id)
                     .single()
@@ -59,18 +59,21 @@ export default function AccountForm() {
         try {
             setLoading(true)
 
-            let { error } = await supabase.from('profiles').upsert({
+            let { error } = await supabase
+            .from('users')
+            .update({
                 id: user?.id as string,
                 full_name: fullname,
                 username,
                 website,
                 avatar_url,
-                updated_at: new Date().toISOString(),
             })
+            .eq('id', user?.id);
             if (error) throw error
             toast('Profile updated!')
         } catch (error) {
             toast.error(JSON.stringify(error))
+            console.log(error)
         } finally {
             setLoading(false)
         }

@@ -69,7 +69,7 @@ function NavBar({ settings }: { settings: any }) {
                     id="navbar-sticky"
                 >                      {!isHidden &&
 
-                    <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium  rounded-sm md:flex-row md:space-x-12 md:mt-0 md:border-0">
+                    <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium font-owners  rounded-sm md:flex-row md:space-x-12 md:mt-0 md:border-0">
                         <li>
                             <Link
                                 href="/about"
