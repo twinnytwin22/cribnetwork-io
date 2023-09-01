@@ -16,6 +16,7 @@ async function Portal() {
                    session={session}
                    products={products}
                    subscription={subscription}
+                   user={session?.user}
                 />
             </div>
         </section>

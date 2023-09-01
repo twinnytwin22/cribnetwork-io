@@ -13,7 +13,8 @@ type BillingInterval = 'lifetime' | 'year' | 'month';
 export default function Pricing({
   session,
   products,
-  subscription
+  subscription,
+  user,
 }) {
   console.log(products)
   const intervals = Array.from(
@@ -23,7 +24,7 @@ export default function Pricing({
       )
     )
   );
-  const { user } = useAuthProvider()
+ // const { user } = useAuthProvider()
   const router = useRouter();
   const [billingInterval, setBillingInterval] =
     useState<BillingInterval>('month');
@@ -46,7 +47,7 @@ export default function Pricing({
       const stripe = await getStripe();
       stripe?.redirectToCheckout({ sessionId });
     } catch (error) {
-      return alert((error as Error)?.message);
+      return alert((error));
     } finally {
       setPriceIdLoading(undefined);
     }
