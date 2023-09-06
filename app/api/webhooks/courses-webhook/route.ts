@@ -1,13 +1,15 @@
 import { NextResponse } from 'next/server'
 import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
+import { headers } from 'next/headers'
 
 const secret = process.env.SANITY_WEBHOOK_SECRET! as string
 
 export async function POST (req: Request) {
   if (req.method === 'POST') {
-    const signature = req.headers.get(SIGNATURE_HEADER_NAME)
-    const payload = await req?.json()
-    if (!isValidSignature(JSON.stringify(payload), signature!, secret)) {
+    const payload = await req?.text()
+    const signature = headers().get(SIGNATURE_HEADER_NAME) as string
+    
+    if (!isValidSignature(payload, signature, secret)) {
       return NextResponse.json({ error: 'Invalid Signature', status: 401 })
     }
 
