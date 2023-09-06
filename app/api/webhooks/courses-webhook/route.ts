@@ -7,7 +7,7 @@ export async function POST (req: Request) {
   if (req.method === 'POST') {
     const signature = req.headers.get(SIGNATURE_HEADER_NAME)
     const payload = await req?.json()
-    if (!isValidSignature(payload.toString(), signature!, secret)) {
+    if (!isValidSignature(JSON.stringify(payload), signature!, secret)) {
       return NextResponse.json({ error: 'Invalid Signature', status: 401 })
     }
 
