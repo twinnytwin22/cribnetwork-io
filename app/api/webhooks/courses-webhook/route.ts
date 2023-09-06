@@ -1,8 +1,5 @@
 import { NextResponse } from 'next/server'
 import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
-import { headers } from 'next/headers'
-import { revalidateTag } from 'next/cache'
-import { rawListeners } from 'process'
 export async function POST(req: Request) {
   try {
     if (req.method === 'POST') {
