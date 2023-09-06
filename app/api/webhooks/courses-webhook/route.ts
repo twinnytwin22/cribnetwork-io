@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
 import { headers } from 'next/headers'
 import { revalidateTag } from 'next/cache'
+import { rawListeners } from 'process'
 export async function POST(req: Request) {
   try {
     if (req.method === 'POST') {
@@ -9,7 +10,7 @@ export async function POST(req: Request) {
       if (!payload) {
         return NextResponse.json({ error: 'Payload is empty', status: 406 })
       }
-      const headersList = headers()
+      const headersList = req.headers
       const signature =  headersList.get(SIGNATURE_HEADER_NAME) as string
       if (!signature) {
         return NextResponse.json({ error: 'No Signature', status: 401, headers: JSON.stringify(headersList) })
