@@ -9,10 +9,10 @@ export async function POST(req: Request) {
       if (!payload) {
         return NextResponse.json({ error: 'Payload is empty', status: 406 })
       }
-
-      const signature = headers().get[SIGNATURE_HEADER_NAME] as string
+      const headersList = headers()
+      const signature =  headersList.get(SIGNATURE_HEADER_NAME) as string
       if (!signature) {
-        return NextResponse.json({ error: 'No Signature', status: 401 })
+        return NextResponse.json({ error: 'No Signature', status: 401, headers: JSON.stringify(headersList) })
       }
 
       const secret = process.env.SANITY_WEBHOOK_SECRET?.trim()
