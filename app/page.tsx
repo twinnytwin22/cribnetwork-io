@@ -1,5 +1,5 @@
 import { getPageContent } from '@/lib/providers/sanity/sanity'
-import HomeHeader from '@/ui/Headers/HomeHeader'
+import HomeHeader from '@/ui/Headers/HomeHeader/HomeHeader'
 import Mission from '@/ui/Sections/Mission'
 import OurTech from '@/ui/Sections/OurTech'
 import Overview from '@/ui/Sections/Overview'

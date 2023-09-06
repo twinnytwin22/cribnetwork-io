@@ -1,5 +1,5 @@
 import React from 'react'
-import Circles from '../Misc/NetworkBall'
+import Circles from '../Components/NetworkBall'
 
 function Mission() {
     return (

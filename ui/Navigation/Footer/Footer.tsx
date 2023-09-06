@@ -4,15 +4,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { fbUrl, igUrl, twitterUrl } from '@/lib/site/constants';
 import { usePathname } from 'next/navigation';
-import { useContactButtonStore } from '@/lib/stores/contactButtonStore';
+import { useContactButtonStore } from '@/ui/Buttons/ContactButton/contactButtonStore';
 import { useAuthProvider } from '@/app/context/auth';
-export const Footer = () => {
+import { imageBuilder } from '@/lib/providers/sanity/sanity';
+const Footer = ({settings}) => {
     const pathname = usePathname()
     const { user } = useAuthProvider()
     if (pathname.startsWith('/portal')) {
         return null
     }
-
+    const logo = imageBuilder(settings?.logo)
     const setOpen = useContactButtonStore((state: any) => state.setOpen);
     const handleOpenModal = () => {
         setOpen(true);
@@ -23,9 +24,14 @@ export const Footer = () => {
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                     <div>
                         <Link href="/" className="flex items-center">
-                            <Image src="/images/SMALL_W_criblogo.png" className="h-8 mr-3 hidden dark:block" alt="Crib Logo" width={145} height={100} priority />
-                            <Image src="/images/SMALL_B_criblogo.png" className="h-8 mr-3 dark:hidden block" alt="Crib Logo" width={145} height={100} priority />
-
+                        <Image
+                        src={logo}
+                        className="h-8 mr-3 dark:invert w-auto"
+                        alt="Crib Logo"
+                        width={145}
+                        height={100}
+                        priority
+                    />
                         </Link>
                         <p className="max-w-xs mt-4 text-sm text-zinc-600 dark:text-zinc-400">
                             CRIB, LLC

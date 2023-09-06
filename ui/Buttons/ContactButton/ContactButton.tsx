@@ -1,15 +1,11 @@
 'use client'
 import { AnimatePresence } from "framer-motion";
-
-import { ContactModal } from "../Sections/ContactModal";
-import { useContactButtonStore } from "@/lib/stores/contactButtonStore";
-
-
+import { ContactModal } from "../../Sections/ContactModal";
+import { useContactButtonStore } from "./contactButtonStore";
 
 const ContactButton = () => {
   const isOpen = useContactButtonStore((state: any) => state.isOpen);
   const setOpen = useContactButtonStore((state: any) => state.setOpen);
-
   const handleOpenModal = () => {
     setOpen(true);
   };

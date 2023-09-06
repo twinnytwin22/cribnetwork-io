@@ -1,5 +1,5 @@
 import React from 'react';
-import PortableText from '../Misc/PortableText';
+import PortableText from '../Components/PortableText';
 import Link from 'next/link';
 import Image from 'next/image';
 import { convertDatetime } from '@/lib/hooks/convertDatetime';

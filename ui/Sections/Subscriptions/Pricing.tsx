@@ -6,8 +6,6 @@ import cn from 'classnames';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Button from './Button';
-import { useAuthProvider } from '@/app/context/auth';
-
 type BillingInterval = 'lifetime' | 'year' | 'month';
 
 export default function Pricing({
@@ -77,16 +75,16 @@ export default function Pricing({
   if (products.length === 1)
     return (
         <section className="dark:bg-black bg-white border border-zinc-200 dark:border-zinc-800 rounded  mx-auto font-owners">
-        <div className="max-w-6xl px-4 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
+        <div className="max-w-6xl px-4 py-8 mx-auto sm:py-16 sm:px-6 lg:px-8">
           <div className="sm:flex sm:flex-col sm:align-center">
-            <h1 className="text-2xl font-extrabold text-black dark:text-whitesm:text-center sm:text-4xl">
+            <h1 className="text-xl font-extrabold text-black dark:text-white sm:text-center sm:text-2xl">
               Pricing Plans
             </h1>
-            <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
+            <p className="max-w-2xl m-auto mt-5 text-lg text-zinc-200 sm:text-center sm:text-xl">
               Start building for free, then add a site plan to go live. Account
               plans unlock additional features.
             </p>
-            <div className="relative flex self-center mt-12 border rounded-lg bg-zinc-900 border-zinc-800">
+            <div className="relative flex self-center mt-12 border rounded-lg bg-zinc-100 border-zinc-200 dark:bg-zinc-900 dark:border-zinc-800">
               <div className="border border-red-300 border-opacity-50 divide-y rounded-lg shadow-sm bg-zinc-900 divide-zinc-600">
                 <div className="p-6 py-2 m-1 text-2xl font-medium text-black dark:text-white rounded-md shadow-sm border-zinc-800 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8">
                   {products[0].name}
@@ -143,23 +141,23 @@ export default function Pricing({
 
   return (
     <section className="dark:bg-black bg-white border border-zinc-200 dark:border-zinc-800 rounded  mx-auto font-owners">
-    <div className="max-w-6xl px-4 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
+    <div className="max-w-6xl px-4 py-8 mx-auto sm:py-16 sm:px-6 lg:px-8">
         <div className="sm:flex sm:flex-col sm:align-center">
-          <h1 className="text-2xl font-extrabold text-black dark:text-white sm:text-center sm:text-4xl">
+          <h1 className="text-xl font-extrabold text-black dark:text-white sm:text-center sm:text-2xl">
             Pricing Plans
           </h1>
-          <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-800 dark:text-zinc-200 sm:text-center sm:text-2xl">
+          <p className="max-w-2xl m-auto mt-5 text-lg text-zinc-800 dark:text-zinc-200 sm:text-center sm:text-xl">
             Start building for free, then add a site plan to go live. Account
             plans unlock additional features.
           </p>
-          <div className="relative self-center mt-6 bg-zinc-900 rounded-lg p-0.5 flex sm:mt-8 border border-zinc-800">
+          <div className="relative self-center mt-6 dark:bg-zinc-900 bg-zinc-100 border-zinc-200 rounded-lg p-0.5 flex sm:mt-8 border dark:border-zinc-800">
             {intervals.includes('month') && (
               <button
                 onClick={() => setBillingInterval('month')}
                 type="button"
                 className={`${
                   billingInterval === 'month'
-                    ? 'relative w-1/2 bg-zinc-700 border-zinc-800 shadow-sm text-white'
+                    ? 'relative w-1/2 dark:bg-zinc-700 dark:border-zinc-800 bg-white border-zinc-200 shadow-sm text-black dark:text-white'
                     : 'ml-0.5 relative w-1/2 border border-transparent text-zinc-400'
                 } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
               >
@@ -172,7 +170,7 @@ export default function Pricing({
                 type="button"
                 className={`${
                   billingInterval === 'year'
-                    ? 'relative w-1/2 bg-zinc-700 border-zinc-800 shadow-sm text-white'
+                    ? 'relative w-1/2 dark:bg-zinc-700 dark:border-zinc-800 bg-white border-zinc-200 shadow-sm text-black dark:text-white'
                     : 'ml-0.5 relative w-1/2 border border-transparent text-zinc-400'
                 } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
               >
@@ -184,7 +182,7 @@ export default function Pricing({
         <div className="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-3">
           {products.map((product) => {
             const price = product?.prices?.find(
-              (price) => price.interval === billingInterval
+              (price: any) => price.interval === billingInterval
             );
             if (!price) return null;
             const priceString = new Intl.NumberFormat('en-US', {
@@ -196,7 +194,7 @@ export default function Pricing({
               <div
                 key={product.id}
                 className={cn(
-                  'rounded-lg shadow-sm divide-y divide-zinc-600 bg-zinc-900',
+                  'rounded-lg shadow-sm divide-y divide-zinc-600 dark:bg-zinc-900 bg-white border-zinc-200 ',
                   {
                     'border border-red-300': subscription
                       ? product.name === subscription?.prices?.products?.name
@@ -205,15 +203,15 @@ export default function Pricing({
                 )}
               >
                 <div className="p-6">
-                  <h2 className="text-2xl font-semibold leading-6 text-white">
+                  <h2 className="text-2xl font-semibold leading-6 text-black dark:text-white">
                     {product.name}
                   </h2>
-                  <p className="mt-4 text-zinc-300">{product.description}</p>
+                  <p className="mt-4 text-zinc-600 dark:text-zinc-300">{product.description}</p>
                   <p className="mt-8">
-                    <span className="text-5xl font-extrabold white">
+                    <span className="text-5xl font-extrabold text-black dark:text-white">
                       {priceString}
                     </span>
-                    <span className="text-base font-medium text-zinc-100">
+                    <span className="text-base font-medium text-zinc-800 dark:text-zinc-100">
                       /{billingInterval}
                     </span>
                   </p>
@@ -223,7 +221,7 @@ export default function Pricing({
                     disabled={!session}
                     loading={priceIdLoading === price.id}
                     onClick={() => handleCheckout(price)}
-                    className="block w-full py-2 mt-8 text-sm font-semibold text-center text-white rounded-md hover:bg-zinc-900"
+                    className="block w-full py-2 mt-8 text-sm font-semibold text-center"
                   >
                     {subscription ? 'Manage' : 'Subscribe'}
                   </Button>

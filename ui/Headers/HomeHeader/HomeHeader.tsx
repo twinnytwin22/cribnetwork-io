@@ -1,9 +1,9 @@
 'use client'
-import { useContactButtonStore } from '@/lib/stores/contactButtonStore';
+import { useContactButtonStore } from '@/ui/Buttons/ContactButton/contactButtonStore';
 import Image from 'next/image'; // Import next/image
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { MicrosoftLogo, AlchemyLogo } from '../Misc/SvgLogos';
+import { MicrosoftLogo, AlchemyLogo } from '../../Components/SvgLogos';
 import { imageBuilder } from '@/lib/providers/sanity/sanity';
 
 

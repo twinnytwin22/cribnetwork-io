@@ -1,8 +1,6 @@
 'use client'
-import React, { useContext } from "react";
+import React from "react";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import DeleteModal from "./DeleteModal";
 import { useInvoiceContext } from "@/app/context/invoice";
 
@@ -26,8 +24,6 @@ export default function InvoiceForm() {
 
     return (
         <div className="border p-8 rounded-md mt-20 border-zinc-300 dark:border-zinc-900">
-            <ToastContainer position="top-right" theme="colored" />
-
             <form onSubmit={handleSubmit} className="mt-8">
                 <div className="flex flex-col">
                     <label htmlFor="description" className="text-gray-800 dark:text-white font-bold pb-2">

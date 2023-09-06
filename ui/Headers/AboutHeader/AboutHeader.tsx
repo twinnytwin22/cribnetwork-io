@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { useContactButtonStore } from '@/lib/stores/contactButtonStore';
+import { useContactButtonStore } from '@/ui/Buttons/ContactButton/contactButtonStore';
 import Image from 'next/image';
 
 function AboutHeader() {

@@ -43,7 +43,7 @@ export async function POST(req: Request) {
             trial_from_plan: true,
             metadata
           },
-          success_url: `${getURL()}/account`,
+          success_url: `${getURL()}/portal`,
           cancel_url: `${getURL()}/`
         });
       } else if (price.type === 'one_time') {
@@ -62,7 +62,7 @@ export async function POST(req: Request) {
           ],
           mode: 'payment',
           allow_promotion_codes: true,
-          success_url: `${getURL()}/account`,
+          success_url: `${getURL()}/portal`,
           cancel_url: `${getURL()}/`
         });
       }

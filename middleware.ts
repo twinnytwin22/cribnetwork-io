@@ -41,6 +41,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
   };
 
   //
+  res.cookies.set('Set-Cookie', 'SameSite=None; Secure');
 
   const p = kafka.producer();
   const topic = "words";

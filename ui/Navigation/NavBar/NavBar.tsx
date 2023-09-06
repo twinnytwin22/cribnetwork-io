@@ -2,10 +2,10 @@
 import React from 'react';
 import { create } from 'zustand';
 import { useStore } from 'zustand';
-import DarkModeSwitch from '../Buttons/DarkModeSwitch';
+import DarkModeSwitch from '../../Buttons/DarkModeSwitch';
 import Link from 'next/link';
 import Image from 'next/image';
-import ContactButton from '../Buttons/ContactButton';
+import ContactButton from '../../Buttons/ContactButton';
 import { imageBuilder } from '@/lib/providers/sanity/sanity';
 //import { imageLoader } from '@/lib/providers/sanity/imageLoader';
 import { usePathname } from 'next/navigation';
@@ -19,7 +19,8 @@ function NavBar({ settings }: { settings: any }) {
     const image = imageBuilder(settings?.logo)
     const { isMobileMenuOpen, toggleMobileMenu } = useStore(useMobileMenuStore);
     const pathname = usePathname()
-    const isHidden = pathname.startsWith('/portal') || pathname.startsWith('/login')
+    const nah = ['/portal', '/login' , '/register']
+    const isHidden = nah.includes(pathname) || pathname.startsWith('/portal')
 
     return (
         <nav className="bg-white dark:bg-black fixed w-full z-20 top-0 left-0 border-b border-zinc-200 dark:border-zinc-700">
@@ -27,14 +28,15 @@ function NavBar({ settings }: { settings: any }) {
                 <Link href="/" className="flex items-center">
                     <Image
                         src={image}
-                        className="h-8 mr-3 dark:invert"
+                        className="h-8 mr-3 dark:invert w-auto"
                         alt="Crib Logo"
                         width={145}
                         height={100}
+                        priority
                     />
 
                 </Link>
-                <div className="flex md:order-2 gap-4 items-center">
+                <div className="flex md:order-2 gap-4 items-center w-auto">
                     <div className="hidden md:block">
                         <DarkModeSwitch />
                     </div>

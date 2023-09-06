@@ -3,13 +3,35 @@ import { useCallback, useEffect, useState } from 'react'
 import { supabase } from '@/lib/site/constants'
 import { useAuthProvider } from '@/app/context/auth'
 import { toast } from 'react-toastify'
-export default function AccountForm() {
+import { useRouter } from 'next/navigation'
+import { postData } from '@/lib/hooks/helpers'
+import Button from '../Subscriptions/Button'
+export default function AccountForm({subscription, session}) {
     const [loading, setLoading] = useState(true)
     const [fullname, setFullname] = useState<string | null>(null)
     const [username, setUsername] = useState<string | null>(null)
     const [website, setWebsite] = useState<string | null>(null)
     const [avatar_url, setAvatarUrl] = useState<string | null>(null)
     const { user } = useAuthProvider()
+    const router = useRouter();
+    const redirectToCustomerPortal = async () => {
+      try {
+        const { url } = await postData({
+          url: '/api/create-portal-link'
+        });
+        router.push(url);
+      } catch (error) {
+        if (error) return alert((error as Error).message);
+      }
+    };
+    const subscriptionPrice =
+    subscription &&
+    new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: subscription?.prices?.currency!,
+      minimumFractionDigits: 0
+    }).format((subscription?.prices?.unit_amount || 0) / 100);
+
     // console.log(user, "USER")
 
     const getProfile = useCallback(async () => {
@@ -79,6 +101,21 @@ export default function AccountForm() {
         }
     }
 
+    const renderSubscriptionButton = () => {
+        return (
+            <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center my-2">
+              <p className="pb-4 sm:pb-0 text-sm text-center">Manage your subscription on Stripe.</p>
+              <button
+                    className="button primary bg-zinc-700 rounded-small border border-zinc-600 hover:bg-zinc-900 hover:border-zinc-700 block w-36 text-white ease-in-out duration-300 text-sm p-1.5"
+                    disabled={!session}
+                onClick={redirectToCustomerPortal}
+              >
+                Manage
+              </button>
+            </div>
+          );
+    }
+ 
     return user && (
         <div className="w-full bg-white mx-auto rounded-md shadow dark:border md:mt-0 sm:max-w-md  dark:bg-black dark:border-zinc-800 p-4 text-black dark:text-zinc-200">
             <div className="mb-4">
@@ -129,7 +166,7 @@ export default function AccountForm() {
                     className="mt-1 px-2 py-1 w-full border rounded-md focus:ring focus:ring-red-300 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900  text-black dark:text-white "
                 />
             </div>
-
+            {renderSubscriptionButton()}
             <div className="mb-4">
                 <button
                     className="button primary bg-zinc-700 rounded-small border border-zinc-600 hover:bg-zinc-900 hover:border-zinc-700 block w-full text-white ease-in-out duration-300 text-sm p-1.5"

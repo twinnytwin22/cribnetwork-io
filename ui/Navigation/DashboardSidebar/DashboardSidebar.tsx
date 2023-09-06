@@ -41,6 +41,7 @@ function DashboardSidebar({ isOpen }) {
 
                         </Link>
                     </li>
+                    
                     <li className='hidden'>
                         <Link
                             href="/portal/invoicing"
@@ -53,7 +54,17 @@ function DashboardSidebar({ isOpen }) {
 
                     {/* ... (rest of the list items) ... */}
                 </ul>
+                
                 <ul className="pt-5 mt-5 space-y-2 border-t border-zinc-200 dark:border-zinc-700 cursor-pointer">
+                <li>
+                        <Link
+                            href="/portal/learning"
+                            className="flex items-center p-2 text-base font-medium text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group"
+                        >
+                            <span className="ml-3">Learning</span>
+
+                        </Link>
+                    </li>
                     {/* ... (additional list items) ... */}
                     <li>
                         <div onClick={signOut} className="flex items-center p-2 text-base font-medium text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group"
