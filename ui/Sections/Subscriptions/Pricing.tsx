@@ -6,13 +6,12 @@ import cn from 'classnames';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Button from './Button';
+import { useAuthProvider } from '@/app/context/auth';
 type BillingInterval = 'lifetime' | 'year' | 'month';
 
 export default function Pricing({
-  session,
   products,
   subscription,
-  user,
 }) {
   console.log(products)
   const intervals = Array.from(
@@ -27,7 +26,7 @@ export default function Pricing({
   const [billingInterval, setBillingInterval] =
     useState<BillingInterval>('month');
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
-
+  const {user} = useAuthProvider()
   const handleCheckout = async (price: any) => {
     setPriceIdLoading(price.id);
     if (!user) {
@@ -218,7 +217,7 @@ export default function Pricing({
                   <Button
                     variant="slim"
                     type="button"
-                    disabled={!session}
+                    disabled={!user}
                     loading={priceIdLoading === price.id}
                     onClick={() => handleCheckout(price)}
                     className="block w-full py-2 mt-8 text-sm font-semibold text-center"

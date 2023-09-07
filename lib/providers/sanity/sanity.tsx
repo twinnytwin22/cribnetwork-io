@@ -25,6 +25,12 @@ export async function getSiteSettings() {
     return res[0];
 }
 
+export const getCoursesPageSettings = async () => {
+    const query: string = '*%5B_type%20%3D%3D%20%22page%22%20%26%26%20title%20match%20%22Courses%22%5D%0A'
+    const res = await fetchSanity(query)
+    return res[0].sections[0].items[0];
+}
+
 export async function getBlogPosts() {
     const query: string = '*%5B_type%20%3D%3D%20%22blogPosts%22%5D'
     const res = await fetchSanity(query)
@@ -38,6 +44,12 @@ export async function getBlogPosts() {
     } else {
         throw new Error
     };
+}
+
+export const getAllCourses = async () => {
+    const query: string ='*%5B_type%20%3D%3D%20%22course%22%5D'
+    const res = await fetchSanity(query)
+    return res
 }
 
 // utils/imageUtils.js
