@@ -4,6 +4,8 @@ import { getAllCourses } from '@/lib/providers/sanity/sanity';
 import { supabaseApi } from '@/lib/providers/supabase/routerHandler';
 
 export async function POST(req: Request) {
+    let dataReturn: any = null
+
   try {
     if (req.method === 'POST') {
       const validationResponse = await validateRequest(req);
@@ -32,11 +34,13 @@ export async function POST(req: Request) {
           lessons: lessonTitles,
         };
 
-        const { data, error } = await supabaseApi
+        let { data, error } = await supabaseApi
           .from('courses')
           .upsert([courseData])
           .select();
         console.log(data)
+        dataReturn = data
+
         if (error) {
           console.error('Error syncing data to Supabase:', error);
         }
@@ -44,7 +48,8 @@ export async function POST(req: Request) {
 
       return NextResponse.json({
         success: 'Course data synced to Supabase successfully',
-        status: 200
+        status: 200,
+        dataReturn
       });
     }
     } else {
