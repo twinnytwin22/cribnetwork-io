@@ -21,7 +21,7 @@ export async function POST(req: Request) {
       for (const sanityCourse of sanityCourses) {
         const { _id, title, categories, lessons } = sanityCourse;
 
-            if (sanityCourse && lessons && categories) {
+        if (sanityCourses) {
           // Extract titles from lessons and categories arrays
           const lessonTitles = lessons?.map((lesson: any) => lesson.title).filter(Boolean);
           const categoryTitles = categories?.map((category: any) => category.title).filter(Boolean);
