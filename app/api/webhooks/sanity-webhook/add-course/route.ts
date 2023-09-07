@@ -1,8 +1,7 @@
-import { NextResponse } from 'next/server'
+import { NextResponse } from 'next/server';
 import { validateRequest } from '@/lib/hooks/validateRequest';
-
-// Create a function for the validation check
-
+import { getAllCourses } from '@/lib/providers/sanity/sanity';
+import { supabaseApi } from '@/lib/providers/supabase/routerHandler';
 
 export async function POST(req: Request) {
   try {
@@ -13,8 +12,32 @@ export async function POST(req: Request) {
         return validationResponse;
       }
 
+      // Fetch course data from Sanity CMS
+      const sanityCourses = await getAllCourses();
+
+      // Upsert each course into Supabase
+      for (const sanityCourse of sanityCourses) {
+        const { _id, title, categories, lessons } = sanityCourse;
+
+        const courseData = {
+          id: _id, // Use the _id from Sanity as the id in Supabase
+          title,
+          categories,
+          lessons,
+        };
+
+        const { data, error } = await supabaseApi
+          .from('courses')
+          .upsert([courseData])
+          .select();
+        console.log(data)
+        if (error) {
+          console.error('Error syncing data to Supabase:', error);
+        }
+      }
+
       return NextResponse.json({
-        success: 'Sanity Webhook is working',
+        success: 'Course data synced to Supabase successfully',
         status: 200
       });
     } else {

@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "update-types": "supabase gen types typescript --project-id \"tvuqvrbxusmicpmjqpus\" > types/Database.ts"
+
   },
   "dependencies": {
     "@builder.io/partytown": "^0.8.0",
