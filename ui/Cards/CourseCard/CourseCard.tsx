@@ -26,13 +26,9 @@ const myStyle = {
   
   ];
   const CourseCard = ({course}) => {
-    const { _id, title, categories, lessons } = course;
+    console.log(course)
 
-    const lessonTitles = lessons?.map((lesson: any) => lesson.title).filter(Boolean);
-    const categoryTitles = categories?.map((category: any) => category.title).filter(Boolean);
-
-    console.log(lessonTitles, categoryTitles)
-
+    
     return (
         <div className="w-full max-w-sm">
           {/* card grid */}
