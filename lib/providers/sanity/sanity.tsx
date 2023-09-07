@@ -47,7 +47,7 @@ export async function getBlogPosts() {
 }
 
 export const getAllCourses = async () => {
-    const query: string ='*%5B_type%20%3D%3D%20%22course%22%5D'
+    const query: string ='*%5B_type%20%3D%3D%20%22course%22%5D%20%7B%0A%20%20title%2C%0A%20%20description%2C%0A%20%20image%2C%0A%20%20lessons%5B%5D-%3E%7B_id%2C%20title%2C%20description%7D%2C%20%2F%2F%20Retrieve%20the%20details%20of%20lessons%0A%20%20categories%5B%5D-%3E%7B_id%2C%20title%7D%20%2F%2F%20Retrieve%20the%20details%20of%20categories%0A%7D%0A'
     const res = await fetchSanity(query)
     return res
 }
