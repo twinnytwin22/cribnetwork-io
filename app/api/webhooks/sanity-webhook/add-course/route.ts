@@ -30,8 +30,8 @@ export async function POST(req: Request) {
         const courseData = {
           id: _id, // Use the _id from Sanity as the id in Supabase
           title,
-          categories: categoryTitles,
-          lessons: lessonTitles,
+          categories: categoryTitles && categoryTitles || [],
+          lessons: lessonTitles && lessonTitles || [],
         };
 
         let { data, error } = await supabaseApi
