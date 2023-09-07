@@ -19,16 +19,16 @@ export async function POST(req: Request) {
 
       // Upsert each course into Supabase
       for (const sanityCourse of sanityCourses) {
-        const { id, title, categories, lessons } = sanityCourse;
+        const { _id, title, categories, lessons } = sanityCourse;
 
-        if (sanityCourses) {
+        if (sanityCourse) {
           // Extract titles from lessons and categories arrays
           const lessonTitles = lessons?.map((lesson: any) => lesson.title).filter(Boolean);
           const categoryTitles = categories?.map((category: any) => category.title).filter(Boolean);
   
 
         const courseData = {
-          id, // Use the id from Sanity as the id in Supabase
+          id: _id, // Use the _id from Sanity as the id in Supabase
           title,
           categories: categoryTitles && categoryTitles || [],
           lessons: lessonTitles && lessonTitles || [],
