@@ -13,14 +13,14 @@ export interface Database {
         Row: {
           categories: string[] | null
           created_at: string
-          id: string
+          id?: string
           lessons: string[] | null
           title: string | null
         }
         Insert: {
           categories?: string[] | null
           created_at?: string
-          id: string
+          id?: string
           lessons?: string[] | null
           title?: string | null
         }
