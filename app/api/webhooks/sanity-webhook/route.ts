@@ -8,7 +8,11 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: 'Payload is empty', status: 406 })
       }
       const headersList = req.headers
-      const signature =  headersList.get(SIGNATURE_HEADER_NAME) as string
+      const signatureHeader =  headersList.get(SIGNATURE_HEADER_NAME) || '' as string
+      const signature = Array.isArray(signatureHeader)
+      ? signatureHeader[0]
+      : signatureHeader
+
       if (!signature) {
         return NextResponse.json({ error: 'No Signature', status: 401, headers: JSON.stringify(headersList) })
       }
