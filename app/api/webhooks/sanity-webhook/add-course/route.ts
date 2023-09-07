@@ -38,9 +38,11 @@ export async function POST(req: Request) {
           .from('courses')
           .upsert([courseData])
           .select();
+
+        if (data) {
         console.log(data)
         dataReturn = data
-
+         }
         if (error) {
           console.error('Error syncing data to Supabase:', error);
         }
