@@ -19,9 +19,10 @@ export async function POST(req: Request) {
       for (const sanityCourse of sanityCourses) {
         const { _id, title, categories, lessons } = sanityCourse;
 
+            if (sanityCourse && lessons && categories) {
           // Extract titles from lessons and categories arrays
-          const lessonTitles = lessons.map((lesson: any) => lesson.title).filter(Boolean);
-          const categoryTitles = categories.map((category: any) => category.title).filter(Boolean);
+          const lessonTitles = lessons?.map((lesson: any) => lesson.title).filter(Boolean);
+          const categoryTitles = categories?.map((category: any) => category.title).filter(Boolean);
   
 
         const courseData = {
@@ -45,6 +46,7 @@ export async function POST(req: Request) {
         success: 'Course data synced to Supabase successfully',
         status: 200
       });
+    }
     } else {
       return NextResponse.json({
         error: 'Method not allowed, or working, please update and try again',
