@@ -19,8 +19,8 @@ export async function POST(req: Request) {
           const { _id, title, categories, lessons } = sanityCourse;
   
           // Extract titles from lessons and categories arrays
-          const lessonTitles = lessons?.map((lesson: any) => lesson.title).filter(Boolean);
-          const categoryTitles = categories?.map((category: any) => category.title).filter(Boolean);
+          const lessonTitles = lessons?.map((lesson: any) => lesson?.title).filter(Boolean);
+          const categoryTitles = categories?.map((category: any) => category?.title).filter(Boolean);
   
           const courseData = {
             id: _id, // Use the _id from Sanity as the id in Supabase
