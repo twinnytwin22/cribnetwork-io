@@ -3,20 +3,22 @@ import { useAuthProvider } from '@/app/context/auth'
 import { PortalPageTitle } from '@/lib/hooks/PortalPageTitle'
 import Link from 'next/link'
 import React from 'react'
-import { FaUser, FaCog, FaSignOutAlt, FaBook, FaFacebook, FaTwitter, FaGithub } from 'react-icons/fa'; // Import the icons you need
+import { FaUser, FaCog, FaSignOutAlt, FaBook, FaFacebook, FaTwitter, FaGithub, FaDatabase } from 'react-icons/fa'; // Import the icons you need
 
 function DashboardSidebar({ isOpen }) {
     const { user, signOut, profile } = useAuthProvider()
     ///   console.log(user)
     const sidebarItems = [
-        { title: 'Overview', icon: <FaUser /> , href: '/portal' },
-        { title: 'Admin', icon: <FaCog />, condition: profile?.user_role === 'admin' , href: 'https://cribnetwork.sanity.studio'},
-        { title: 'Account', icon: <FaCog />, href: '/portal/account' },
-        { title: 'Invoicing', icon: <FaCog />, hidden: true , href: '#'},
-        { title: 'Learning', icon: <FaBook />, href:'/portal/learning' },
-        { title: 'Sign Out', icon: <FaSignOutAlt />, onClick: signOut },
-        // Add more items as needed
-      ];
+      { title: 'Overview', icon: <FaUser /> , href: '/portal', target: '_self' },
+      { title: 'Admin', icon: <FaCog />, condition: profile?.user_role === 'admin' , href: 'https://cribnetwork.sanity.studio', target: '_blank' },
+      { title: 'Database', icon: <FaDatabase />, condition: profile?.user_role === 'admin' , href: 'https://supabase.com/dashboard/project/tvuqvrbxusmicpmjqpus', target: '_blank' },
+      { title: 'Account', icon: <FaCog />, href: '/portal/account', target: '_self' },
+      { title: 'Invoicing', icon: <FaCog />, hidden: true , href: '#', target: '_self' },
+      { title: 'Learning', icon: <FaBook />, href:'/portal/learning', target: '_self' },
+      { title: 'Sign Out', icon: <FaSignOutAlt />, onClick: signOut, target: '_self' },
+      // Add more items as needed
+    ];
+    
 
       const socialRowItems = [
         {title: 'Facebook', icon: <FaFacebook/> , href: 'https://facebook.com/thecribnetwork'},
@@ -51,7 +53,8 @@ function DashboardSidebar({ isOpen }) {
                   <span className="ml-3">{item.title}</span>
                 </div>
               ) : (
-                <Link
+                <Link 
+                target={item?.target}
                   href={item.href}
                   className="flex items-center p-2 text-base font-medium text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group duration-300 ease-in-out"
                 >
