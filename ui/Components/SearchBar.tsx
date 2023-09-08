@@ -76,15 +76,15 @@ const SearchBar = () => {
             </div>
             <SearchButton />
             {isOpen &&
-                <div className="absolute top-10 left-0 right-0 mt-6  bg-white max-h-[300px] overflow-y-scroll dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-2xl rounded-md z-[99990] shadow-zinc-300 dark:shadow-black search-results mx-auto">
+                <div className="absolute top-10 left-0 right-0 mt-6  bg-white max-h-[300px] overflow-y-scroll dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 shadow-2xl rounded-md z-[99990] shadow-zinc-300 dark:shadow-black search-results mx-auto">
 
                     {searchResults?.courses?.length > 0 && (
                         <div className='relative'>
-                            <div className='p-1 pl-4 bg-white dark:bg-black w-full'>
-                                <h1 className='text-sm font-bold'>Courses</h1>
+                            <div className='p-1 pl-4 bg-zinc-100 dark:bg-black w-full text-black dark:text-white flex h-fit'>
+                                <p className='text-sm font-bold'>Courses</p>
                             </div>
                             {searchResults.courses.map((course: any) => (
-                                <div onClick={(() => handleLink(`/${course.id}`))} key={course.id} className="flex items-center p-2.5 border-b border-zinc-300 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 relative z-[99999] cursor-pointer">
+                                <div onClick={(() => handleLink(`/portal/learning/course/${course.id}`))} key={course.id} className="flex items-center p-2.5 border-b border-zinc-300 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 relative z-[99999] cursor-pointer">
                                     
                                     <div>
                                         <div className="text-black dark:text-white font-medium">

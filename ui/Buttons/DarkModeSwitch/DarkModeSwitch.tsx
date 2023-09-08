@@ -39,7 +39,7 @@ const DarkModeSwitch = () => {
               }`}
           />
         </div>
-        <div className="ml-3 text-sm text-gray-800 dark:text-gray-100">
+        <div className="ml-3 text-sm text-zinc-800 dark:text-zinc-100">
           {currentTheme === "dark" ? (
             <MoonIcon className="h-5 w-5" />
           ) : (

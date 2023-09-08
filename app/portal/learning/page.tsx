@@ -7,8 +7,12 @@ import {
 } from '@/lib/providers/supabase/supabase-server'
 import CourseCard from '@/ui/Cards/CourseCard/CourseCard'
 import { getAllCourses, getCoursesPageSettings, getSiteSettings } from '@/lib/providers/sanity/sanity'
-import CourseHeader from '@/ui/Headers/CoursesHeader/CoursesHeader'
+import CoursesHeader from '@/ui/Headers/CoursesHeader/CoursesHeader'
 import SearchBar from '@/ui/Components/SearchBar'
+
+export const revalidate = 60
+
+//export const dynamic = 'force-dynamic'
 async function Learning () {
   const [ products, subscription, courses, settings] =
     await Promise.all([
@@ -33,7 +37,7 @@ async function Learning () {
   return settings && courses && (
     courses && (
       <section className='w-full h-full mx-auto relative max-w-screen'>
-      <CourseHeader settings={settings} />
+      <CoursesHeader settings={settings} />
       <div className='mx-10 mt-8'>
     <SearchBar/>
     </div>

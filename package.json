@@ -8,12 +8,12 @@
     "start": "next start",
     "lint": "next lint",
     "update-types": "supabase gen types typescript --project-id \"tvuqvrbxusmicpmjqpus\" > types/Database.ts"
-
   },
   "dependencies": {
     "@builder.io/partytown": "^0.8.0",
     "@heroicons/react": "^2.0.18",
     "@react-three/fiber": "^8.13.6",
+    "@sanity/client": "^6.4.11",
     "@sanity/image-url": "^1.0.2",
     "@sanity/webhook": "^3.0.1",
     "@sendgrid/mail": "^7.7.0",

@@ -1,3 +1,7 @@
+'use client'
+import { imageBuilder } from "@/lib/providers/sanity/sanity";
+import Link from "next/link";
+
 const myStyle = {
     display: "-webkit-box",
     WebkitLineClamp: "2",
@@ -28,6 +32,8 @@ const myStyle = {
   const CourseCard = ({course}) => {
     console.log(course)
 
+    const image = imageBuilder(course.image)
+
     
     return (
         <div className="w-full max-w-sm">
@@ -39,8 +45,9 @@ const myStyle = {
             >
               {/* image and avatar block */}
               <div className="cursor-pointer h-48 overflow-hidden">
+                <Link href={`/portal/learning/course/${course._id}`}>
                 <img
-                  src={data.image}
+                  src={image}
                   alt="Profile image for particular category"
                   sizes="300px"
                   className="w-full h-full hover:scale-125 delay-200 duration-300 ease-in-out"
@@ -48,33 +55,26 @@ const myStyle = {
                 <span className="absolute top-4 right-4 w-8 h-8 items-center bg-zinc-100 dark:bg-zinc-800 flex justify-center rounded-full text-zinc-900 dark:text-zinc-100">
                   {data.name && myFun(data.name)}
                 </span>
+                </Link>
               </div>
               {/* card fields section  */}
               <div className="p-4 space-y-2 relative h-60 text-zinc-400 dark:text-zinc-400">
                 <div>
-                  <p className="text-sm font-bold truncate">{data.category}</p>
+                  <p className="text-sm font-bold truncate">{course?.categories[0]?.title}</p>
                 </div>
-                <div>
+                
+                <Link href={`/portal/learning/course/${course?._id}`}>
                   <span className="text-xl font-bold text-zinc-600 dark:text-zinc-200 overflow-hidden h-12">
                     {course?.title}
                   </span>
-                </div>
-                <div className="flex gap-2 items-center text-zinc-500 dark:text-zinc-100">
-                  <CategoryIcon />
-                  <span className="text-sm font-normal">{data.subCategory}</span>
-                </div>
-                <div className="flex gap-2 items-center text-zinc-500 dark:text-zinc-100">
-                  <DateIcon />
-                  <span className="text-sm font-normal">{data.date}</span>
-                </div>
-                <div className="flex gap-2 justify-start items-center text-zinc-500 dark:text-zinc-100">
-                  <LocationIcon />
-                  <span className="text-sm font-normal">{data.location}</span>
+                </Link>
+                <div className="flex gap-2 items-center text-zinc-500 dark:text-zinc-300">
+                  <p className="text-sm font-normal">{course?.description.substring(0,150)}...<Link href={`/portal/learning/course/${course._id}`}><span className="font-bold">(Read more)</span></Link></p>
                 </div>
                 {/* fix bottom section */}
-                <div className="bottom-2 absolute inset-x-0">
+                <div className="bottom-2 absolute inset-x-0 ">
                   <div className="border-t mt-2 mb-2 border-zinc-300 dark:border-zinc-800"></div>
-                  <span className="text-xl text-zinc-600 dark:text-zinc-200 pl-4">
+                  <span className="text-lg text-zinc-600 dark:text-zinc-200 pl-4">
                     {data.price}
                   </span>
                 </div>

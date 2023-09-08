@@ -26,7 +26,7 @@ export default function InvoiceForm() {
         <div className="border p-8 rounded-md mt-20 border-zinc-300 dark:border-zinc-900">
             <form onSubmit={handleSubmit} className="mt-8">
                 <div className="flex flex-col">
-                    <label htmlFor="description" className="text-gray-800 dark:text-white font-bold pb-2">
+                    <label htmlFor="description" className="text-zinc-800 dark:text-white font-bold pb-2">
                         Item description
                     </label>
                     <input
@@ -36,13 +36,13 @@ export default function InvoiceForm() {
                         placeholder="Item description"
                         value={description}
                         onChange={(e: any) => setDescription(e.target.value)}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="bg-zinc-50 border border-gray-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
                 </div>
 
                 <div className="grid grid-cols-3 gap-10 mt-6">
                     <div className="flex flex-col">
-                        <label htmlFor="quantity" className="text-gray-800 dark:text-white font-bold pb-2">
+                        <label htmlFor="quantity" className="text-zinc-800 dark:text-white font-bold pb-2">
                             Quantity
                         </label>
                         <input
@@ -52,12 +52,12 @@ export default function InvoiceForm() {
                             placeholder="Quantity"
                             value={quantity}
                             onChange={(e: any) => setQuantity(e.target.value)}
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className="bg-zinc-50 border border-gray-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         />
                     </div>
 
                     <div className="flex flex-col">
-                        <label htmlFor="price" className="text-gray-800 dark:text-white font-bold pb-2">
+                        <label htmlFor="price" className="text-zinc-800 dark:text-white font-bold pb-2">
                             Price
                         </label>
                         <input
@@ -67,12 +67,12 @@ export default function InvoiceForm() {
                             placeholder="Price"
                             value={price}
                             onChange={(e: any) => setPrice(e.target.value)}
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className="bg-zinc-50 border border-gray-300 text-zinc-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         />
                     </div>
 
                     <div className="flex flex-col items">
-                        <label htmlFor="amount" className="text-gray-800 dark:text-white font-bold pb-2">
+                        <label htmlFor="amount" className="text-zinc-800 dark:text-white font-bold pb-2">
                             Amount
                         </label>
                         <p className="mt-2">{amount}</p>
@@ -90,20 +90,20 @@ export default function InvoiceForm() {
 
             <table width="100%" className="mt-10 mb-10 overflow-auto">
                 <thead>
-                    <tr className="bg-gray-100 dark:bg-gray-800 p-1">
-                        <td className="font-bold text-gray-800 dark:text-white">Description</td>
-                        <td className="font-bold text-gray-800 dark:text-white">Quantity</td>
-                        <td className="font-bold text-gray-800 dark:text-white">Price</td>
-                        <td className="font-bold text-gray-800 dark:text-white">Amount</td>
+                    <tr className="bg-zinc-100 dark:bg-zinc-800 p-1">
+                        <td className="font-bold text-zinc-800 dark:text-white">Description</td>
+                        <td className="font-bold text-zinc-800 dark:text-white">Quantity</td>
+                        <td className="font-bold text-zinc-800 dark:text-white">Price</td>
+                        <td className="font-bold text-zinc-800 dark:text-white">Amount</td>
                     </tr>
                 </thead>
                 <tbody>
                     {list.map(({ id, description, quantity, price, amount }) => (
                         <tr key={id} className="h-10">
-                            <td className="text-gray-800 dark:text-white">{description}</td>
-                            <td className="text-gray-800 dark:text-white">{quantity}</td>
-                            <td className="text-gray-800 dark:text-white">{price}</td>
-                            <td className="amount text-gray-800 dark:text-white">{amount}</td>
+                            <td className="text-zinc-800 dark:text-white">{description}</td>
+                            <td className="text-zinc-800 dark:text-white">{quantity}</td>
+                            <td className="text-zinc-800 dark:text-white">{price}</td>
+                            <td className="amount text-zinc-800 dark:text-white">{amount}</td>
                             <td>
                                 <button onClick={() => editRow(id)}>
                                     <AiOutlineEdit className="text-green-500 font-bold text-xl" />
@@ -122,7 +122,7 @@ export default function InvoiceForm() {
             </table>
 
             <div>
-                <h2 className="flex items-end justify-end text-gray-800 dark:text-white text-4xl font-bold">
+                <h2 className="flex items-end justify-end text-zinc-800 dark:text-white text-4xl font-bold">
                     ${total.toLocaleString()}
                 </h2>
             </div>

@@ -1,7 +1,17 @@
 
-const projectId = process.env.SANITY_PROJECT_ID
-const dataset = process.env.SANITY_DATASET
+const projectId: string = process.env.SANITY_PROJECT_ID! || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID! 
+const dataset = process.env.SANITY_DATASET ||  process.env.SANITY_DATASET
 const apiVersion = '2021-10-21'
+import { createClient as sanityClient } from '@sanity/client'
+
+const config = {
+    projectId: '6d8w1e5g',
+    dataset,
+    apiVersion,
+    useCdn: false, 
+}
+
+const client = sanityClient(config);
 
 const baseUrl = `https://${projectId}.api.sanity.io/v${apiVersion}/data/query/${dataset}?query`
 const getOptions = { method: 'GET', headers: { 'Content-Type': "application/json" } }
@@ -52,8 +62,20 @@ export const getAllCourses = async () => {
     return res
 }
 
-// utils/imageUtils.js
 
+export const queryCourseId = async (id: string) => {
+ const query = `*[_type == "course" && _id ==  $id] {
+    _id,
+    title,
+    description,
+    image,
+    lessons[]->{_id, title, description},
+    categories[]->{_id, title}
+ }`;
+ const res = await client.fetch(query, { id });
+ return res[0];
+
+}
 
 
 // imageUtils.js
