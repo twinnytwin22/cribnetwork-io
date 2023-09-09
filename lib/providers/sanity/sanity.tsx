@@ -69,7 +69,7 @@ export const queryCourseId = async (id: string) => {
     title,
     description,
     image,
-    lessons[]->{_id, title, description},
+    lessons[]->{_id, title, description, 'modules':[]->},
     categories[]->{_id, title}
  }`;
  const res = await client.fetch(query, { id });

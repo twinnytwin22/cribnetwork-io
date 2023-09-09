@@ -4,9 +4,11 @@ import React, { useState } from 'react'
 import { FaRegBookmark } from 'react-icons/fa6'
 import { supabase } from '@/lib/site/constants'
 import { useQuery } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
 function EnrollmentButton({ course }) {
     const [enrolled, setEnrolled] = useState(false)
     const { profile, user, isLoading: userLoading } = useAuthProvider()
+    const router = useRouter()
     // console.log(course)
     //console.log(user, course)
     const getEnrollmentStatus = async ({ user }) => {
@@ -14,8 +16,10 @@ function EnrollmentButton({ course }) {
             const { data } = await supabase
                 .from('student_enrollments')
                 .select('*')
-                .eq('student_id', user?.id)
-                .eq('course_id', course?._id)
+                .match({
+                    student_id: user?.id,
+                    course_id: course?._id
+                })
                 .single()
             //console.log(data)
             if (!data) {
@@ -52,6 +56,7 @@ function EnrollmentButton({ course }) {
             if (data?.enrollment?.enrollment_status === "enrolled") {
                
               console.log('Pop Course Window')
+             router.push(`/portal/learning/course/${course?._id}/started`)
             }
         } catch (error) {
             console.log(error)
