@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useAuthStore, AuthState } from "./store";
 import { useRouter, usePathname } from "next/navigation";
 import { supabase } from "@/lib/site/constants";
-import { AuthChangeEvent, Session } from "@supabase/gotrue-js";
+import { AuthChangeEvent, Session } from "@supabase/supabase-js";
 import { toast } from "react-toastify";
 import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
 
