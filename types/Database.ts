@@ -13,14 +13,16 @@ export interface Database {
         Row: {
           categories: string[] | null
           created_at: string
-          id?: string
+          id: string
+          image: string | null
           lessons: string[] | null
           title: string | null
         }
         Insert: {
           categories?: string[] | null
           created_at?: string
-          id?: string
+          id: string
+          image?: string | null
           lessons?: string[] | null
           title?: string | null
         }
@@ -28,6 +30,7 @@ export interface Database {
           categories?: string[] | null
           created_at?: string
           id?: string
+          image?: string | null
           lessons?: string[] | null
           title?: string | null
         }
@@ -51,6 +54,49 @@ export interface Database {
             foreignKeyName: "customers_id_fkey"
             columns: ["id"]
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      enrollment_status: {
+        Row: {
+          id: string
+          status: string
+        }
+        Insert: {
+          id?: string
+          status: string
+        }
+        Update: {
+          id?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      lessons: {
+        Row: {
+          course_id: string | null
+          created_at: string
+          id: number
+          title: string | null
+        }
+        Insert: {
+          course_id?: string | null
+          created_at?: string
+          id?: number
+          title?: string | null
+        }
+        Update: {
+          course_id?: string | null
+          created_at?: string
+          id?: number
+          title?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lessons_course_id_fkey"
+            columns: ["course_id"]
+            referencedRelation: "courses"
             referencedColumns: ["id"]
           }
         ]
@@ -131,6 +177,43 @@ export interface Database {
         }
         Relationships: []
       }
+      student_enrollments: {
+        Row: {
+          course_id: string | null
+          created_at: string
+          enrollment_status: string
+          id: string
+          student_id: string | null
+        }
+        Insert: {
+          course_id?: string | null
+          created_at?: string
+          enrollment_status: string
+          id?: string
+          student_id?: string | null
+        }
+        Update: {
+          course_id?: string | null
+          created_at?: string
+          enrollment_status?: string
+          id?: string
+          student_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_enrollments_course_id_fkey"
+            columns: ["course_id"]
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_enrollments_student_id_fkey"
+            columns: ["student_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       subscriptions: {
         Row: {
           cancel_at: string | null
@@ -200,17 +283,14 @@ export interface Database {
       }
       user_roles: {
         Row: {
-          created_at: string
           id: number
           role: string
         }
         Insert: {
-          created_at?: string
           id?: number
           role?: string
         }
         Update: {
-          created_at?: string
           id?: number
           role?: string
         }

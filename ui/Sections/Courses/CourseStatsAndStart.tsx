@@ -1,3 +1,5 @@
+import { useAuthProvider } from '@/app/context/auth'
+import EnrollmentButton from '@/ui/Buttons/EnrollmentButton/EnrollmentButton'
 import React from 'react'
 import { BiMicrochip } from 'react-icons/bi'
 import { BsStopwatch } from 'react-icons/bs'
@@ -30,14 +32,7 @@ function CourseStatsAndStart({course}) {
         </li>
       </ul>
     </div>
-    <div className='space-x-2 flex justify-center w-fit mx-auto'>
-      <button className=' w-max min-w-[125px] lg:min-w-[170px] text-black font-semibold bg-red-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-red-100 rounded-md text-sm px-5 py-2.5 text-center mx-auto justify-center flex'>
-        Enroll
-      </button>
-      <button className='min-w-[40px] w-fit text-black font-semibold bg-red-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-red-100 rounded-md text-sm px-2.5 py-2.5 text-center mx-auto justify-center flex'>
-        <FaRegBookmark className='fill-black stroke-black accent-black black' />
-      </button>
-    </div>
+ <EnrollmentButton course={course}/>
   </div>  )
 }
 

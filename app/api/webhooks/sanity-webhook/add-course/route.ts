@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
 import { validateRequest } from '@/lib/hooks/validateRequest';
-import { getAllCourses } from '@/lib/providers/sanity/sanity';
+import { getAllCourses, imageBuilder } from '@/lib/providers/sanity/sanity';
 import { supabaseApi } from '@/lib/providers/supabase/routerHandler';
+
+export const dynamic = 'force-dynamic'
 export async function POST(req: Request) {
     try {
       if (req.method === 'POST') {
@@ -16,17 +18,18 @@ export async function POST(req: Request) {
   
         // Upsert all courses into Supabase
         const upsertPromises = sanityCourses.map(async (sanityCourse: any) => {
-          const { _id, title, categories, lessons } = sanityCourse;
+          const { _id, title, categories, lessons, image:images } = sanityCourse;
   
           // Extract titles from lessons and categories arrays
           const lessonTitles = lessons?.map((lesson: any) => lesson?.title).filter(Boolean);
           const categoryTitles = categories?.map((category: any) => category?.title).filter(Boolean);
-  
+          const image: any | null = images?.map((image: any) => imageBuilder(image))
           const courseData = {
             id: _id, // Use the _id from Sanity as the id in Supabase
             title,
             lessons: lessonTitles || [],
             categories: categoryTitles || [],
+            image
           };
   
           const { data, error } = await supabaseApi

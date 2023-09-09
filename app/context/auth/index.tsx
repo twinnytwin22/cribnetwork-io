@@ -19,7 +19,7 @@ const fetchProfile = async (id: string) => {
     .select("*")
     .eq("id", id)
     .single();
-console.log(data)
+//console.log(data)
   if (error) {
     throw error;
   }
@@ -33,7 +33,9 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     signInWithSpotify,
     signOut,
     signInWithEmail,
-    unsubscribeAuthListener }
+    unsubscribeAuthListener,
+  user, 
+profile }
     = useAuthStore()
 
   const router = useRouter()
@@ -86,8 +88,8 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
 
   const value = useMemo(
     () => ({
-      user: data?.user || null,
-      profile: data?.profile || null,
+      user: user || data?.user || null,
+      profile: profile || data?.profile || null,
       isLoading,
       signInWithGoogle,
       signInWithSpotify,
