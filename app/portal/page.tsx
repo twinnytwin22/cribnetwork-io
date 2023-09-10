@@ -36,8 +36,8 @@ async function Portal() {
                             <div>
                                 <p className='text-center font-semibold'>Your courses</p>
                                 {enrollments?.map((course) => (
-                                    <div className='flex items-center space-x-4 mx-auto justify-center'>
-                                    <p key={course.id} className='text-zinc-800 dark:text-zinc-300 text-center'>
+                                    <div  key={course.id} className='flex items-center space-x-4 mx-auto justify-center'>
+                                    <p className='text-zinc-800 dark:text-zinc-300 text-center'>
                                         {course?.courses?.title}
                                     </p>
                                     <Link href={`/portal/learning/course/${course.courses.id}`}>

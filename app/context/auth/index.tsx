@@ -99,6 +99,8 @@ profile }
     }),
     [
       data,
+      user, 
+      profile,
       isLoading,
       signInWithEmail,
       signInWithGoogle,

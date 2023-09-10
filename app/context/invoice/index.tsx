@@ -138,7 +138,7 @@ export default function InvoiceContextProvider({ children }) {
 
     useEffect(() => {
         calculateTotal();
-    }, [list]);
+    }, [list, calculateTotal]);
 
     // Edit function
     const editRow = (id: string) => {
