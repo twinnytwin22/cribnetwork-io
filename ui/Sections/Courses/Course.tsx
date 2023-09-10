@@ -12,6 +12,8 @@ function Course({ course, image }) {
     setActiveLesson(lesson);
   };
 
+
+
   return (
     <section className='w-full h-full mx-auto relative max-w-screen flex pt-16 max-h-screen min-h-screen bg-zinc-100 dark:bg-zinc-950'>
       <aside className=' w-72 min-w-[288px] max-w-full bg-zinc-100 dark:bg-zinc-950 border-r border-zinc-300 dark:border-zinc-800 overflow-y-scroll relative z-20'>
@@ -58,7 +60,7 @@ function Course({ course, image }) {
           ))}
         </div>
       </aside>
-      <div className='p-8'>
+      <div className='p-8 place-items-center w-full h-full'>
         {activeLesson ? (
           <div>
             <h2>{activeLesson.title}</h2>

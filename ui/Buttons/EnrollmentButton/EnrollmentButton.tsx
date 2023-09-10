@@ -15,7 +15,7 @@ function EnrollmentButton({ course }) {
         if (user!! && course!!) {
             const { data } = await supabase
                 .from('student_enrollments')
-                .select('*')
+                .select('enrollment_status')
                 .match({
                     student_id: user?.id,
                     course_id: course?._id
@@ -26,7 +26,7 @@ function EnrollmentButton({ course }) {
                 return { enrollment: 'not_enrolled' }
             } else {
 
-                return { enrollment: data }
+                return { enrollment: data.enrollment_status }
             }
         }
     }
@@ -35,7 +35,7 @@ function EnrollmentButton({ course }) {
 
     const handleButtonAction = async () => {//const data = await getEnrollmentStatus({user})
         try {
-            if (data?.enrollment === "not_enrolled") {
+            if (enrollmentStatus === "not_enrolled") {
                 const { data, error } = await supabase
                     .from('student_enrollments')
                     .insert({
@@ -53,28 +53,46 @@ function EnrollmentButton({ course }) {
                 }
             }
 
-            if (data?.enrollment?.enrollment_status === "enrolled") {
-               
+            if (enrollmentStatus === "enrolled") {
+               const { data, error } = await supabase
+               .from('student_enrollments')
+               .update({ enrollment_status: 'in_progress' })
+               .match({
+                'student_id': user?.id,
+                'course_id': course?._id,
+              })
+
+                // .select()
               console.log('Pop Course Window')
              router.push(`/portal/learning/course/${course?._id}/started`)
             }
+
+            if (enrollmentStatus === "in_progress") {
+                router.push(`/portal/learning/course/${course?._id}/started`)
+
+            }
+
         } catch (error) {
             console.log(error)
         }
     }
 
     const { data, isLoading } = useQuery({
-        queryKey: ["enrollment", user, enrolled],
+        queryKey: ["enrollment", user, enrolled, router],
         queryFn: ({ queryKey }) => getEnrollmentStatus({ user: queryKey[1] }),
         enabled: !!user ,
         refetchOnMount: false
 
     })
-    console.log(data)
+    const enrollmentStatus = data?.enrollment
+    console.log(enrollmentStatus)
     return user && (
         <div className='space-x-2 flex justify-center w-fit mx-auto'>
             <button onClick={handleButtonAction} className=' w-max min-w-[125px] lg:min-w-[170px] text-black font-semibold bg-red-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-red-100 rounded-md text-sm px-5 py-2.5 text-center mx-auto justify-center flex'>
-                {data?.enrollment === 'not_enrolled' ? 'Enroll' : 'Start Course'}
+                {enrollmentStatus === 'not_enrolled' && 'Enroll'}
+                {enrollmentStatus === 'enrolled' &&  'Start Course'}
+                {enrollmentStatus === 'in_progress' && "Resume"}
+
                 
             </button>
             <button className='min-w-[40px] w-fit text-black font-semibold bg-red-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-red-100 rounded-md text-sm px-2.5 py-2.5 text-center mx-auto justify-center flex'>
