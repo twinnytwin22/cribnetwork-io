@@ -16,13 +16,14 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
   //console.log(session);
 
   const cspHeaderValue =
-    `default-src 'self'; ` +
-    `script-src 'self' 'nonce-${nonce}' cdnjs.cloudflare.com; ` +
-    `style-src 'self' 'nonce-${nonce}' cdnjs.cloudflare.com; ` +
-    `img-src 'self' data:; font-src 'self' cdnjs.cloudflare.com; ` +
-    `connect-src 'self'; ` +
-    `frame-src 'self'; ` +
-    `object-src 'none'`;
+  `default-src 'self'; ` +
+  `script-src 'self' 'nonce-${nonce}' cdnjs.cloudflare.com https://checkout.stripe.com; ` +
+  `style-src 'self' 'nonce-${nonce}' cdnjs.cloudflare.com; ` +
+  `img-src 'self' data: https://*.stripe.com; ` +
+  `font-src 'self' cdnjs.cloudflare.com; ` +
+  `connect-src 'self' https://checkout.stripe.com; ` +
+  `frame-src 'self' https://checkout.stripe.com; ` +
+  `object-src 'none'`;
 
   const kafka = new Kafka({
     url: "https://real-goldfish-14081-us1-rest-kafka.upstash.io",

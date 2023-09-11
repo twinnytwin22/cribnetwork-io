@@ -11,15 +11,10 @@ function PortalLayout({ children }: { children: React.ReactNode }) {
 
     return (
         <div className='relative flex h-screen overflow-hidden bg-zinc-100 dark:bg-zinc-950 '>
-            <DashboardSidebar isOpen={isSidebarOpen} />
+            <DashboardSidebar  />
             <div className='flex-1 overflow-x-hidden overflow-y-auto'>
-                <button
-                    onClick={toggleSidebar}
-                    className='absolute top-4 left-4 lg:hidden z-50'
-                >
-                    &#9776; {/* Hamburger icon */}
-                </button>
-                <div className='md:ml-64 mx-auto min-h-screen h-full  transition-transform z-0 flex items-center relative'>
+
+                <div className=' md:ml-24 lg:ml-64 mx-auto min-h-screen h-full  transition-transform z-0 flex items-center relative'>
 
                     {children}
                 </div>

@@ -62,6 +62,7 @@ const SearchBar = () => {
                     </svg>
                 </div>
                 <input
+                    id='simple-search'
                     autoComplete='off'
                     type="text"
                     className="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-md focus:ring-red-200 focus:border-red-300 block w-full pl-10 p-2.5 dark:border-zinc-700 dark:bg-zinc-900 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-100 dark:focus:border-red-300"

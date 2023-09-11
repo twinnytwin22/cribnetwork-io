@@ -1,56 +1,94 @@
 import React from 'react';
 
-interface MarkDef {
-    _key: string;
-    _type: string;
-    extraData: string;
+export interface Welcome {
+  modules?: Module[];
+  _id?: string;
+  title?: string;
+  image?: null;
+  videoUrl?: null;
+  description?: null;
+  content?: null;
 }
 
-interface Span {
-    _type: 'span';
-    marks: string[];
-    text: string;
+export interface Module {
+  _id?: string;
+  image?: null;
+  videoUrl?: null;
+  title?: string;
+  content?: Content[];
 }
 
-interface Block {
-    _type: 'block';
-    style: string;
-    children: (Span | string)[];
-    markDefs: MarkDef[];
+export interface Content {
+  style?: string;
+  _key?: string;
+  markDefs?: any[];
+  children?: Child[];
+  _type?: string;
+}
+
+export interface Child {
+  _type?: string;
+  marks?: any[];
+  text?: string;
+  _key?: string;
 }
 
 interface PortableTextProps {
-    content: Block[];
+  content: Content[];
 }
 
+const mapMarkToComponent = (mark: string) => {
+  switch (mark) {
+    case 'em':
+      return <em />;
+    case 'strong':
+      return <strong />;
+    case 'highlight':
+      return <span className="highlight" />;
+    // Add more cases for other mark definitions as needed
+    default:
+      return null;
+  }
+};
+
+const applyMarksToText = (child: Child) => {
+  if (child?.marks && child?.marks.length > 0) {
+    let markedText = child.text || '';
+
+    child.marks.forEach((mark) => {
+      const markComponent = mapMarkToComponent(mark);
+      if (markComponent) {
+        markedText = React.cloneElement(markComponent, { key: mark }, markedText) as any;
+      }
+    });
+
+    return <span key={child?._key}>{markedText}</span>;
+  } else {
+    return <span key={child?._key}>{child?.text}</span>;
+  }
+};
+
 const PortableText: React.FC<PortableTextProps> = ({ content }) => {
-    return (
-        <div>
-            {content.map((block, index) => {
-                if (block._type === 'block') {
-                    return (
-                        <p key={index}>
-                            {block.children.map((child, childIndex) => {
-                                if (typeof child === 'string') {
-                                    return child; // Plain text
-                                } else {
-                                    const marks = child.marks.map(mark => {
-                                        const markDef = block.markDefs.find(def => def._key === mark);
-                                        if (markDef) {
-                                            return <em key={mark}>{markDef.extraData}</em>; // Apply mark
-                                        }
-                                        return null;
-                                    });
-                                    return <span key={childIndex}>{marks}{child.text}</span>;
-                                }
-                            })}
-                        </p>
-                    );
+  return (
+    <div>
+      {content?.map((block, index) => {
+        if (block?._type === 'block') {
+          return (
+            <p key={index}>
+              {block?.children?.map((child, childIndex) => {
+                if (typeof child === 'string') {
+                  return child; // Plain text
+                } else {
+                  return applyMarksToText(child);
                 }
-                return null;
-            })}
-        </div>
-    );
+              })}
+            </p>
+          );
+        }
+        return null;
+      })}
+    </div>
+  );
 };
 
 export default PortableText;

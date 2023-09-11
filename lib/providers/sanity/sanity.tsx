@@ -64,14 +64,35 @@ export const getAllCourses = async () => {
 
 
 export const queryCourseId = async (id: string) => {
- const query = `*[_type == "course" && _id ==  $id] {
+ const query = `*[_type == 'course'] {
     _id,
     title,
     description,
     image,
-    lessons[]->{_id, title, description, 'modules':module[]->},
-    categories[]->{_id, title}
- }`;
+      videoUrl,
+    lessons[]->{
+      _id, 
+      title, 
+      image, 
+       videoUrl,
+      description,
+      content,
+      overview,
+      modules[]-> {
+        _id,
+        image,
+        videoUrl,
+        title,
+       content
+        },
+     //   markDefs[]->,
+       // children[]->,
+  //   },
+    }, // Retrieve the details of lessons
+    categories[]->{_id, title} // Retrieve the details of categories
+  }
+  
+  `;
  const res = await client.fetch(query, { id });
  return res[0];
 

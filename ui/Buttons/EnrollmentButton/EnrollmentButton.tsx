@@ -88,14 +88,14 @@ function EnrollmentButton({ course }) {
     console.log(enrollmentStatus)
     return user && (
         <div className='space-x-2 flex justify-center w-fit mx-auto'>
-            <button onClick={handleButtonAction} className=' w-max min-w-[125px] lg:min-w-[170px] text-black font-semibold bg-red-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-red-100 rounded-md text-sm px-5 py-2.5 text-center mx-auto justify-center flex'>
+            <button onClick={handleButtonAction} className=' w-max min-w-[95px] md:min-w-[105px] xl:min-w-[160px] text-black font-semibold bg-red-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-red-100 rounded-md text-sm px-5 py-2.5 text-center mx-auto justify-center flex'>
                 {enrollmentStatus === 'not_enrolled' && 'Enroll'}
                 {enrollmentStatus === 'enrolled' &&  'Start Course'}
                 {enrollmentStatus === 'in_progress' && "Resume"}
 
                 
             </button>
-            <button className='min-w-[40px] w-fit text-black font-semibold bg-red-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-red-100 rounded-md text-sm px-2.5 py-2.5 text-center mx-auto justify-center flex'>
+            <button className='min-w-[40px] lg:min-w-[40px] w-fit text-black font-semibold bg-red-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-red-100 rounded-md text-sm px-2.5 py-2.5 text-center mx-auto justify-center flex'>
                 <FaRegBookmark className='fill-black stroke-black accent-black black' />
             </button>
         </div>)

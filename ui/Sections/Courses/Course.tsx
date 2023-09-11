@@ -1,31 +1,120 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaLongArrowAltLeft } from 'react-icons/fa';
+import PortableText from '@/ui/Components/PortableText';
+
+function getYoutubeVideoId(url) {
+  const videoIdMatch = url.match(/(?:\?v=|\/embed\/|\/(\w+)\/|\/watch\?v=|\/v\/|\/e\/|youtu.be\/|\/d\/)([^#\&\?]*).*/);
+  return (videoIdMatch && videoIdMatch[2]) || '';
+}
 
 function Course({ course, image }) {
   const [activeLesson, setActiveLesson] = useState<any>(null);
+  const [activeLessonIndex, setActiveLessonIndex] = useState<number | any>(0);
+  const [activeModuleIndex, setActiveModuleIndex] = useState<any>(null);
+  const [finishedScreen, setFinishedScreen] = useState(false)
+  const courseHeaderStyle = 'text-black dark:text-zinc-100 font-bold text-3xl'
+  const courseBodyStyle = 'text-black dark:text-zinc-100  text-lg'
 
-  const handleLessonClick = (lesson) => {
-    console.log('active lesson clicked')
-    setActiveLesson(lesson);
+
+  function countModulesInCourse(course: { lessons: { modules: string | any[]; }[]; }) {
+    let totalModules = 0;
+
+    if (course && course?.lessons) {
+      course?.lessons?.forEach((lesson: { modules: string | any[]; }) => {
+        if (lesson.modules && Array.isArray(lesson?.modules)) {
+          totalModules += lesson?.modules.length;
+        }
+      });
+    }
+
+    return totalModules;
+  }
+
+  const handleLessonClick = (lesson: any) => {
+    const lessonIndex = course?.lessons.findIndex((l: any) => l._id === lesson._id);
+
+    // Set the active lesson and module indexes
+    setActiveLessonIndex(lessonIndex);
+    setActiveModuleIndex(null); // Reset the active module index
   };
 
+  const handleModuleClick = (lesson: any, mod: any) => {
+    const lessonIndex = course?.lessons.findIndex((l: any) => l._id === lesson._id);
+    const moduleIndex = lesson.modules.findIndex((m: any) => m._id === mod._id);
 
+    // Set the active lesson and module indexes
+    setActiveLessonIndex(lessonIndex);
+    setActiveModuleIndex(moduleIndex);
+  };
+
+  const moduleAndLessonCount = countModulesInCourse(course) + course.lessons.length;
+  const lessons = course?.lessons || [];
+  const modules = lessons[activeLessonIndex]?.modules || [];
+
+  const handleNextClick = () => {
+    if (activeModuleIndex === null) {
+      // No module is active, try to go to the first module in the current lesson
+      if (modules.length > 0) {
+        setActiveModuleIndex(0);
+        setFinishedScreen(false); // You can use a state variable to track the finished screen
+
+      } else {
+        // No modules in the current lesson, move to the next lesson
+        const nextLessonIndex = (activeLessonIndex + 1) % lessons.length;
+        if (nextLessonIndex === 0) {
+          // It's the last lesson, navigate to the finished screen
+          setActiveLessonIndex(null);
+          setActiveModuleIndex(null);
+          setFinishedScreen(true); // You can use a state variable to track the finished screen
+        } else {
+          setActiveLessonIndex(nextLessonIndex);
+          setActiveModuleIndex(null);
+          setFinishedScreen(false); // You can use a state variable to track the finished screen
+
+        }
+      }
+    } else if (activeModuleIndex < modules.length - 1) {
+      // If a module is active and there are more modules, move to the next module
+      const nextModuleIndex = activeModuleIndex + 1;
+      setActiveModuleIndex(nextModuleIndex);
+      setFinishedScreen(false); // You can use a state variable to track the finished screen
+
+    } else if (activeModuleIndex === modules.length - 1) {
+      // If the last module is active, move to the next lesson
+      const nextLessonIndex = (activeLessonIndex + 1) % lessons.length;
+      if (nextLessonIndex === 0) {
+        // It's the last lesson, navigate to the finished screen
+        setActiveLessonIndex(null);
+        setActiveModuleIndex(null);
+        setFinishedScreen(true); // You can use a state variable to track the finished screen
+      } else {
+        setActiveLessonIndex(nextLessonIndex);
+        setActiveModuleIndex(null);
+        setFinishedScreen(false); // You can use a state variable to track the finished screen
+
+      }
+    }
+  };
+  
+  
 
   return (
     <section className='w-full h-full mx-auto relative max-w-screen flex pt-16 max-h-screen min-h-screen bg-zinc-100 dark:bg-zinc-950'>
-      <aside className=' w-72 min-w-[288px] max-w-full bg-zinc-100 dark:bg-zinc-950 border-r border-zinc-300 dark:border-zinc-800 overflow-y-scroll relative z-20'>
-        <Image
-          className='relative bg-cover z-0 bg-center bg-no-repeat rounded-md overflow-hidden'
-          width={300}
-          height={200}
-          src={image}
-          alt='bg-image'
-          style={{ objectFit: 'cover' }}
-        />
-        <div className='absolute top-0 left-0 right-0 bottom-0 bg-black w-full bg-opacity-50 overflow-hidden'></div>
+      <aside className='w-72 min-w-[288px] max-w-full bg-zinc-100 dark:bg-zinc-950 border-r border-zinc-300 dark:border-zinc-800 overflow-y-scroll relative z-20'>
+        <div className='w-full relative'>
+          <Image
+            className='relative bg-cover z-0 bg-center bg-no-repeat rounded-md overflow-hidden'
+            width={300}
+            height={200}
+            src={image}
+            alt='bg-image'
+            style={{ objectFit: 'cover' }}
+          />
+          <div className='absolute top-0 left-0 right-0 bottom-0 bg-black w-full bg-opacity-25 overflow-hidden'></div>
+        </div>
         {course && (
           <div className='absolute left-2 top-4'>
             <Link href={`/portal/learning/course/${course?._id}`}>
@@ -37,42 +126,117 @@ function Course({ course, image }) {
           </div>
         )}
 
-        <div className='absolute z-30 left-2 right-0 top-28 text-zinc-300'>
+        <div className='absolute z-30 left-2 right-0 top-28 text-zinc-300 select-none font-semibold'>
           {course?.title}
         </div>
         <div className='p-4 relative space-y-4'>
-          {course?.lessons.map((lesson) => (
-            <React.Fragment key={lesson?.title}>
+          {course?.lessons.map((lesson: any) => (
+            <React.Fragment key={lesson?._id || lesson?.title}>
               <div
-                className='border-t border-zinc-300 dark:border-zinc-800 flex'
+                className={`border-t border-zinc-300 dark:border-zinc-800 flex ${activeLesson?.title === lesson?.title ? 'border-red-300' : ''
+                  }`}
                 onClick={() => handleLessonClick(lesson)}
                 style={{ cursor: 'pointer' }}
               >
-              <p
-                className={` font-semibold text-base ${
-                  activeLesson?.title === lesson?.title ? 'text-red-300' : 'text-zinc-800 dark:text-zinc-300'
-                }`}
-              >
-                {lesson?.title}
-              </p>
+                <p
+                  className={`font-semibold text-base ${lessons[activeLessonIndex]?.title === lesson?.title
+                    ? 'text-red-300'
+                    : 'text-zinc-800 dark:text-zinc-300'
+                    }`}
+                >
+                  {lesson?.title}
+                </p>
               </div>
+              {/* Render modules for the active lesson */}
+              {lesson?.modules && (
+                <div className='pl-2'>
+                  {lesson?.modules?.map((mod: any) => (
+                    <div
+                      key={mod?._id || mod.title}
+                      className={`cursor-pointer ${modules[activeModuleIndex]?.title === mod?.title ? 'text-red-300' : 'text-zinc-800 dark:text-zinc-300'
+                        }`}
+                      onClick={() => handleModuleClick(lesson, mod)}
+                    >
+                      <p className='font-semibold text-base'>{mod.title}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </React.Fragment>
           ))}
         </div>
       </aside>
-      <div className='p-8 place-items-center w-full h-full'>
-        {activeLesson ? (
-          <div>
-            <h2>{activeLesson.title}</h2>
-            <p>{activeLesson.content}</p> {/* Replace with actual lesson content */}
-            <p>{JSON.stringify(activeLesson)}</p>
+      <div className='p-8 place-items-center max-w-screen w-full min-h-[80vh] h-full text-black dark:text-white'>
+        {!finishedScreen && activeModuleIndex !== null ? (
+          <div className='space-y-8'>
+          <h1 className={courseHeaderStyle}
+            >{modules[activeModuleIndex]?.title}</h1>
+            <p className='hidden'>{JSON.stringify(modules[activeModuleIndex].content)}</p>
+            {modules[activeModuleIndex]?.videoUrl && (
+              <iframe
+                className='mx-auto rounded border border-zinc-200 dark:border-zinc-800'
+                title="Lesson Video"
+                width="560"
+                height="315"
+                src={`https://www.youtube.com/embed/${getYoutubeVideoId(modules[activeModuleIndex]?.videoUrl)}`}
+                allowFullScreen
+              ></iframe>
+            )}
+            <PortableText content={modules[activeModuleIndex]?.content} />
+
+          </div>
+        ) : activeLessonIndex < lessons.length ? (
+          <div className='space-y-8'>
+            <h1 className={courseHeaderStyle}
+            >{lessons[activeLessonIndex]?.title}</h1>
+             {/* Replace with actual lesson content */}
+            <p className='hidden'>{JSON.stringify(lessons[activeLessonIndex])}</p>
+            {lessons[activeLessonIndex]?.videoUrl && (
+              <iframe
+                className='mx-auto rounded border border-zinc-200 dark:border-zinc-800'
+                title="Lesson Video"
+                width="560"
+                height="315"
+                src={`https://www.youtube.com/embed/${getYoutubeVideoId(lessons[activeLessonIndex]?.videoUrl)}`}
+                allowFullScreen
+              ></iframe>
+            )}
+            <PortableText content={lessons[activeLessonIndex]?.content || lessons[activeLessonIndex]?.overview || ''} />
           </div>
         ) : (
-          <p>Click on a lesson to view its content.</p>
+          <p>No more lessons or modules to show.</p>
         )}
+        {finishedScreen &&
+          <div className='p-8 place-items-center w-full min-h-[80vh] h-full'>
+            <h1 className={courseHeaderStyle}>
+
+              FINISHED</h1>
+          </div>}
+        {!finishedScreen ? <button onClick={handleNextClick} className='bg-red-300 text-white p-2 mt-4 rounded font-semibold'>
+          Next
+        </button>
+          : <Link href={`/portal/learning/course/${course?._id}`} className='bg-red-300 text-white p-2 mt-4 rounded font-semibold'>
+            Exit
+          </Link>
+        }
+
       </div>
     </section>
   );
 }
 
 export default Course;
+
+
+const VideoComponent = (url: string) => {
+  return (
+  <iframe
+  className='mx-auto rounded border border-zinc-200 dark:border-zinc-800'
+  title="Lesson Video"
+  width="560"
+  height="315"
+  src={`https://www.youtube.com/embed/${getYoutubeVideoId(url)}`}
+  allowFullScreen
+></iframe>
+  )
+}
