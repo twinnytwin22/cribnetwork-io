@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaLongArrowAltLeft } from 'react-icons/fa';
 import PortableText from '@/ui/Components/PortableText';
+import  useCourseStore from './courseStore';
 
 function getYoutubeVideoId(url) {
   const videoIdMatch = url.match(/(?:\?v=|\/embed\/|\/(\w+)\/|\/watch\?v=|\/v\/|\/e\/|youtu.be\/|\/d\/)([^#\&\?]*).*/);
@@ -12,9 +13,14 @@ function getYoutubeVideoId(url) {
 
 function Course({ course, image }) {
  // const [activeLesson, setActiveLesson] = useState<any>(null);
-  const [activeLessonIndex, setActiveLessonIndex] = useState<number | any>(0);
-  const [activeModuleIndex, setActiveModuleIndex] = useState<any>(null);
-  const [finishedScreen, setFinishedScreen] = useState(false)
+ const {
+  activeLessonIndex,
+  activeModuleIndex,
+  finishedScreen,
+  setActiveLessonIndex,
+  setActiveModuleIndex,
+  setFinishedScreen,
+} = useCourseStore();
   const courseHeaderStyle = 'text-black dark:text-zinc-100 font-bold text-3xl'
   const courseBodyStyle = 'text-black dark:text-zinc-100  text-lg'
 
@@ -215,11 +221,11 @@ console.log(moduleAndLessonCount)
                   {lesson?.modules?.map((mod: any) => (
                     <div
                       key={mod?._id || mod.title}
-                      className={`cursor-pointer ${modules[activeModuleIndex]?.title === mod?.title ? 'text-red-300' : 'text-zinc-800 dark:text-zinc-300'
+                      className={`cursor-pointer ${modules[activeModuleIndex]?.title === mod?.title ? 'text-red-400 dark:text-red-200' : 'text-zinc-800 dark:text-zinc-300'
                         }`}
                       onClick={() => handleModuleClick(lesson, mod)}
                     >
-                      <p className='font-semibold text-base'>{mod.title}</p>
+                      <p className='font text-base'>{mod.title}</p>
                     </div>
                   ))}
                 </div>
@@ -229,9 +235,9 @@ console.log(moduleAndLessonCount)
         </div>
         </div>
       </aside>
-      <div className='p-8 place-items-center max-w-screen w-full min-h-[100vh] h-full text-black dark:text-white'>
+      <div className='p-8 place-items-center max-w-screen w-full min-h-[100vh] h-full text-black dark:text-white '>
         {!finishedScreen && activeModuleIndex !== null ? (
-          <div className='space-y-8'>
+          <div className='space-y-8 '>
             {renderProgressBar()}
           <h1 className={courseHeaderStyle}
             >{modules[activeModuleIndex]?.title}</h1>
@@ -287,7 +293,7 @@ console.log(moduleAndLessonCount)
             Exit
           </Link>
         }
-
+       <div className='mb-24'/>
       </div>
     </section>
   );

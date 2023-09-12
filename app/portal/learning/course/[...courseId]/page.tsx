@@ -31,7 +31,7 @@ export default async function Page({ params }: { params: { courseId: string } })
         <CourseHeader course={course} />
         <div className='w-full mx-auto px-10 my-8 overflow-x-auto'>
           <div className='block md:flex md:space-x-8  mb-24 '>
-            <div className='w-full md:w-2/3 lg:w-3/4 space-y-8'>
+            <div className='w-full md:w-2/3 lg:w-3/4 -mt-8 space-y-8'>
               <div className='block md:hidden'>
             <CourseStatsAndStart course={course}/>
              </div>
