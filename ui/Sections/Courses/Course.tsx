@@ -252,7 +252,9 @@ console.log(moduleAndLessonCount)
                 allowFullScreen
               ></iframe>
             )}
-            <PortableText content={modules[activeModuleIndex]?.content} />
+                        {!finishedScreen &&
+
+            <PortableText content={modules[activeModuleIndex]?.content} />}
 
           </div>
         ) : activeLessonIndex < lessons.length ? (
@@ -273,16 +275,16 @@ console.log(moduleAndLessonCount)
                 allowFullScreen
               ></iframe>
             )}
-            <PortableText content={lessons[activeLessonIndex]?.content || lessons[activeLessonIndex]?.overview || ''} />
+            {!finishedScreen &&
+            <PortableText content={lessons[activeLessonIndex]?.content || lessons[activeLessonIndex]?.overview || ''} />}
           </div>
         ) : (
           <p>No more lessons or modules to show.</p>
         )}
         {finishedScreen &&
           <div className='p-8 place-items-center w-full min-h-[80vh] h-full'>
-            {renderProgressBar()}
 
-            <h1 className={courseHeaderStyle}>
+            <h1 className={courseHeaderStyle + 'text-center'}>
 
               FINISHED</h1>
           </div>}
