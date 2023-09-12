@@ -7,13 +7,14 @@ import CourseLessons from '@/ui/Sections/Courses/CourseLessons'
 import CourseStatsAndStart from '@/ui/Sections/Courses/CourseStatsAndStart'
 import Course from '@/ui/Sections/Courses/Course'
 export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export default async function Page({ params }: { params: { courseId: string } }) {
   const { courseId = [] } = params
   const course = await queryCourseId(courseId[0])
 
   //console.log(courseId[1], "PARAMS")
- console.log(course)
+ console.log(course, "COURSE!!!!!")
 
  if (courseId.length > 1 && courseId[1] === 'started' ) {
   const image = imageBuilder(course?.image)

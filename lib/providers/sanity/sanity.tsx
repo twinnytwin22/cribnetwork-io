@@ -64,8 +64,8 @@ export const getAllCourses = async () => {
 
 
 export const queryCourseId = async (id: string) => {
- const query = `*[_type == 'course'] {
-    _id,
+const query = `*[_type == 'course' && _id == $id] {
+        _id,
     title,
     description,
     image,

@@ -12,26 +12,27 @@ function EnrollmentButton({ course }) {
     // console.log(course)
     //console.log(user, course)
     const getEnrollmentStatus = async ({ user }) => {
-        if (user!! && course!!) {
-            const { data } = await supabase
-                .from('student_enrollments')
-                .select('enrollment_status')
-                .match({
-                    student_id: user?.id,
-                    course_id: course?._id
-                })
-                .single()
-            //console.log(data)
-            if (!data) {
-                return { enrollment: 'not_enrolled' }
-            } else {
-
-                return { enrollment: data.enrollment_status }
+        if (user && course) {
+            try {
+                let { data, error } = await supabase
+                    .from('student_enrollments')
+                    .select('enrollment_status')
+                    .match({
+                        student_id: user?.id,
+                        course_id: course._id,
+                    })
+                    .single();
+    
+                if (!data) {
+                    return { enrollment: 'not_enrolled' };
+                } else {
+                    return { enrollment: data.enrollment_status };
+                }
+            } catch (error) {
+                // Handle the error here or simply do nothing to suppress it
             }
         }
-    }
-
-
+    };
 
     const handleButtonAction = async () => {//const data = await getEnrollmentStatus({user})
         try {
@@ -61,7 +62,7 @@ function EnrollmentButton({ course }) {
                 'student_id': user?.id,
                 'course_id': course?._id,
               })
-
+           
                 // .select()
               console.log('Pop Course Window')
              router.push(`/portal/learning/course/${course?._id}/started`)
