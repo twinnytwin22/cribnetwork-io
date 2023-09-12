@@ -17,6 +17,8 @@ export interface Database {
           image: string | null
           lessons: string[] | null
           title: string | null
+          total_lessons: number
+          total_modules: number
         }
         Insert: {
           categories?: string[] | null
@@ -25,6 +27,8 @@ export interface Database {
           image?: string | null
           lessons?: string[] | null
           title?: string | null
+          total_lessons?: number
+          total_modules?: number
         }
         Update: {
           categories?: string[] | null
@@ -33,6 +37,8 @@ export interface Database {
           image?: string | null
           lessons?: string[] | null
           title?: string | null
+          total_lessons?: number
+          total_modules?: number
         }
         Relationships: []
       }
@@ -179,6 +185,8 @@ export interface Database {
       }
       student_enrollments: {
         Row: {
+          completed_lessons: number
+          completed_modules: number
           course_id: string | null
           created_at: string
           enrollment_status: string
@@ -186,6 +194,8 @@ export interface Database {
           student_id: string | null
         }
         Insert: {
+          completed_lessons?: number
+          completed_modules?: number
           course_id?: string | null
           created_at?: string
           enrollment_status: string
@@ -193,6 +203,8 @@ export interface Database {
           student_id?: string | null
         }
         Update: {
+          completed_lessons?: number
+          completed_modules?: number
           course_id?: string | null
           created_at?: string
           enrollment_status?: string
