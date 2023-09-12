@@ -40,7 +40,6 @@ function Course({ course, image }) {
 
   const handleLessonClick = (lesson: any) => {
     const lessonIndex = course?.lessons.findIndex((l: any) => l._id === lesson._id);
-
     // Set the active lesson and module indexes
     setActiveLessonIndex(lessonIndex);
     setActiveModuleIndex(null); // Reset the active module index
