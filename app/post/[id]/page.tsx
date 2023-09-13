@@ -75,7 +75,7 @@ function ArticleComponent({post}) {
     <PortableBlogText content={post?.content}/>
       <footer>
         <p className="mt-12 text-lg text-zinc-700 dark:text-zinc-400">
-          Thanks for reading! If you have any questions or feedback, please don't hesitate to reach out.
+          Thanks for reading! If you have any questions or feedback, please do not hesitate to reach out.
         </p>
       </footer>
     </article>
