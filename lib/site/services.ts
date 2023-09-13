@@ -54,6 +54,13 @@ export const services = [
       "Streamline your organizations processes, allocate resources efficiently, and ensure successful project execution.",
   },
   {
+    title: "Training & Onboarding",
+    icon: LiaCompressArrowsAltSolid,
+    url: "https://example.com/training-and-onboarding",
+    description:
+      "Assisting with training and onboarding processes, fostering growth for for new team members and existing staff."
+  },
+  {
     title: "Email & SMS",
     icon: LiaEnvelopeSolid,
     url: "https://example.com/email-sms",
@@ -81,13 +88,8 @@ export const services = [
     description:
       "Leverage decentralized technologies to create secure, transparent, and decentralized applications, and smart contracts.",
   },
-  {
-    title: "Conversion Rate Optimization (CRO)",
-    icon: LiaCompressArrowsAltSolid,
-    url: "https://example.com/conversion-rate-optimization",
-    description:
-      "Optimize your website or landing pages to maximize conversions and improve your overall ROI.",
-  },
+  
+  
 
   // {
   //   title: "Influencer",

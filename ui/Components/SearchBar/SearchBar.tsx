@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { supabase } from '@/lib/site/constants';
 import { useHandleOutsideClick } from '@/lib/hooks/handleOutsideClick';
 import { useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
 const SearchBar = () => {
     const router = useRouter()
     const [searchTerm, setSearchTerm] = useState<string>('');
@@ -12,6 +13,8 @@ const SearchBar = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [isInputFocused, setIsInputFocused] = useState(false); // New state variable to track input focus
     const searchInputRef = useRef<HTMLInputElement>(null);
+
+    
 
     useEffect(() => {
         // This function will be called whenever searchTerm or isInputFocused changes
@@ -35,7 +38,7 @@ const SearchBar = () => {
 
         if (coursesError) {
             console.error('Error searching:', coursesError );
-            return;
+            return {coursesData};
         }
         setSearchResults({ courses: coursesData });
     };
@@ -51,10 +54,17 @@ const SearchBar = () => {
         setSearchTerm('')
         setIsOpen(false)
     }
-
+    const {data: searchData} = useQuery({
+       // queryKey: [],
+       // queryFn: search,
+       // enabled: (searchTerm?.length >= 2) && searchInputRef?.current
+    })
     return (
         <form className="flex items-center flex-grow relative" >
             <label htmlFor="simple-search" className="sr-only">Search</label>
+            <button id="dropdown-button-2" data-dropdown-toggle="dropdown-search-city" className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-zinc-500 bg-zinc-100 border border-zinc-300 rounded-l-lg hover:bg-zinc-200 focus:ring-4 focus:outline-none focus:ring-zinc-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:focus:ring-zinc-700 dark:text-white dark:border-zinc-600" type="button">
+            Type
+            </button>
             <div className="relative flex-grow">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <svg aria-hidden="true" className="w-5 h-5 text-zinc-500 dark:text-zinc-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -78,27 +88,22 @@ const SearchBar = () => {
             <SearchButton />
             {isOpen &&
                 <div className="absolute top-10 left-0 right-0 mt-6  bg-white max-h-[300px] overflow-y-scroll dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 shadow-2xl rounded-md z-[99990] shadow-zinc-300 dark:shadow-black search-results mx-auto">
-
                     {searchResults?.courses?.length > 0 && (
                         <div className='relative'>
                             <div className='p-1 pl-4 bg-zinc-100 dark:bg-black w-full text-black dark:text-white flex h-fit'>
                                 <p className='text-sm font-bold'>Courses</p>
                             </div>
                             {searchResults.courses.map((course: any) => (
-                                <div onClick={(() => handleLink(`/portal/learning/course/${course.id}`))} key={course.id} className="flex items-center p-2.5 border-b border-zinc-300 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 relative z-[99999] cursor-pointer">
-                                    
+                                <div onClick={(() => handleLink(`/portal/learning/course/${course.id}`))} key={course.id} className="flex items-center p-2.5 border-b border-zinc-300 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 relative z-[99999] cursor-pointer">                                  
                                     <div>
                                         <div className="text-black dark:text-white font-medium">
                                             {course.title}
                                         </div>
-                                  
                                     </div>
                                 </div>
                             ))}
                         </div>
-                    )}
-
-              
+                    )}  
                 </div>}
         </form>
     );

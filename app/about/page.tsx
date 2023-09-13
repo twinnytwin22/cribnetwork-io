@@ -4,6 +4,8 @@ import BlogPostsPreview from '@/ui/Sections/BlogPostsPreview';
 import AboutHeader from '@/ui/Headers/AboutHeader';
 import { getBlogPosts } from '@/lib/providers/sanity/sanity';
 
+export const revalidate = 0
+
 //const backgroundImage = "/images/azwindmill.jpg"
 async function page() {
     const blogPosts = await getBlogPosts()

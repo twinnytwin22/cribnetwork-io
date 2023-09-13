@@ -5,9 +5,15 @@ import OurTech from '@/ui/Sections/OurTech'
 import Overview from '@/ui/Sections/Overview'
 import Services from '@/ui/Sections/Services'
 import SocialProof from '@/ui/Sections/SocialProof'
+import Link from 'next/link'
 import React from 'react'
+import { FaFacebook, FaInstagram } from 'react-icons/fa'
+import { FaTwitter } from 'react-icons/fa6'
 export default async function Home() {
-  const content = await getPageContent()
+
+  const [content] = await Promise.all([
+    getPageContent()
+  ])
   const section = content?.homePage.sections
 
   if (content) {
@@ -19,10 +25,28 @@ export default async function Home() {
             <SocialProof />
             <Overview content={section[1]} />
           </React.Suspense>
-
           <Mission />
           <Services />
           <OurTech />
+          <div className='fixed z-50 top-1/2 left-10 h-screen'>
+            <div className='relative space-y-4 p-4 rounded-full border text-zinc-600 dark:text-zinc-400 scale-125 bg-white dark:bg-zinc-950 hidden lg:block transition-opacity duration-200 ease-in-out ani'>
+              <div>
+                <Link href={'#'}>
+                  <FaFacebook className='hover:text-red-300 duration-300 ease-in-out' />
+                </Link>
+              </div>
+              <div>
+                <Link href={'#'}>
+                  <FaTwitter className='hover:text-red-300 duration-300 ease-in-out' />
+                </Link>
+              </div>
+              <div>
+                <Link href={'#'}>
+                  <FaInstagram className='hover:text-red-300 duration-300 ease-in-out' />
+                </Link>
+              </div>
+            </div>
+          </div>
         </React.Fragment>
 
       </main>

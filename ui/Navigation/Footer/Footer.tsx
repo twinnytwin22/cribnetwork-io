@@ -7,6 +7,10 @@ import { usePathname } from 'next/navigation';
 import { useContactButtonStore } from '@/ui/Buttons/ContactButton/contactButtonStore';
 import { useAuthProvider } from '@/app/context/auth';
 import { imageBuilder } from '@/lib/providers/sanity/sanity';
+
+const handleOpenModal = (setOpen: (arg0: boolean) => void) => {
+    setOpen(true);
+};
 const Footer = ({settings}) => {
     const pathname = usePathname()
     const { user } = useAuthProvider()
@@ -18,6 +22,10 @@ const Footer = ({settings}) => {
     const handleOpenModal = () => {
         setOpen(true);
     };
+
+    if (logo) {
+        return <DevFooter logo={logo}/>
+    }
     return (
         <footer className="bg-white dark:bg-black border-t border-zinc-200 dark:border-zinc-800 relative z-10">
             <div className="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
@@ -129,3 +137,44 @@ const Footer = ({settings}) => {
 }
 
 export default Footer;
+
+
+export const DevFooter = ({logo}) => {
+    return (
+
+<footer className="bg-white rounded-lg shadow dark:bg-black">
+    <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+        <div className="sm:flex sm:items-center sm:justify-between">
+        <Link href="/" className="flex items-center">
+                        <Image
+                        src={logo}
+                        className="h-8 mr-3 dark:invert w-auto"
+                        alt="Crib Logo"
+                        width={145}
+                        height={100}
+                        priority
+                    />
+                        </Link>
+            <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-zinc-500 sm:mb-0 dark:text-zinc-400">
+                <li>
+                    <a href="#" className="mr-4 hover:underline md:mr-6 ">About</a>
+                </li>
+                <li>
+                    <a href="#" className="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+                </li>
+                <li>
+                    <a href="#" className="mr-4 hover:underline md:mr-6 ">Licensing</a>
+                </li>
+                <li>
+                    <a href="#" className="hover:underline">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <hr className="my-6 border-zinc-200 sm:mx-auto dark:border-zinc-700 lg:my-8" />
+        <span className="block text-sm text-zinc-500 sm:text-center dark:text-zinc-400">© 2023 <a href="https://flowbite.com/" className="hover:underline">Flowbite™</a>. All Rights Reserved.</span>
+    </div>
+</footer>
+
+
+    )
+}

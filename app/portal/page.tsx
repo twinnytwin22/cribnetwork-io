@@ -18,30 +18,33 @@ async function Portal() {
         .eq('student_id', session?.user.id)
     console.log(enrollments)
 
+    
+
     return (
         <section className='w-screen h-full mx-auto relative'>
             <React.Suspense fallback='loading'>
                 <div className='grid grid-cols-6 col-span-6 gap-8 h-1/2 mt-24 w-full px-10'>
-                    <WelcomePanel>
+                    <WelcomePanel subscription={subscription} href='/'>
                         <p className='text-zinc-800 dark:text-zinc-300 text-center'>
                             {session?.user.email}
                         </p>
                         <p className='text-zinc-800 dark:text-zinc-300 text-center'>
                             {''}
                         </p>
+                     
                     </WelcomePanel>
                     <LearningPanel
                         href={'/portal/learning'}>
                         {enrollments && enrollments?.length > 0 ? (
-                            <div>
+                            <div className='space-y-2 p-1 '>
                                 <p className='text-center font-semibold'>Your courses</p>
                                 {enrollments?.map((course) => (
-                                    <div  key={course.id} className='flex items-center space-x-4 mx-auto justify-center'>
-                                    <p className='text-zinc-800 dark:text-zinc-300 text-center'>
+                                    <div  key={course.id} className='flex items-center space-x-4 mx-auto justify-between p-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 max-w-sm '>
+                                    <p className='text-zinc-800 dark:text-zinc-300 text-center pl-2'>
                                         {course?.courses?.title}
                                     </p>
                                     <Link href={`/portal/learning/course/${course.courses.id}`}>
-                                    <button>
+                                    <button className='bg-red-300 text-black rounded-full font-semibold text-sm p-1 px-3 hover:scale-105 duration-300 ease-in-out'>
                                         Resume
                                     </button>
                                     </Link>

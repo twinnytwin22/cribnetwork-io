@@ -33,7 +33,7 @@ export interface Child {
   _key?: string;
 }
 
-interface PortableTextProps {
+export interface PortableTextProps {
   content: Content[];
 }
 
@@ -51,7 +51,7 @@ const mapMarkToComponent = (mark: string) => {
   }
 };
 
-const applyMarksToText = (child: Child) => {
+export const applyMarksToText = (child: Child) => {
   if (child?.marks && child?.marks.length > 0) {
     let markedText = child.text || '';
 

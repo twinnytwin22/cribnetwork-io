@@ -5,9 +5,9 @@ import {
   getSession,
   getSubscription
 } from '@/lib/providers/supabase/supabase-server'
-import CourseCard from '@/ui/Cards/CourseCard/CourseCard'
+import CourseCard from '@/ui/Cards/CourseCard'
 import { getAllCourses, getCoursesPageSettings, getSiteSettings } from '@/lib/providers/sanity/sanity'
-import CoursesHeader from '@/ui/Headers/CoursesHeader/CoursesHeader'
+import CoursesHeader from '@/ui/Headers/CoursesHeader'
 import SearchBar from '@/ui/Components/SearchBar'
 
 export const revalidate = 60
