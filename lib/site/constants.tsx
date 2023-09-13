@@ -3,6 +3,7 @@ export const siteAccentColor = '#fca5a5'
 export const fbUrl = 'https://www.facebook.com/thecribnetwork'
 export const igUrl = 'https://www.instagram.com/thecribnetwork/'
 export const twitterUrl = 'https://twitter.com/TheCribNetwork'
+export const instagramUrl = 'https://instagram.com/thecribnetwork'
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export function useImagePath(url: string) {

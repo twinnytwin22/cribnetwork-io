@@ -1,4 +1,5 @@
 import { getPageContent } from '@/lib/providers/sanity/sanity'
+import { fbUrl, instagramUrl, twitterUrl } from '@/lib/site/constants'
 import HomeHeader from '@/ui/Headers/HomeHeader/HomeHeader'
 import Mission from '@/ui/Sections/Mission'
 import OurTech from '@/ui/Sections/OurTech'
@@ -31,17 +32,17 @@ export default async function Home() {
           <div className='fixed z-50 top-1/2 left-10 h-screen'>
             <div className='relative space-y-4 p-4 rounded-full border text-zinc-600 dark:text-zinc-400 scale-125 bg-white dark:bg-zinc-950 hidden lg:block transition-opacity duration-200 ease-in-out ani'>
               <div>
-                <Link href={'#'}>
+                <Link href={fbUrl}>
                   <FaFacebook className='hover:text-red-300 duration-300 ease-in-out' />
                 </Link>
               </div>
               <div>
-                <Link href={'#'}>
+                <Link href={twitterUrl}>
                   <FaTwitter className='hover:text-red-300 duration-300 ease-in-out' />
                 </Link>
               </div>
               <div>
-                <Link href={'#'}>
+                <Link href={instagramUrl}>
                   <FaInstagram className='hover:text-red-300 duration-300 ease-in-out' />
                 </Link>
               </div>
