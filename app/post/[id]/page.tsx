@@ -1,9 +1,56 @@
+import type { Metadata, ResolvingMetadata } from 'next'
+
 import { getBlogPosts, imageBuilder } from '@/lib/providers/sanity/sanity'
 import { PortableBlogText } from '@/ui/Components/PortableBlogText'
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+
+type Props = {
+  params: { id: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+ 
+
 export const revalidate = 0
+
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // Read route params
+  const id = params.id;
+
+  // Fetch data
+  const { res, slugs } = await getBlogPosts();
+
+  if (slugs.includes(id)) {
+    const relatedPost = res?.find((post: { slug: { current: string } }) =>
+      post.slug.current === id
+    );
+
+    // Optionally access and extend (rather than replace) parent metadata
+    const previousImages = (await parent).openGraph?.images || [];
+    const image = imageBuilder(relatedPost?.coverImage);
+
+    return {
+      title: relatedPost?.title,
+      openGraph: {
+        images: [image!, ...previousImages],
+      },
+    };
+  }
+
+  // Handle the case where 'id' is not found in 'slugs'
+  return {
+    title: 'Not Found', // You can customize this error title
+    openGraph: {
+    //  images: ['/default-error-image.jpg'], // You can customize this error image
+    },
+  };
+}
+
 
 export async function generateStaticParams() {
     const { slugs } = await getBlogPosts()
@@ -14,15 +61,15 @@ export async function generateStaticParams() {
   }
 
 
-async function Page({ params }: { params: { id?: string, slug: string } }) {
-    const res = await getBlogPosts()
+async function Page({ params, searchParams }: { params: { id?: string, slug: string }, searchParams }) {
+    const { success, slugs, res } = await getBlogPosts()
 
-    if (res.success) {
+    if (success) {
         const { id: slug } = params
         //        console.log(res.slugs, 'SLUGS', slug, 'BROWSER SLUG')
-        if (res.slugs.includes(slug)) {
+        if (slugs.includes(slug)) {
             const relatedPost =
-                res.res?.find((post: { slug: { current: string } }) =>
+                res?.find((post: { slug: { current: string } }) =>
                     post.slug.current === slug)
             // console.log(relatedPost)
             return (
