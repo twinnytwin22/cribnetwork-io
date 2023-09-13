@@ -6,6 +6,9 @@ import { convertDatetime } from '@/lib/hooks/convertDatetime';
 import { imageBuilder } from '@/lib/providers/sanity/sanity';
 const BlogPost = ({ category, _createdAt, title, content, author, authorAvatar, slug, coverImage }) => {
     const image = imageBuilder(coverImage)
+    const excerptPg = content.slice(0,1)
+    const excerpt = excerptPg
+
 
     return   (
     <article className="p-6 bg-white rounded-lg border border-zinc-200 shadow-md dark:bg-zinc-950 dark:border-zinc-800">
@@ -18,7 +21,12 @@ const BlogPost = ({ category, _createdAt, title, content, author, authorAvatar, 
         <h2 className="mb-2 text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
             <Link href={`/post/${slug?.current}`} >{title}</Link>
         </h2>
-        <div className="mb-5 font-light text-zinc-500 dark:text-zinc-400 text-sm"><PortableText content={content.slice(0,1)} /></div>
+        <div className="mb-5 font-light text-zinc-500 dark:text-zinc-400 text-sm">
+            <PortableText 
+             content={excerpt}
+             shorten={true}
+             maxLength={240} />
+        </div>
         <div className="flex justify-between items-center">
             <div className="flex items-center space-x-4">
                 <div className='rounded-full bg-zinc-100 contrast-'>

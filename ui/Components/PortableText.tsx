@@ -35,6 +35,8 @@ export interface Child {
 
 export interface PortableTextProps {
   content: Content[];
+  shorten?: boolean
+  maxLength?: number
 }
 
 const mapMarkToComponent = (mark: string) => {
@@ -68,7 +70,28 @@ export const applyMarksToText = (child: Child) => {
   }
 };
 
-const PortableText: React.FC<PortableTextProps> = ({ content }) => {
+const PortableText: React.FC<PortableTextProps> = ({ content, shorten, maxLength }) => {
+
+  if (shorten) {
+    if (maxLength) {
+      // Define the maximum character count for truncation
+      const shortenedContent = content.map((block, index) => {
+        if (block?._type === 'block') {
+          const paragraphText = block?.children!
+            .map((child) => (typeof child === 'string' ? child : applyMarksToText(child).props.children))
+            .join('');
+  
+          const truncatedText = paragraphText.length > maxLength ? `${paragraphText.slice(0, maxLength)}...` : paragraphText;
+  
+          return <p key={index}>{truncatedText}</p>;
+        }
+        return null;
+      });
+  
+      return <div>{shortenedContent}</div>;
+    }
+  }
+
   return (
     <div>
       {content?.map((block, index) => {
