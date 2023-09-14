@@ -24,7 +24,7 @@ const Footer = ({settings}) => {
     };
 
     if (logo) {
-        return <DevFooter logo={logo}/>
+        return <DevFooter logo={logo} settings={settings}/>
     }
     return (
         <footer className="bg-white dark:bg-black border-t border-zinc-200 dark:border-zinc-800 relative z-10">
@@ -139,7 +139,11 @@ const Footer = ({settings}) => {
 export default Footer;
 
 
-export const DevFooter = ({logo}) => {
+export const DevFooter = ({logo, settings}) => {
+    const setOpen = useContactButtonStore((state: any) => state.setOpen);
+    const handleOpenModal = () => {
+      setOpen(true);
+    };
     return (
 
 <footer className="bg-white rounded-lg shadow dark:bg-black">
@@ -157,16 +161,16 @@ export const DevFooter = ({logo}) => {
                         </Link>
             <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-zinc-500 sm:mb-0 dark:text-zinc-400">
                 <li>
-                    <a href="#" className="mr-4 hover:underline md:mr-6 ">About</a>
+                    <Link href="/about" className="mr-4 hover:underline md:mr-6 ">About</Link>
                 </li>
                 <li>
-                    <a href="#" className="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+                    <Link href="/privacy-policy" className="mr-4 hover:underline md:mr-6">Cookie & Privacy Policy</Link>
                 </li>
                 <li>
-                    <a href="#" className="mr-4 hover:underline md:mr-6 ">Licensing</a>
+                    <Link href="/terms" className="mr-4 hover:underline md:mr-6 ">Terms</Link>
                 </li>
                 <li>
-                    <a href="#" className="hover:underline">Contact</a>
+                    <div onClick={handleOpenModal} className="hover:underline">Contact</div>
                 </li>
             </ul>
         </div>
