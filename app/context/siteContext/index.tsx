@@ -2,7 +2,6 @@
 import { getCookieConsent } from '@/lib/site/cookies/cookie-getter'
 import { setCookieConsent } from '@/lib/site/cookies/cookie-setter'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { getCookies } from 'cookies-next'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { MdCancel } from 'react-icons/md'
 
@@ -11,6 +10,8 @@ export const useSiteContext = () => useContext(SiteContext)
 
 function SiteContextProvider({ children }: { children: React.ReactNode }) {
     const [showCookieConsentBar, setShowCookieConsentBar] = useState(true)
+    const cookieMessage = `We use our own cookies as well as third-party cookies on our websites to enhance your experience, analyze our traffic, and for security and marketing. Select "Accept All" to allow them to be used. Read our Cookie Policy.`;
+
     const qc =  useQueryClient()
     const {data:cookieConsent, isLoading} = useQuery({
         queryKey: ['cookieConsent'],
@@ -57,8 +58,7 @@ function SiteContextProvider({ children }: { children: React.ReactNode }) {
                     <div className='fixed bottom-0 bg-black w-screen py-8 p-4'>
                         <div className='flex items-center justify-between max-w-screen-2xl w-full mx-auto relative'>
                             <p className=' w-1/2 text-sm'>
-                                We use our own cookies as well as third-party cookies on our websites to enhance your experience, analyze our traffic, and for security and marketing. Select "Accept All" to allow them to be used. Read our Cookie Policy.
-                            </p>
+{cookieMessage}                            </p>
                             <div className='flex space-x-4 mx-auto justify-around font-owners text-sm font-semibold '>
                                 <button
                                     className='hover:text-red-300'
