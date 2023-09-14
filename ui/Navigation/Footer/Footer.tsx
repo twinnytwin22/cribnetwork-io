@@ -8,9 +8,7 @@ import { useContactButtonStore } from '@/ui/Buttons/ContactButton/contactButtonS
 import { useAuthProvider } from '@/app/context/auth';
 import { imageBuilder } from '@/lib/providers/sanity/sanity';
 
-const handleOpenModal = (setOpen: (arg0: boolean) => void) => {
-    setOpen(true);
-};
+
 const Footer = ({settings}) => {
     const pathname = usePathname()
     const { user } = useAuthProvider()
@@ -140,6 +138,7 @@ export default Footer;
 
 
 export const DevFooter = ({logo, settings}) => {
+    const { user } = useAuthProvider()
     const setOpen = useContactButtonStore((state: any) => state.setOpen);
     const handleOpenModal = () => {
       setOpen(true);
@@ -170,7 +169,11 @@ export const DevFooter = ({logo, settings}) => {
                     <Link href="/terms" className="mr-4 hover:underline md:mr-6 ">Terms</Link>
                 </li>
                 <li>
-                    <div onClick={handleOpenModal} className="hover:underline">Contact</div>
+                    <div onClick={handleOpenModal} className="mr-4 md:mr-6 hover:underline">Contact</div>
+                </li>
+                <li>
+                {user ? <Link href="/portal" className="hover:underline">My Account</Link> :
+                                    <Link href='/login' className="hover:underline"> Sign In </Link>}
                 </li>
             </ul>
         </div>

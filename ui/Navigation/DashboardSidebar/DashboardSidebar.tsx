@@ -1,6 +1,7 @@
 'use client'
 import { useAuthProvider } from '@/app/context/auth'
 import { PortalPageTitle } from '@/lib/hooks/PortalPageTitle'
+import { useContactButtonStore } from '@/ui/Buttons/ContactButton/contactButtonStore'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { BsGlobe2 } from 'react-icons/bs'
@@ -8,6 +9,10 @@ import { FaUser, FaCog, FaSignOutAlt, FaBook, FaFacebook, FaTwitter, FaGithub, F
 function DashboardSidebar() {
   const { user, signOut, profile } = useAuthProvider()
   const [showTooltip, setShowTooltip] = useState('');
+  const setOpen = useContactButtonStore((state: any) => state.setOpen);
+  const handleOpenModal = () => {
+    setOpen(true);
+  };
   const handleSetTooltip = (title: string) => {
     setShowTooltip(title);
     return title
@@ -86,6 +91,19 @@ function DashboardSidebar() {
               )}
             </li>
           ))}
+        </ul>
+      </div>
+      <div className='absolute bottom-14 p-4 left-0 text-xs text-zinc-700 dark:text-zinc-300'>
+        <ul>
+          <li>
+            <Link href="/privacy-policy" className="mr-4 hover:underline md:mr-6">Cookie & Privacy Policy</Link>
+          </li>
+          <li>
+            <Link href="/terms" className="mr-4 hover:underline md:mr-6 ">Terms</Link>
+          </li>
+          <li>
+            <div onClick={handleOpenModal} className="mr-4 md:mr-6 hover:underline">Contact</div>
+          </li>
         </ul>
       </div>
       <div
