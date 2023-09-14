@@ -58,7 +58,8 @@ function SiteContextProvider({ children }: { children: React.ReactNode }) {
                     <div className='fixed bottom-0 bg-black w-screen py-8 p-4'>
                         <div className='flex items-center justify-between max-w-screen-2xl w-full mx-auto relative'>
                             <p className=' w-1/2 text-sm'>
-{cookieMessage}                            </p>
+                             {cookieMessage}                            
+                             </p>
                             <div className='flex space-x-4 mx-auto justify-around font-owners text-sm font-semibold '>
                                 <button
                                     className='hover:text-red-300'
