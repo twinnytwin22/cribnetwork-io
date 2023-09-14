@@ -5,6 +5,7 @@ import { PortableBlogText } from '@/ui/Components/PortableBlogText'
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import BlogSocialShare from '@/ui/Components/BlogSocialShare'
 
 type Props = {
   params: { id: string }
@@ -75,9 +76,12 @@ async function Page({ params, searchParams }: Props) {
             return (
               <>
                 
-                <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-zinc-900 antialiased">
-                  <div className="flex justify-between px-4 mx-auto max-w-screen-xl mt-8 w-full">
+                <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-zinc-900 antialiased w-full max-w-screen ">
+                  <div className="flex justify-between px-4 mx-auto max-w-screen-2xl  mt-8 w-full gap-8">
                  <ArticleComponent post={relatedPost}/>
+                 <div className='max-w-lg hidden md:block scale-90 lg:scale-100'>
+                  <BlogSocialShare title={relatedPost.title}/>
+                 </div>
                   </div>
                 </main>
                 
@@ -110,7 +114,7 @@ function ArticleComponent({post}) {
   const image = imageBuilder(post?.coverImage)
   console.log(post, image)
   return (
-    <article className="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
+    <article className="mx-auto w-full max-w-4xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
       <header className="mb-4 lg:mb-6 not-format">
         <address className="flex items-center mb-6 not-italic">
           <div className="inline-flex items-center mr-3 text-sm text-zinc-900 dark:text-white">
@@ -125,11 +129,11 @@ function ArticleComponent({post}) {
         </address>
         <h2 className="my-12 text-3xl font-extrabold leading-tight text-zinc-900 lg:mb-6 lg:text-4xl ei dark:text-white">{post?.title}</h2>
       </header>
-   <Image src={image} alt={post.title} width={1000} height={600} className='aspect-video object-cover rounded-lg my-12'/>
+   <Image src={image} alt={post.title} width={1000} height={600} className='aspect-video object-cover rounded-lg my-12 shadow-lg'/>
 
     <PortableBlogText content={post?.content}/>
       <footer>
-        <p className="mt-12 text-lg text-zinc-700 dark:text-zinc-400">
+        <p className="mt-12 text-lg text-zinc-600 dark:text-zinc-400">
           Thanks for reading! If you have any questions or feedback, please do not hesitate to reach out.
         </p>
       </footer>
