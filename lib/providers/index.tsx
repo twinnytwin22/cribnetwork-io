@@ -7,13 +7,8 @@ import { AuthContextProvider } from "@/app/context/auth";
 import InvoiceContextProvider from "@/app/context/invoice";
 import SiteContextProvider from "@/app/context/siteContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-const ThemeProvider = dynamic(
-    async () => {
-        const mod = await import("next-themes");
-        return mod.ThemeProvider;
-    },
-); const queryClient = new QueryClient()
+import { ThemeProvider } from "next-themes";
+const queryClient = new QueryClient()
 
 
 

@@ -1,6 +1,7 @@
 import { getPageContent } from '@/lib/providers/sanity/sanity'
 import { fbUrl, instagramUrl, twitterUrl } from '@/lib/site/constants'
 import HomeHeader from '@/ui/Headers/HomeHeader/HomeHeader'
+import CTA from '@/ui/Sections/CTA/CTA'
 import Mission from '@/ui/Sections/Mission'
 import OurTech from '@/ui/Sections/OurTech'
 import Overview from '@/ui/Sections/Overview'
@@ -28,6 +29,7 @@ export default async function Home() {
           </React.Suspense>
           <Mission />
           <Services />
+          <CTA/>
           <OurTech />
           <div className='fixed z-50 top-1/2 left-10 h-screen'>
             <div className='relative space-y-4 p-4 rounded-full border text-zinc-600 dark:text-zinc-400 scale-125 bg-white dark:bg-zinc-950 hidden lg:block transition-opacity duration-200 ease-in-out ani'>
