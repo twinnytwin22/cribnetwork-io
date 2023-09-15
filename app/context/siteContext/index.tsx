@@ -84,7 +84,7 @@ function SiteContextProvider({ children }: { children: React.ReactNode }) {
             {children}
             <React.Fragment>
                 {!initialConsentStatus &&
-                    <div className='fixed bottom-0 bg-black w-screen py-8 p-4'>
+                    <div className='fixed bottom-0 bg-black w-screen py-8 p-4 z-50'>
                         <div className='flex items-center justify-between max-w-screen-2xl w-full mx-auto relative'>
                             <p className=' w-1/2 text-sm'>
                              {cookieMessage}                            
