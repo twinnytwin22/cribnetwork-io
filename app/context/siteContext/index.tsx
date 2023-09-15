@@ -28,6 +28,8 @@ function SiteContextProvider({ children }: { children: React.ReactNode }) {
 
     const handleAcceptCookies = async () => {
         acceptCookiesMutation.mutate(true)
+        handleCloseCookieBar()
+        
     }
 
     const handleBlockCookies = async () => {
@@ -63,9 +65,20 @@ function SiteContextProvider({ children }: { children: React.ReactNode }) {
         handleBlockCookies,
         cookieConsent,
     }
-    const options = 'accepted' || 'declined'
-    const initialConsentStatus = cookieConsent === options;
+   // const options = 'accepted' || 'declined'
+   
 
+    const getInitialConsentStatus =  () => {
+        if(cookieConsent === 'accepted'){
+            return true
+        }
+        if (cookieConsentStatus){
+            return true
+        }
+        return false
+    }
+
+    const initialConsentStatus = getInitialConsentStatus()
     return (
         <SiteContext.Provider value={value}>
             {children}
