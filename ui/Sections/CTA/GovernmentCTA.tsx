@@ -16,9 +16,9 @@ function GovernmentCTA() {
       />
             <div className="absolute inset-0 bg-black opacity-75 "></div>
 
-    <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6 relative z-10">
-        <div className="max-w-screen-md">
-            <h2 className="mb-4 text-4xl tracking-tight font-medium font=owners :text-white">Also serving the government sector.</h2>
+    <div className="py-8 px-4 mx-auto max-w-screen-lg sm:py-16 lg:px-6 relative z-10">
+        <div className="justify-end flex flex-col items-end w-full mx-auto">
+            <h2 className="mb-4 text-4xl tracking-tight font-medium font=owners text-white">Also serving the government sector.</h2>
             <p className="mb-8 font-light sm:text-xl text-zinc-300 font-owners tracking-wider">Empowering Government Initiatives Through Technology Solutions</p>
             <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
          <ContactButton/> 
