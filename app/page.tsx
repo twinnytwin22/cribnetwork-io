@@ -27,12 +27,13 @@ export default async function Home() {
             <HomeHeader content={section[0].items[0]} />
             <SocialProof />
             <Overview content={section[1]} />
-            <GovernmentCTA/>
+            <CTA/>
           </React.Suspense>
           <Mission />
           <Services />
-          <CTA/>
-          <OurTech />
+          <GovernmentCTA/>
+
+        {/* <OurTech />*/} 
           <div className='fixed z-50 top-1/2 left-10 h-screen'>
             <div className='relative space-y-4 p-4 rounded-full border text-zinc-600 dark:text-zinc-400 scale-125 bg-white dark:bg-zinc-950 hidden lg:block transition-opacity duration-200 ease-in-out ani'>
               <div>
