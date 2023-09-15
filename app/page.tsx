@@ -2,6 +2,7 @@ import { getPageContent } from '@/lib/providers/sanity/sanity'
 import { fbUrl, instagramUrl, twitterUrl } from '@/lib/site/constants'
 import HomeHeader from '@/ui/Headers/HomeHeader/HomeHeader'
 import CTA from '@/ui/Sections/CTA/CTA'
+import GovernmentCTA from '@/ui/Sections/CTA/GovernmentCTA'
 import Mission from '@/ui/Sections/Mission'
 import OurTech from '@/ui/Sections/OurTech'
 import Overview from '@/ui/Sections/Overview'
@@ -26,6 +27,7 @@ export default async function Home() {
             <HomeHeader content={section[0].items[0]} />
             <SocialProof />
             <Overview content={section[1]} />
+            <GovernmentCTA/>
           </React.Suspense>
           <Mission />
           <Services />
