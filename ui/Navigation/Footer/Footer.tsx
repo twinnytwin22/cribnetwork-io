@@ -178,7 +178,12 @@ export const DevFooter = ({logo, settings}) => {
             </ul>
         </div>
         <hr className="my-6 border-zinc-200 sm:mx-auto dark:border-zinc-700 lg:my-8" />
-        <span className="block text-sm text-zinc-500 sm:text-center dark:text-zinc-400">© 2023 <a href="https://flowbite.com/" className="hover:underline">Flowbite™</a>. All Rights Reserved.</span>
+        <div className="mx-auto justify-center mt-4 text-sm text-zinc-600 dark:text-zinc-400 flex space-x-2">
+                           <p> CRIB, LLC</p>
+                           <p> Phoenix, Arizona, USA</p>
+                          <p>  info@cribnetwork.io</p>
+                        </div>
+        <span className="block text-sm text-zinc-500 sm:text-center dark:text-zinc-400">© 2023 <a href="https://flowbite.com/" className="hover:underline">CRIB, LLC™</a>. All Rights Reserved.</span>
     </div>
 </footer>
 
