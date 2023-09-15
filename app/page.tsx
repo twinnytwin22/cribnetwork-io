@@ -35,7 +35,7 @@ export default async function Home() {
 
         {/* <OurTech />*/} 
           <div className='fixed z-50 top-1/2 left-10 h-screen'>
-            <div className='relative space-y-4 p-4 rounded-full border text-zinc-600 dark:text-zinc-400 scale-125 bg-white dark:bg-zinc-950 hidden lg:block transition-opacity duration-200 ease-in-out ani'>
+            <div className='relative space-y-4 p-4 rounded-full border border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 scale-125 bg-white dark:bg-zinc-950 hidden lg:block transition-opacity duration-200 ease-in-out ani'>
               <div>
                 <Link href={fbUrl}>
                   <FaFacebook className='hover:text-red-300 duration-300 ease-in-out' />

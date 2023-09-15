@@ -1,6 +1,7 @@
 'use client'
 import { getCookieConsent } from '@/lib/site/cookies/cookie-getter'
 import { setCookieConsent } from '@/lib/site/cookies/cookie-setter'
+import BlogSocialShare from '@/ui/Components/BlogSocialShare'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { MdCancel } from 'react-icons/md'
@@ -19,7 +20,7 @@ function SiteContextProvider({ children }: { children: React.ReactNode }) {
       //  refetchOnMount: !!!showCookieConsentBar,
        // enabled: showCookieConsentBar!!
     })
-
+  
 
     const handleCloseCookieBar = () => {
         setCookieConsentStatus(true)

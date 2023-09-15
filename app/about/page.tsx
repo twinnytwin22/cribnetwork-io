@@ -3,6 +3,7 @@ import React from 'react'
 import BlogPostsPreview from '@/ui/Sections/BlogPostsPreview';
 import AboutHeader from '@/ui/Headers/AboutHeader';
 import { getBlogPosts } from '@/lib/providers/sanity/sanity';
+import CTA from '@/ui/Sections/CTA/CTA';
 
 export const revalidate = 0
 
@@ -15,6 +16,7 @@ async function page() {
             <React.Fragment>
                 <AboutHeader />
                 <BlogPostsPreview blogPosts={blogPosts.res} />
+                <CTA/>
             </React.Fragment>
 
         )
