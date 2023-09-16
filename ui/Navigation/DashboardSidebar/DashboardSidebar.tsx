@@ -20,13 +20,15 @@ function DashboardSidebar() {
   const handleHideTooltip = () => {
     setShowTooltip('');
   };
+
+  const analyticsUrl = process.env.NEXT_PUBLIC_TINYBIRD_DASHBOARD_URL!;
   ///   console.log(user)
   const sidebarItems = [
     { title: 'Overview', icon: <BsGlobe2 className=' -rotate-12' />, href: '/portal', target: '_self' },
     { title: 'Admin', icon: <FaCog />, condition: profile?.user_role === 'admin', href: 'https://cribnetwork.sanity.studio', target: '_blank' },
     { title: 'Database', icon: <FaDatabase />, condition: profile?.user_role === 'admin', href: 'https://supabase.com/dashboard/project/tvuqvrbxusmicpmjqpus', target: '_blank' },
     { title: 'Account', icon: <FaUser />, href: '/portal/account', target: '_self' },
-    { title: 'Analytics', icon: <FaChartPie />, href: 'https://analytics.cribnetwork.io', target: '_self' },
+    { title: 'Analytics', icon: <FaChartPie />,condition: profile?.user_role === 'admin', href: analyticsUrl, target: '_self' },
 
     { title: 'Invoicing', icon: <FaFileInvoice />, hidden: true, href: '#', target: '_self' },
     { title: 'Learning', icon: <FaBook />, href: '/portal/learning', target: '_self' },

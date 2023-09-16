@@ -1,5 +1,4 @@
 'use client'
-import { AnimatePresence } from "framer-motion";
 import { ContactModal } from "../../Sections/ContactModal";
 import { useContactButtonStore } from "./contactButtonStore";
 
@@ -23,9 +22,7 @@ const ContactButton = () => {
       >
         Let's Chat
       </button>
-      <AnimatePresence>
         {isOpen && <ContactModal handleClose={handleCloseModal} />}
-      </AnimatePresence>
     </div>
   );
 };

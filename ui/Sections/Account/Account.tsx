@@ -149,7 +149,7 @@ export default function AccountForm({subscription, session}) {
             {renderSubscriptionButton({session, router})}
             <div className="mb-4">
                 <button
-                    className="button primary bg-zinc-700 rounded-small border border-zinc-600 hover:bg-zinc-900 hover:border-zinc-700 block w-full text-white ease-in-out duration-300 text-sm p-1.5"
+                    className="button rounded primary bg-zinc-700 rounded-small border border-zinc-600 hover:bg-zinc-900 hover:border-zinc-700 block w-full text-white ease-in-out duration-300 text-sm p-1.5"
                     onClick={() => updateProfile({ fullname, username, website, avatar_url })}
                     disabled={loading}
                 >
@@ -159,7 +159,7 @@ export default function AccountForm({subscription, session}) {
 
             <div>
                 <form action="/auth/signout" method="post">
-                    <button className="button block w-full" type="submit">
+                    <button className="button block w-full rounded" type="submit">
                         Sign out
                     </button>
                 </form>
