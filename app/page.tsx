@@ -12,6 +12,8 @@ import Link from 'next/link'
 import React from 'react'
 import { FaFacebook, FaInstagram } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa6'
+
+export const revalidate = 60
 export default async function Home() {
 
   const [content] = await Promise.all([
