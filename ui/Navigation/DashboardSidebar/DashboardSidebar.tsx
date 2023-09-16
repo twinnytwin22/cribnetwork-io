@@ -5,7 +5,7 @@ import { useContactButtonStore } from '@/ui/Buttons/ContactButton/contactButtonS
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { BsGlobe2 } from 'react-icons/bs'
-import { FaUser, FaCog, FaSignOutAlt, FaBook, FaFacebook, FaTwitter, FaGithub, FaDatabase, FaFileInvoice } from 'react-icons/fa'; // Import the icons you need
+import { FaUser, FaCog, FaSignOutAlt, FaBook, FaFacebook, FaTwitter, FaGithub, FaDatabase, FaFileInvoice, FaChartPie } from 'react-icons/fa'; // Import the icons you need
 function DashboardSidebar() {
   const { user, signOut, profile } = useAuthProvider()
   const [showTooltip, setShowTooltip] = useState('');
@@ -26,6 +26,8 @@ function DashboardSidebar() {
     { title: 'Admin', icon: <FaCog />, condition: profile?.user_role === 'admin', href: 'https://cribnetwork.sanity.studio', target: '_blank' },
     { title: 'Database', icon: <FaDatabase />, condition: profile?.user_role === 'admin', href: 'https://supabase.com/dashboard/project/tvuqvrbxusmicpmjqpus', target: '_blank' },
     { title: 'Account', icon: <FaUser />, href: '/portal/account', target: '_self' },
+    { title: 'Analytics', icon: <FaChartPie />, href: 'https://analytics.cribnetwork.io', target: '_self' },
+
     { title: 'Invoicing', icon: <FaFileInvoice />, hidden: true, href: '#', target: '_self' },
     { title: 'Learning', icon: <FaBook />, href: '/portal/learning', target: '_self' },
     { title: 'Sign Out', icon: <FaSignOutAlt />, onClick: signOut, target: '_self' },
