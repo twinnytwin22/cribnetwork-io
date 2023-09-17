@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaLongArrowAltLeft } from 'react-icons/fa';
-import PortableText from '@/ui/Components/PortableText';
+import PortableText from '@/ui/Components/PortableText/PortableText';
 import  useCourseStore from './courseStore';
 
 function getYoutubeVideoId(url) {

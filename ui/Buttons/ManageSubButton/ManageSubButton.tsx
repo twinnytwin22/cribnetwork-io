@@ -26,3 +26,5 @@ export const redirectToCustomerPortal = async (router: any) => {
       if (error) return alert((error as Error).message);
     }
   };
+
+  export default renderSubscriptionButton

@@ -1,5 +1,5 @@
 import React from 'react';
-import { PortableTextProps, applyMarksToText } from './PortableText';
+import { PortableTextProps, applyMarksToText } from '../PortableText/PortableText';
 
 // Your existing component definitions...
 
@@ -26,3 +26,4 @@ export const PortableBlogText: React.FC<PortableTextProps> = ({ content }) => {
       );
     };
 
+export default PortableBlogText

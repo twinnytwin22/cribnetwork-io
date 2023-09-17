@@ -1,6 +1,6 @@
 import { getSiteSettings } from '@/lib/providers/sanity/sanity'
-import { PortableBlogText } from '@/ui/Components/PortableBlogText'
-import PortableText from '@/ui/Components/PortableText'
+import { PortableBlogText } from '@/ui/Components/PortableBlogText/PortableBlogText'
+import PortableText from '@/ui/Components/PortableText/PortableText'
 import React from 'react'
 
 export const revalidate = 0

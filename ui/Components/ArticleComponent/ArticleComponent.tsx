@@ -1,7 +1,7 @@
 'use client'
 import { imageBuilder } from "@/lib/providers/sanity/sanity";
-import BlogSocialShare from "./BlogSocialShare";
-import { PortableBlogText } from "./PortableBlogText";
+import BlogSocialShare from "../BlogSocialShare";
+import PortableBlogText from "../PortableBlogText";
 import Image from "next/image";
 import React, { useState } from "react";
 import { BsShare } from "react-icons/bs";

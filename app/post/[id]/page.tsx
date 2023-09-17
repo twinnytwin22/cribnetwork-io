@@ -2,7 +2,7 @@ import type { Metadata, ResolvingMetadata } from 'next'
 import { getBlogPosts, imageBuilder } from '@/lib/providers/sanity/sanity'
 import React from 'react'
 import Link from 'next/link'
-import ArticleComponent from '@/ui/Components/ArticleComponent'
+import ArticleComponent from '@/ui/Components/ArticleComponent/ArticleComponent'
 
 type Props = {
   params: { id: string }
