@@ -8,6 +8,7 @@ import CourseStatsAndStart from '@/ui/Sections/Courses/CourseStatsAndStart'
 import Course from '@/ui/Sections/Courses/Course'
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
+export const dynamicParams = true
 
 export default async function Page({ params }: { params: { courseId: string } }) {
   const { courseId = [] } = params
