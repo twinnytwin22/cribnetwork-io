@@ -7,9 +7,27 @@ import Footer from '@/ui/Navigation/Footer'
 import { getSiteSettings } from '@/lib/providers/sanity/sanity'
 import Script from 'next/script'
 import { ToastContainer } from 'react-toastify';
+import seoKeywords from '@/lib/site/seoKeywords';
+import allKeywords from '@/lib/site/seoKeywords';
+
+
 export const metadata = {
   title: 'CRIB',
   description: 'Connect. Revolutionize. Innovate. Boost.',
+
+  generator: 'Next.js',
+  applicationName: 'Next.js',
+  referrer: 'origin-when-cross-origin',
+  keywords: allKeywords,
+  authors: [{ name: 'Randal Herndon' }],
+  colorScheme: 'dark',
+  creator: 'Jiachi Liu',
+  publisher: 'Sebastian Markbåge',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
 }
 
 
