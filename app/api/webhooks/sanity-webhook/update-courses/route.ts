@@ -3,7 +3,7 @@ import { validateRequest } from '@/lib/hooks/validateRequest';
 import { getAllCourses, imageBuilder } from '@/lib/providers/sanity/sanity';
 import { supabaseApi } from '@/lib/providers/supabase/routerHandler';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 0
 
 interface CourseData {
   id: string; // Make sure to include the 'id' property
