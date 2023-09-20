@@ -8,8 +8,10 @@ export async function POST(req:Request){
     const  taxCalculation = calculateTax(items);
     console.log(taxCalculation)
 
-    return new Response('Method Not Allowed', {
-        headers: { Allow: 'POST' },
-        status: 405
-      });
-}}
+
+}
+return new Response('Method Not Allowed', {
+    headers: { Allow: 'POST' },
+    status: 405
+  });
+}
