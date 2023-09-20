@@ -1,4 +1,4 @@
-import { setCookie, deleteCookie, getCookie } from 'cookies-next';
+import { setCookie, deleteCookie } from 'cookies-next';
 
 export async function setCookieConsent(consent: boolean) {
   const oneDay = 24 * 60 * 60 * 1000 
