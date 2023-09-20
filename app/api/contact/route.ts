@@ -1,9 +1,9 @@
 import sgMail from "@sendgrid/mail";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const { subject, email, message, name, phone } = await req.json();
   if (!email) {
     return NextResponse.json("error: Email is required");
