@@ -168,7 +168,7 @@ console.log(moduleAndLessonCount)
   }
 
   return (
-    <section className='w-full h-full mx-auto relative max-w-screen flex pt-16 max-h-screen min-h-screen bg-zinc-100 dark:bg-zinc-950'>
+    <section className='w-full h-full mx-auto relative max-w-screen flex  max-h-screen min-h-screen bg-zinc-100 dark:bg-zinc-950'>
       <aside className='w-72 min-w-[288px] bg-zinc-100 dark:bg-zinc-950 border-r border-zinc-300 dark:border-zinc-800 overflow-hidden relative z-20 h-screen'>
         <div className='fixed overflow-y-scroll w-72 h-screen'>
         <div className='w-full relative'>

@@ -6,6 +6,7 @@ import CourseDetails from '@/ui/Sections/Courses/CourseDetails'
 import CourseLessons from '@/ui/Sections/Courses/CourseLessons'
 import CourseStatsAndStart from '@/ui/Sections/Courses/CourseStatsAndStart'
 import Course from '@/ui/Sections/Courses/Course'
+import CourseQuizzes from '@/ui/Sections/Courses/CourseQuizzes/CourseQuizzes'
 export const revalidate = 0
 //export const dynamicParams = true
 
@@ -38,6 +39,7 @@ export default async function Page({ params }: { params: { courseId: string } })
              </div>
            <CourseDetails course={course}/>
               <CourseLessons course={course}/>
+              <CourseQuizzes course={course}/>
             </div>
             <div className='hidden w-full md:w-1/3 lg:w-1/4 md:flex  justify-center content-center'>
              <CourseStatsAndStart course={course}/>

@@ -4,6 +4,7 @@ import WelcomePanel from '@/ui/Sections/PortalOverview/Panels/WelcomePanel';
 import LearningPanel from '@/ui/Sections/PortalOverview/Panels/LearningPanel';
 import NotificationsPanel from '@/ui/Sections/PortalOverview/Panels/NotificationsPanel';
 import { supabase } from '@/lib/site/constants';
+import PageTitle from '@/ui/Components/PageTitle/PageTitle';
 import Link from 'next/link';
 async function Portal() {
     const [session, products, subscription] = await Promise.all([
@@ -16,14 +17,16 @@ async function Portal() {
         .from('student_enrollments')
         .select('*, courses(*)')
         .eq('student_id', session?.user.id)
+        .limit(5)
     console.log(enrollments)
 
     
 
     return (
         <section className='w-screen h-full mx-auto relative'>
+            <PageTitle title='Your Overview'/>
             <React.Suspense fallback='loading'>
-                <div className='grid grid-cols-6 col-span-6 gap-8 h-1/2 mt-24 w-full px-10'>
+                <div className='grid grid-cols-6 col-span-6 gap-8 h-1/2  w-full px-10'>
                     <WelcomePanel subscription={subscription} href='/'>
                         <p className='text-zinc-800 dark:text-zinc-300 text-center'>
                             {session?.user.email}
@@ -50,6 +53,9 @@ async function Portal() {
                                     </Link>
                                     </div>
                                     ))}
+                                    <Link href={'/portal/learning/my'} prefetch>
+                                    <p className='text-xs pl-8 p-2.5 underline text-black dark:text-white'>View All</p>
+                                    </Link>
                             </div>
                         ) : (
                             <p className='text-zinc-800 dark:text-zinc-300 text-center'>

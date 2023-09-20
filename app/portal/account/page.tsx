@@ -1,6 +1,7 @@
 
 import { PortalPageTitle } from '@/lib/hooks/PortalPageTitle'
 import { getSession, getSubscription } from '@/lib/providers/supabase/supabase-server';
+import PageTitle from '@/ui/Components/PageTitle/PageTitle';
 import AccountForm from '@/ui/Sections/Account'
 import React from 'react'
 async function AccountPage() {
@@ -10,8 +11,8 @@ async function AccountPage() {
       ]);
     return session && (
         <section className='w-full h-full mx-auto relative'>
-            <PortalPageTitle title='Account Settings' toolTip='Get ya mind right' />
-            <div className='relative flex place-items-center min-h-full mx-auto w-full'>
+            <PageTitle title={'Your Account'}/>
+            <div className='relative flex  mx-auto w-full'>
                 <AccountForm session={session} subscription={subscription}/>
             </div>
         </section>

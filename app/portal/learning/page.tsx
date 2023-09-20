@@ -36,7 +36,7 @@ async function Learning () {
   }
   return settings && courses && (
     courses && (
-      <section className='w-full h-full mx-auto relative max-w-screen'>
+      <section className='w-full h-full mx-auto relative max-w-screen -mt-16'>
       <CoursesHeader settings={settings} />
       <div className='mx-10 mt-8'>
     <SearchBar/>

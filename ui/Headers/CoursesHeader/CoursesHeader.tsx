@@ -39,7 +39,7 @@ const CourseHeader = ({
         )}
 
         <div className='absolute z-30 left-0 right-0 bottom-0'>
-          <div className='flex justify-between mx-auto p-6 md:p-10 items-center'>
+          <div className='flex justify-between mx-auto p-6 md:px-10 items-center'>
             <div className='space-y-2'>
               <h1 className='text-2xl lg:text-3xl font-bold text-white'>
                 {settings ? 'Start Learning today!' : course.title}
@@ -47,9 +47,11 @@ const CourseHeader = ({
               </h1>
             </div>
             {settings ? (
+              <Link href={'/portal/learning/my'} prefetch>
               <button className='w-max min-w-[170px] text-black font-semibold bg-red-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-red-100  rounded-md text-sm px-5 py-2.5 text-center '>
                 View Your Courses
               </button>
+              </Link>
             ) : (
               null
             )}
