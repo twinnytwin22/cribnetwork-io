@@ -5,10 +5,11 @@ export async function getCookieConsent() {
   
   if (consentCookie === 'accepted') {
     // Cookie exists, return its value
-    return consentCookie;
+    return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve(consentCookie)
+    }, 500))
   } else {
-    // Cookie doesn't exist, handle accordingly (e.g., return a default value or handle the absence)
-    // For example, you can return "false" to indicate no consent by default
     return 'false';
   }
 }

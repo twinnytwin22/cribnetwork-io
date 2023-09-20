@@ -12,8 +12,6 @@ import React from 'react'
 import { FaFacebook, FaInstagram } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa6'
 
-//export const dynamic = 'force-static'
-//export const preferredRegion = 'auto'
 
 export const revalidate = 60
 export default async function Home() {
