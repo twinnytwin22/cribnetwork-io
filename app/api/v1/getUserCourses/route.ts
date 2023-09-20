@@ -29,6 +29,8 @@ try {
           console.error("Error fetching metadata:", error);
           return NextResponse.json("Error: fetching metadata");
         }
+
+        return NextResponse.json('Error: No userId found')
       }
 
 
