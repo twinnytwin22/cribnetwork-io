@@ -1,5 +1,5 @@
 "use server";
-import { headers, cookies } from "next/headers";
+import { cookies } from "next/headers";
 const host =
   process?.env.NODE_ENV === "development"
     ? "localhost:3000"
