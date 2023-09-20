@@ -34,4 +34,7 @@ export async function POST(request: Request) {
       status: 301,
     });
   }
+
+  // Provide a default response if neither error nor data is returned
+  return new Response('Internal Server Error', { status: 500 });
 }
