@@ -7,6 +7,7 @@ import CourseLessons from '@/ui/Sections/Courses/CourseLessons'
 import CourseStatsAndStart from '@/ui/Sections/Courses/CourseStatsAndStart'
 import Course from '@/ui/Sections/Courses/Course'
 import CourseQuizzes from '@/ui/Sections/Courses/CourseQuizzes/CourseQuizzes'
+import Quiz from '@/ui/Sections/Courses/Quiz/Quiz'
 export const revalidate = 0
 //export const dynamicParams = true
 
@@ -16,6 +17,7 @@ export default async function Page({ params }: { params: { courseId: string } })
 
   //console.log(courseId[1], "PARAMS")
  //console.log(course, "COURSE!!!!!")
+ 
 
  if (courseId.length > 1 && courseId[1] === 'started' ) {
   const image = imageBuilder(course?.image)
@@ -27,9 +29,22 @@ export default async function Page({ params }: { params: { courseId: string } })
     </section>)
  }
 
+
+//  if (courseId.length > 1 && courseId[1] === 'takeQuiz' ) {
+//   const image = imageBuilder(course?.image)
+//   const quizId = ''
+  
+//   return course && (
+//     <section className='w-full h-full mx-auto relative max-w-screen right-0'>
+
+//    <Quiz key={quizId} quiz={image} /> 
+
+//     </section>)
+
+//   }
   return (
     course && (
-      <section className='w-full h-full mx-auto relative max-w-screen'>
+      <section className='w-full h-full mx-auto relative max-w-screen -mt-16'>
         <CourseHeader course={course} />
         <div className='w-full mx-auto px-10 my-8 overflow-x-auto'>
           <div className='block md:flex md:space-x-8  mb-24 '>

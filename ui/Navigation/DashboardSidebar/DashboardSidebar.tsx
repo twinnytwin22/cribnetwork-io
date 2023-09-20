@@ -37,14 +37,14 @@ function DashboardSidebar () {
 
   const VercelIcon = () => (
     <svg
-    className='w-4 h-4 text-black bg-black rounded-full p-0.5'
+    className='w-4 h-4 '
       width='76'
       height='65'
       viewBox='0 0 76 65'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
-      <path d='M37.5274 0L75.0548 65H0L37.5274 0Z' fill='#ffffff'  />
+      <path d='M37.5274 0L75.0548 65H0L37.5274 0Z' fill='fill-black dark:fill-white' className='fill-black dark:fill-white' />
     </svg>
   )
   ///   console.log(user)

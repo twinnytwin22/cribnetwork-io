@@ -8,7 +8,7 @@ import { FaSchoolCircleCheck } from 'react-icons/fa6'
 
 function CourseStatsAndStart({course}) {
   return (
-    <div className='bg-white dark:bg-black rounded-lg p-4 border border-zinc-200 dark:border-zinc-800 w-full justify-center mx-auto space-y-8'>
+    <div className='bg-white dark:bg-black rounded-lg p-4 pb-10 lg:pb-auto border border-zinc-200 dark:border-zinc-800 w-full justify-center mx-auto space-y-8'>
     <div className='mt-4'>
     <h1 className='text-xl font-bold text-black dark:text-white text-center'>Get Started</h1>
       <ul className='text-black dark:text-white justify-center mx-auto w-max  md:min-w-[165px] lg:min-w-[210px] text-sm'>

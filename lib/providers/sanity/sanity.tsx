@@ -78,6 +78,11 @@ const query = `*[_type == 'course' && _id == $id] {
       description,
       content,
       overview,
+      quizzes[]-> {
+        _id,
+        title, 
+        questions,
+      },
       modules[]-> {
         _id,
         image,
