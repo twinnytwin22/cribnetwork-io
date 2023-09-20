@@ -1,4 +1,5 @@
 import { cookies, headers } from 'next/headers';
+import { NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { stripe } from '@/lib/providers/stripe/stripe';
 import { createOrRetrieveCustomer } from '@/lib/providers/supabase/supabase-lib-admin';
@@ -68,7 +69,7 @@ export async function POST(req: Request) {
       }
 
       if (session) {
-        return new Response(JSON.stringify({ sessionId: session.id }), {
+        return NextResponse.json(JSON.stringify({ sessionId: session.id }), {
           status: 200
         });
       } else {
