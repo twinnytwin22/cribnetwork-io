@@ -1,12 +1,14 @@
 import sgMail from "@sendgrid/mail";
-import { NextResponse, NextRequest } from "next/server";
+//import { NextResponse } from "next/server";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
+
+  if (req.method === "POST") {
   const { subject, email, message, name, phone } = await req.json();
   if (!email) {
-    return NextResponse.json("error: Email is required");
+    return new Response("error: Email is required");
   }
 
   const msg = {
@@ -105,9 +107,12 @@ export async function POST(req: NextRequest) {
   try {
     await sgMail.send(msg);
     console.log("Email sent");
-    NextResponse.json("success: true");
+    new Response("success: true");
   } catch (error) {
     console.error(error);
-    NextResponse.json("error: Error sending email");
+    new Response("error: Error sending email");
   }
+}
+return new Response("error: Method not allowed");
+
 }
