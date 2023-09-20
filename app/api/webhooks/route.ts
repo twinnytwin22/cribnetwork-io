@@ -19,6 +19,7 @@ const relevantEvents = new Set([
 ]);
 
 export async function POST(req: Request) {
+  if (req.method === 'POST'){ 
   const body = await req.text();
   const sig = headers().get('Stripe-Signature') as string;
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -78,4 +79,9 @@ export async function POST(req: Request) {
     }
   }
   return new Response(JSON.stringify({ received: true }));
+}
+return new Response('Method Not Allowed', {
+  headers: { Allow: 'POST' },
+  status: 405
+});
 }
