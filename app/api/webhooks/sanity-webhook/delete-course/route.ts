@@ -3,6 +3,9 @@ import { validateRequest } from '@/lib/hooks/validateRequest';
 import { getAllCourses } from '@/lib/providers/sanity/sanity';
 import { supabaseApi } from '@/lib/providers/supabase/routerHandler';
 export async function POST(req: Request) {
+  if (req.method !== 'POST') {
+    return new Response('error: Method Not Allowed', { status: 405 });
+  }
   try {
     if (req.method === 'POST') {
       const validationResponse = await validateRequest(req);

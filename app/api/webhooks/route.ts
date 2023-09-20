@@ -19,14 +19,21 @@ const relevantEvents = new Set([
 ]);
 
 export async function POST(req: Request) {
-  if (req && req.method === 'POST'){ 
+  if (req.method !== 'POST') {
+    return new Response('error: Method Not Allowed', { status: 405 });
+  }
+
   const body = await req.text();
   const sig = headers().get('Stripe-Signature') as string;
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+  if (!sig || !webhookSecret) {
+    return new Response('Webhook Error: Invalid signature', { status: 400 });
+  }
+
   let event: Stripe.Event;
 
   try {
-    if (!sig || !webhookSecret) return;
     event = stripe.webhooks.constructEvent(body, sig, webhookSecret);
   } catch (err: any) {
     console.log(`❌ Error message: ${err.message}`);
@@ -78,7 +85,6 @@ export async function POST(req: Request) {
       );
     }
   }
+  
   return new Response(JSON.stringify({ received: true }));
-} 
-return new Response('error: Method Not Allowed')
 }

@@ -5,6 +5,9 @@ import { validateRequest } from '@/lib/hooks/validateRequest';
 
 
 export async function POST(req: Request) {
+  if (req.method !== 'POST') {
+    return new Response('error: Method Not Allowed', { status: 405 });
+  }
   try {
     if (req.method === 'POST') {
       const validationResponse = await validateRequest(req);

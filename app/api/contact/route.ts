@@ -4,7 +4,9 @@ import sgMail from "@sendgrid/mail";
 sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 
 export async function POST(req: Request) {
-
+  if (req.method !== 'POST') {
+    return new Response('error: Method Not Allowed', { status: 405 });
+  }
   if (req.method === "POST") {
   const { subject, email, message, name, phone } = await req.json();
   if (!email) {
