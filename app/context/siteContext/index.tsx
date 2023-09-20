@@ -13,7 +13,7 @@ function SiteContextProvider({ children }: { children: React.ReactNode }) {
     const [cookieConsentStatus, setCookieConsentStatus] = useState(false)
     const cookieMessage = `We use our own cookies as well as third-party cookies on our websites to enhance your experience, analyze our traffic, and for security and marketing. Select "Accept All" to allow them to be used. Read our Cookie Policy.`;
 
-    const qc =  useQueryClient()
+    const qc = useQueryClient()
     const {data:cookieConsent, isLoading} = useQuery({
         queryKey: ['cookieConsent'],
         queryFn: getCookieConsent, 
@@ -70,7 +70,7 @@ function SiteContextProvider({ children }: { children: React.ReactNode }) {
 
     const getInitialConsentStatus =  () => {
         if(cookieConsent === 'accepted'){
-            return true
+            return true 
         }
         if (cookieConsentStatus){
             return true
