@@ -79,9 +79,10 @@ export async function POST(req: Request) {
     }
   }
   return new Response(JSON.stringify({ received: true }));
-}
+} else {
 return new Response('Method Not Allowed', {
   headers: { Allow: 'POST' },
   status: 405
 });
+}
 }
