@@ -17,7 +17,7 @@ export const Providers = ({ children, }: { children: React.ReactNode }) => {
     return (
         <QueryClientProvider client={queryClient}>
             <AuthContextProvider>
-                <SiteContextProvider>
+               {/* <SiteContextProvider>*/}
                     <Suspense>
 
                         <ThemeProvider enableSystem={true} attribute="class" defaultTheme="dark">
@@ -26,7 +26,8 @@ export const Providers = ({ children, }: { children: React.ReactNode }) => {
                             </InvoiceContextProvider>
                         </ThemeProvider>
                     </Suspense>
-                </SiteContextProvider>
+              {/*  </SiteContextProvider> */}
+
             </AuthContextProvider>
         </QueryClientProvider>
     );
