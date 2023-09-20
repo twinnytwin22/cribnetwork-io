@@ -3,7 +3,7 @@ import React from 'react'
 import BlogPostsPreview from '@/ui/Sections/BlogPostsPreview';
 import AboutHeader from '@/ui/Headers/AboutHeader';
 import { getBlogPosts } from '@/lib/providers/sanity/sanity';
-import CTA from '@/ui/Sections/CTA/CTA';
+import CTA from '@/ui/Sections/CTA/HomeCTA';
 
 export const revalidate = 0
 

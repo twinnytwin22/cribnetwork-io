@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaLongArrowAltLeft } from 'react-icons/fa';
 import PortableText from '@/ui/Components/PortableText/PortableText';
-import  useCourseStore from './courseStore';
+import  useCourseStore from '../courseStore';
 
 function getYoutubeVideoId(url) {
   const videoIdMatch = url.match(/(?:\?v=|\/embed\/|\/(\w+)\/|\/watch\?v=|\/v\/|\/e\/|youtu.be\/|\/d\/)([^#\&\?]*).*/);

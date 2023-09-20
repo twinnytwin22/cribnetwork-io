@@ -25,7 +25,7 @@ const securityHeaders = [
 
 const nextConfig = {
   experimental: {
-    appDir: true,
+  //  appDir: true,
     serverActions: true,
   },
   images: {

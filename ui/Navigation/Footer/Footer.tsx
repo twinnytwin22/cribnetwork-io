@@ -145,7 +145,15 @@ export const DevFooter = ({logo, settings}) => {
     };
     return (
 
-<footer className="bg-white rounded-lg shadow dark:bg-black">
+<footer className="bg-white rounded-lg shadow relative dark:bg-black">
+    <div className='absolute right-12 top-8 md:top-12 w-12 h-12 md:w-20 md:h-20'>
+        <Image
+        alt='Aws Partner Logo'
+        width={100}
+        height={100}
+        src='/logos/aws_partner.png'
+        />
+    </div>
     <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
         <Link href="/" className="flex items-center">
@@ -178,12 +186,12 @@ export const DevFooter = ({logo, settings}) => {
             </ul>
         </div>
         <hr className="my-6 border-zinc-200 sm:mx-auto dark:border-zinc-700 lg:my-8" />
-        <div className="mx-auto justify-center mt-4 text-sm text-zinc-600 dark:text-zinc-400 flex space-x-2">
+        <div className="mx-auto justify-center mt-4 text-sm text-zinc-600 dark:text-zinc-400 flex space-x-2 text-center">
                            <p> CRIB, LLC</p>
                            <p> Phoenix, Arizona, USA</p>
                           <p>  info@cribnetwork.io</p>
                         </div>
-        <span className="block text-sm text-zinc-500 sm:text-center dark:text-zinc-400">© 2023 <a href="https://flowbite.com/" className="hover:underline">CRIB, LLC™</a>. All Rights Reserved.</span>
+        <span className="hidden md:block text-sm text-zinc-500 sm:text-center dark:text-zinc-400">© 2023 <a href="https://flowbite.com/" className="hover:underline">CRIB, LLC™</a>. All Rights Reserved.</span>
     </div>
 </footer>
 

@@ -1,6 +1,6 @@
 
 import { imageBuilder, queryCourseId } from '@/lib/providers/sanity/sanity'
-import CourseHeader from '@/ui/Headers/CoursesHeader/CoursesHeader'
+import CourseHeader from '@/ui/Headers/CoursesHeader'
 import React from 'react'
 import CourseDetails from '@/ui/Sections/Courses/CourseDetails'
 import CourseLessons from '@/ui/Sections/Courses/CourseLessons'
@@ -15,7 +15,7 @@ export default async function Page({ params }: { params: { courseId: string } })
   const course = await queryCourseId(courseId[0])
 
   //console.log(courseId[1], "PARAMS")
- console.log(course, "COURSE!!!!!")
+ //console.log(course, "COURSE!!!!!")
 
  if (courseId.length > 1 && courseId[1] === 'started' ) {
   const image = imageBuilder(course?.image)

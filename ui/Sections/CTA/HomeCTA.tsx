@@ -2,7 +2,7 @@ import ContactButton from '@/ui/Buttons/ContactButton/ContactButton'
 import React from 'react'
 import Image from 'next/image'
 
-function CTA() {
+function HomeCTA() {
     const cta = `Whether you have a project in mind, need a new website, or are interested in our marketing services, we're eager to listen and assist you!`
     return (
         <section className="bg-white dark:bg-zinc-950 max-w-screen w-full border-b border-t border-zinc-200 dark:border-zinc-800 relative">
@@ -25,4 +25,4 @@ function CTA() {
         </section>)
 }
 
-export default CTA
+export default HomeCTA

@@ -1,7 +1,7 @@
 import { getPageContent } from '@/lib/providers/sanity/sanity'
 import { fbUrl, instagramUrl, twitterUrl } from '@/lib/site/constants'
 import HomeHeader from '@/ui/Headers/HomeHeader/HomeHeader'
-import CTA from '@/ui/Sections/CTA/CTA'
+import CTA from '@/ui/Sections/CTA/HomeCTA'
 import GovernmentCTA from '@/ui/Sections/CTA/GovernmentCTA'
 import Mission from '@/ui/Sections/Mission'
 import OurTech from '@/ui/Sections/OurTech'
