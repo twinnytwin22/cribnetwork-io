@@ -12,10 +12,8 @@ function Overview({ content }: any) {
     const headingClass = 'text-2xl md:text-3xl font-medium text-center text-black dark:text-white font-owners';
     const pClass = 'text-zinc-800 dark:text-zinc-200 text-lg text-center';
 
-
     const renderedContent = content.items.slice().reverse(); // Reverse the array
    // console.log(content)
-
     return renderedContent && (
         <div className='bg-white dark:bg-black w-full py-24 px-8 border-b border-zinc-300 dark:border-zinc-800'>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-screen-2xl w-full mx-auto place-items-start gap-4'>

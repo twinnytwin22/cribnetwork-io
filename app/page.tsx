@@ -11,6 +11,7 @@ import Link from 'next/link'
 import React from 'react'
 import { FaFacebook, FaInstagram } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa6'
+import ViewOurWork from '../ui/Sections/CTA/ViewOurWork'
 
 
 export const revalidate = 60
@@ -43,6 +44,7 @@ export default async function Home() {
                   <FaFacebook className='hover:text-red-300 duration-300 ease-in-out' />
                 </Link>
               </div>
+          
               <div>
                 <Link href={twitterUrl}>
                   <FaTwitter className='hover:text-red-300 duration-300 ease-in-out' />
