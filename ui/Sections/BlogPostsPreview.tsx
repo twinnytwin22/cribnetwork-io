@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { convertDatetime } from '@/lib/hooks/convertDatetime';
 import { imageBuilder } from '@/lib/providers/sanity/sanity';
-import { getSiteImage } from '@/app/web-development/page';
+import { getSiteImage } from '@/utils/use-server';
 const BlogPost = ({ category, _createdAt, title, content, author, authorAvatar, slug, coverImage }) => {
     const image = imageBuilder(coverImage)
     const excerptPg = content.slice(0,1)
