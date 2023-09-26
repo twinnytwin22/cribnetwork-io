@@ -3,7 +3,7 @@ import HomeCTA from '@/ui/Sections/CTA/HomeCTA'
 import Image from 'next/image'
 import React from 'react'
 
-export const dynamic = 'force-static'
+//export const dynamic = 'force-static'
 function page () {
   //HEADINGS
   
