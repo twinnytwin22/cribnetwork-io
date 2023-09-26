@@ -1,13 +1,14 @@
 import ContactButton from '@/ui/Buttons/ContactButton/ContactButton'
 import React from 'react'
 import Image from 'next/image'
+import { getSiteImage } from '@/app/web-development/page'
 
 function GovernmentCTA() {
   return (
 <section className="bg-white dark:bg-zinc-900 max-w-screen w-full relative border-b border-t border-zinc-200 dark:border-zinc-700" >
 <Image
         priority
-        src={'/images/govsector.jpeg'}
+        src={getSiteImage('/govsector.jpeg')}
         alt="Background"
         fill
         quality={75}

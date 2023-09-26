@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { convertDatetime } from '@/lib/hooks/convertDatetime';
 import { imageBuilder } from '@/lib/providers/sanity/sanity';
+import { getSiteImage } from '@/app/web-development/page';
 const BlogPost = ({ category, _createdAt, title, content, author, authorAvatar, slug, coverImage }) => {
     const image = imageBuilder(coverImage)
     const excerptPg = content.slice(0,1)
@@ -30,7 +31,7 @@ const BlogPost = ({ category, _createdAt, title, content, author, authorAvatar, 
         <div className="flex justify-between items-center">
             <div className="flex items-center space-x-4">
                 <div className='rounded-full bg-zinc-100 contrast-'>
-                    <Image width={30} height={30} className="w-7 h-7 rounded-full" src={'/images/network-ball.png'} alt={`${author} avatar`} />
+                    <Image width={30} height={30} className="w-7 h-7 rounded-full" src={getSiteImage('/network-ball.png')} alt={`${author} avatar`} />
                 </div>
                 <span className="font-medium text-black dark:text-white">{author}</span>
             </div>

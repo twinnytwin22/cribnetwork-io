@@ -1,6 +1,15 @@
 import ContactButton from '@/ui/Buttons/ContactButton/ContactButton'
+import HomeCTA from '@/ui/Sections/CTA/HomeCTA'
 import Image from 'next/image'
 import React from 'react'
+
+export const dynamic = 'force-dynamic'
+
+export const getSiteImage = (image: string) => {
+  const baseUrl = `${process.env.SUPABASE_URL!}/storage/v1/object/public/site_images` 
+  const imageUrl = baseUrl + image
+  return imageUrl 
+}
 
 function page () {
   //HEADINGS
@@ -32,11 +41,11 @@ function page () {
   Results-Driven: Our focus is on delivering websites and applications that drive real results for your business.`
   
   //IMAGES
-  const introImage = `/images/web-design.jpeg`
-  const customWepImage = `/images/dwd-mock.png`
-  const cmsWepImage = `/images/curl-mockup.png`
-  const webAppImage = `/images/subport-mock.png`
-  const microImage = ` /images/web-maintenance.jpeg`
+  const introImage = getSiteImage(`/web-design.jpeg`)
+  const customWepImage = getSiteImage(`/dwd-mock.png`)
+  const cmsWepImage = getSiteImage(`/curl-mockup.png`)
+  const webAppImage = getSiteImage(`/subport-mock.png`)
+  const microImage = getSiteImage(`/web-micro.jpeg`)
  
   return (
     <div className='w-full mt-12'>
@@ -163,6 +172,7 @@ function page () {
 
           </div>
         </div>
+        <HomeCTA/>
       </section>
     </div>
   )

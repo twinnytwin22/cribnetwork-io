@@ -3,6 +3,7 @@ import React from 'react'
 import { useContactButtonStore } from '@/ui/Buttons/ContactButton/contactButtonStore';
 import Image from 'next/image';
 import ContactButton from '@/ui/Buttons/ContactButton/ContactButton';
+import { getSiteImage } from '@/app/web-development/page';
 
 function AboutHeader() {
     const setOpen = useContactButtonStore((state: any) => state.setOpen);
@@ -32,8 +33,8 @@ const ImageMask = () => {
     return (
 
         <div className="grid grid-cols-2 gap-4 mt-8">
-            <Image width={150} height={350} className="w-full object-cover h-[350px] hover:-translate-y-8 duration-300 ease-in-out rounded-lg" src="/images/programmer-close.jpg" alt="office content 1" />
-            <Image width={150} height={350} className="mt-4 w-full lg:mt-10 h-[350px] object-cover rounded-lg hover:-translate-y-8 duration-300 ease-in-out" src="/images/programmer-far.jpg" alt="office content 2" />
+            <Image width={150} height={350} className="w-full object-cover h-[350px] hover:-translate-y-8 duration-300 ease-in-out rounded-lg" src={getSiteImage("/programmer-close.jpg")} alt="office content 1" />
+            <Image width={150} height={350} className="mt-4 w-full lg:mt-10 h-[350px] object-cover rounded-lg hover:-translate-y-8 duration-300 ease-in-out" src={getSiteImage("/programmer-far.jpg")} alt="office content 2" />
         </div>
 
 

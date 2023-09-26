@@ -1,6 +1,7 @@
 import ContactButton from '@/ui/Buttons/ContactButton/ContactButton'
 import React from 'react'
 import Image from 'next/image'
+import { getSiteImage } from '@/app/web-development/page'
 
 function HomeCTA() {
     const cta = `Whether you have a project in mind, need a new website, or are interested in our marketing services, we're eager to listen and assist you!`
@@ -8,7 +9,7 @@ function HomeCTA() {
         <section className="bg-white dark:bg-zinc-950 max-w-screen w-full border-b border-t border-zinc-200 dark:border-zinc-800 relative">
             <Image
                 priority
-                src={'/images/projectmanage.png'}
+                src={getSiteImage('/projectmanage.png')}
                 alt="Background"
                 fill
                 quality={75}
