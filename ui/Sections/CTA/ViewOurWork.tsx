@@ -10,18 +10,18 @@ function ViewOurWork() {
                 <div>
                     <h1 className={headingClass}>
                         Web Design
-                        </h1>
+                    </h1>
                 </div>
                 <div>
-                <h1 className={headingClass}>
+                    <h1 className={headingClass}>
                         Digital Marketing
-                        </h1>
+                    </h1>
                 </div>
 
                 <div>
-                <h1 className={headingClass}>
+                    <h1 className={headingClass}>
                         Technical Support
-                        </h1>
+                    </h1>
                 </div>
             </div>
 

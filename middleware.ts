@@ -5,7 +5,7 @@ import { Kafka } from "@upstash/kafka";
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
   let cookie = req.cookies.getAll()
-console.log(cookie)
+//console.log(cookie)
   const { pathname } = req.nextUrl;
   const res = NextResponse.redirect(new URL("/", req.url));
   const nonce = uuid();

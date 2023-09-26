@@ -11,25 +11,28 @@ import Link from 'next/link'
 import React from 'react'
 import { FaFacebook, FaInstagram } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa6'
-import ViewOurWork from '../ui/Sections/CTA/ViewOurWork'
 
 
 export const revalidate = 60
 export default async function Home() {
 
-  const [content] = await Promise.all([
+  const [ { pages }] = await Promise.all([
     getPageContent()
   ])
-  const section = content?.homePage.sections
+  const homePageContent = pages?.find((page: any) => page?.title === 'Home')
+  const homeHeaderContent = homePageContent?.sections.find((section: any) => section?.heading === 'Home Header')
+  const overViewContent = homePageContent?.sections.find((section: any) => section?.heading === 'Overview')
 
-  if (content) {
+  console.log(homeHeaderContent, "HOME")
+
+  if (homePageContent) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-between  bg-white dark:bg-black  w-full max-w-screen">
         <React.Fragment>
           <React.Suspense>
-            <HomeHeader content={section[0].items[0]} />
+            <HomeHeader content={homeHeaderContent.items[0]} />
             <SocialProof />
-            <Overview content={section[1]} />
+            <Overview content={overViewContent} />
             <CTA/>
           </React.Suspense>
           <Mission />

@@ -123,8 +123,8 @@ export function imageBuilder(inputString: any) {
 export async function getPageContent() {
     const query: string = '*%5B_type%20%3D%3D%20%22page%22%5D'
     const res = await fetchSanity(query)
-
+    const pages = res
     const homePage = res[0]
-    return { homePage }
+    return { homePage, pages }
 
 }
