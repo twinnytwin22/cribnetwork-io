@@ -2,7 +2,7 @@
 import React from 'react'
 import { useContactButtonStore } from '@/ui/Buttons/ContactButton/contactButtonStore';
 import Image from 'next/image';
-import ContactButton from '@/ui/Buttons/ContactButton/ContactButton';
+import ContactButton from '@/ui/Buttons/ContactButton/';
 import { getSiteImage } from '@/app/web-development/page';
 
 function AboutHeader() {
