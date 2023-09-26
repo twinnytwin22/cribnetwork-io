@@ -49,7 +49,7 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
   Results-Driven: Our focus is on delivering websites and applications that drive real results for your business.`
   
   //IMAGES
-  const introImage = getSiteImage(`/digital-marketing.png`)
+  const digitalMarketingImage = getSiteImage(`/digital-marketing.png`)
   const seoImage = getSiteImage(`/seo.png`)
   const emailMarketingImage = getSiteImage(`/email-marketing.png`)
   const socialMediaMarketingImage = getSiteImage(`/smm.png`)
@@ -71,11 +71,13 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
             </p>
             <ContactButton />
           </div>
-          <div className='hidden lg:mt-0 lg:col-span-5 lg:flex'>
-            <img
-              src={introImage}
+          <div className='mx-auto object-cover max-w-lg w-full relative order-first lg:order-last'>
+            <Image
+              width={400}
+              height={325}
+              src={digitalMarketingImage}
               alt='mockup'
-              className='m-8 rounded-2xl'
+              className='my-8 rounded-2xl object-cover w-max h-max'
             />
           </div>
         </div>
