@@ -48,7 +48,7 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
   return (
     <div className='w-full mt-12'>
       <section className='bg-zinc-100 dark:bg-zinc-950 w-full border-b border-zinc-300 dark:border-zinc-800'>
-        <div className='grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12'>
+        <div className='grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8  lg:py-16 lg:grid-cols-12'>
           <div className='mr-auto place-self-center lg:col-span-7'>
             <h1 className='max-w-2xl mb-4 text-4xl font-semibold tracking-tight leading-none md:text-5xl xl:text-6xl text-black dark:text-white font-owners'>
              {digitalMarketingH}{' '}
@@ -61,7 +61,7 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
             </p>
             <ContactButton />
           </div>
-          <div className='mx-auto object-cover max-w-lg w-full relative order-first lg:order-last'>
+          <div className='mx-auto object-cover max-w-lg w-full relative order-first lg:order-last lg:col-span-5'>
             <Image
             priority
               width={400}
