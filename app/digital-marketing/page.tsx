@@ -1,5 +1,6 @@
 import ContactButton from '@/ui/Buttons/ContactButton'
 import HomeCTA from '@/ui/Sections/CTA/HomeCTA'
+import { getSiteImage } from '@/utils/use-server';
 import Image from 'next/image'
 import React from 'react'
 
@@ -23,13 +24,9 @@ const seoSub = `Boosting Rankings and Visibility on Search Engines`;
 
 // PARAGRAPHS
 const digitalMarketingP = `In the ever-evolving landscape of digital marketing, staying ahead is not just an option; it's a necessity. At [Your Company Name], we are your partners in driving digital transformation with advanced technology. Our solutions revolutionize operations, maximizing efficiency, agility, and growth. From AI-driven automation to immersive experiences, stay ahead in the digital era.`;
-
 const ppcCampaignsP = `When it comes to maximizing your online visibility, Pay-Per-Click (PPC) campaigns are a powerful tool. Our experts craft tailored PPC strategies to ensure your ads reach the right audience at the right time. We optimize campaigns for ROI, driving traffic, and achieving your conversion goals.`;
-
 const emailMarketingP = `Email marketing is the art of engaging, converting, and retaining customers. Our email marketing campaigns are meticulously designed to deliver results. We create compelling content, optimize delivery, and track performance to help you build lasting relationships with your audience.`;
-
 const socialMediaMarketingP = `Social media has become the heart of online communication. Our social media marketing strategies focus on connecting with your audience on platforms like Facebook, Instagram, Twitter, and more. We create content that resonates, engage with your followers, and drive brand loyalty.`;
-
 const seoP = `Ranking high on search engines is crucial for online success. Our SEO experts use proven strategies to boost your website's visibility. From keyword optimization to content creation and link building, we'll help you climb the search engine rankings and capture organic traffic.`;
 
 
@@ -66,6 +63,7 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
           </div>
           <div className='mx-auto object-cover max-w-lg w-full relative order-first lg:order-last'>
             <Image
+            priority
               width={400}
               height={325}
               src={digitalMarketingImage}
@@ -104,6 +102,7 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
         <div className='gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6'>
         <div className='object-cover max-w-lg w-full relative mx-auto'>
             <Image
+            priority
               width={400}
               height={325}
               src={emailMarketingImage}
@@ -141,6 +140,7 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
           </div>
           <div className='mx-auto object-cover max-w-lg w-full relative order-first lg:order-last'>
             <Image
+            priority
               width={400}
               height={325}
               src={socialMediaMarketingImage}
@@ -157,6 +157,7 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
         <div className='gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6'>
         <div className='object-cover max-w-lg w-full relative mx-auto'>
             <Image
+            priority
               width={400}
               height={325}
               src={ppcImage}
@@ -181,10 +182,5 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
       </section>
     </div>
   )
-}
-
-export default page
-function getSiteImage(arg0: string) {
-  throw new Error('Function not implemented.')
 }
 

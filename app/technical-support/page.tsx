@@ -67,11 +67,13 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
             </p>
             <ContactButton />
           </div>
-          <div className='hidden lg:mt-0 lg:col-span-5 lg:flex'>
-            <img
+          <div className='mx-auto object-cover max-w-lg w-full relative order-first lg:order-last'>
+            <Image
+              width={400}
+              height={325}
               src={introImage}
               alt='mockup'
-              className='m-8 rounded-2xl'
+              className='mt-8 rounded-2xl object-cover w-max h-max'
             />
           </div>
         </div>
