@@ -4,6 +4,7 @@ import BlogPostsPreview from '@/ui/Sections/BlogPostsPreview';
 import AboutHeader from '@/ui/Headers/AboutHeader';
 import { getBlogPosts } from '@/lib/providers/sanity/sanity';
 import CTA from '@/ui/Sections/CTA/HomeCTA';
+import { getSiteImage } from '@/utils/use-server';
 
 export const revalidate = 0
 
@@ -11,10 +12,16 @@ export const revalidate = 0
 async function page() {
     const blogPosts = await getBlogPosts()
     if (blogPosts.success) {
+   const image1 = getSiteImage("/programmer-close.jpg")
+    const image2 = getSiteImage("/programmer-far.jpg")
 
+    const images ={
+        image1,
+        image2
+    }
         return (
             <React.Fragment>
-                <AboutHeader />
+                <AboutHeader images={images}/>
                 <BlogPostsPreview blogPosts={blogPosts.res} />
                 <CTA/>
             </React.Fragment>

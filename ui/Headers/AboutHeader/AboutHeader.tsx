@@ -5,7 +5,7 @@ import Image from 'next/image';
 import ContactButton from '@/ui/Buttons/ContactButton/';
 import { getSiteImage } from '@/utils/use-server';
 
-function AboutHeader() {
+function AboutHeader({images}) {
     const setOpen = useContactButtonStore((state: any) => state.setOpen);
     const handleOpenModal = () => {
         setOpen(true);
@@ -21,7 +21,7 @@ function AboutHeader() {
                <ContactButton/>
                 </div>
                 <div className='w-full mx-auto col-span-5'>
-                    <ImageMask />
+                    <ImageMask images={images}/>
                 </div>
             </div>
         </section>)
@@ -29,12 +29,13 @@ function AboutHeader() {
 
 export default AboutHeader
 
-const ImageMask = () => {
-    return (
+const ImageMask = ({images}) => {
+    
+    return images && (
 
         <div className="grid grid-cols-2 gap-4 mt-8">
-            <Image width={150} height={350} className="w-full object-cover h-[350px] hover:-translate-y-8 duration-300 ease-in-out rounded-lg" src={getSiteImage("/programmer-close.jpg")} alt="office content 1" />
-            <Image width={150} height={350} className="mt-4 w-full lg:mt-10 h-[350px] object-cover rounded-lg hover:-translate-y-8 duration-300 ease-in-out" src={getSiteImage("/programmer-far.jpg")} alt="office content 2" />
+            <Image width={150} height={350} className="w-full object-cover h-[350px] hover:-translate-y-8 duration-300 ease-in-out rounded-lg" src={images.image1} alt="office content 1" />
+            <Image width={150} height={350} className="mt-4 w-full lg:mt-10 h-[350px] object-cover rounded-lg hover:-translate-y-8 duration-300 ease-in-out" src={images.image2} alt="office content 2" />
         </div>
 
 

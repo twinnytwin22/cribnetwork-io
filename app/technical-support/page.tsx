@@ -4,37 +4,41 @@ import { getSiteImage } from '@/utils/use-server'
 import Image from 'next/image'
 import React from 'react'
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-static'
 
 
 async function page () {
   //HEADINGS
   
 // HEADINGS
-const digitalMarketingH = `Digital Marketing: `;
-const ppcCampaignsH = `PPC Campaigns`;
-const emailMarketingH = `Email Marketing`;
-const socialMediaMarketingH = `Social Media Marketing`;
-const seoH = `Search Engine Optimization (SEO)`;
+// HEADINGS
+const techSupportH = `Technical Support: `;
+const debuggingCodeReviewH = `Debugging and Code Review`;
+const systemAdminH = `System Administration`;
+const systemIntegrationH = `System Integration`;
+const troubleshootingSupportH = `Troubleshooting Support`;
+const techTrainingH = `Technical Training`;
 
 // SUBHEADINGS
-const digitalMarketingSub = `Driving Digital Transformation with Advanced Technology`;
-const ppcCampaignsSub = `Maximizing Visibility with Pay-Per-Click Advertising`;
-const emailMarketingSub = `Engage, Convert, Repeat: Email Marketing That Works`;
-const socialMediaMarketingSub = `Connecting with Your Audience on Social Media`;
-const seoSub = `Boosting Rankings and Visibility on Search Engines`;
+const techSupportSub = `Empowering Businesses for Success`;
+const debuggingCodeReviewSub = `Enhancing Code Quality and Performance`;
+const systemAdminSub = `Efficient System Management and Maintenance`;
+const systemIntegrationSub = `Seamless Integration of Complex Systems`;
+const troubleshootingSupportSub = `Rapid Resolution of Technical Issues`;
+const techTrainingSub = `Building Technical Proficiency and Expertise`;
 
 // PARAGRAPHS
-const digitalMarketingP = `In the ever-evolving landscape of digital marketing, staying ahead is not just an option; it's a necessity. At [Your Company Name], we are your partners in driving digital transformation with advanced technology. Our solutions revolutionize operations, maximizing efficiency, agility, and growth. From AI-driven automation to immersive experiences, stay ahead in the digital era.`;
+const techSupportP = `At [Your Company Name], we are dedicated to empowering businesses for success. Unlock your full potential with our transformative multichannel services and innovative technology. Enhance customer experiences, drive revenue growth, and achieve sustainable success with our seamless solutions.`;
 
-const ppcCampaignsP = `When it comes to maximizing your online visibility, Pay-Per-Click (PPC) campaigns are a powerful tool. Our experts craft tailored PPC strategies to ensure your ads reach the right audience at the right time. We optimize campaigns for ROI, driving traffic, and achieving your conversion goals.`;
+const debuggingCodeReviewP = `Code quality and performance are critical to your software's success. Our experts specialize in debugging and code review for Javascript, Typescript, React, and Solidity. We ensure your code is efficient, secure, and error-free.`;
 
-const emailMarketingP = `Email marketing is the art of engaging, converting, and retaining customers. Our email marketing campaigns are meticulously designed to deliver results. We create compelling content, optimize delivery, and track performance to help you build lasting relationships with your audience.`;
+const systemAdminP = `Efficient system administration is the backbone of a stable IT environment. Our team excels at managing and maintaining your systems, ensuring they run smoothly and securely, so you can focus on core business activities.`;
 
-const socialMediaMarketingP = `Social media has become the heart of online communication. Our social media marketing strategies focus on connecting with your audience on platforms like Facebook, Instagram, Twitter, and more. We create content that resonates, engage with your followers, and drive brand loyalty.`;
+const systemIntegrationP = `Complex systems often require seamless integration. Our specialists have a proven track record of integrating various systems, allowing them to work together harmoniously to meet your specific business needs.`;
 
-const seoP = `Ranking high on search engines is crucial for online success. Our SEO experts use proven strategies to boost your website's visibility. From keyword optimization to content creation and link building, we'll help you climb the search engine rankings and capture organic traffic.`;
+const troubleshootingSupportP = `Technical issues can disrupt operations. With our troubleshooting support, you can count on rapid problem resolution. We're here to get your systems back on track, minimizing downtime and maximizing productivity.`;
 
+const techTrainingP = `Building technical proficiency and expertise is essential. We offer comprehensive technical training programs that equip your team with the knowledge and skills they need to excel in today's tech-driven landscape.`;
 
   const whyUs = `Why Choose Us
   At [Your Company Name], we are committed to excellence in every aspect of web design. Here's why you should choose us:
@@ -45,29 +49,29 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
   Results-Driven: Our focus is on delivering websites and applications that drive real results for your business.`
   
   //IMAGES
-  const introImage = getSiteImage(`/digital-marketing.png`)!
-  const customWepImage = getSiteImage(`/dwd-mock.png`)!
-  const cmsWepImage = getSiteImage(`/curl-mockup.png`)!
-  const webAppImage = getSiteImage(`/subport-mock.png`)!
-  const microImage = getSiteImage(`/web-micro.jpeg`)!
+  const introImage = getSiteImage(`/tech-support.png`)!
+  const techTrainingImage = getSiteImage(`/tech-training.png`)!
+  const troubleShootingImage = getSiteImage(`/trouble-shooting.png`)!
+  const systemAdminImage = getSiteImage(`/system-admin.png`)!
+  const debuggingCodeReviewImage = getSiteImage(`/debugging.png`)!
  
   return (
     <div className='w-full mt-12'>
       <section className='bg-zinc-100 dark:bg-zinc-950 w-full border-b border-zinc-300 dark:border-zinc-800'>
-        <div className='grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12'>
+        <div className='grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8  lg:py-16 lg:grid-cols-12'>
           <div className='mr-auto place-self-center lg:col-span-7'>
             <h1 className='max-w-2xl mb-4 text-4xl font-semibold tracking-tight leading-none md:text-5xl xl:text-6xl text-black dark:text-white font-owners'>
-             {digitalMarketingH}{' '}
+             {techSupportH}{' '}
             </h1>
             <p className='max-w-2xl mb-6 font-light text-zinc-600 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-300 italic'>
-              {digitalMarketingSub}
+              {techSupportSub}
             </p>
             <p className='font-light text-zinc-500 sm:text-lg dark:text-zinc-400 mb-4'>
-              {digitalMarketingP}
+              {techSupportP}
             </p>
             <ContactButton />
           </div>
-          <div className='mx-auto object-cover max-w-lg w-full relative order-first lg:order-last'>
+          <div className='mx-auto object-cover max-w-lg w-full relative order-first lg:order-last col-span-5'>
             <Image
               width={400}
               height={325}
@@ -82,13 +86,13 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
         <div className='gap-16 flex flex-col items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6'>
           <div className='font-light  text-zinc-500 sm:text-lg dark:text-zinc-400 order-last lg:order-first'>
             <h2 className='mb-4 text-4xl tracking-tight font-semibold text-zinc-900 dark:text-white  font-owners'>
-              {seoH}
+              {techTrainingH}
             </h2>
             <p className='max-w-2xl mb-6 font-light text-zinc-600 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-300 italic'>
-              {seoSub}
+              {techTrainingSub}
             </p>
 
-            <p className='mb-4'>{seoP}</p>
+            <p className='mb-4'>{techTrainingP}</p>
             <ContactButton />
 
           </div>
@@ -96,7 +100,7 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
             <Image
               width={400}
               height={325}
-              src={customWepImage}
+              src={techTrainingImage}
               alt='mockup'
               className='mt-8 rounded-2xl object-cover w-max h-max'
             />
@@ -109,20 +113,20 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
             <Image
               width={400}
               height={325}
-              src={cmsWepImage}
+              src={troubleShootingImage}
               alt='mockup'
               className='my-8 rounded-2xl object-cover w-max h-max'
             />
           </div>
           <div className='font-light text-zinc-500 sm:text-lg dark:text-zinc-400'>
             <h2 className='mb-4 text-4xl tracking-tight font-semibold text-zinc-900 dark:text-white  font-owners'>
-              {emailMarketingH}
+              {troubleshootingSupportH}
             </h2>
             <p className='max-w-2xl mb-6 font-light text-zinc-600 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-300 italic'>
-              {emailMarketingSub}
+              {troubleshootingSupportSub}
             </p>
 
-            <p className='mb-4'>{emailMarketingP}</p>
+            <p className='mb-4'>{troubleshootingSupportP}</p>
             <ContactButton />
 
           </div>
@@ -132,13 +136,13 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
       <div className='gap-16 flex flex-col items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6'>
       <div className='font-light  text-zinc-500 sm:text-lg dark:text-zinc-400 order-last lg:order-first'>
             <h2 className='mb-4 text-4xl tracking-tight font-semibold text-zinc-900 dark:text-white  font-owners'>
-              {socialMediaMarketingH}
+              {systemAdminH}
             </h2>
             <p className='max-w-2xl mb-6 font-light text-zinc-600 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-300 italic'>
-              {socialMediaMarketingSub}
+              {systemAdminSub}
             </p>
 
-            <p className='mb-4'>{socialMediaMarketingP}</p>
+            <p className='mb-4'>{systemAdminP}</p>
             <ContactButton />
 
           </div>
@@ -146,7 +150,7 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
             <Image
               width={400}
               height={325}
-              src={webAppImage}
+              src={systemAdminImage}
               alt='mockup'
               className='mt-8 rounded-2xl object-cover w-max h-max'
             />
@@ -162,20 +166,20 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
             <Image
               width={400}
               height={325}
-              src={microImage}
+              src={debuggingCodeReviewImage}
               alt='mockup'
               className='my-8 rounded-2xl object-cover w-max h-max'
             />
           </div>
           <div className='font-light text-zinc-500 sm:text-lg dark:text-zinc-400'>
             <h2 className='mb-4 text-4xl tracking-tight font-semibold text-zinc-900 dark:text-white  font-owners'>
-              {ppcCampaignsH}
+              {debuggingCodeReviewH}
             </h2>
             <p className='max-w-2xl mb-6 font-light text-zinc-600 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-300 italic'>
-              {ppcCampaignsP}
+              {debuggingCodeReviewSub}
             </p>
 
-            <p className='mb-4'>z{ppcCampaignsP}</p>
+            <p className='mb-4'>z{debuggingCodeReviewP}</p>
             <ContactButton />
 
           </div>
