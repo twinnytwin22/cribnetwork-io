@@ -1,16 +1,9 @@
-import ContactButton from '@/ui/Buttons/ContactButton/ContactButton'
+import ContactButton from '@/ui/Buttons/ContactButton'
 import HomeCTA from '@/ui/Sections/CTA/HomeCTA'
 import Image from 'next/image'
 import React from 'react'
 
 export const dynamic = 'force-static'
-
-export const getSiteImage = (image: string) => {
-  const baseUrl = `${process.env.SUPABASE_URL!}/storage/v1/object/public/site_images` 
-  const imageUrl = baseUrl + image
-  return imageUrl 
-}
-
 function page () {
   //HEADINGS
   
@@ -49,11 +42,11 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
   Results-Driven: Our focus is on delivering websites and applications that drive real results for your business.`
   
   //IMAGES
-  const digitalMarketingImage = getSiteImage(`/digital-marketing.png`)
-  const seoImage = getSiteImage(`/seo.png`)
-  const emailMarketingImage = getSiteImage(`/email-marketing.png`)
-  const socialMediaMarketingImage = getSiteImage(`/smm.png`)
-  const ppcImage = getSiteImage(`/ppc.png`)
+  const digitalMarketingImage = getSiteImage(`/digital-marketing.png`)!
+  const seoImage = getSiteImage(`/seo.png`)!
+  const emailMarketingImage = getSiteImage(`/email-marketing.png`)!
+  const socialMediaMarketingImage = getSiteImage(`/smm.png`)!
+  const ppcImage = getSiteImage(`/ppc.png`)!
  
   return (
     <div className='w-full mt-12'>
@@ -191,3 +184,7 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
 }
 
 export default page
+function getSiteImage(arg0: string) {
+  throw new Error('Function not implemented.')
+}
+

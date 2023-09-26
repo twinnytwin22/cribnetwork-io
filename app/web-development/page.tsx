@@ -1,19 +1,16 @@
+import React from 'react'
 import ContactButton from '@/ui/Buttons/ContactButton/ContactButton'
 import HomeCTA from '@/ui/Sections/CTA/HomeCTA'
 import Image from 'next/image'
-import React from 'react'
+import { getSiteImage } from '@/utils/use-server'
 
-export const dynamic = 'force-static'
+//export const dynamic = 'force-static'
 
-export const getSiteImage = (image: string) => {
-  const baseUrl = `${process.env.SUPABASE_URL!}/storage/v1/object/public/site_images` 
-  const imageUrl = baseUrl + image
-  return imageUrl 
-}
+
 
 function page () {
   //HEADINGS
-  const introH = `Web Design Services: `
+  const introH = `Web Design Services:`
   const customWepH = `Custom Web Design`
   const cmsWepH = `CMS Website Design`
   const webAppH = `Web and Mobile Application Design`

@@ -1,7 +1,7 @@
 import ContactButton from '@/ui/Buttons/ContactButton/ContactButton'
 import React from 'react'
 import Image from 'next/image'
-import { getSiteImage } from '@/app/web-development/page'
+import { getSiteImage } from '@/utils/use-server'
 
 function HomeCTA() {
     const cta = `Whether you have a project in mind, need a new website, or are interested in our marketing services, we're eager to listen and assist you!`

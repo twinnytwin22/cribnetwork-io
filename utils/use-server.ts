@@ -12,7 +12,11 @@ type FetchTypes = {
   userId: string
 };
 
-
+export const getSiteImage = (image: string) => {
+  const baseUrl = `${process.env.SUPABASE_URL!}/storage/v1/object/public/site_images` 
+  const imageUrl = baseUrl + image
+  return imageUrl 
+}
 
 const refreshCache = async () => {
   try {

@@ -3,7 +3,7 @@ import React from 'react'
 import { useContactButtonStore } from '@/ui/Buttons/ContactButton/contactButtonStore';
 import Image from 'next/image';
 import ContactButton from '@/ui/Buttons/ContactButton/';
-import { getSiteImage } from '@/app/web-development/page';
+import { getSiteImage } from '@/utils/use-server';
 
 function AboutHeader() {
     const setOpen = useContactButtonStore((state: any) => state.setOpen);
