@@ -4,10 +4,7 @@ import HomeCTA from '@/ui/Sections/CTA/HomeCTA'
 import Image from 'next/image'
 import { getSiteImage } from '@/utils/use-server'
 
-//export const dynamic = 'force-static'
-
-
-
+export const dynamic = 'force-static'
 async function page () {
   //HEADINGS
   const introH = `Web Design Services:`

@@ -4,7 +4,7 @@ import { getSiteImage } from '@/utils/use-server';
 import Image from 'next/image'
 import React from 'react'
 
-//export const dynamic = 'force-static'
+export const dynamic = 'force-static'
 async function page () {
   //HEADINGS
   
@@ -184,3 +184,4 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
   )
 }
 
+export default page
