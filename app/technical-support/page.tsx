@@ -7,7 +7,7 @@ import React from 'react'
 export const dynamic = 'force-dynamic'
 
 
-function page () {
+async function page () {
   //HEADINGS
   
 // HEADINGS

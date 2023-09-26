@@ -4,7 +4,7 @@ import Image from 'next/image'
 import React from 'react'
 
 //export const dynamic = 'force-static'
-function page () {
+async function page () {
   //HEADINGS
   
 // HEADINGS

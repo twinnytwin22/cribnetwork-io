@@ -8,7 +8,7 @@ import { getSiteImage } from '@/utils/use-server'
 
 
 
-function page () {
+async function page () {
   //HEADINGS
   const introH = `Web Design Services:`
   const customWepH = `Custom Web Design`
