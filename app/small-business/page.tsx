@@ -13,32 +13,23 @@ async function page () {
 // HEADINGS
 // HEADINGS
 const smallBusinessH = `Small Business: `;
-const debuggingCodeReviewH = `Debugging and Code Review`;
-const systemAdminH = `System Administration`;
-const systemIntegrationH = `System Integration`;
-const troubleshootingSupportH = `Troubleshooting Support`;
-const techTrainingH = `Technical Training`;
+
+const paymentPlanH = `Payment Plans`;
+const freeConsultsH = `Free Consultations`;
 
 // SUBHEADINGS
 const smallBusinessSub = `We Understand Small Business Needs`;
-const debuggingCodeReviewSub = `Enhancing Code Quality and Performance`;
-const systemAdminSub = `Efficient System Management and Maintenance`;
-const systemIntegrationSub = `Seamless Integration of Complex Systems`;
-const troubleshootingSupportSub = `Rapid Resolution of Technical Issues`;
-const techTrainingSub = `Building Technical Proficiency and Expertise`;
+
+const paymentPlanSub = `Rapid Resolution of Technical Issues`;
+const freeConsultsSub = `Building Technical Proficiency and Expertise`;
 
 // PARAGRAPHS
 const smallBusinessP = `At CRIB, we are dedicated to empowering businesses for success. Unlock your full potential with our transformative multichannel services and innovative technology. Enhance customer experiences, drive revenue growth, and achieve sustainable success with our seamless solutions.`;
 
-const debuggingCodeReviewP = `Code quality and performance are critical to your software's success. Our experts specialize in debugging and code review for Javascript, Typescript, React, and Solidity. We ensure your code is efficient, secure, and error-free.`;
 
-const systemAdminP = `Efficient system administration is the backbone of a stable IT environment. Our team excels at managing and maintaining your systems, ensuring they run smoothly and securely, so you can focus on core business activities.`;
+const paymentPlanP = `Technical issues can disrupt operations. With our troubleshooting support, you can count on rapid problem resolution. We're here to get your systems back on track, minimizing downtime and maximizing productivity.`;
 
-const systemIntegrationP = `Complex systems often require seamless integration. Our specialists have a proven track record of integrating various systems, allowing them to work together harmoniously to meet your specific business needs.`;
-
-const troubleshootingSupportP = `Technical issues can disrupt operations. With our troubleshooting support, you can count on rapid problem resolution. We're here to get your systems back on track, minimizing downtime and maximizing productivity.`;
-
-const techTrainingP = `Building technical proficiency and expertise is essential. We offer comprehensive technical training programs that equip your team with the knowledge and skills they need to excel in today's tech-driven landscape.`;
+const freeConsultsP = `Building technical proficiency and expertise is essential. We offer comprehensive technical training programs that equip your team with the knowledge and skills they need to excel in today's tech-driven landscape.`;
 
   const whyUs = `Why Choose Us
   At CRIB, we are committed to excellence in every aspect of web design. Here's why you should choose us:
@@ -49,12 +40,10 @@ const techTrainingP = `Building technical proficiency and expertise is essential
   Results-Driven: Our focus is on delivering websites and applications that drive real results for your business.`
   
   //IMAGES
-  const introImage = getSiteImage(`/tech-support.png`)!
-  const techTrainingImage = getSiteImage(`/tech-training.png`)!
-  const troubleShootingImage = getSiteImage(`/trouble-shooting.png`)!
-  const systemAdminImage = getSiteImage(`/system-admin.png`)!
-  const debuggingCodeReviewImage = getSiteImage(`/debugging.png`)!
- 
+  const introImage = getSiteImage(`/small-business.png`)!
+  const freeConsultsImage = getSiteImage(`/free-consult.png`)!
+  const paymentPlanImage = getSiteImage(`/payment-plan.png`)!
+
   return (
     <div className='w-full mt-12'>
       <section className='bg-zinc-100 dark:bg-zinc-950 w-full border-b border-zinc-300 dark:border-zinc-800'>
@@ -86,13 +75,13 @@ const techTrainingP = `Building technical proficiency and expertise is essential
         <div className='gap-16 flex flex-col items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6'>
           <div className='font-light  text-zinc-500 sm:text-lg dark:text-zinc-400 order-last lg:order-first'>
             <h2 className='mb-4 text-4xl tracking-tight font-semibold text-zinc-900 dark:text-white  font-owners'>
-              {techTrainingH}
+              {freeConsultsH}
             </h2>
             <p className='max-w-2xl mb-6 font-light text-zinc-600 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-300 italic'>
-              {techTrainingSub}
+              {freeConsultsSub}
             </p>
 
-            <p className='mb-4'>{techTrainingP}</p>
+            <p className='mb-4'>{freeConsultsP}</p>
             <ContactButton />
 
           </div>
@@ -100,7 +89,7 @@ const techTrainingP = `Building technical proficiency and expertise is essential
             <Image
               width={400}
               height={325}
-              src={techTrainingImage}
+              src={freeConsultsImage}
               alt='mockup'
               className='mt-8 rounded-2xl object-cover w-max h-max'
             />
@@ -113,79 +102,28 @@ const techTrainingP = `Building technical proficiency and expertise is essential
             <Image
               width={400}
               height={325}
-              src={troubleShootingImage}
+              src={paymentPlanImage}
               alt='mockup'
               className='my-8 rounded-2xl object-cover w-max h-max'
             />
           </div>
           <div className='font-light text-zinc-500 sm:text-lg dark:text-zinc-400'>
             <h2 className='mb-4 text-4xl tracking-tight font-semibold text-zinc-900 dark:text-white  font-owners'>
-              {troubleshootingSupportH}
+              {paymentPlanH}
             </h2>
             <p className='max-w-2xl mb-6 font-light text-zinc-600 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-300 italic'>
-              {troubleshootingSupportSub}
+              {paymentPlanSub}
             </p>
 
-            <p className='mb-4'>{troubleshootingSupportP}</p>
+            <p className='mb-4'>{paymentPlanP}</p>
             <ContactButton />
 
           </div>
         </div>
       </section>
-      <section className='bg-white dark:bg-black  border-b border-zinc-300 dark:border-zinc-800'>
-      <div className='gap-16 flex flex-col items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6'>
-      <div className='font-light  text-zinc-500 sm:text-lg dark:text-zinc-400 order-last lg:order-first'>
-            <h2 className='mb-4 text-4xl tracking-tight font-semibold text-zinc-900 dark:text-white  font-owners'>
-              {systemAdminH}
-            </h2>
-            <p className='max-w-2xl mb-6 font-light text-zinc-600 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-300 italic'>
-              {systemAdminSub}
-            </p>
+    
+      <HomeCTA/>
 
-            <p className='mb-4'>{systemAdminP}</p>
-            <ContactButton />
-
-          </div>
-          <div className='mx-auto object-cover max-w-lg w-full relative order-first lg:order-last'>
-            <Image
-              width={400}
-              height={325}
-              src={systemAdminImage}
-              alt='mockup'
-              className='mt-8 rounded-2xl object-cover w-max h-max'
-            />
-          </div>
-        </div>
-      </section>
-      <section
-        id='about'
-        className='bg-zinc-100 dark:bg-zinc-950 w-full border-b border-zinc-300 dark:border-zinc-800'
-      >
-        <div className='gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6'>
-        <div className='object-cover max-w-lg w-full relative mx-auto'>
-            <Image
-              width={400}
-              height={325}
-              src={debuggingCodeReviewImage}
-              alt='mockup'
-              className='my-8 rounded-2xl object-cover w-max h-max'
-            />
-          </div>
-          <div className='font-light text-zinc-500 sm:text-lg dark:text-zinc-400'>
-            <h2 className='mb-4 text-4xl tracking-tight font-semibold text-zinc-900 dark:text-white  font-owners'>
-              {debuggingCodeReviewH}
-            </h2>
-            <p className='max-w-2xl mb-6 font-light text-zinc-600 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-300 italic'>
-              {debuggingCodeReviewSub}
-            </p>
-
-            <p className='mb-4'>z{debuggingCodeReviewP}</p>
-            <ContactButton />
-
-          </div>
-        </div>
-        <HomeCTA/>
-      </section>
     </div>
   )
 }
