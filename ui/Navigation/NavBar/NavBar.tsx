@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, { useState } from 'react';
 import { create } from 'zustand';
 import { useStore } from 'zustand';
 import DarkModeSwitch from '../../Buttons/DarkModeSwitch';
@@ -9,6 +9,7 @@ import ContactButton from '../../Buttons/ContactButton';
 import { imageBuilder } from '@/lib/providers/sanity/sanity';
 //import { imageLoader } from '@/lib/providers/sanity/imageLoader';
 import { usePathname } from 'next/navigation';
+import { useHandleOutsideClick } from '@/lib/hooks/handleOutsideClick';
 const useMobileMenuStore = create((set: any) => ({
     isMobileMenuOpen: false,
     toggleMobileMenu: () => set((state: { isMobileMenuOpen: any; }) => ({ isMobileMenuOpen: !state.isMobileMenuOpen })),
@@ -21,6 +22,9 @@ function NavBar({ settings }: { settings: any }) {
     const pathname = usePathname()
     const nah = ['/portal', '/login' , '/register']
     const isHidden = nah.includes(pathname) || pathname.startsWith('/portal')
+    const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+    useHandleOutsideClick(isSubMenuOpen, setIsSubMenuOpen, 'drop-dizzle')
+
 
     return (
         <nav className="bg-white dark:bg-black fixed w-full z-20 top-0 left-0 border-b border-zinc-200 dark:border-zinc-700">
@@ -65,47 +69,85 @@ function NavBar({ settings }: { settings: any }) {
                         </svg>
                     </button>
                 </div>
-                <div
-                    className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isMobileMenuOpen ? '' : 'hidden'
-                        }`}
-                    id="navbar-sticky"
-                >                      {!isHidden &&
+<div
+  className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${
+    isMobileMenuOpen ? '' : 'hidden'
+  }`}
+  id="navbar-sticky"
+>
+  {!isHidden && (
+    <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium font-owners rounded-sm md:flex-row md:space-x-12 md:mt-0 md:border-0">
+      <li>
+        {/* Existing menu item */}
+        <Link
+          href="/about"
+          className="block py-2 pl-3 pr-4 text-zinc-900 rounded hover:bg-zinc-100 md:hover:bg-transparent md:hover:text-zinc-700 md:p-0 md:dark:hover:text-zinc-500 dark:text-white  dark:hover:text-white md:dark:hover:bg-transparent dark:border-zinc-700 ease-in-out duration-300"
+        >
+          About
+        </Link>
+      </li>
+      <li className='relative'>
+          {/* Services menu item with submenu */}
+          <div
+         
+            className="relative group drop-dizzle font-owners"
+            onMouseEnter={() => setIsSubMenuOpen(true)}
+         //   onMouseLeave={() => setIsSubMenuOpen(false)}
+          >
+            <a
+              href="#services"
+              className="block py-2 pl-3 pr-4 text-zinc-900 rounded hover:bg-zinc-100 md:hover:bg-transparent md:hover:text-zinc-700 md:p-0 md:dark:hover:text-zinc-500 dark:text-white dark:hover:text-white md:dark:hover:bg-transparent dark:border-zinc-700 ease-in-out duration-300"
+            >
+              Services
+            </a>
+            {/* Submenu */}
+            <div
+              className={`absolute left-0 mt-2 w-48 bg-white dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg shadow-lg ${
+                isSubMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+              } transition duration-300`}
+            >
+              <Link
+                href="/web-development"
+                className="block px-4 py-2 text-zinc-900 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:text-zinc-500 dark:hover:bg-transparent"
+              >
+                Web Services
+              </Link>
+              <Link
+                href="/digital-marketing"
+                className="block px-4 py-2 text-zinc-900 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:text-zinc-500 dark:hover:bg-transparent"
+              >
+                Digital Marketing
+              </Link>
+              <Link 
+                href="/technical-support"
+                className="block px-4 py-2 text-zinc-900 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:text-zinc-500 dark:hover:bg-transparent"
+              >
+                Technical Support
+              </Link>
+            </div>
+          </div>
+        </li>
+      <li className='hidden'>
+        {/* Other menu items */}
+        <a
+          href="#tech"
+          className="block py-2 pl-3 pr-4 text-zinc-900 rounded hover:bg-zinc-100 md:hover:bg-transparent md:hover:text-zinc-700 md:p-0 md:dark:hover:text-zinc-500 dark:text-white  dark:hover:text-white md:dark:hover:bg-transparent dark:border-zinc-700 ease-in-out duration-300"
+        >
+          Technology
+        </a>
+      </li>
+      <li className="hidden">
+        <a
+          href="#contact"
+          className="block py-2 pl-3 pr-4 text-zinc-900 rounded hover:bg-zinc-100 md:hover:bg-transparent md:hover:text-zinc-700 md:p-0 md:dark:hover:text-zinc-500 dark:text-white  dark:hover:text-white md:dark:hover:bg-transparent dark:border-zinc-700 ease-in-out duration-300"
+        >
+          Contact
+        </a>
+      </li>
+    </ul>
+  )}
+</div>
 
-                    <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium font-owners  rounded-sm md:flex-row md:space-x-12 md:mt-0 md:border-0">
-                        <li>
-                            <Link
-                                href="/about"
-                                className="block py-2 pl-3 pr-4 text-zinc-900 rounded hover:bg-zinc-100 md:hover:bg-transparent md:hover:text-zinc-700 md:p-0 md:dark:hover:text-zinc-500 dark:text-white  dark:hover:text-white md:dark:hover:bg-transparent dark:border-zinc-700 ease-in-out duration-300"
-                            >
-                                About
-                            </Link>
-                        </li>
-                        <li>
-                            <a
-                                href="#services"
-                                className="block py-2 pl-3 pr-4 text-zinc-900 rounded hover:bg-zinc-100 md:hover:bg-transparent md:hover:text-zinc-700 md:p-0 md:dark:hover:text-zinc-500 dark:text-white  dark:hover:text-white md:dark:hover:bg-transparent dark:border-zinc-700 ease-in-out duration-300"
-                            >
-                                Services
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#tech"
-                                className="block py-2 pl-3 pr-4 text-zinc-900 rounded hover:bg-zinc-100 md:hover:bg-transparent md:hover:text-zinc-700 md:p-0 md:dark:hover:text-zinc-500 dark:text-white  dark:hover:text-white md:dark:hover:bg-transparent dark:border-zinc-700 ease-in-out duration-300"
-                            >
-                                Technology
-                            </a>
-                        </li>
-                        <li className="hidden">
-                            <a
-                                href="#"
-                                className="block py-2 pl-3 pr-4 text-zinc-900 rounded hover:bg-zinc-100 md:hover:bg-transparent md:hover:text-zinc-700 md:p-0 md:dark:hover:text-zinc-500 dark:text-white  dark:hover:text-white md:dark:hover:bg-transparent dark:border-zinc-700 ease-in-out duration-300"
-                            >
-                                Contact
-                            </a>
-                        </li>
-                    </ul>}
-                </div>
             </div>
         </nav>
     );
