@@ -12,7 +12,7 @@ async function page () {
   
 // HEADINGS
 // HEADINGS
-const techSupportH = `Technical Support: `;
+const smallBusinessH = `Small Business: `;
 const debuggingCodeReviewH = `Debugging and Code Review`;
 const systemAdminH = `System Administration`;
 const systemIntegrationH = `System Integration`;
@@ -20,7 +20,7 @@ const troubleshootingSupportH = `Troubleshooting Support`;
 const techTrainingH = `Technical Training`;
 
 // SUBHEADINGS
-const techSupportSub = `Empowering Businesses for Success`;
+const smallBusinessSub = `We Understand Small Business Needs`;
 const debuggingCodeReviewSub = `Enhancing Code Quality and Performance`;
 const systemAdminSub = `Efficient System Management and Maintenance`;
 const systemIntegrationSub = `Seamless Integration of Complex Systems`;
@@ -28,7 +28,7 @@ const troubleshootingSupportSub = `Rapid Resolution of Technical Issues`;
 const techTrainingSub = `Building Technical Proficiency and Expertise`;
 
 // PARAGRAPHS
-const techSupportP = `At CRIB, we are dedicated to empowering businesses for success. Unlock your full potential with our transformative multichannel services and innovative technology. Enhance customer experiences, drive revenue growth, and achieve sustainable success with our seamless solutions.`;
+const smallBusinessP = `At CRIB, we are dedicated to empowering businesses for success. Unlock your full potential with our transformative multichannel services and innovative technology. Enhance customer experiences, drive revenue growth, and achieve sustainable success with our seamless solutions.`;
 
 const debuggingCodeReviewP = `Code quality and performance are critical to your software's success. Our experts specialize in debugging and code review for Javascript, Typescript, React, and Solidity. We ensure your code is efficient, secure, and error-free.`;
 
@@ -61,13 +61,13 @@ const techTrainingP = `Building technical proficiency and expertise is essential
         <div className='grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8  lg:py-16 lg:grid-cols-12'>
           <div className='mr-auto place-self-center lg:col-span-7'>
             <h1 className='max-w-2xl mb-4 text-4xl font-semibold tracking-tight leading-none md:text-5xl xl:text-6xl text-black dark:text-white font-owners'>
-             {techSupportH}{' '}
+             {smallBusinessH}{' '}
             </h1>
             <p className='max-w-2xl mb-6 font-light text-zinc-600 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-300 italic'>
-              {techSupportSub}
+              {smallBusinessSub}
             </p>
             <p className='font-light text-zinc-500 sm:text-lg dark:text-zinc-400 mb-4'>
-              {techSupportP}
+              {smallBusinessP}
             </p>
             <ContactButton />
           </div>

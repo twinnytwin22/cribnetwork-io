@@ -23,7 +23,7 @@ const socialMediaMarketingSub = `Connecting with Your Audience on Social Media`;
 const seoSub = `Boosting Rankings and Visibility on Search Engines`;
 
 // PARAGRAPHS
-const digitalMarketingP = `In the ever-evolving landscape of digital marketing, staying ahead is not just an option; it's a necessity. At [Your Company Name], we are your partners in driving digital transformation with advanced technology. Our solutions revolutionize operations, maximizing efficiency, agility, and growth. From AI-driven automation to immersive experiences, stay ahead in the digital era.`;
+const digitalMarketingP = `In the ever-evolving landscape of digital marketing, staying ahead is not just an option; it's a necessity. At CRIB, we are your partners in driving digital transformation with advanced technology. Our solutions revolutionize operations, maximizing efficiency, agility, and growth. From AI-driven automation to immersive experiences, stay ahead in the digital era.`;
 const ppcCampaignsP = `When it comes to maximizing your online visibility, Pay-Per-Click (PPC) campaigns are a powerful tool. Our experts craft tailored PPC strategies to ensure your ads reach the right audience at the right time. We optimize campaigns for ROI, driving traffic, and achieving your conversion goals.`;
 const emailMarketingP = `Email marketing is the art of engaging, converting, and retaining customers. Our email marketing campaigns are meticulously designed to deliver results. We create compelling content, optimize delivery, and track performance to help you build lasting relationships with your audience.`;
 const socialMediaMarketingP = `Social media has become the heart of online communication. Our social media marketing strategies focus on connecting with your audience on platforms like Facebook, Instagram, Twitter, and more. We create content that resonates, engage with your followers, and drive brand loyalty.`;
@@ -31,7 +31,7 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
 
 
   const whyUs = `Why Choose Us
-  At [Your Company Name], we are committed to excellence in every aspect of web design. Here's why you should choose us:
+  At CRIB, we are committed to excellence in every aspect of web design. Here's why you should choose us:
   Experience: With years of industry experience, we've honed our skills to perfection.
   Dedicated Team: Our passionate team of designers, developers, and support staff are always ready to assist you.
   Client-Centric Approach: Your success is our priority. We listen to your needs and tailor solutions accordingly.
