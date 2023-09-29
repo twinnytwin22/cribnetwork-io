@@ -6,11 +6,33 @@ import NotificationsPanel from '@/ui/Sections/PortalOverview/Panels/Notification
 import { supabase } from '@/lib/site/constants';
 import PageTitle from '@/ui/Components/PageTitle/PageTitle';
 import Link from 'next/link';
-async function Portal() {
-    const [session, products, subscription] = await Promise.all([
+import { supabaseAdmin } from '@/lib/providers/supabase/supabase-lib-admin';
+import UsersTable from '@/ui/Sections/PortalOverview/Panels/UsersTable';
+
+export const dynamic = 'force-dynamic';
+
+
+async function Portal({
+    searchParams
+  }: {
+    searchParams: { q: string };
+  }) {
+
+    const search = searchParams.q ?? '';
+    const getUsers = async () => { 
+        
+        const {data:users} = await supabaseAdmin
+        .from('users')
+        .select('*')
+        if (users) {
+            return users
+        }
+    }
+    const [session, products, subscription, users] = await Promise.all([
         getSession(),
         getActiveProductsWithPrices(),
-        getSubscription()
+        getSubscription(), 
+        getUsers()
     ]);
 
     const { data: enrollments, error } = await supabase
@@ -18,6 +40,8 @@ async function Portal() {
         .select('*, courses(*)')
         .eq('student_id', session?.user.id)
         .limit(5)
+    
+    
     console.log(enrollments)
 
     
@@ -26,6 +50,9 @@ async function Portal() {
         <section className='w-screen h-full mx-auto relative'>
             <PageTitle title='Your Overview'/>
             <React.Suspense fallback='loading'>
+                <div className='hidden'>
+               <UsersTable users={users}/>
+               </div>
                 <div className='grid grid-cols-6 col-span-6 gap-8 h-1/2  w-full px-10'>
                     <WelcomePanel subscription={subscription} href='/'>
                         <p className='text-zinc-800 dark:text-zinc-300 text-center'>

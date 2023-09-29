@@ -116,6 +116,7 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
           </div>
           <div className='mx-auto object-cover max-w-lg w-full relative order-first lg:order-last'>
             <Image
+            priority
               width={400}
               height={325}
               src={seoImage}

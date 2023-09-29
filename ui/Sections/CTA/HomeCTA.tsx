@@ -8,7 +8,8 @@ function HomeCTA() {
     return (
         <section className="bg-white dark:bg-zinc-950 max-w-screen w-full border-b border-t border-zinc-200 dark:border-zinc-800 relative">
             <Image
-                priority
+                
+                //priority
                 src={getSiteImage('/projectmanage.png')}
                 alt="Background"
                 fill

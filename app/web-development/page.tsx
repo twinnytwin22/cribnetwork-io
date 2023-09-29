@@ -112,25 +112,32 @@ async function page () {
           </div>
           <div className='mx-auto object-cover max-w-lg w-full relative order-first lg:order-last'>
             <Image
+            priority
               width={400}
               height={325}
               src={customWepImage}
               alt='mockup'
               className='mt-8 rounded-2xl object-cover w-max h-max'
             />
+                      <p className='py-2 italic text-xs'>Wordpress Development from DWD Homes.</p>
+
           </div>
+
         </div>
       </section>
       <section className='bg-zinc-100 dark:bg-zinc-950 w-full border-b border-zinc-300 dark:border-zinc-800'>
         <div className='gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6'>
         <div className='object-cover max-w-lg w-full relative mx-auto'>
             <Image
+            priority
               width={400}
               height={325}
               src={cmsWepImage}
               alt='mockup'
-              className='my-8 rounded-2xl object-cover w-max h-max'
+              className='mt-8 rounded-2xl object-cover w-max h-max'
             />
+                                  <p className='py-2 italic text-xs'>Custom Shopify Development from Curl Sponge.</p>
+
           </div>
           <div className='font-light text-zinc-500 sm:text-lg dark:text-zinc-400'>
             <h2 className='mb-4 text-4xl tracking-tight font-semibold text-zinc-900 dark:text-white  font-owners'>
@@ -162,12 +169,15 @@ async function page () {
           </div>
           <div className='mx-auto object-cover max-w-lg w-full relative order-first lg:order-last'>
             <Image
+            priority
               width={400}
               height={325}
               src={webAppImage}
               alt='mockup'
               className='mt-8 rounded-2xl object-cover w-max h-max'
             />
+                                              <p className='py-2 italic text-xs'>Custom Web Application, Subport.</p>
+
           </div>
         </div>
       </section>
@@ -178,6 +188,7 @@ async function page () {
         <div className='gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6'>
         <div className='object-cover max-w-lg w-full relative mx-auto'>
             <Image
+            property=''
               width={400}
               height={325}
               src={microImage}

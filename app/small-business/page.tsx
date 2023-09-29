@@ -83,6 +83,7 @@ const paymentPlanP = `Access premium digital marketing with ease through our Pay
           </div>
           <div className='mx-auto object-cover max-w-lg w-full relative order-first lg:order-last col-span-5'>
             <Image
+            priority
               width={400}
               height={325}
               src={introImage}
@@ -108,6 +109,7 @@ const paymentPlanP = `Access premium digital marketing with ease through our Pay
           </div>
           <div className='mx-auto object-cover max-w-lg w-full relative order-first lg:order-last'>
             <Image
+            priority
               width={400}
               height={325}
               src={freeConsultsImage}
@@ -121,6 +123,7 @@ const paymentPlanP = `Access premium digital marketing with ease through our Pay
         <div className='gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6'>
         <div className='object-cover max-w-lg w-full relative mx-auto'>
             <Image
+            priority
               width={400}
               height={325}
               src={paymentPlanImage}
