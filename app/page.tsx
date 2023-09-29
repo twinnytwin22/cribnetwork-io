@@ -11,7 +11,34 @@ import Link from 'next/link'
 import React from 'react'
 import { FaFacebook, FaInstagram } from 'react-icons/fa'
 import { FaTwitter } from 'react-icons/fa6'
+import { getSiteImage } from '@/utils/use-server'
+import { Metadata } from 'next'
 
+
+const metaImage = getSiteImage('/share.png')
+export const metadata: Metadata = {
+  openGraph: {
+    title: 'CRIB',
+    description: 'Innovating the Digital Experience.',
+    url: 'https://cribnetwork.io',
+    siteName: 'CRIB',
+    images: [
+      {
+        url: metaImage,
+        width: 800,
+        height: 600,
+      },
+      {
+        url: metaImage,
+        width: 1800,
+        height: 1600,
+        alt: 'Home',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+}
 
 export const revalidate = 60
 export default async function Home() {

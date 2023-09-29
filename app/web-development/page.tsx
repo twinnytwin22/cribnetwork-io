@@ -8,7 +8,7 @@ import { Metadata } from 'next'
 export const dynamic = 'force-static'
 
 
-const metaImage = getSiteImage('/web-design.png')
+const metaImage = getSiteImage('/web-design.jpeg')
 export const metadata: Metadata = {
   openGraph: {
     title: 'Web Development',
