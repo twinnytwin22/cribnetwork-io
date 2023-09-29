@@ -18,7 +18,7 @@ import { Metadata } from 'next'
 const metaImage = getSiteImage('/share.png')
 export const metadata: Metadata = {
   openGraph: {
-    title: 'CRIB',
+    title: 'CRIB | Digital Services',
     description: 'Innovating the Digital Experience.',
     url: 'https://cribnetwork.io',
     siteName: 'CRIB',
