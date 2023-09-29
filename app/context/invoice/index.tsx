@@ -91,11 +91,11 @@ export default function InvoiceContextProvider({ children }) {
         window.print();
     };
 
-    useEffect(() => {
-        if (window.innerWidth < width) {
-            alert("Place your phone in landscape mode for the best experience");
-        }
-    }, [width]);
+   // useEffect(() => {
+       // if (window.innerWidth < width) {
+        //    alert("Place your phone in landscape mode for the best experience");
+       // }
+   // }, [width]);
 
     // Submit form function
     const handleSubmit = (e: React.FormEvent) => {
