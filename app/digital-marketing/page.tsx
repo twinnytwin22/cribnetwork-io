@@ -95,7 +95,7 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
               height={325}
               src={digitalMarketingImage}
               alt='mockup'
-              className='my-8 rounded-2xl object-cover w-max h-max'
+              className='my-8 rounded-2xl object-cover w-max h-max shadow-lg dark:shadow-zinc-700'
             />
           </div>
         </div>
@@ -121,7 +121,7 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
               height={325}
               src={seoImage}
               alt='mockup'
-              className='mt-8 rounded-2xl object-cover w-max h-max'
+              className='mt-8 rounded-2xl object-cover w-max h-max shadow-lg dark:shadow-zinc-700'
             />
           </div>
         </div>
@@ -135,7 +135,7 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
               height={325}
               src={emailMarketingImage}
               alt='mockup'
-              className='my-8 rounded-2xl object-cover w-max h-max'
+              className='my-8 rounded-2xl object-cover w-max h-max shadow-lg dark:shadow-zinc-700'
             />
           </div>
           <div className='font-light text-zinc-500 sm:text-lg dark:text-zinc-400'>
@@ -173,7 +173,7 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
               height={325}
               src={socialMediaMarketingImage}
               alt='mockup'
-              className='mt-8 rounded-2xl object-cover w-max h-max'
+              className='mt-8 rounded-2xl object-cover w-max h-max shadow-lg dark:shadow-zinc-700'
             />
           </div>
         </div>
@@ -190,7 +190,7 @@ const seoP = `Ranking high on search engines is crucial for online success. Our 
               height={325}
               src={ppcImage}
               alt='mockup'
-              className='my-8 rounded-2xl object-cover w-max h-max'
+              className='my-8 rounded-2xl object-cover w-max h-max shadow-lg dark:shadow-zinc-700'
             />
           </div>
           <div className='font-light text-zinc-500 sm:text-lg dark:text-zinc-400'>
