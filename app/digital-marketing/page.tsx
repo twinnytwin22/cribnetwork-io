@@ -1,10 +1,37 @@
 import ContactButton from '@/ui/Buttons/ContactButton'
 import HomeCTA from '@/ui/Sections/CTA/HomeCTA'
 import { getSiteImage } from '@/utils/use-server';
+import { Metadata } from 'next';
 import Image from 'next/image'
 import React from 'react'
 
 export const dynamic = 'force-static'
+
+const metaImage = getSiteImage('/digital-marketing.png')
+export const metadata: Metadata = {
+    openGraph: {
+      title: 'Digital Marketing',
+      description: 'Driving Digital Transformation with Advanced Technology',
+      url: 'https://cribnetwork.io/digital-marketing',
+      siteName: 'CRIB',
+      images: [
+        {
+          url: metaImage,
+          width: 800,
+          height: 600,
+        },
+        {
+        url: metaImage,
+            width: 1800,
+          height: 1600,
+          alt: 'Small Business',
+        },
+      ],
+      locale: 'en_US',
+      type: 'website',
+    },
+  }
+  
 async function page () {
   //HEADINGS
   

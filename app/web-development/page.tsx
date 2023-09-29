@@ -3,8 +3,36 @@ import ContactButton from '@/ui/Buttons/ContactButton/ContactButton'
 import HomeCTA from '@/ui/Sections/CTA/HomeCTA'
 import Image from 'next/image'
 import { getSiteImage } from '@/utils/use-server'
+import { Metadata } from 'next'
 
 export const dynamic = 'force-static'
+
+
+const metaImage = getSiteImage('/web-design.png')
+export const metadata: Metadata = {
+    openGraph: {
+      title: 'Web Development',
+      description: 'Crafting Your Digital Presence',
+      url: 'https://cribnetwork.io/web-development',
+      siteName: 'CRIB',
+      images: [
+        {
+          url: metaImage,
+          width: 800,
+          height: 600,
+        },
+        {
+        url: metaImage,
+            width: 1800,
+          height: 1600,
+          alt: 'Small Business',
+        },
+      ],
+      locale: 'en_US',
+      type: 'website',
+    },
+  }
+  
 async function page () {
   //HEADINGS
   const introH = `Web Design Services:`

@@ -8,7 +8,6 @@ import React from 'react'
 export const dynamic = 'force-static'
 
 const metaImage = getSiteImage('/small-business.png')
-
 export const metadata: Metadata = {
     openGraph: {
       title: 'Small Business',
