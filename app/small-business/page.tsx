@@ -12,24 +12,19 @@ async function page () {
   
 // HEADINGS
 // HEADINGS
-const smallBusinessH = `Small Business: `;
-
-const paymentPlanH = `Payment Plans`;
+const smallBusinessH = `Small Business:`;
 const freeConsultsH = `Free Consultations`;
+const paymentPlanH = `Payment Plans`;
 
 // SUBHEADINGS
 const smallBusinessSub = `We Understand Small Business Needs`;
-
-const paymentPlanSub = `Rapid Resolution of Technical Issues`;
-const freeConsultsSub = `Building Technical Proficiency and Expertise`;
+const freeConsultsSub = `Taking the First Step Should Be Made Easy`;
+const paymentPlanSub = `Affordable Financing Options`;
 
 // PARAGRAPHS
 const smallBusinessP = `At CRIB, we are dedicated to empowering businesses for success. Unlock your full potential with our transformative multichannel services and innovative technology. Enhance customer experiences, drive revenue growth, and achieve sustainable success with our seamless solutions.`;
-
-
-const paymentPlanP = `Technical issues can disrupt operations. With our troubleshooting support, you can count on rapid problem resolution. We're here to get your systems back on track, minimizing downtime and maximizing productivity.`;
-
-const freeConsultsP = `Building technical proficiency and expertise is essential. We offer comprehensive technical training programs that equip your team with the knowledge and skills they need to excel in today's tech-driven landscape.`;
+const freeConsultsP = `Unlock the power of digital marketing with our expert-guided Free Consultations. Discover personalized strategies tailored to your business, all at no cost or obligation.`;
+const paymentPlanP = `Access premium digital marketing with ease through our Payment Plans. Say goodbye to upfront costs, and enjoy flexible, budget-friendly options customized for your business.`;
 
   const whyUs = `Why Choose Us
   At CRIB, we are committed to excellence in every aspect of web design. Here's why you should choose us:
