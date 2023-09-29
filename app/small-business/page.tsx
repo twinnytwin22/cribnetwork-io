@@ -1,11 +1,38 @@
 import ContactButton from '@/ui/Buttons/ContactButton/ContactButton'
 import HomeCTA from '@/ui/Sections/CTA/HomeCTA'
 import { getSiteImage } from '@/utils/use-server'
+import { Metadata } from 'next'
 import Image from 'next/image'
 import React from 'react'
 
 export const dynamic = 'force-static'
 
+const metaImage = getSiteImage('/small-business.png')
+
+export const metadata: Metadata = {
+    openGraph: {
+      title: 'Small Business',
+      description: 'We Understand Small Business Needs',
+      url: 'https://cribnetwork.io/small-business',
+      siteName: 'CRIB',
+      images: [
+        {
+          url: metaImage,
+          width: 800,
+          height: 600,
+        },
+        {
+        url: metaImage,
+            width: 1800,
+          height: 1600,
+          alt: 'Small Business',
+        },
+      ],
+      locale: 'en_US',
+      type: 'website',
+    },
+  }
+  
 
 async function page () {
   //HEADINGS
