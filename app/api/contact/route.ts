@@ -17,8 +17,8 @@ export async function POST(req: Request) {
     to: email,
     cc: process.env.FROM_EMAIL as string,
     from: process.env.FROM_EMAIL as string,
-    subject: "Contact form submission from RandalHerndon.com",
-    text: "New Message from Randal",
+    subject: "We've received your message!",
+    text: "New Message from CRIB",
     html: `
     <!DOCTYPE html>
     <html>
@@ -78,6 +78,8 @@ export async function POST(req: Request) {
                 max-width: 600px;
                 padding: 3rem;
                 background-color: #f5f5f5;
+                margin-left: auto;
+                margin-right: auto;
             }
     
             .content h1 {
@@ -104,7 +106,8 @@ export async function POST(req: Request) {
                 margin-top: 30px;
                 margin-bottom: 30px;
             }
-                .main-image img {
+
+            .main-image img {
                 display: block;
                 margin: 0 auto;
                 width: 100%;
