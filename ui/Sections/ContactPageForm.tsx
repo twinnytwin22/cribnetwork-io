@@ -79,7 +79,7 @@ const ContactForm = ({ handleClose }) => {
               Subject
             </label>
             <input
-              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 required"
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 required"
               type="text"
               name="subject"
               id="subject"
@@ -110,7 +110,7 @@ const ContactForm = ({ handleClose }) => {
             Your message
           </label>
           <textarea
-            className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border h-full border-zinc-300 dark:border-zinc-600 text-black text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring focus:border block w-full p-2.5 required"
+            className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border h-full dark:text-white border-zinc-300 dark:border-zinc-600 text-black text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring focus:border block w-full p-2.5 required"
             name="message"
             id="message"
             value={formData.message}
