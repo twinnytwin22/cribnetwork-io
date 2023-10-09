@@ -1,5 +1,6 @@
 import ContactButton from '@/ui/Buttons/ContactButton/ContactButton'
 import HomeCTA from '@/ui/Sections/CTA/HomeCTA'
+import WebGrant from '@/ui/Sections/CTA/WebGrantCTA/WebGrant'
 import { getSiteImage } from '@/utils/use-server'
 import { Metadata } from 'next'
 import Image from 'next/image'
@@ -92,6 +93,9 @@ const paymentPlanP = `Access premium digital marketing with ease through our Pay
             />
           </div>
         </div>
+      </section>
+      <section className='mx-auto border-b border-zinc-300 dark:border-zinc-800'>
+        <WebGrant/>
       </section>
       <section className='bg-white dark:bg-black  border-b border-zinc-300 dark:border-zinc-800'>
         <div className='gap-16 flex flex-col items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6'>

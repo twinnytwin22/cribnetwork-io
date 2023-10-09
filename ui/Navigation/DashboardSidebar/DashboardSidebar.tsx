@@ -17,6 +17,7 @@ import {
   FaFileInvoice,
   FaChartPie
 } from 'react-icons/fa' // Import the icons you need
+import { FaWpforms } from 'react-icons/fa6'
 function DashboardSidebar () {
   const { user, signOut, profile } = useAuthProvider()
   const [showTooltip, setShowTooltip] = useState('')
@@ -66,6 +67,13 @@ function DashboardSidebar () {
       icon: <FaCog />,
       condition: isAdmin,
       href: 'https://cribnetwork.sanity.studio',
+      target: '_blank'
+    },
+    {
+      title: 'Form Submissions',
+      icon: <FaWpforms />,
+      condition: isAdmin,
+      href: '/portal/form-submissions',
       target: '_blank'
     },
     {

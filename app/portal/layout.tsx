@@ -1,13 +1,9 @@
-'use client'
 import DashboardSidebar from '@/ui/Navigation/DashboardSidebar';
-import React, { useState } from 'react';
+import React  from 'react';
 
-function PortalLayout({ children }: { children: React.ReactNode }) {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+export const dynamic = 'force-dynamic'
 
-    const toggleSidebar = () => {
-        setIsSidebarOpen((prev) => !prev);
-    };
+async function PortalLayout({ children }: { children: React.ReactNode }) {
 
     return (
         <div className='relative flex h-screen overflow-hidden bg-zinc-100 dark:bg-zinc-950 '>

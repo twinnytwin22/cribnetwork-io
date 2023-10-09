@@ -40,18 +40,16 @@ export async function POST(req: Request) {
     return NextResponse.json('error: Method Not Allowed', { status: 405 });
   }
   if (req.method === "POST") {
-  const { subject, email, message, first_name, last_name, phone_number } = await req.json();
-  const updates = {
-    subject, email, message, first_name, last_name, phone_number, form_type: 'Inquiry'
-  }
-  if (!email) {
+  const updates = await req.json();
+
+  if (!updates?.email) {
     return NextResponse.json("error: Email is required");
   }
 
  
 
   const msg = {
-    to: email,
+    to: updates.email,
     cc: process.env.FROM_EMAIL as string,
     bc: 'info@cribnetwork.io',
     from: process.env.FROM_EMAIL as string,
@@ -168,11 +166,10 @@ export async function POST(req: Request) {
             </div>
             <h1 class="heading">We've received your message!</h1>
         <p>Thank you for reaching out to us through our website's contact form. We appreciate your interest in our digital marketing services. Our team is excited to learn more about your specific needs and how we can help your business succeed online. We will review your message carefully and get back to you as soon as possible to discuss your project in more detail.</p>
-        <p><strong>Name:</strong> ${first_name}</p>
-              <p><strong>Email:</strong>${email}</p>
-              <p><strong>Phone:</strong>${phone_number}</p>
-              <p><strong>Subject:</strong> ${subject}</p>
-              <p><strong>Message:</strong> ${message}</p>
+        <p><strong>Name:</strong> ${updates.first_name}</p>
+              <p><strong>Email:</strong>${updates.email}</p>
+              ${updates.subject && `<p><strong>Subject:</strong> ${updates.subject}</p>`}
+             ${updates.message && `<p><strong>Message:</strong> ${updates.message}</p>`}
         </div>
         <div class="footer">
            <div class="logo">

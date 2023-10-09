@@ -1,24 +1,32 @@
 'use client'
 import { bookingUrl } from "@/lib/site/constants";
 import Link from "next/link";
-import React from "react";
+import React, { FormEvent } from "react";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { useContactButtonStore } from "../Buttons/ContactButton/contactButtonStore";
 
-const ContactForm = ({ handleClose }) => {
+const ContactForm = () => {
   const [formData, setFormData] = useState({
     email: "",
     subject: "",
     message: "",
-    name: "",
-    phoneNumber: "",
+    first_name: "",
+    last_name: "",
+    phone_number: "",
   });
   const [status, setStatus] = useState("");
+  const store = useContactButtonStore()
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleClose = () => {
+    store.setOpen(false)
+  }
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const res = await fetch("/api/contact", {
@@ -26,11 +34,13 @@ const ContactForm = ({ handleClose }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      setStatus("success");
-      if (res) {
-        console.log("Your message was sent successfully");
+      if (res.ok) {
+        setStatus("success");
+        store.setOpen(false);
+
+        toast.success("Your message was sent successfully");
       }
-      setFormData({ email: "", subject: "", message: "", name: "", phoneNumber: "" });
+      setFormData({ email: "", subject: "", message: "", first_name: "",last_name: "", phone_number: "" });
     } catch (err) {
       setStatus("error");
       console.log("Error sending email. Please try again later.");
@@ -43,10 +53,10 @@ const ContactForm = ({ handleClose }) => {
         Let's Chat!
       </h1>
       <p className="text-center -mt-2 mb-8 text-black dark:text-white ">or email us at info@cribnetwork.io</p>
-      <form onSubmit={handleSubmit} className="flex flex-col w-full space-y-8 font-medium">
+      <form onSubmit={((e) => handleSubmit(e))} className="flex flex-col w-full space-y-8 font-medium">
         <div>
           <label htmlFor="email" className="block mb-2 text-sm text-black dark:text-white">
-            Your email
+            Email mail
           </label>
           <input
             className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 required"
@@ -61,19 +71,33 @@ const ContactForm = ({ handleClose }) => {
 
         <div className="flex space-x-3 mx-auto w-full">
           <div className="w-full">
-            <label htmlFor="name" className="block mb-2 text-sm font-medium text-black dark:text-white">
-              Your Name
+            <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-black dark:text-white">
+         First Name
             </label>
             <input
               className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 required"
               type="text"
-              id="name"
-              name="name"
-              value={formData.name}
+              id="first_name"
+              name="first_name"
+              value={formData.first_name}
               onChange={handleChange}
             />
           </div>
-
+          <div className="w-full">
+            <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-black dark:text-white">
+              Last Name
+            </label>
+            <input
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 required"
+              type="text"
+              id="last_name"
+              name="last_name"
+              value={formData.last_name}
+              onChange={handleChange}
+            />
+          </div>
+          </div>
+          <div>
           <div className="w-full">
             <label htmlFor="subject" className="block mb-2 text-sm font-medium text-black dark:text-white">
               Subject
@@ -97,9 +121,9 @@ const ContactForm = ({ handleClose }) => {
           <input
             className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring  block w-full p-2.5 required"
             type="tel"
-            id="phoneNumber"
-            name="phoneNumber"
-            value={formData.phoneNumber}
+            id="phone_number"
+            name="phone_number"
+            value={formData.phone_number}
             onChange={handleChange}
             required
           />
@@ -134,8 +158,6 @@ const ContactForm = ({ handleClose }) => {
               Schedule a Call            </button>
           </Link>
         </div>
-
-        {status === "success" && handleClose()}
         {status === "error" && <p>Error sending email, please try again.</p>}
       </form>
     </div>
