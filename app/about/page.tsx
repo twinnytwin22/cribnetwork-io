@@ -5,6 +5,7 @@ import AboutHeader from '@/ui/Headers/AboutHeader';
 import { getBlogPosts } from '@/lib/providers/sanity/sanity';
 import CTA from '@/ui/Sections/CTA/HomeCTA';
 import { getSiteImage } from '@/utils/use-server';
+import MeetTheFounder from '@/ui/Sections/MeetTheFounder/MeetTheFounder';
 
 export const revalidate = 0
 
@@ -22,6 +23,7 @@ async function page() {
         return (
             <React.Fragment>
                 <AboutHeader images={images}/>
+                <MeetTheFounder/>
                 <BlogPostsPreview blogPosts={blogPosts.res} />
                 <CTA/>
             </React.Fragment>
