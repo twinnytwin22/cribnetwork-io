@@ -51,7 +51,7 @@ const BlogPost = ({ category, _createdAt, title, content, author, authorAvatar, 
 const BlogPostsPreview = ({ blogPosts }) => {
 
     return (
-        <section className="bg-zinc-100 dark:bg-black border-t border-b border-zinc-200 dark:border-zinc-800 py-8">
+        <section className="bg-white dark:bg-zinc-950 border-t border-b border-zinc-200 dark:border-zinc-800 py-8">
             <div className="py-8 px-4 mx-auto max-w-screen-xl w-full lg:py-16 lg:px-6">
                 <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
                     <h2 className="mb-4 text-3xl lg:text-4xl tracking-normal font-semibold font-owners text-zinc-900 dark:text-white">Our Blog</h2>
