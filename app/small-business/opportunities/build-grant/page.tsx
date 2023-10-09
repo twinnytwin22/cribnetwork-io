@@ -18,7 +18,7 @@ function page() {
     ]
 
 
-    const aboutYou = `You are a true small business owner with passion and drive. You know exactly who you are, who you reach and serve, and the impact you have on this world. You are ready to acheive your next big goal and know exactly how to maximize this grant to accomplish it.`
+    const aboutYou = `You embody the essence of a dedicated small business owner, brimming with passion and determination. You possess a clear understanding of your identity, your audience, and the meaningful impact you make on the world. You are primed to achieve your next significant objective and are fully aware of how to leverage this grant to make it happen.`
     return image && (
         <div className='min-h-[80vh] text-black dark:text-white mt-12 bg-white dark:bg-black'>
             <section className=' relative min-h-[300px] overflow-hidden flex place-items-center w-full bg-zinc-100 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800'>
