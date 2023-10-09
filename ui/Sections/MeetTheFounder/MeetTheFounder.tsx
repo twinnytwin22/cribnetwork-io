@@ -39,7 +39,7 @@ function MeetTheFounder() {
             />
           </div>
           <Link className='' href='https://www.linkedin.com/in/randalherndon/'>
-          <div className='bg-blue-700 p-2 px-4 mt-8 rounded w-56 font-sm justify-around font-owners mx-auto text-white flex items-center space-x-2'><FaLinkedinIn/> Follow on Linkedin</div>
+          <div className='bg-blue-700 hover:bg-blue-800 duration-200 ease-in-out p-2 px-4 mt-8 rounded w-56 font-sm justify-around font-owners mx-auto text-white flex items-center space-x-2'><FaLinkedinIn/> Follow on Linkedin</div>
           </Link>
         </div>
       </div>
