@@ -84,8 +84,8 @@ function page() {
                     </div>
                     <div className='p-8 text-zinc-500 dark:text-zinc-300'>
                         {disclaimer.map((line) => (
-                            <div>
-                                <p key={line}>
+                            <div key={line}>
+                                <p>
                                     {line}
                                 </p>
                                 <br />
@@ -98,8 +98,8 @@ function page() {
                 <div className='relative '>
                     <h1 className='text-3xl font-owners font-semibold text-center'>Grant Details</h1>
                     <ul className=' text-zinc-500 dark:text-zinc-300 mx-auto max-w-5xl w-full px-8'>
-                        {grantDetails.map((detail, index) => (
-                            <div key={index}>
+                        {grantDetails.map((detail) => (
+                            <div key={detail.pre}>
                             <li className=' mx-auto'>
                                 <span className=' font-bold'>{detail.pre}&nbsp;</span>{detail.text}
                                 </li><br/>
