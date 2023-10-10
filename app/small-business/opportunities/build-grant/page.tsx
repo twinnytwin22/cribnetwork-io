@@ -103,7 +103,7 @@ function page() {
                             <div key={detail.pre}>
                             <li className=' mx-auto leading-8'>
                                 <span className=' font-bold'>{detail.pre}&nbsp;</span>{detail.text}
-                                {detail.subtext?.map((line) => <div className='flex space-x-2 items-center'><FaBullseye/><p>{line}</p></div>)}</li>
+                                {detail.subtext?.map((line) => <div key={line} className='flex space-x-2 items-center'><FaBullseye/><p>{line}</p></div>)}</li>
                                 </div>
                         ))}
                     </ul>
