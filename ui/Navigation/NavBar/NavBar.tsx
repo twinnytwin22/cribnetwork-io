@@ -8,7 +8,7 @@ import Image from 'next/image';
 import ContactButton from '../../Buttons/ContactButton';
 import { imageBuilder } from '@/lib/providers/sanity/sanity';
 //import { imageLoader } from '@/lib/providers/sanity/imageLoader';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useHandleOutsideClick } from '@/lib/hooks/handleOutsideClick';
 const useMobileMenuStore = create((set: any) => ({
     isMobileMenuOpen: false,
@@ -19,12 +19,22 @@ const useMobileMenuStore = create((set: any) => ({
 function NavBar({ settings }: { settings: any }) {
     const image = imageBuilder(settings?.logo)
     const { isMobileMenuOpen, toggleMobileMenu } = useStore(useMobileMenuStore);
+    const router = useRouter()
     const pathname = usePathname()
+    const params = useSearchParams()
+    const services = params.get('services')
     const nah = ['/portal', '/login' , '/register']
     const isHidden = nah.includes(pathname) || pathname.startsWith('/portal')
     const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
     useHandleOutsideClick(isSubMenuOpen, setIsSubMenuOpen, 'drop-dizzle')
 
+    const handleServicesClick = () => {
+      if(pathname == '/'){
+      router.push('#services')
+    }
+      setIsSubMenuOpen((prevState) => !prevState)
+
+    }
 
     return (
         <nav className="bg-white dark:bg-black fixed w-full z-20 top-0 left-0 border-b border-zinc-200 dark:border-zinc-700">
@@ -76,7 +86,7 @@ function NavBar({ settings }: { settings: any }) {
   id="navbar-sticky"
 >
   {!isHidden && (
-    <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium font-owners rounded-sm md:flex-row md:space-x-12 md:mt-0 md:border-0 md:ml-12">
+    <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium font-owners rounded-sm md:flex-row md:space-x-12 md:mt-0 md:border-0 md:ml-12 select-none">
       <li>
         {/* Existing menu item */}
         <Link
@@ -94,12 +104,12 @@ function NavBar({ settings }: { settings: any }) {
             onMouseEnter={() => setIsSubMenuOpen(true)}
          //   onMouseLeave={() => setIsSubMenuOpen(false)}
           >
-            <Link
-              href="#services"
+            <div 
+            onClick={handleServicesClick}
               className="block py-2 pl-3 pr-4 text-zinc-900 rounded hover:bg-zinc-100 md:hover:bg-transparent md:hover:text-zinc-700 md:p-0 md:dark:hover:text-zinc-500 dark:text-white dark:hover:text-white md:dark:hover:bg-transparent dark:border-zinc-700 ease-in-out duration-300"
             >
               Services
-            </Link>
+            </div>
             {/* Submenu */}
             <div
               className={`absolute left-0 mt-2 w-48 bg-white dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg shadow-lg ${

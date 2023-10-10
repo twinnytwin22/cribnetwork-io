@@ -19,7 +19,7 @@ function MeetTheFounder() {
   const image = getSiteImage('/founder.jpeg')
 
   return (
-    <section className='bg-zinc-100 dark:bg-black w-full border-b border-zinc-300 dark:border-zinc-800'>
+    <section className='bg-zinc-100 dark:bg-black w-full border-b border-zinc-300 dark:border-zinc-800 py-8'>
       <div className='md:grid md:grid-cols-2 max-w-7xl mx-auto text-zinc-600 dark:text-zinc-300 place-items-center'>
         <div className='p-8 md:p-16'>
           <h2 className='mb-4 text-3xl lg:text-4xl tracking-normal font-semibold font-owners text-zinc-900 dark:text-white'>Meet Our Founder,</h2>
