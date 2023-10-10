@@ -1,11 +1,9 @@
-import { cookies } from "next/headers";
-import { Database } from "@/types/Database";
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { NextRequest, NextResponse } from "next/server";
+import { supabaseRouteHandler } from "@/lib/providers/supabase/supabase-server";
 export const revalidate = 0
 
 export async function GET(req: NextRequest) {
-  const supabase = createRouteHandlerClient<Database>({ cookies });
+  const supabase = supabaseRouteHandler()
   const requestUrl = new URL(req.url);
   const code = requestUrl.searchParams.get("code");
 

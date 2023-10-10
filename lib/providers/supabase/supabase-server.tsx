@@ -1,7 +1,7 @@
 'use server';
 import { cookies } from 'next/headers';
 import { cache } from 'react';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createRouteHandlerClient, createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database } from '@/types/Database';
 
 export const createServerSupabaseClient = cache(() => {
@@ -9,6 +9,11 @@ const cookieStore = cookies()
 return createServerComponentClient<Database>({ cookies: () => cookieStore })
 })
 
+
+export const supabaseRouteHandler = cache(() => {
+  const cookieStore = cookies()
+  return createRouteHandlerClient<Database>({ cookies: () => cookieStore })
+  })
 
 
 export async function getSession() {

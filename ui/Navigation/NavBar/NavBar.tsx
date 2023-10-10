@@ -21,8 +21,6 @@ function NavBar({ settings }: { settings: any }) {
     const { isMobileMenuOpen, toggleMobileMenu } = useStore(useMobileMenuStore);
     const router = useRouter()
     const pathname = usePathname()
-    const params = useSearchParams()
-    const services = params.get('services')
     const nah = ['/portal', '/login' , '/register']
     const isHidden = nah.includes(pathname) || pathname.startsWith('/portal')
     const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);

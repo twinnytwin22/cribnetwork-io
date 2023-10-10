@@ -3,6 +3,7 @@ import { stripe } from '../stripe/stripe';
 import { createClient } from '@supabase/supabase-js';
 import Stripe from 'stripe';
 import { BrowserCookieAuthStorageAdapter } from "@supabase/auth-helpers-shared";
+import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 
 const authStorage = new BrowserCookieAuthStorageAdapter()
 
@@ -23,6 +24,8 @@ export const supabaseSRkey = process.env.SUPABASE_SERVICE_ROLE_KEY
                                 }
                               }
                           );
+
+
 const upsertProductRecord = async (product: Stripe.Product) => {
   const productData= {
     id: product.id,
