@@ -3,6 +3,7 @@ import { getSiteImage } from '@/utils/use-server'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
+import { FaBullseye } from 'react-icons/fa6'
 
 export const dynamic = 'force-dynamic'
 
@@ -33,10 +34,10 @@ function page() {
             pre: 'Services Covered:',
             text:'The grant includes a wide range of web services, including but not limited to:',
             subtext: [
-                "- Creation of a new website from scratch.",
-                "- Website makeovers and redesigns to enhance aesthetics and functionality.",
-                "- Ongoing updates, maintenance, and security enhancements.",
-                "- Adding new features and functionalities to existing websites.",
+                "Creation of a new website from scratch.",
+                "Website makeovers and redesigns to enhance aesthetics and functionality.",
+                "Ongoing updates, maintenance, and security enhancements.",
+                "Adding new features and functionalities to existing websites.",
             ]
         },
         {
@@ -51,7 +52,7 @@ function page() {
 
     return image && (
         <div className='min-h-[80vh] text-black dark:text-white mt-12 bg-white dark:bg-black relative'>
-            <section className=' relative min-h-[300px] overflow-hidden flex place-items-center w-full bg-zinc-100 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800'>
+            <section className='rounded-b-[100%] ml-[-50%]  relative min-h-[300px] overflow-hidden flex place-items-center w-[200%] bg-zinc-100 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800'>
                 <Image
                     priority
                     src={image}
@@ -72,7 +73,7 @@ function page() {
             <section className='px-8'>
             <div className='relative right-0 left-0 mx-auto -translate-y-24 max-w-7xl w-full shadow border border-zinc-300 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 rounded min-h-[300px]'>
                 <div className='md:grid md:grid-cols-2 gap-8 place-items-center px-8'>
-                    <div className='p-10 object-contain mx-auto'>
+                    <div className='p-10 object-contain mx-auto '>
                         <Image
                             priority
                             width={400}
@@ -97,12 +98,12 @@ function page() {
             <section className='-mt-16 relative'>
                 <div className='relative '>
                     <h1 className='text-3xl font-owners font-semibold text-center'>Grant Details</h1>
-                    <ul className=' text-zinc-500 dark:text-zinc-300 mx-auto max-w-5xl w-full px-8'>
+                    <ul className=' text-zinc-500 dark:text-zinc-300 mx-auto max-w-4xl w-full px-8'>
                         {grantDetails.map((detail) => (
                             <div key={detail.pre}>
-                            <li className=' mx-auto'>
+                            <li className=' mx-auto leading-8'>
                                 <span className=' font-bold'>{detail.pre}&nbsp;</span>{detail.text}
-                                </li><br/>
+                                {detail.subtext?.map((line) => <div className='flex space-x-2 items-center'><FaBullseye/><p>{line}</p></div>)}</li>
                                 </div>
                         ))}
                     </ul>
@@ -111,7 +112,7 @@ function page() {
                     <div className='p-16'>
                         <h1 className='text-3xl font-owners font-semibold '>About you.</h1>
                         <p className='mb-8 text-zinc-500 dark:text-zinc-300 '>{aboutYou}</p>
-                        <ul className="space-y-4 text-left text-zinc-500 dark:text-zinc-400 mx-auto w-full">
+                        <ul className="space-y-4 text-left text-zinc-500 dark:text-zinc-300 mx-auto w-full">
                             {grantReqs.map((req) => (
                                 <li key={req} className="flex items-center space-x-3">
                                     <svg className="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
