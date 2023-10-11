@@ -24,15 +24,15 @@ function page() {
     const grantDetails = [
         {
             pre: 'Grant Recipients:',
-            text:'CRIB Network will select one deserving small business to receive this grant on a quarterly basis.',
+            text: 'CRIB Network will select one deserving small business to receive this grant on a quarterly basis.',
         },
         {
             pre: 'Grant Type:',
-            text:'Non-monetary. Instead of providing financial support, we will allocate a specific amount of time dedicated to free web design services.',
+            text: 'Non-monetary. Instead of providing financial support, we will allocate a specific amount of time dedicated to free web design services.',
         },
         {
             pre: 'Services Covered:',
-            text:'The grant includes a wide range of web services, including but not limited to:',
+            text: 'The grant includes a wide range of web services, including but not limited to:',
             subtext: [
                 "Creation of a new website from scratch.",
                 "Website makeovers and redesigns to enhance aesthetics and functionality.",
@@ -42,16 +42,16 @@ function page() {
         },
         {
             pre: 'Duration:',
-            text:'The grant will provide a specified number of hours for web services, tailored to the unique needs and goals of the selected small business.',
+            text: 'The grant will provide a specified number of hours for web services, tailored to the unique needs and goals of the selected small business.',
         },
         {
             pre: 'Quarterly Selection:',
-            text:'CRIB Network will evaluate and choose one small business to receive the grant every quarter, ensuring a fair and equal opportunity for all applicants.',
+            text: 'CRIB Network will evaluate and choose one small business to receive the grant every quarter, ensuring a fair and equal opportunity for all applicants.',
         },
     ];
 
     return image && (
-        <div className='min-h-[80vh] text-black dark:text-white mt-12 bg-white dark:bg-black relative'>
+        <div className='min-h-[80vh] text-black dark:text-white mt-12 bg-white dark:bg-black relative overflow-x-hidden'>
             <section className='rounded-b-[100%] ml-[-50%]  relative min-h-[300px] overflow-hidden flex place-items-center w-[200%] bg-zinc-100 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800'>
                 <Image
                     priority
@@ -71,29 +71,29 @@ function page() {
                 </div>
             </section>
             <section className='px-8'>
-            <div className='relative right-0 left-0 mx-auto -translate-y-24 max-w-7xl w-full shadow border border-zinc-300 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 rounded min-h-[300px]'>
-                <div className='md:grid md:grid-cols-2 gap-8 place-items-center px-8'>
-                    <div className='p-10 object-contain mx-auto '>
-                        <Image
-                            priority
-                            width={400}
-                            height={325}
-                            src={buildImage}
-                            alt='mockup'
-                            className='rounded-2xl object-cover mx-auto'
-                        />
-                    </div>
-                    <div className='p-8 text-zinc-500 dark:text-zinc-300'>
-                        {disclaimer.map((line) => (
-                            <div key={line}>
-                                <p>
-                                    {line}
-                                </p>
-                                <br />
-                            </div>))}
+                <div className='relative right-0 left-0 mx-auto -translate-y-24 max-w-7xl w-full shadow border border-zinc-300 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 rounded min-h-[300px]'>
+                    <div className='md:grid md:grid-cols-2 gap-8 place-items-center px-8'>
+                        <div className='p-10 object-contain mx-auto '>
+                            <Image
+                                priority
+                                width={400}
+                                height={325}
+                                src={buildImage}
+                                alt='mockup'
+                                className='rounded-2xl object-cover mx-auto'
+                            />
+                        </div>
+                        <div className='p-8 text-zinc-500 dark:text-zinc-300'>
+                            {disclaimer.map((line) => (
+                                <div key={line}>
+                                    <p>
+                                        {line}
+                                    </p>
+                                    <br />
+                                </div>))}
+                        </div>
                     </div>
                 </div>
-            </div>
             </section>
             <section className='-mt-16 relative'>
                 <div className='relative '>
@@ -101,10 +101,10 @@ function page() {
                     <ul className=' text-zinc-500 dark:text-zinc-300 mx-auto max-w-4xl w-full px-8'>
                         {grantDetails.map((detail) => (
                             <div key={detail.pre}>
-                            <li className=' mx-auto leading-8'>
-                                <span className=' font-bold'>{detail.pre}&nbsp;</span>{detail.text}
-                                {detail.subtext?.map((line) => <div key={line} className='flex space-x-2 items-center'><FaBullseye/><p>{line}</p></div>)}</li>
-                                </div>
+                                <li className=' mx-auto leading-8'>
+                                    <span className=' font-bold'>{detail.pre}&nbsp;</span>{detail.text}
+                                    {detail.subtext?.map((line) => <div key={line} className='flex space-x-2 items-center'><FaBullseye /><p>{line}</p></div>)}</li>
+                            </div>
                         ))}
                     </ul>
                 </div>
@@ -126,7 +126,6 @@ function page() {
 
                     </div>
                     <div className='p-16'>
-                        <h1 className='text-3xl font-owners font-semibold'>Get Started.</h1>
                         <BuildGrantForm />
 
                     </div>

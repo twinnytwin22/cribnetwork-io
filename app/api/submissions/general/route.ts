@@ -17,7 +17,7 @@ async function sendEmail(msg: any) {
   }
 
   async function insertData(updates: any) {
-  
+
     try {
       const { data: submission, error: submissionError } = await supabaseApi
         .from('form_submissions')
