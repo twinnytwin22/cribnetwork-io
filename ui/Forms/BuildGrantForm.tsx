@@ -29,7 +29,7 @@ const max = 3;
 const isInRange = (s: number) => s >= min && s <= max;
 
 function BuildGrantForm() {
-    const questions = ['question1', 'question2'];
+    const questions = ['What is your biggest challenge as a small business owner?', 'What is a primary goal you have for your company? List 1-3'];
     const router = useRouter()
 
     const initialState: FormProps = {
@@ -166,7 +166,7 @@ function BuildGrantForm() {
     const renderStep2 = () => {
         return (
             <div>
-                <p className='mb-8 text-lg text-zinc-500 dark:text-zinc-300'>What are you current goals for your business?</p>
+                <p className='mb-8 text-lg text-zinc-500 dark:text-zinc-300'>{formData?.form_questions && formData?.form_questions[0].question}</p>
                 <div className="relative z-0 w-full mb-6 group">
                     <textarea
                         value={formData?.form_questions && formData?.form_questions[0].response}
@@ -183,7 +183,7 @@ function BuildGrantForm() {
     const renderStep3 = () => {
         return (
             <div>
-                <p className='mb-8 text-lg text-zinc-500 dark:text-zinc-300'>What are you current goals for your business?</p>
+                <p className='mb-8 text-lg text-zinc-500 dark:text-zinc-300'>{formData?.form_questions && formData?.form_questions[1].question}</p>
                 <div className="relative z-0 w-full mb-6 group">
                     <textarea
                         value={formData?.form_questions && formData?.form_questions[1].response}
@@ -198,7 +198,7 @@ function BuildGrantForm() {
     };
     return (
         <div>                        
-            <h1 className='text-3xl font-owners font-semibold'>{ headers[step!]}.</h1>
+            <h1 className='text-3xl font-owners font-semibold'>{'Get Started'}</h1>
             <form onSubmit={((e: FormEvent<HTMLFormElement>) => handleSubmit(e))} className='w-full mx-auto h-[410px] max-h-full min-h-full relative'>
                 <div className='min-h-[315px] max-h-fit'>
                     {step === min && renderStep1()}
