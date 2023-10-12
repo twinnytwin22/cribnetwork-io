@@ -6,28 +6,28 @@ import React, { Suspense } from 'react'
 
 
 async function page() {
-    const {data} = await supabaseAdmin
+  const { data } = await supabaseAdmin
     .from('form_submissions')
     .select()
 
-    const {data: formTypes} = await supabaseAdmin
+  const { data: formTypes } = await supabaseAdmin
     .from('form_types')
-    .select() 
+    .select()
 
-    const tableHeaders = ['Email', 'Type', 'Company', 'Name', 'Phone Number']
+  const tableHeaders = ['Email', 'Type', 'Company', 'Name', 'Phone Number']
 
-    const formTableProps = {
-        tableHeaders, 
-        data,
-        formTypes
-    }
+  const formTableProps = {
+    tableHeaders,
+    data,
+    formTypes
+  }
 
-   return (
-    <div className='w-full px-8 h-full'>
-            <PageTitle title={'Form Submissions'}/>
-<Suspense>
-    <FormSubmissions {...formTableProps} formTableProps={formTableProps}/>
-    </Suspense>
+  return (
+    <div className='w-full px-8 h-full relative'>
+      <PageTitle title={'Form Submissions'} />
+      <Suspense>
+        <FormSubmissions {...formTableProps} formTableProps={formTableProps} />
+      </Suspense>
     </div>
   )
 }

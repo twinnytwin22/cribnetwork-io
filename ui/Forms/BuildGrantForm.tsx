@@ -9,7 +9,7 @@ interface FormQuestions {
 }
 
 
-interface FormProps {
+export interface FormProps {
     email: string | undefined
     subject: string | undefined
     message: string | undefined
