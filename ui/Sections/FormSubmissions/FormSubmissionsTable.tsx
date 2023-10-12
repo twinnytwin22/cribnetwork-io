@@ -31,7 +31,7 @@ function FormSubmissionsTable({ data, tableHeaders }) {
     return (
         <div>
         <table className="w-full text-sm text-left text-zinc-500 dark:text-zinc-400">
-            <thead className="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-700 dark:text-zinc-400">
+            <thead className="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-900 dark:text-zinc-400">
                 <tr>
                     {tableHeaders.map((header: any) => (
                         <th key={header} scope="col" className="px-4 py-3">{header}</th>))}
