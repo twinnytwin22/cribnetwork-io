@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { cache } from 'react';
 import { createRouteHandlerClient, createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database } from '@/types/Database';
+import { supabaseAdmin } from './supabase-lib-admin';
 
 export const createServerSupabaseClient = cache(() => {
 const cookieStore = cookies()
@@ -14,6 +15,23 @@ export const supabaseRouteHandler = cache(() => {
   const cookieStore = cookies()
   return createRouteHandlerClient<Database>({ cookies: () => cookieStore })
   })
+
+  export const createFormType = async (newFormType: string) => {
+    const supabase = createServerSupabaseClient();
+
+    const { data, error } = await supabaseAdmin
+        .from('form_types')
+        .insert([
+            {type: newFormType}
+        ])
+        .select()
+        .maybeSingle()
+        if(error){
+            console.log(error)
+        }
+        return data
+}
+
 
 
 export async function getSession() {

@@ -86,8 +86,13 @@ function SiteContextProvider({ children }: { children: React.ReactNode }) {
             <React.Fragment>
                 {!initialConsentStatus && !isLoading &&
                     <div className='fixed bottom-0 bg-black w-screen py-8 p-4 z-50 text-white'>
-                        <div className='flex items-center justify-between max-w-screen-2xl w-full mx-auto relative'>
-                            <p className=' w-1/2 text-sm'>
+                           <div
+                                onClick={handleCloseCookieBar}
+                                className='mx-8 text-red-300 text-2xl hover:scale-110 duration-200 ease-in-out cursor-pointer md:hidden block'>
+                                <MdCancel />
+                            </div>
+                        <div className='md:flex items-center justify-between max-w-screen-2xl w-full mx-auto relative'>
+                            <p className=' md:w-1/2 text-sm p-2.5 md:p-0 text-center md:text-left'>
                              {cookieMessage}                            
                              </p>
                             <div className='flex space-x-4 mx-auto justify-around font-owners text-sm font-semibold '>
@@ -114,7 +119,7 @@ function SiteContextProvider({ children }: { children: React.ReactNode }) {
                             </div>
                             <div
                                 onClick={handleCloseCookieBar}
-                                className='mx-8 text-red-300 text-2xl hover:scale-110 duration-200 ease-in-out cursor-pointer'>
+                                className='mx-8 text-red-300 text-2xl hover:scale-110 duration-200 ease-in-out cursor-pointer hidden md:block'>
                                 <MdCancel />
                             </div>
                         </div>

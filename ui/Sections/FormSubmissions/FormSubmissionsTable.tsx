@@ -45,7 +45,7 @@ function FormSubmissionsTable({ data, tableHeaders }) {
             </thead>
             <tbody>
                 {filteredSubmissions?.map((submission: any) => (
-                    <tr key={submission.id} className="border-b dark:border-zinc-700">
+                    <tr key={submission.id} className="">
                         <th scope="row" className="px-4 py-3 font-medium text-zinc-900 whitespace-nowrap dark:text-white">{submission.email}</th>
                         <td className="px-4 py-3">{submission.form_type}</td>
                         <td className="px-4 py-3">{submission?.company_name || "---"}</td>

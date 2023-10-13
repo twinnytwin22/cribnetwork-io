@@ -1,15 +1,15 @@
-import { cookies } from 'next/headers';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { stripe } from '@/lib/providers/stripe/stripe';
-import { createOrRetrieveCustomer } from '@/lib/providers/supabase/supabase-lib-admin';
+import { createOrRetrieveCustomer, supabaseAdmin } from '@/lib/providers/supabase/supabase-lib-admin';
 import { getURL } from '@/lib/hooks/helpers';
+import { createServerSupabaseClient } from '@/lib/providers/supabase/supabase-server';
 
 export const dynamic = 'force-dynamic'
 
 export async function POST(req: Request) {
   if (req.method === 'POST') {
     try {
-      const supabase = createRouteHandlerClient({cookies});
+      const supabase = createServerSupabaseClient();
+
       const {
         data: { user }
       } = await supabase.auth.getUser();

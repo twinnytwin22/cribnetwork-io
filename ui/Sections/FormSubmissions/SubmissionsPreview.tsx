@@ -4,16 +4,24 @@ import { useFormSubmissionTableStore } from './store';
 import { useHandleOutsideClick } from '@/lib/hooks/handleOutsideClick';
 
 const SubmissionPreview = () => {
-  const { selectedSubmission: submission, previewOpen, setPreviewOpen, setSelectedSubmission } = useFormSubmissionTableStore();
-  useHandleOutsideClick(previewOpen, setPreviewOpen, 'submission-preview')
+  const {
+    selectedSubmission: submission,
+    previewOpen,
+    setPreviewOpen,
+    setSelectedSubmission
+  } = useFormSubmissionTableStore();
+  useHandleOutsideClick(
+    previewOpen,
+    setPreviewOpen,
+    'submission-preview')
   const handleClosePreview = () => {
     setSelectedSubmission(null);
     setPreviewOpen(false);
   };
 
   return (
-    <div id='submission-preview' className="submission-preview fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 bg-opacity-70 dark:bg-opacity-70 bg-white dark:bg-black">
-      <div className="modal w-full max-w-3xl bg-white dark:bg-black max-h-2/3 overflow-y-scroll -top-36 left-0 lg:left-32 relative rounded-lg text-black dark:text-white border border-zinc-200 dark:border-zinc-800 p-4 shadow-lg">
+    <div  className=" z-[60]  w-full p-3 rounded-lg top-14 right-0 ">
+    <div className="">
         <svg
           onClick={handleClosePreview}
           className="w-6 relative top-3 left-3 z-[99999] text-black dark:text-white"

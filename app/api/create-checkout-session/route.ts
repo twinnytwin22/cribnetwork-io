@@ -1,17 +1,21 @@
-import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { stripe } from '@/lib/providers/stripe/stripe';
-import { createOrRetrieveCustomer } from '@/lib/providers/supabase/supabase-lib-admin';
+import { createOrRetrieveCustomer, supabaseAdmin } from '@/lib/providers/supabase/supabase-lib-admin';
 import { getURL } from '@/lib/hooks/helpers';
+import { supabaseApi } from '@/lib/providers/supabase/routerHandler';
+import { supabase } from '@/lib/site/constants';
+import { createServerSupabaseClient } from '@/lib/providers/supabase/supabase-server';
+
+export const dynamic ='force-dynamic'
 export async function POST(req: Request) {
   if (req.method === 'POST') {
     // 1. Destructure the price and quantity from the POST body
     const { price, quantity = 1, metadata = {} } = await req.json();
+    const supabase = createServerSupabaseClient();
+
 
     try {
       // 2. Get the user from Supabase auth
-      const supabase = createRouteHandlerClient({cookies});
       const {
         data: { user }
       } = await supabase.auth.getUser();
@@ -69,7 +73,7 @@ export async function POST(req: Request) {
       }
 
       if (session) {
-        return NextResponse.json(JSON.stringify({ sessionId: session.id }), {
+        return new Response(JSON.stringify({ sessionId: session.id }), {
           status: 200
         });
       } else {

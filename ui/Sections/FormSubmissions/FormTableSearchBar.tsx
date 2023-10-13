@@ -47,7 +47,7 @@ export default function FormTableSearchBar() {
         }
     })
 
-    console.log(data, "DATA")
+    //console.log(data, "DATA")
     return (
         <div className="w-full md:w-1/2 relative">
             <form className="flex items-center">
@@ -62,8 +62,8 @@ export default function FormTableSearchBar() {
                         onChange={(e) => setSearchTerm(e.target.value)}
                         type="text"
                         id="simple-search"
-                        className="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-red-300 focus:border-red-300 block w-full pl-10 p-2 dark:bg-zinc-900 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-red-300 dark:focus:border-red-300" placeholder="Search by email..." required />
-                         <div className="absolute top-10 left-0 right-0 mt-6  bg-white max-h-[300px] overflow-y-scroll dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 shadow-2xl rounded-md z-[99990] shadow-zinc-300 dark:shadow-black search-results mx-auto">
+                        className="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-red-300 focus:border-red-300 block w-full pl-10 p-2 dark:bg-zinc-950 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-red-300 dark:focus:border-red-300" placeholder="Search by email..." required />
+                         <div className="absolute hidden top-10 left-0 right-0 mt-6  bg-white max-h-[300px] overflow-y-scroll dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 shadow-2xl rounded-md z-[99990] shadow-zinc-300 dark:shadow-black search-results mx-auto">
                     {/* {data && data?.length > 0 && (
                         <div className='relative'>
                             <div className='p-1 pl-4 bg-zinc-100 dark:bg-black w-full text-black dark:text-white flex h-fit'>

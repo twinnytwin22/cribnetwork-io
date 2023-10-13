@@ -1,21 +1,18 @@
 import React from 'react'
 import { useFormSubmissionTableStore } from './store';
+import { useHandleOutsideClick } from '@/lib/hooks/handleOutsideClick';
 
 function FilterMenu({ formTypes }) {
-    const { 
-        previewOpen, 
-        setPreviewOpen, 
-        setSelectedSubmission, 
+    const {
         setFilteredSubmissions, 
         filteredSubmissions, 
+        selectedFormTypes,
         setFilterMenuOpen, 
-        filterMenuOpen , 
-        selectedFormTypes, 
+        filterMenuOpen,
         selectAll, 
         setSelectAll, 
         setSelectedFormTypes, 
-
-    } = useFormSubmissionTableStore()
+    } = useFormSubmissionTableStore();
 
     const handleTypeChange = (type: string) => {
         if (selectedFormTypes.includes(type)) {
@@ -34,7 +31,6 @@ function FilterMenu({ formTypes }) {
         const filtered = filteredSubmissions.filter((submission: any) =>
             selectedFormTypes.includes(submission.form_type)
         );
-
         setFilteredSubmissions(filtered);
     };
 
@@ -46,14 +42,14 @@ function FilterMenu({ formTypes }) {
             // If not all options are selected, select all.
             setSelectedFormTypes(formTypes.map(({ type }) => type));
         }
-
         // Toggle the "Select All" checkbox.
         setSelectAll(!selectAll);
     };
+    useHandleOutsideClick(filterMenuOpen, setFilterMenuOpen, 'filter-menu')
     return (
-        <div id="filterDropdown" className="z-[60] absolute w-48 p-3 bg-white rounded-lg top-14 right-0 shadow dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800">
+        <div id="filterDropdown" className="filter-menu z-[60]  w-full p-3 rounded-lg top-14 right-0 ">
             <h6 className="mb-3 text-sm font-medium text-zinc-900 dark:text-white">Choose Type</h6>
-            <ul className="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
+            <ul className="space-y-2 text-sm " aria-labelledby="filterDropdownButton">
                 <li className="flex items-center">
                     <input
                         id="selectAll"
