@@ -1,9 +1,6 @@
-import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/providers/stripe/stripe';
-import { createOrRetrieveCustomer, supabaseAdmin } from '@/lib/providers/supabase/supabase-lib-admin';
+import { createOrRetrieveCustomer } from '@/lib/providers/supabase/supabase-lib-admin';
 import { getURL } from '@/lib/hooks/helpers';
-import { supabaseApi } from '@/lib/providers/supabase/routerHandler';
-import { supabase } from '@/lib/site/constants';
 import { createServerSupabaseClient } from '@/lib/providers/supabase/supabase-server';
 
 export const dynamic ='force-dynamic'
@@ -12,7 +9,6 @@ export async function POST(req: Request) {
     // 1. Destructure the price and quantity from the POST body
     const { price, quantity = 1, metadata = {} } = await req.json();
     const supabase = createServerSupabaseClient();
-
 
     try {
       // 2. Get the user from Supabase auth
@@ -48,7 +44,7 @@ export async function POST(req: Request) {
             trial_from_plan: true,
             metadata
           },
-          success_url: `${getURL()}/portal`,
+          success_url: `${getURL()}portal`,
           cancel_url: `${getURL()}/`
         });
       } else if (price.type === 'one_time') {
@@ -67,7 +63,7 @@ export async function POST(req: Request) {
           ],
           mode: 'payment',
           allow_promotion_codes: true,
-          success_url: `${getURL()}/portal`,
+          success_url: `${getURL()}portal`,
           cancel_url: `${getURL()}/`
         });
       }

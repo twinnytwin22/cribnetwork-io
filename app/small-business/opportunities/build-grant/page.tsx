@@ -98,12 +98,12 @@ function page() {
             <section className='-mt-16 relative'>
                 <div className='relative '>
                     <h1 className='text-3xl font-owners font-semibold text-center'>Grant Details</h1>
-                    <ul className=' text-zinc-500 dark:text-zinc-300 mx-auto max-w-4xl w-full px-8'>
+                    <ul className=' text-zinc-500 dark:text-zinc-300 mx-auto max-w-4xl w-full px-8 space-y-6'>
                         {grantDetails.map((detail) => (
                             <div key={detail.pre}>
                                 <li className=' mx-auto leading-8'>
                                     <span className=' font-bold'>{detail.pre}&nbsp;</span>{detail.text}
-                                    {detail.subtext?.map((line) => <div key={line} className='flex space-x-2 items-center'><FaBullseye /><p>{line}</p></div>)}</li>
+                                    {detail.subtext?.map((line) => <div key={line} className='pl-10 flex space-x-2 items-center'><FaBullseye /><p>{line}</p></div>)}</li>
                             </div>
                         ))}
                     </ul>
