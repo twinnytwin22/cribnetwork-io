@@ -6,7 +6,6 @@ import AddArtistForm from './AddArtist';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/lib/site/constants';
 
 function FormGroup() {
     const params = useSearchParams();
@@ -21,6 +20,7 @@ function FormGroup() {
                     'Accept': 'application/json',
 
                  },
+                 mode: 'no-cors'
 
             })
             //const data = songs.json()
