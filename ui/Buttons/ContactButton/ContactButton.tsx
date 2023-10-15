@@ -1,5 +1,5 @@
 'use client'
-import { ContactModal } from "../../Sections/ContactModal";
+import { ContactModal } from "../../Sections/ContactModal/ContactModal";
 import { useContactButtonStore } from "./contactButtonStore";
 
 const ContactButton = () => {

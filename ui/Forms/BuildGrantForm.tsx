@@ -1,7 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation';
 import React, { FormEvent, useState } from 'react'
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa6';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 import { toast } from 'react-toastify';
 interface FormQuestions {
     question: string | undefined
@@ -203,7 +203,7 @@ function BuildGrantForm() {
                 <div className='min-h-[315px] max-h-fit'>
                     {step === min && renderStep1()}
                     {step === 2 && renderStep2()}
-                    {step === 3 && renderStep3()}
+                    {step === max && renderStep3()}
                     {status === 'error' && <div className='text-red-500'>Sorry there was an error</div>}
                     {status === 'success' && !step && <div className='text-green-500'>Success</div>}
                 </div>
@@ -244,12 +244,12 @@ const StepButtons = ({ step, set }: { step: number, set: (step: number) => void 
             <div
                 onClick={decrementStep}
                 className='p-2.5 bg-red-300 rounded-l-lg hover:bg-red-400 ease-in-out duration-200'>
-                <FaChevronDown />
+                <FaChevronLeft />
             </div>
             <div
                 onClick={incrementStep}
                 className='p-2.5 bg-red-300 rounded-r-lg hover:bg-red-400 ease-in-out duration-200'>
-                <FaChevronUp />
+                <FaChevronRight />
             </div>
 
         </div>

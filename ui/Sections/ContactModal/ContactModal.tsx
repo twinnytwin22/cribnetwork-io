@@ -1,5 +1,5 @@
 import React from 'react'
-import ContactForm from '../Forms/ContactPageForm';
+import ContactForm from '../../Forms/ContactPageForm';
 
 export const ContactModal = ({ handleClose }) => {
     return (
@@ -23,3 +23,5 @@ export const ContactModal = ({ handleClose }) => {
         </div>
     );
 };
+
+export default ContactModal

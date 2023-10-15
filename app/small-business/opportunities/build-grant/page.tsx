@@ -1,7 +1,6 @@
 import BuildGrantForm from '@/ui/Forms/BuildGrantForm'
 import { getSiteImage } from '@/utils/use-server'
 import Image from 'next/image'
-import { useSearchParams } from 'next/navigation'
 import React from 'react'
 import { FaBullseye } from 'react-icons/fa6'
 
@@ -18,7 +17,7 @@ function page() {
         'Lack the resources to develop the website you envision.',
         'Ready to take your branding and business to the next level.'
     ]
-    const disclaimer = [`Small Business Web Services Grant, aimed at empowering and supporting small businesses in their online presence and digital marketing efforts. This non-monetary grant is designed to provide small businesses with the valuable resource of professional web design and development services.`, ` We believe that a strong online presence is essential for the success of any small business in today's digital age, and we are committed to helping businesses thrive in the online marketplace.`]
+    const disclaimer = [`Small Business Build Grant, aimed at empowering and supporting small businesses in their online presence and digital marketing efforts. This non-monetary grant is designed to provide small businesses with the valuable resource of professional web design and development services.`, ` We believe that a strong online presence is essential for the success of any small business in today's digital age, and we are committed to helping businesses thrive in the online marketplace.`]
 
     const aboutYou = `You embody the essence of a dedicated small business owner, brimming with passion and determination. You possess a clear understanding of your identity, your audience, and the meaningful impact you make on the world. You are primed to achieve your next significant objective and are fully aware of how to leverage this grant to make it happen.`
     const grantDetails = [
@@ -66,7 +65,7 @@ function page() {
 
                 <div className='mx-auto relative z-10'>
                     <h1 className='text-5xl font-owners font-semibold text-white text-center'>
-                        Build Grant
+                        Small Business Build Grant
                     </h1>
                 </div>
             </section>

@@ -17,7 +17,7 @@ import {
   FaFileInvoice,
   FaChartPie
 } from 'react-icons/fa' // Import the icons you need
-import { FaWpforms } from 'react-icons/fa6'
+import { FaMusic, FaWpforms } from 'react-icons/fa6'
 function DashboardSidebar () {
   const { user, signOut, profile } = useAuthProvider()
   const [showTooltip, setShowTooltip] = useState('')
@@ -74,6 +74,13 @@ function DashboardSidebar () {
       icon: <FaWpforms />,
       condition: isAdmin,
       href: '/portal/form-submissions',
+      target: '_blank'
+    },
+    {
+      title: 'Music Uploads',
+      icon: <FaMusic />,
+      condition: isAdmin,
+      href: '/portal/crib-music',
       target: '_blank'
     },
     {

@@ -1,6 +1,6 @@
 import React from 'react'
 //import Image from 'next/image';
-import BlogPostsPreview from '@/ui/Sections/BlogPostsPreview';
+import BlogPostsPreview from '@/ui/Sections/BlogPreview/BlogPostsPreview';
 import AboutHeader from '@/ui/Headers/AboutHeader';
 import { getBlogPosts } from '@/lib/providers/sanity/sanity';
 import CTA from '@/ui/Sections/CTA/HomeCTA';
