@@ -18,9 +18,10 @@ function FormGroup() {
                 cache: 'no-cache',
                 headers: {
                     'Accept': 'application/json',
+                    'Access-Control-Allow-Origin': 'https://cribnetwork.io'
 
                  },
-                 mode: 'no-cors'
+                // mode: 'no-cors'
 
             })
             //const data = songs.json()
