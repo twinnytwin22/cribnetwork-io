@@ -16,9 +16,9 @@ const getAllSongs = async() => {
     return mode
 }
 
-  const {data} = useQuery({
+  const {data: songs} = useQuery({
     queryKey: ['data'],
-    queryFn: () => getAllSongs()
+    queryFn: () => fetch('https://cribmusic.xyz/v1/getAllSongs')
   })
 
   return (
@@ -72,7 +72,7 @@ const getAllSongs = async() => {
 
       {mode === 'song' && <UploadSongForm />}
       {mode === 'artist' && <AddArtistForm />}
-      {mode === 'data' && <div> </div>}
+      {mode === 'data' && <div> {JSON.stringify(songs)}</div>}
     </div>
   );
 }

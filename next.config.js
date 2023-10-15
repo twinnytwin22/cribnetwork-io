@@ -21,6 +21,18 @@ const securityHeaders = [
     value:
       "accelerometer=(self), camera=(self), geolocation=(self), microphone=(self)",
   },
+  {
+    key: 'Access-Control-Allow-Origin',
+    value: '*', // Replace with the origin of cribmusic.xyz
+  },
+  {
+    key: 'Access-Control-Allow-Methods',
+    value: 'GET, POST, PUT, DELETE, OPTIONS',
+  },
+  {
+    key: 'Access-Control-Allow-Headers',
+    value: 'X-Requested-With, Content-Type, Authorization',
+  },
 ];
 
 const nextConfig = {
