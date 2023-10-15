@@ -103,4 +103,24 @@ const fetchProfileForEvent = async (id: any) => {
 
 };
 
-export { fetchCreators, fetchUserEnrollments, refreshCache, fetchProfilesForDrops, fetchProfileForEvent };
+const getAllSongs = async () => {
+try {
+  const songs = await fetch('https://cribmusic.xyz/v1/getAllSongs')
+  return songs
+} catch (error) {
+  console.log(error);
+  return error;
+}
+}
+
+const getAllArtists = async () => {
+  try {
+    const songs = await fetch('https://cribmusic.xyz/v1/getAllArtists')
+    return songs
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+  }
+
+export { fetchCreators, fetchUserEnrollments, refreshCache, fetchProfilesForDrops, fetchProfileForEvent, getAllSongs, getAllArtists };
