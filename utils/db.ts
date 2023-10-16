@@ -50,16 +50,18 @@ export const getAllArtists = async () => {
   }
 
 
-  export const addMewArtist = async (updates: any) => {
+  export const addMewArtist = async ({updates}: any) => {
     try {
         const res = await fetch(`/api/v1/music/addNewArtist`, {
             method: 'POST',
             cache: 'no-cache',
             headers: {
                 "Content-Type": "application/json",
+                "Content-Length": JSON.stringify({updates}).length.toString(),
+
                // "Access-Control-Allow-Origin": "*"
              },
-             body: JSON.stringify( updates )
+             body: JSON.stringify( {updates} )
              
            //  mode: 'no-cors', 
         

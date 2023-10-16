@@ -54,7 +54,7 @@ const AddArtistForm = () => {
     try {
       const artists = [
         {
-          artist_id: 1,
+          //artist_id: 1,
           artist_name: formData.artist_name, // Map the artist_name to the form input
           genres: formData.genres, // Map the genre to the form input
           biography: formData.biography, // Map the biography to the form input
@@ -67,7 +67,7 @@ const AddArtistForm = () => {
       ];
 
       // Assuming you have a function to post the artists data
-      const res = await addMewArtist(artists);
+      const res = await addMewArtist({updates: artists});
 
       // Simulate a successful response for demonstration
     //  const res = { ok: true };

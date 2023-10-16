@@ -14,7 +14,7 @@ try {
     .select('*, courses(*)')
     .eq('student_id', userId)
     .limit(5)
-    console.log(enrollments)
+    //console.log(enrollments)
 
     if (error) {
       throw new Error("Error fetching drops");

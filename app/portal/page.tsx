@@ -42,7 +42,7 @@ async function Portal({
         .limit(5)
     
     
-    console.log(enrollments)
+   // console.log(enrollments)
 
     
 

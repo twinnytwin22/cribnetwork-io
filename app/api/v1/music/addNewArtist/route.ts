@@ -8,13 +8,17 @@ export async function POST(request: Request) {
 //  const { searchParams } = new URL(request.url);
 //  const userId = searchParams.get("userId");
 
-const updates = await request.json()
+const { updates } = await request.json()
 try {
- if(request.method === 'POST') {
+ if(updates && request.method === 'POST') {
+  console.log(updates , "UPDATES")
     const artist = await fetch('https://cribmusic.xyz/api/v1/addNewArtist/', {
         body: JSON.stringify(updates) , 
         method: 'POST', 
-        headers: { "Content-Type": "application/json" },
+        headers: {
+        "Content-Type": "application/json",
+        "Content-Length": JSON.stringify(updates).length.toString(),
+      },
 
 
     })
@@ -29,7 +33,7 @@ try {
           return NextResponse.json("Error: fetching artist");
         }
 
-        return NextResponse.json('Error: Method not found')
+        return NextResponse.json('Error: Method or updates not found')
       }
 
 
