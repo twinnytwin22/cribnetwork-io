@@ -17,11 +17,13 @@ function FormGroup() {
                 method: 'GET',
                 cache: 'no-cache',
                 headers: {
-                    'Accept': 'application/json',
-                    'Access-Control-Allow-Origin': 'https://cribnetwork.io'
-
+                    "Content-Type": "application/json",
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
                  },
-                // mode: 'no-cors'
+               //  mode: 'no-cors', 
+                 
 
             })
             //const data = songs.json()
@@ -31,9 +33,12 @@ function FormGroup() {
         }
     }
 
-    const { data: songs } = useQuery({
+   let { data: songs } = useQuery({
         queryKey: ['data'],
-        queryFn: () => getAllSongs()
+        queryFn: () => getAllSongs(), 
+        // onSuccess: (data) => {
+        //     songs
+        // }
     })
 
     return (
