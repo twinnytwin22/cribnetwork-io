@@ -13,7 +13,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
   const requestOrigin = req.headers.get('origin');
   const allowedOrigins = ['https://cribnetwork.io', 'http://localhost:3000', 'https://cribmusic.xyz'];
   // Check if the request's origin is in the allowed origins list
-  if (requestOrigin && allowedOrigins.includes(requestOrigin)) {
+  if (requestOrigin) {
     // If the origin is allowed, set the appropriate CORS headers
     res.headers.set('Access-Control-Allow-Origin', '*');
     res.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');

@@ -6,41 +6,23 @@ import AddArtistForm from './AddArtist';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
+import { getAllSongs } from '@/utils/use-server';
+import { getAllArtists } from '@/utils/db';
 
 function FormGroup() {
     const params = useSearchParams();
     const mode = params.get('mode');
 
-    const getAllSongs = async () => {
-        try {
-            const songs = await fetch('https://cribmusic.xyz/api/v1/getAllArtists', {
-                method: 'GET',
-                cache: 'no-cache',
-                headers: {
-                    "Content-Type": "application/json",
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-                    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-                 },
-               //  mode: 'no-cors', 
-                 
 
-            })
-            //const data = songs.json()
-            return songs
-        } catch (error) {
-            throw error
-        }
-    }
-
-   let { data: songs } = useQuery({
-        queryKey: ['data'],
-        queryFn: () => getAllSongs(), 
+    let { data: songs, error } = useQuery({
+        queryKey: ['songs'],
+        queryFn: () => getAllArtists()
         // onSuccess: (data) => {
         //     songs
         // }
+        
     })
-
+    console.log(error, songs)
     return (
         <div className='max-w-5xl mx-auto'>
             <div className="flex space-x-3 ">
