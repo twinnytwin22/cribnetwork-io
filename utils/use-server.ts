@@ -1,5 +1,8 @@
 "use server";
+import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
 import { cookies } from "next/headers";
+import { v4 as uuid } from "uuid";
+
 const host =
   process?.env.NODE_ENV === "development"
     ? "localhost:3000"
@@ -103,24 +106,154 @@ const fetchProfileForEvent = async (id: any) => {
 
 };
 
-const getAllSongs = async () => {
-try {
-  const songs = await fetch('https://cribmusic.xyz/v1/getAllSongs')
-  return songs
-} catch (error) {
-  console.log(error);
-  return error;
-}
-}
 
-const getAllArtists = async () => {
+export const getAllArtists = async () => {
   try {
-    const songs = await fetch('https://cribmusic.xyz/v1/getAllArtists')
-    return songs
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-  }
+      const res = await fetch(`${protocol}://${host}/api/v1/music/getAllArtists/`, {
+          method: 'GET',
+          cache: 'no-cache',
+          headers: {
+              "Content-Type": "application/json",
+             // "Access-Control-Allow-Origin": "*"
+           },
+           
+         //  mode: 'no-cors', 
+      
 
-export { fetchCreators, fetchUserEnrollments, refreshCache, fetchProfilesForDrops, fetchProfileForEvent, getAllSongs, getAllArtists };
+      })
+      
+      if (res) {
+          const artists = await res.json()
+      
+      //const data = songs.json()
+      return artists
+  }} catch (error) {
+      throw error
+  }
+}
+
+export const getAllSongs = async () => {
+  try {
+      const res = await fetch(`${protocol}://${host}/api/v1/music/getAllSongs/`, {
+          method: 'GET',
+          cache: 'no-cache',
+          headers: {
+              "Content-Type": "application/json",
+             // "Access-Control-Allow-Origin": "*"
+           },
+           
+         //  mode: 'no-cors', 
+      
+
+      })
+      
+      if (res) {
+          const songs= await res.json()
+      
+      //const data = songs.json()
+      return songs
+  }} catch (error) {
+      throw error
+  }
+}
+
+
+export const addMewArtist = async ({updates}: any) => {
+  try {
+      const res = await fetch(`${protocol}://${host}/api/v1/music/addNewArtist`, {
+          method: 'POST',
+          cache: 'no-cache',
+          headers: {
+              "Content-Type": "application/json",
+              "Content-Length": JSON.stringify(updates).length.toString(),
+
+             // "Access-Control-Allow-Origin": "*"
+           },
+           body: JSON.stringify( {updates} )
+           
+         //  mode: 'no-cors', 
+      
+
+      })
+      
+      if (res.ok) {
+          const artist = await res.json()
+      
+      //const data = songs.json()
+      return artist
+  }} catch (error) {
+      throw error
+  }
+}
+
+export const addMewSong = async ({updates}: any) => {
+  try {
+      const res = await fetch(`${protocol}://${host}/api/v1/music/addNewSong`, {
+          method: 'POST',
+          cache: 'no-cache',
+          headers: {
+              "Content-Type": "application/json",
+              "Content-Length": JSON.stringify(updates).length.toString(),
+
+             // "Access-Control-Allow-Origin": "*"
+           },
+           body: JSON.stringify( {updates} )
+           
+         //  mode: 'no-cors', 
+      
+
+      })
+      
+      if (res.ok) {
+          const song = await res.json()
+      
+      //const data = songs.json()
+      return song
+  }} catch (error) {
+      throw error
+  }
+}
+
+
+export async function downloadItem({path, bucket}: {path: string, bucket: string}) {
+  try {
+    const { data, error } = await supabaseAdmin.storage.from(bucket).download(path)
+    if (error) {
+      throw error
+    }
+
+    const url = URL.createObjectURL(data)
+    return url
+  } catch (error) {
+    console.log('Error downloading image: ', error)
+  }
+}
+
+
+export const uploadFile = async ({event, bucket} : {event: any, bucket: string}) => {
+  try {
+
+    if (!event.target.files || event.target.files.length === 0) {
+      throw new Error('You must select an image to upload.')
+    }
+    const uid = uuid()
+    const file = event.target.files[0]
+    const fileExt = file.name.split('.').pop()
+    const filePath = `${uid}.${fileExt}`
+
+    const { error: uploadError } = await supabaseAdmin.storage.from(bucket).upload(filePath, file)
+
+    if (uploadError) {
+      throw uploadError
+    }
+
+  return filePath
+  } catch (error) {
+    alert(JSON.stringify(error))
+  } finally {
+    //setUploading(false)
+  }
+}
+
+
+export { fetchCreators, fetchUserEnrollments, refreshCache, fetchProfilesForDrops, fetchProfileForEvent };

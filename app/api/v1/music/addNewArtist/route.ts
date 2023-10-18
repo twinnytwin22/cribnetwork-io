@@ -1,41 +1,39 @@
 import { NextRequest, NextResponse } from "next/server";
-
-
-export const revalidate = 0;
+import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
 export const dynamic = 'force-dynamic'
+export const revalidate = 0;
+
+
 //export const dynamic = 'force-dynamic'
 export async function POST(request: Request) {
-//  const { searchParams } = new URL(request.url);
-//  const userId = searchParams.get("userId");
-
 const { updates } = await request.json()
 try {
- if(updates && request.method === 'POST') {
-  console.log(updates , "UPDATES")
-    const artist = await fetch('https://cribmusic.xyz/api/v1/addNewArtist/', {
-        body: JSON.stringify(updates) , 
-        method: 'POST', 
-        headers: {
-        "Content-Type": "application/json",
-        "Content-Length": JSON.stringify(updates).length.toString(),
-      },
+ if(request.method === 'POST') {
+    const { data: artist, error } = await supabaseAdmin
+    .from('artists')
+    .insert(updates)
+    .select()
+    .single()
+    //.eq('student_id', userId)
+   // .limit(5)
+    console.log(artist)
 
-
-    })
+    if (error) {
+      throw error
+    }    
           const response = {
-             artist: await artist.json()
+             artist
           };
           await new Promise((resolve) => setTimeout(resolve, 500));
-          return  NextResponse.json(response);
+          return  NextResponse.json(response,{status:200});
         }
         } catch (error) {
-          console.error("Error fetching artists:", error);
-          return NextResponse.json("Error: fetching artist");
+          console.error("Error adding artist:", error);
+          return NextResponse.json("Error: adding artist",{status:400});
         }
 
-        return NextResponse.json('Error: Method or updates not found')
+        return NextResponse.json('Error: Method not found',{status:400})
       }
-
 
 
       const corsHeaders = {

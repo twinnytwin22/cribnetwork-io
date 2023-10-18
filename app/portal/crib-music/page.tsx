@@ -1,15 +1,25 @@
 
 import FormGroup from '@/ui/Forms/MusicForms/FormGroup'
+import { getAllArtists, getAllSongs } from '@/utils/use-server'
 import React from 'react'
 export const dynamic = 'force-dynamic'
 async function page() {
-  return (
+  const [artists, songs] = await Promise.all([
+    getAllArtists(), 
+    getAllSongs()
+  ])
+
+  const props = {
+    artists: artists?.artists, 
+    songs: songs?.songs
+  }
+
+  if (!props) {
+    return null
+  }
+  return  (
     <div className='w-screen relative mx-auto h-full '>
-        <div className=''>
-<p className='font-bold'>View Site</p>
-            <FormGroup/>
-        </div>
-  
+            <FormGroup {...props}/>  
     </div>
   )
 }

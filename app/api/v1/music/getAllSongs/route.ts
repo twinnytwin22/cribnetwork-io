@@ -1,15 +1,22 @@
-import { NextResponse } from "next/server";
-
-
+import { NextRequest, NextResponse } from "next/server";
+import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
 export const revalidate = 0;
 export const dynamic = 'force-dynamic'
-//export const dynamic = 'force-dynamic'
 export async function GET(request: Request) {
 //  const { searchParams } = new URL(request.url);
 //  const userId = searchParams.get("userId");
 try {
  if(request.method === 'GET') {
-    const songs = await fetch('https://cribmusic.xyz/v1/getAllSongs')
+    const { data: songs, error } = await supabaseAdmin
+    .from('songs')
+    .select()
+    //.eq('student_id', userId)
+   // .limit(5)
+    console.log(songs)
+
+    if (error) {
+      throw new Error("Error fetching drops");
+    }    
           const response = {
              songs
           };
@@ -25,3 +32,15 @@ try {
       }
 
 
+
+      const corsHeaders = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      };
+      
+      
+      export async function OPTIONS(req: NextRequest) {
+        return NextResponse.json({}, { headers: corsHeaders });
+      }
+      

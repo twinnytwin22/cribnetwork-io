@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic'
 async function PortalLayout({ children }: { children: React.ReactNode }) {
 
     return (
-        <div className='relative flex h-screen overflow-hidden bg-zinc-100 dark:bg-zinc-950 '>
+        <div className='relative flex h-screen overflow-hidden bg-zinc-100 dark:bg-zinc-950 ' suppressHydrationWarning>
             <DashboardSidebar  />
             <div className='flex-1 overflow-x-hidden overflow-y-auto'>
 

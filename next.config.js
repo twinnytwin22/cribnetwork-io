@@ -1,7 +1,7 @@
-const { hostname } = require("os");
-const { v4: uuidv4 } = require("uuid");
+//const { hostname } = require("os");
+//const { v4: uuidv4 } = require("uuid");
 
-const nonce = uuidv4();
+//const nonce = uuidv4();
 
 const securityHeaders = [
   {
@@ -21,18 +21,18 @@ const securityHeaders = [
     value:
       "accelerometer=(self), camera=(self), geolocation=(self), microphone=(self)",
   },
-  {
-    key: 'Access-Control-Allow-Origin',
-    value: '*', // Replace with the origin of cribmusic.xyz
-  },
-  {
-    key: 'Access-Control-Allow-Methods',
-    value: 'GET, POST, PUT, DELETE, OPTIONS',
-  },
-  {
-    key: 'Access-Control-Allow-Headers',
-    value: 'X-Requested-With, Content-Type, Authorization',
-  },
+  // {
+  //   key: 'Access-Control-Allow-Origin',
+  //   value: '*', // Replace with the origin of cribmusic.xyz
+  // },
+  // {
+  //   key: 'Access-Control-Allow-Methods',
+  //   value: 'GET, POST, PUT, DELETE, OPTIONS',
+  // },
+  // {
+  //   key: 'Access-Control-Allow-Headers',
+  //   value: 'X-Requested-With, Content-Type, Authorization',
+  // },
 ];
 
 const nextConfig = {
