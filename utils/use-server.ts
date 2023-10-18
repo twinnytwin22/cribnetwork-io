@@ -6,7 +6,7 @@ import { v4 as uuid } from "uuid";
 const host =
   process?.env.NODE_ENV === "development"
     ? "localhost:3000"
-    : "subport.vercel.app";
+    : "cribnetwork.io";
 const protocol = process?.env.NODE_ENV === "development" ? "http" : "https";
 
 type FetchTypes = {
