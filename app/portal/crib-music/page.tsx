@@ -14,9 +14,7 @@ async function Page() {
     songs: songs?.songs
   }
 
-  if (!props) {
-    return null
-  }
+
   return  (
     <div className='w-screen relative mx-auto h-full '>
             <FormGroup {...props}/>  

@@ -1,5 +1,4 @@
 'use client'
-
 import React from 'react'
 import UploadSongForm from './UploadSong'
 import AddArtistForm from './AddArtist'
@@ -11,7 +10,7 @@ function FormGroup ({ artists, songs }) {
   const params = useSearchParams()
   const mode = params.get('mode')
 
-  console.log(artists)
+  //console.log(artists)
   return (
     artists &&
     songs && (
