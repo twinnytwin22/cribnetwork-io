@@ -3,7 +3,7 @@ import FormGroup from '@/ui/Forms/MusicForms/FormGroup'
 import { getAllArtists, getAllSongs } from '@/utils/use-server'
 import React from 'react'
 export const dynamic = 'force-dynamic'
-async function page() {
+async function Page() {
   const [artists, songs] = await Promise.all([
     getAllArtists(), 
     getAllSongs()
@@ -24,4 +24,4 @@ async function page() {
   )
 }
 
-export default page
+export default Page
