@@ -40,10 +40,10 @@ export async function POST(req: Request) {
           ],
           mode: 'subscription',
           allow_promotion_codes: true,
-          subscription_data: {
-            trial_from_plan: true,
-            metadata
-          },
+          // subscription_data: {
+          //   trial_from_plan: true,
+          //   metadata
+          // },
           success_url: `${getURL()}portal`,
           cancel_url: `${getURL()}/`
         });
