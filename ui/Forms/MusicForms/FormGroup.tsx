@@ -59,7 +59,7 @@ function FormGroup ({ artists, songs }) {
               </li>
               <li className='mr-2'>
                 <Link
-                  href='https://cribmusic.xyz'
+                  href='https://cribmusic.xyz/music'
                   target='blank'
                   className={`flex items-center space-x-2 p-4 rounded-t-lg text-zinc-300 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300`}
                 >
