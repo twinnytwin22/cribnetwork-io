@@ -15,7 +15,7 @@ export const getAllArtists = async () => {
       //  mode: 'no-cors',
     })
 
-    if (res) {
+    if (res.ok) {
       const artists = await res.json()
 
       //const data = songs.json()
@@ -39,7 +39,7 @@ export const getAllSongs = async () => {
       //  mode: 'no-cors',
     })
 
-    if (res) {
+    if (res.ok) {
       const songs = await res.json()
 
       //const data = songs.json()
@@ -71,6 +71,34 @@ export const addMewArtist = async ({ updates }: any) => {
 
       //const data = songs.json()
       return artist
+    }
+  } catch (error) {
+    throw error
+  }
+}
+
+export const updateSong = async ({ updates }: any) => {
+  const {songId} = updates
+  try {
+    const res = await fetch(`/api/v1/music/editSong`, {
+      method: 'POST',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json'
+        //  "Content-Length": JSON.stringify(updates).length.toString(),
+
+        // "Access-Control-Allow-Origin": "*"
+      },
+      body: JSON.stringify({ updates, songId })
+
+      //  mode: 'no-cors',
+    })
+
+    if (res.ok) {
+      const song = await res.json()
+
+      //const data = songs.json()
+      return {song, ok: true}
     }
   } catch (error) {
     throw error

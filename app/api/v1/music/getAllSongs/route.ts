@@ -12,7 +12,7 @@ try {
     .select()
     //.eq('student_id', userId)
    // .limit(5)
-    console.log(songs)
+   // console.log(songs)
 
     if (error) {
       throw new Error("Error fetching drops");

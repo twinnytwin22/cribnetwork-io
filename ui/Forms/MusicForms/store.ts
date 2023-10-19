@@ -1,16 +1,18 @@
 import { create } from 'zustand';
 
 export interface UploadSongTypes {
-    title: string | undefined;
-    artist_id: number | string | undefined;
-    album: string | undefined;
-    release_year: number | undefined;
-    genre: string | undefined;
-    lyrics?: string | undefined;
-    music_file_url: string | undefined;
-    cover_art_url?: string | undefined;
-    keywords?: string[] | undefined | never[];
-    artist_name: string | undefined;
+    song_id?: string | number
+    title: string;
+    artist_id: number | string 
+    album?: string 
+    release_year: number 
+    genre: string 
+    lyrics?: string 
+    music_file_url: string 
+    cover_art_url?: string 
+    keywords?: string[] 
+    artist_name: string 
+    duration: string | null
 
 }
 
@@ -29,6 +31,7 @@ export interface UploadMusicFormProps {
 
 export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
     initialState: {
+        song_id: '',
         title: '',
         artist_id: '',
         album: '',
@@ -37,8 +40,10 @@ export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
         lyrics: '',
         artist_name: '',
         music_file_url: '',
+        duration: '',
     },
     formData: {
+        song_id:'',
         title: '',
         artist_id: '',
         album: '',
@@ -47,6 +52,8 @@ export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
         lyrics: '',
         artist_name: '',
         music_file_url: '',
+        duration: '',
+
     },
     musicFile: '',
     status: '',
