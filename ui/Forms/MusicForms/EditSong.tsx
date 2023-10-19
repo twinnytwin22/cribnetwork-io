@@ -68,10 +68,12 @@ const EditSongForm = ({ artists, id, songs }) => {
   //console.log(formData)
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const artistName = artists.find(((artist) => artist.artist_id === formData.artist_id))
 
     const updates = {
       ...formData,
       music_file_url: musicFile || formData.music_file_url,
+      artist_name: artistName.artist_name
       //song_id: new Number(formData.song_id) // Set the music_file_url
     };
 
