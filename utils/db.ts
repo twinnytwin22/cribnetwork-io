@@ -77,6 +77,34 @@ export const addMewArtist = async ({ updates }: any) => {
   }
 }
 
+
+export const updateArtist = async ({ updates }: any) => {
+  const {artist_id: artistId} = updates
+  try {
+    const res = await fetch(`/api/v1/music/editArtist`, {
+      method: 'POST',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': JSON.stringify(updates).length.toString()
+
+        // "Access-Control-Allow-Origin": "*"
+      },
+      body: JSON.stringify({ updates, artistId })
+
+      //  mode: 'no-cors',
+    })
+
+    if (res.ok) {
+      const artist = await res.json()
+
+      //const data = songs.json()
+      return  {artist, ok: true}
+    }
+  } catch (error) {
+    throw error
+  }
+}
 export const updateSong = async ({ updates }: any) => {
   const {songId} = updates
   try {
