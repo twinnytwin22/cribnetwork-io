@@ -1,1 +1,1 @@
-export {default} from './MeetTheFounder'
+export { default } from "./MeetTheFounder";

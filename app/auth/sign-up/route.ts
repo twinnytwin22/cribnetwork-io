@@ -3,11 +3,11 @@ import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-export const revalidate = 0
+export const revalidate = 0;
 
 export async function POST(request: Request) {
-  if (request.method !== 'POST') {
-    return new Response('error: Method Not Allowed', { status: 405 });
+  if (request.method !== "POST") {
+    return new Response("error: Method Not Allowed", { status: 405 });
   }
   const requestUrl = new URL(request.url);
   const formData = await request.formData();
@@ -36,5 +36,5 @@ export async function POST(request: Request) {
   }
 
   // Provide a default response if neither error nor data is returned
-  return new Response('Internal Server Error', { status: 500 });
+  return new Response("Internal Server Error", { status: 500 });
 }

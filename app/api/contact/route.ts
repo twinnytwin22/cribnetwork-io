@@ -2,62 +2,66 @@ import { supabaseApi } from "@/lib/providers/supabase/routerHandler";
 import sgMail from "@sendgrid/mail";
 import { NextResponse } from "next/server";
 //import { NextResponse } from "next/server";
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
+ 
+async function sendEmail(msg: any) {
+  try {
+    await sgMail.send(msg);
+    console.log("Email sent");
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
 
-async function sendEmail(msg: any) {  
-    try {
-      await sgMail.send(msg);
-      console.log("Email sent");
-      return true;
-    } catch (error) {
-      console.error(error);
+async function insertData(updates: any) {
+  try {
+    const { data: submission, error: submissionError } = await supabaseApi
+      .from("form_submissions")
+      .insert(updates);
+
+    if (submissionError) {
+      console.error(submissionError);
       return false;
     }
-  }
 
-  async function insertData(updates: any) {
-  
-    try {
-      const { data: submission, error: submissionError } = await supabaseApi
-        .from('form_submissions')
-        .insert(updates);
-  
-      if (submissionError) {
-        console.error(submissionError);
-        return false;
-      }
-  
-      return true;
-    } catch (error) {
-      console.error(error);
-      return false;
-    }
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
   }
-  
+}
+
 export async function POST(req: Request) {
-  if (req.method !== 'POST') {
-    return NextResponse.json('error: Method Not Allowed', { status: 405 });
+  if (req.method !== "POST") {
+    return NextResponse.json("error: Method Not Allowed", { status: 405 });
   }
   if (req.method === "POST") {
-  const { subject, email, message, first_name, last_name, phone_number } = await req.json();
-  const updates = {
-    subject, email, message, first_name, last_name, phone_number, form_type: 'Inquiry'
-  }
-  if (!email) {
-    return NextResponse.json("error: Email is required");
-  }
+    const { subject, email, message, first_name, last_name, phone_number } =
+      await req.json();
+    const updates = {
+      subject,
+      email,
+      message,
+      first_name,
+      last_name,
+      phone_number,
+      form_type: "Inquiry",
+    };
+    if (!email) {
+      return NextResponse.json("error: Email is required");
+    }
 
- 
-
-  const msg = {
-    to: email,
-    cc: process.env.FROM_EMAIL as string,
-    bc: 'info@cribnetwork.io',
-    from: process.env.FROM_EMAIL as string,
-    subject: "We've received your message!",
-    text: "New Message from CRIB",
-    html: `
+    const msg = {
+      to: email,
+      cc: process.env.FROM_EMAIL as string,
+      bc: "info@cribnetwork.io",
+      from: process.env.FROM_EMAIL as string,
+      subject: "We've received your message!",
+      text: "New Message from CRIB",
+      html: `
     <!DOCTYPE html>
     <html>
     <head>
@@ -187,19 +191,22 @@ export async function POST(req: Request) {
     
     
     `,
-  };
+    };
 
-  const [emailSent, dataInserted] = await Promise.all([
-    sendEmail(msg),
-    insertData(updates)
-  ]);
+    const [emailSent, dataInserted] = await Promise.all([
+      sendEmail(msg),
+      insertData(updates),
+    ]);
 
-  if (emailSent && dataInserted) {
-    return NextResponse.json({ success: true, ok: true });
-  } else {
-    return NextResponse.json({ error: "Error sending email or inserting data" , ok: false });
+    if (emailSent && dataInserted) {
+      return NextResponse.json({ success: true, ok: true });
+    } else {
+      return NextResponse.json({
+        error: "Error sending email or inserting data",
+        ok: false,
+      });
+    }
   }
-}
 
-return NextResponse.json({ error: "Method not allowed", ok: false });
+  return NextResponse.json({ error: "Method not allowed", ok: false });
 }

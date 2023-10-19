@@ -1,7 +1,7 @@
-'use client'
-import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
+"use client";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const DarkModeSwitch = () => {
   const [mounted, setMounted] = useState(false);
@@ -35,8 +35,9 @@ const DarkModeSwitch = () => {
       >
         <div className="relative w-10 h-4 bg-red-300 rounded-full shadow-inner items-center">
           <div
-            className={`absolute left-0 top-0 w-4 h-4 border-zinc-600 border bg-white rounded-full transition-transform duration-300 ease-in-out transform ${currentTheme === "dark" ? "translate-x-6" : "translate-x-0"
-              }`}
+            className={`absolute left-0 top-0 w-4 h-4 border-zinc-600 border bg-white rounded-full transition-transform duration-300 ease-in-out transform ${
+              currentTheme === "dark" ? "translate-x-6" : "translate-x-0"
+            }`}
           />
         </div>
         <div className="ml-3 text-sm text-zinc-800 dark:text-zinc-100">

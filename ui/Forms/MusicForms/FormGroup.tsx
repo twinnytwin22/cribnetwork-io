@@ -1,14 +1,14 @@
 "use client";
-import React, { useCallback } from "react";
-import UploadSongForm from "./UploadSong";
-import AddArtistForm from "./AddArtist";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { FaCircleXmark, FaEye, FaMusic } from "react-icons/fa6";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback } from "react";
+import { FaEye, FaMusic } from "react-icons/fa6";
 import { FcCancel, FcCheckmark } from "react-icons/fc";
-import EditSongForm from "./EditSong";
+import AddArtistForm from "./AddArtist";
 import EditArtistForm from "./EditArtist";
-
+import EditSongForm from "./EditSong";
+import UploadSongForm from "./UploadSong";
+ 
 function FormGroup({ artists, songs }) {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -38,6 +38,7 @@ function FormGroup({ artists, songs }) {
     songs,
     id,
   };
+  const homeProps = ["data", null];
   return (
     artists &&
     songs && (
@@ -45,6 +46,19 @@ function FormGroup({ artists, songs }) {
         <div className="flex space-x-3 ">
           <div className="text-sm font-medium text-center border-b dark:border-zinc-700 mx-8">
             <ul className="flex flex-wrap -mb-px ">
+              <li className="mr-2">
+                <Link
+                  href="/portal/crib-music/?mode=data"
+                  className={`inline-block p-4 rounded-t-lg ${
+                    homeProps.includes(mode)
+                      ? "text-red-300 border-b-2 border-red-400 dark:text-red-300 dark:border-red-300"
+                      : "text-zinc-500 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300"
+                  }`}
+                  aria-current={homeProps.includes(mode) ? "page" : undefined}
+                >
+                  Overview
+                </Link>
+              </li>
               <li className="mr-2">
                 <Link
                   href="/portal/crib-music/?mode=song"
@@ -71,24 +85,12 @@ function FormGroup({ artists, songs }) {
                   Add Artist
                 </Link>
               </li>
-              <li className="mr-2">
-                <Link
-                  href="/portal/crib-music/?mode=data"
-                  className={`inline-block p-4 rounded-t-lg ${
-                    mode === "data"
-                      ? "text-red-300 border-b-2 border-red-400 dark:text-red-300 dark:border-red-300"
-                      : "text-zinc-500 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300"
-                  }`}
-                  aria-current={mode === "data" ? "page" : undefined}
-                >
-                  Data
-                </Link>
-              </li>
+
               <li className="mr-2">
                 <Link
                   href="https://cribmusic.xyz/music"
                   target="blank"
-                  className={`flex items-center space-x-2 p-4 rounded-t-lg text-zinc-300 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300`}
+                  className={`flex items-center space-x-2 p-4 rounded-t-lg dark:text-zinc-300 text-zinc-500 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300`}
                 >
                   View Site
                   <FaEye className="ml-2" />
@@ -100,16 +102,14 @@ function FormGroup({ artists, songs }) {
 
         {mode === "song" && !edit && <UploadSongForm artists={artists} />}
         {mode === "artist" && !edit && <AddArtistForm />}
-        {mode === "data" && !edit && (
+        {homeProps.includes(mode) && !edit && (
           <div className="space-y-4 p-8">
             <div>
-              <h2>Artists</h2>
-
+              <h2 className="text-semibold font-owners text-lg">Artists</h2>
               <ArtistsTable {...queryProps} />
             </div>
             <div>
-              <h2>Songs</h2>
-
+              <h2 className="text-semibold font-owners text-lg">Songs</h2>
               <SongsTable {...queryProps} />
             </div>
           </div>
@@ -120,7 +120,9 @@ function FormGroup({ artists, songs }) {
           </div>
         )}
         {edit === "artist" && (
-          <div className="space-y-24 p-8"><EditArtistForm {...queryProps}/></div>
+          <div className="space-y-24 p-8">
+            <EditArtistForm {...queryProps} />
+          </div>
         )}
       </div>
     )
@@ -197,12 +199,7 @@ const ArtistsTable = ({
   );
 };
 
-const SongsTable = ({
-  router,
-  pathname,
-  createQueryString,
-  songs,
-}) => {
+const SongsTable = ({ router, pathname, createQueryString, songs }) => {
   return (
     <table className="w-full text-sm text-left text-zinc-500 dark:text-zinc-400">
       <thead className="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-400">

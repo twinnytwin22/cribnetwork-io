@@ -1,6 +1,4 @@
-import { create } from 'zustand';
-
-
+import { create } from "zustand";
 
 interface CourseStore {
   activeLessonIndex: number | any;

@@ -1,25 +1,23 @@
 "use client";
-import { bookingUrl } from "@/lib/site/constants";
-import Link from "next/link";
-import React, { FormEvent, useEffect } from "react";
-import { toast } from "react-toastify";
 import { updateArtist } from "@/utils/db";
-import { ArtistTypes, useMusicFormStore } from "./store";
 import { useRouter } from "next/navigation";
+import { FormEvent, useEffect } from "react";
+import { toast } from "react-toastify";
+import { ArtistTypes, useMusicFormStore } from "./store";
 
 const EditArtistForm = ({ artists, id, songs }) => {
-    const router = useRouter()
+  const router = useRouter();
   const {
     artistData: formData,
     setArtistData: setFormData,
     status,
     setStatus,
-    initialArtistState
+    initialArtistState,
   } = useMusicFormStore();
   const currentArtist: ArtistTypes = artists.find(
-    (artist: any) => artist.artist_id.toString() === id.toString()
+    (artist: any) => artist.artist_id.toString() === id.toString(),
   );
-  console.log(currentArtist)
+  console.log(currentArtist);
   useEffect(() => {
     setStatus("loadingInitialState");
     setFormData(currentArtist);
@@ -37,20 +35,17 @@ const EditArtistForm = ({ artists, id, songs }) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const artists: ArtistTypes = 
-        {
-          artist_id: currentArtist.artist_id!!,
-          artist_name: formData.artist_name, // Map the artist_name to the form input
-          genres: formData.genres, // Map the genre to the form input
-          biography: formData.biography, // Map the biography to the form input
-          image_url: '',
-          contact_email: formData.contact_email,
-          contact_phone: formData.contact_phone, // You may add the contact_phone field to match the sample data
-          social_media_links: null,
-          discography: null,
-        }
-      ;
-
+      const artists: ArtistTypes = {
+        artist_id: currentArtist.artist_id!!,
+        artist_name: formData.artist_name, // Map the artist_name to the form input
+        genres: formData.genres, // Map the genre to the form input
+        biography: formData.biography, // Map the biography to the form input
+        image_url: "",
+        contact_email: formData.contact_email,
+        contact_phone: formData.contact_phone, // You may add the contact_phone field to match the sample data
+        social_media_links: null,
+        discography: null,
+      };
       // Assuming you have a function to post the artists data
       const res = await updateArtist({ updates: artists });
 
@@ -61,7 +56,7 @@ const EditArtistForm = ({ artists, id, songs }) => {
         setStatus("success");
         // store.setOpen(false)
         toast.success("Your message was sent successfully");
-        router.refresh()
+        router.refresh();
       }
 
       setFormData(initialArtistState);
@@ -174,7 +169,6 @@ const EditArtistForm = ({ artists, id, songs }) => {
           >
             Update
           </button>
-     
         </div>
         {status === "error" && <p>Error sending email, please try again.</p>}
       </form>

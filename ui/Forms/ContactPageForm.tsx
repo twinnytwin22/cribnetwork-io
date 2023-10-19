@@ -1,8 +1,7 @@
-'use client'
+"use client";
 import { bookingUrl } from "@/lib/site/constants";
 import Link from "next/link";
-import React, { FormEvent } from "react";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 import { useContactButtonStore } from "../Buttons/ContactButton/contactButtonStore";
 
@@ -16,15 +15,15 @@ const ContactForm = () => {
     phone_number: "",
   });
   const [status, setStatus] = useState("");
-  const store = useContactButtonStore()
+  const store = useContactButtonStore();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleClose = () => {
-    store.setOpen(false)
-  }
+    store.setOpen(false);
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,7 +39,14 @@ const ContactForm = () => {
 
         toast.success("Your message was sent successfully");
       }
-      setFormData({ email: "", subject: "", message: "", first_name: "",last_name: "", phone_number: "" });
+      setFormData({
+        email: "",
+        subject: "",
+        message: "",
+        first_name: "",
+        last_name: "",
+        phone_number: "",
+      });
     } catch (err) {
       setStatus("error");
       console.log("Error sending email. Please try again later.");
@@ -52,10 +58,18 @@ const ContactForm = () => {
       <h1 className=" text-5xl tracking-tight font-bold text-center text-black dark:text-white font-owners">
         Let's Chat!
       </h1>
-      <p className="text-center -mt-2 mb-8 text-black dark:text-white ">or email us at info@cribnetwork.io</p>
-      <form onSubmit={((e) => handleSubmit(e))} className="flex flex-col w-full space-y-8 font-medium">
+      <p className="text-center -mt-2 mb-8 text-black dark:text-white ">
+        or email us at info@cribnetwork.io
+      </p>
+      <form
+        onSubmit={(e) => handleSubmit(e)}
+        className="flex flex-col w-full space-y-8 font-medium"
+      >
         <div>
-          <label htmlFor="email" className="block mb-2 text-sm text-black dark:text-white">
+          <label
+            htmlFor="email"
+            className="block mb-2 text-sm text-black dark:text-white"
+          >
             Email mail
           </label>
           <input
@@ -71,8 +85,11 @@ const ContactForm = () => {
 
         <div className="flex space-x-3 mx-auto w-full">
           <div className="w-full">
-            <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-black dark:text-white">
-         First Name
+            <label
+              htmlFor="first_name"
+              className="block mb-2 text-sm font-medium text-black dark:text-white"
+            >
+              First Name
             </label>
             <input
               className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 required"
@@ -84,7 +101,10 @@ const ContactForm = () => {
             />
           </div>
           <div className="w-full">
-            <label htmlFor="last_name" className="block mb-2 text-sm font-medium text-black dark:text-white">
+            <label
+              htmlFor="last_name"
+              className="block mb-2 text-sm font-medium text-black dark:text-white"
+            >
               Last Name
             </label>
             <input
@@ -96,10 +116,13 @@ const ContactForm = () => {
               onChange={handleChange}
             />
           </div>
-          </div>
-          <div>
+        </div>
+        <div>
           <div className="w-full">
-            <label htmlFor="subject" className="block mb-2 text-sm font-medium text-black dark:text-white">
+            <label
+              htmlFor="subject"
+              className="block mb-2 text-sm font-medium text-black dark:text-white"
+            >
               Subject
             </label>
             <input
@@ -115,7 +138,10 @@ const ContactForm = () => {
         </div>
 
         <div>
-          <label htmlFor="phoneNumber" className="block mb-2 text-sm text-black dark:text-white">
+          <label
+            htmlFor="phoneNumber"
+            className="block mb-2 text-sm text-black dark:text-white"
+          >
             Phone Number
           </label>
           <input
@@ -130,7 +156,10 @@ const ContactForm = () => {
         </div>
 
         <div className="sm:col-span-2">
-          <label htmlFor="message" className="block mb-2 text-sm font-medium text-black dark:text-white">
+          <label
+            htmlFor="message"
+            className="block mb-2 text-sm font-medium text-black dark:text-white"
+          >
             Your message
           </label>
           <textarea
@@ -151,11 +180,9 @@ const ContactForm = () => {
             Send message
           </button>
           <Link href={bookingUrl}>
-            <button
-
-              className="py-3 font-owners px-5 tracking-wide text-xs md:text-sm font-semibold text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105"
-            >
-              Schedule a Call            </button>
+            <button className="py-3 font-owners px-5 tracking-wide text-xs md:text-sm font-semibold text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105">
+              Schedule a Call{" "}
+            </button>
           </Link>
         </div>
         {status === "error" && <p>Error sending email, please try again.</p>}

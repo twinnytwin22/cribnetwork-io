@@ -1,4 +1,4 @@
-import { loadStripe } from '@stripe/stripe-js/pure';
+import { loadStripe } from "@stripe/stripe-js/pure";
 
 let stripePromise: Promise<any | null>;
 
@@ -7,7 +7,7 @@ export const getStripe = () => {
     stripePromise = loadStripe(
       process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_LIVE ??
         process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ??
-        ''
+        "",
     );
   }
 

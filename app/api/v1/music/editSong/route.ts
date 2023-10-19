@@ -13,7 +13,7 @@ export const revalidate = 0;
 export async function POST(request: Request) {
   const { updates } = await request.json();
 
-  const { song_id } = updates //as UploadSongTypes
+  const { song_id } = updates; //as UploadSongTypes
   try {
     if (request.method === "POST") {
       const { data: song, error } = await supabaseAdmin

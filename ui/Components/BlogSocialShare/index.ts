@@ -1,1 +1,1 @@
-export {default } from './BlogSocialShare'
+export { default } from "./BlogSocialShare";

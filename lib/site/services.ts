@@ -1,21 +1,21 @@
 import {
-  LiaCompressArrowsAltSolid,
-  LiaFeatherAltSolid,
-  LiaLandmarkSolid,
-  LiaPhotoVideoSolid,
-  LiaQrcodeSolid,
   LiaBullhornSolid,
   LiaCodeSolid,
   LiaCogsSolid,
+  LiaCompressArrowsAltSolid,
   LiaCubeSolid,
   LiaEnvelopeSolid,
+  LiaFeatherAltSolid,
   LiaGlobeSolid,
+  LiaLandmarkSolid,
   LiaNewspaperSolid,
+  LiaPhotoVideoSolid,
+  LiaQrcodeSolid,
   LiaSearchSolid,
 } from "react-icons/lia";
 
+import { MdOutlineWeb } from "react-icons/md";
 import { TbSocial } from "react-icons/tb";
-import { MdOutlineSocialDistance, MdOutlineWeb } from "react-icons/md";
 
 export const services = [
   // {
@@ -58,7 +58,7 @@ export const services = [
     icon: LiaCompressArrowsAltSolid,
     url: "https://example.com/training-and-onboarding",
     description:
-      "Assisting with training and onboarding processes, fostering growth for for new team members and existing staff."
+      "Assisting with training and onboarding processes, fostering growth for for new team members and existing staff.",
   },
   {
     title: "Email & SMS",
@@ -88,8 +88,6 @@ export const services = [
     description:
       "Leverage decentralized technologies to create secure, transparent, and decentralized applications, and smart contracts.",
   },
-  
-  
 
   // {
   //   title: "Influencer",

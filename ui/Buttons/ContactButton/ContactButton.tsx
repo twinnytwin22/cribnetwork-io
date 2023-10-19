@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { ContactModal } from "../../Sections/ContactModal/ContactModal";
 import { useContactButtonStore } from "./contactButtonStore";
 
@@ -22,7 +22,7 @@ const ContactButton = () => {
       >
         Let's Chat
       </button>
-        {isOpen && <ContactModal handleClose={handleCloseModal} />}
+      {isOpen && <ContactModal handleClose={handleCloseModal} />}
     </div>
   );
 };

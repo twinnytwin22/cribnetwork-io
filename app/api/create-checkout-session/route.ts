@@ -1,11 +1,11 @@
-import { stripe } from '@/lib/providers/stripe/stripe';
-import { createOrRetrieveCustomer } from '@/lib/providers/supabase/supabase-lib-admin';
-import { getURL } from '@/lib/hooks/helpers';
-import { createServerSupabaseClient } from '@/lib/providers/supabase/supabase-server';
-
-export const dynamic ='force-dynamic'
+import { getURL } from "@/lib/hooks/helpers";
+import { stripe } from "@/lib/providers/stripe/stripe";
+import { createOrRetrieveCustomer } from "@/lib/providers/supabase/supabase-lib-admin";
+import { createServerSupabaseClient } from "@/lib/providers/supabase/supabase-server";
+  
+export const dynamic = "force-dynamic";
 export async function POST(req: Request) {
-  if (req.method === 'POST') {
+  if (req.method === "POST") {
     // 1. Destructure the price and quantity from the POST body
     const { price, quantity = 1, metadata = {} } = await req.json();
     const supabase = createServerSupabaseClient();
@@ -13,71 +13,71 @@ export async function POST(req: Request) {
     try {
       // 2. Get the user from Supabase auth
       const {
-        data: { user }
+        data: { user },
       } = await supabase.auth.getUser();
 
       // 3. Retrieve or create the customer in Stripe
       const customer = await createOrRetrieveCustomer({
-        uuid: user?.id || '',
-        email: user?.email || ''
+        uuid: user?.id || "",
+        email: user?.email || "",
       });
 
       // 4. Create a checkout session in Stripe
       let session;
-      if (price.type === 'recurring') {
+      if (price.type === "recurring") {
         session = await stripe.checkout.sessions.create({
-          payment_method_types: ['card'],
-          billing_address_collection: 'required',
+          payment_method_types: ["card"],
+          billing_address_collection: "required",
           customer,
           customer_update: {
-            address: 'auto'
+            address: "auto",
           },
           line_items: [
             {
               price: price.id,
-              quantity
-            }
+              quantity,
+            },
           ],
-          mode: 'subscription',
+          mode: "subscription",
           allow_promotion_codes: true,
           // subscription_data: {
           //   trial_from_plan: true,
           //   metadata
           // },
           success_url: `${getURL()}portal`,
-          cancel_url: `${getURL()}/`
+          cancel_url: `${getURL()}/`,
         });
-      } else if (price.type === 'one_time') {
+      } else if (price.type === "one_time") {
         session = await stripe.checkout.sessions.create({
-          payment_method_types: ['card'],
-          billing_address_collection: 'required',
+          payment_method_types: ["card"],
+          billing_address_collection: "required",
           customer,
           customer_update: {
-            address: 'auto'
+            address: "auto",
           },
           line_items: [
             {
               price: price.id,
-              quantity
-            }
+              quantity,
+            },
           ],
-          mode: 'payment',
+          mode: "payment",
           allow_promotion_codes: true,
           success_url: `${getURL()}portal`,
-          cancel_url: `${getURL()}/`
+          cancel_url: `${getURL()}/`,
         });
       }
 
       if (session) {
         return new Response(JSON.stringify({ sessionId: session.id }), {
-          status: 200
+          status: 200,
         });
       } else {
         return new Response(
           JSON.stringify({
-            error: { statusCode: 500, message: 'Session is not defined' }
+            error: { statusCode: 500, message: "Session is not defined" },
           }),
-          { status: 500 }
+          { status: 500 },
         );
       }
     } catch (err: any) {
@@ -85,10 +85,9 @@ export async function POST(req: Request) {
       return new Response(JSON.stringify(err), { status: 500 });
     }
   } else {
-    return new Response('Method Not Allowed', {
-      headers: { Allow: 'POST' },
-      status: 405
+    return new Response("Method Not Allowed", {
+      headers: { Allow: "POST" },
+      status: 405,
     });
   }
-  
 }

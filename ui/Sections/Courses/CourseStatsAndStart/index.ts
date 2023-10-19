@@ -1,1 +1,1 @@
-export {default}from './CourseStatsAndStart'
+export { default } from "./CourseStatsAndStart";

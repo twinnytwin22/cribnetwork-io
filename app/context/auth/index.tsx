@@ -1,12 +1,12 @@
-'use client'
-import React, { createContext, useContext, useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { useAuthStore, AuthState } from "./store";
-import { useRouter, usePathname } from "next/navigation";
+"use client";
+import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
 import { supabase } from "@/lib/site/constants";
 import { AuthChangeEvent, Session } from "@supabase/supabase-js";
+import { useQuery } from "@tanstack/react-query";
+import { usePathname, useRouter } from "next/navigation";
+import React, { createContext, useContext, useMemo } from "react";
 import { toast } from "react-toastify";
-import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
+import { AuthState, useAuthStore } from "./store";
 
 const refresh = () => {
   window.location.reload();
@@ -19,7 +19,7 @@ const fetchProfile = async (id: string) => {
     .select("*")
     .eq("id", id)
     .single();
-//console.log(data)
+  //console.log(data)
   if (error) {
     throw error;
   }
@@ -27,26 +27,33 @@ const fetchProfile = async (id: string) => {
   return data;
 };
 
-export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const {
     signInWithGoogle,
     signInWithSpotify,
     signOut,
     signInWithEmail,
     unsubscribeAuthListener,
-  user, 
-profile }
-    = useAuthStore()
+    user,
+    profile,
+  } = useAuthStore();
 
-  const router = useRouter()
-  const pathname = usePathname()
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const { data, isLoading }
-    = useQuery(["user", "subscription", 'subscriptionData', 'authListener'], async () => {
+  const { data, isLoading } = useQuery(
+    ["user", "subscription", "subscriptionData", "authListener"],
+    async () => {
       // Fetch user and authListener data concurrently
       const [
         { data: userSessionData },
-        { data: { subscription: subscriptionData } },
+        {
+          data: { subscription: subscriptionData },
+        },
       ] = await Promise.all([
         supabase.auth.getSession(),
         supabaseAdmin.auth.onAuthStateChange(
@@ -54,21 +61,24 @@ profile }
             if (currentSession && event === "SIGNED_IN") {
               const profile = await fetchProfile(currentSession?.user.id);
               useAuthStore.setState({ user: currentSession?.user, profile });
-              router.refresh()
+              router.refresh();
             } else if (event === "SIGNED_OUT") {
-              refresh()
+              refresh();
             }
             if (event === "PASSWORD_RECOVERY") {
-              const newPassword = prompt("What would you like your new password to be?");
+              const newPassword = prompt(
+                "What would you like your new password to be?",
+              );
               const { data, error } = await supabaseAdmin.auth.updateUser({
                 password: newPassword!,
               });
 
               if (data) toast.success("Password updated successfully!");
-              if (error) toast.error("There was an error updating your password.");
+              if (error)
+                toast.error("There was an error updating your password.");
               console.log(error);
             }
-          }
+          },
         ),
       ]);
 
@@ -84,7 +94,8 @@ profile }
         }
       }
       return { subscription: subscriptionData };
-    });
+    },
+  );
 
   const value = useMemo(
     () => ({
@@ -99,15 +110,15 @@ profile }
     }),
     [
       data,
-      user, 
+      user,
       profile,
       isLoading,
       signInWithEmail,
       signInWithGoogle,
       signInWithSpotify,
       signOut,
-      unsubscribeAuthListener
-    ]
+      unsubscribeAuthListener,
+    ],
   );
   // console.log(pathname)
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

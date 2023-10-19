@@ -1,9 +1,7 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
-import { toast } from "react-toastify";
 import { addNewSong, downloadFile, uploadFile } from "@/utils/db";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { toast } from "react-toastify";
 import { UploadSongTypes, useMusicFormStore } from "./store";
-
-
 
 const UploadSongForm = ({ artists }) => {
   const {
@@ -12,39 +10,39 @@ const UploadSongForm = ({ artists }) => {
     setFormData,
     musicFile,
     setMusicFile,
-    status, setStatus,
+    status,
+    setStatus,
     audioSrc,
-    setAudioSrc
-  } = useMusicFormStore()
+    setAudioSrc,
+  } = useMusicFormStore();
   const [] = useState<UploadSongTypes>(initialState);
 
-
-  const handleChange = (e:ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
     if (name === "music_file_url") {
       return;
     }
     if (name === "artist_id") {
       // Find the selected artist to set artist_name
-      const selectedArtist = artists.find((artist) => artist.id === value)
-      console.log(selectedArtist, "SELECTED")
+      const selectedArtist = artists.find((artist) => artist.id === value);
+      console.log(selectedArtist, "SELECTED");
       setFormData({
         ...formData,
         [name]: value,
-        artist_name: selectedArtist
+        artist_name: selectedArtist,
       });
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
 
-
   // const handleClose = () => {
   //   store.setOpen(false);
   // };
 
-
-console.log(formData)
+  console.log(formData);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -54,7 +52,7 @@ console.log(formData)
     };
 
     try {
-      setStatus('loading')
+      setStatus("loading");
       const res = await addNewSong({ updates });
 
       if (res?.ok) {
@@ -66,26 +64,24 @@ console.log(formData)
       setStatus("error");
       console.error("Error sending email. Please try again later.");
     } finally {
-      const audio = await downloadFile({ path: musicFile, bucket: 'tracks' })
+      const audio = await downloadFile({ path: musicFile, bucket: "tracks" });
       if (audio) {
         setAudioSrc(audio);
-        setMusicFile(''); // Reset the music file state
-
+        setMusicFile(""); // Reset the music file state
       }
     }
   };
 
   const handleSongUpload = async (e: any) => {
-    setStatus('loading')
+    setStatus("loading");
     const file = e?.target.files[0]!; // Get the selected file
     if (file) {
-      
       try {
-        const uploadedSong = await uploadFile({ file, bucket: 'tracks' });
+        const uploadedSong = await uploadFile({ file, bucket: "tracks" });
         if (uploadedSong) {
           setMusicFile(uploadedSong);
           console.log(uploadedSong);
-          setStatus('')
+          setStatus("");
         }
       } catch (error) {
         console.error("Error uploading file:", error);
@@ -105,7 +101,10 @@ console.log(formData)
       >
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label htmlFor="title" className="block mb-2 text-sm font-medium text-black dark:text-white">
+            <label
+              htmlFor="title"
+              className="block mb-2 text-sm font-medium text-black dark:text-white"
+            >
               Song Title
             </label>
             <input
@@ -119,7 +118,10 @@ console.log(formData)
           </div>
 
           <div>
-            <label htmlFor="album" className="block mb-2 text-sm font-medium text-black dark:text-white">
+            <label
+              htmlFor="album"
+              className="block mb-2 text-sm font-medium text-black dark:text-white"
+            >
               Album
             </label>
             <input
@@ -133,9 +135,11 @@ console.log(formData)
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
-
           <div>
-            <label htmlFor="release_year" className="block mb-2 text-sm font-medium text-black dark:text-white">
+            <label
+              htmlFor="release_year"
+              className="block mb-2 text-sm font-medium text-black dark:text-white"
+            >
               Release Year
             </label>
             <input
@@ -149,7 +153,10 @@ console.log(formData)
           </div>
 
           <div>
-            <label htmlFor="genre" className="block mb-2 text-sm font-medium text-black dark:text-white">
+            <label
+              htmlFor="genre"
+              className="block mb-2 text-sm font-medium text-black dark:text-white"
+            >
               Genre
             </label>
             <input
@@ -163,9 +170,11 @@ console.log(formData)
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
-
           <div className="h-fit">
-            <label htmlFor="artist_id" className="block mb-2 text-sm font-medium text-black dark:text-white">
+            <label
+              htmlFor="artist_id"
+              className="block mb-2 text-sm font-medium text-black dark:text-white"
+            >
               Artist
             </label>
             <select
@@ -175,7 +184,9 @@ console.log(formData)
               value={formData.artist_id}
               onChange={handleChange}
             >
-              <option value="" disabled>Select an artist</option>
+              <option value="" disabled>
+                Select an artist
+              </option>
               {artists.map((artist) => (
                 <option key={artist.artist_id} value={artist.artist_id}>
                   {artist.artist_name}
@@ -213,7 +224,10 @@ console.log(formData)
         </div>
 
         <div>
-          <label htmlFor="music_file_url" className="block mb-2 text-sm font-medium text-black dark:text-white">
+          <label
+            htmlFor="music_file_url"
+            className="block mb-2 text-sm font-medium text-black dark:text-white"
+          >
             Music File URL
           </label>
           <input
@@ -227,7 +241,10 @@ console.log(formData)
         </div>
 
         <div>
-          <label htmlFor="cover_art_url" className="block mb-2 text-sm font-medium text-black dark:text-white">
+          <label
+            htmlFor="cover_art_url"
+            className="block mb-2 text-sm font-medium text-black dark:text-white"
+          >
             Cover Art URL
           </label>
           <input
@@ -241,7 +258,10 @@ console.log(formData)
         </div>
 
         <div>
-          <label htmlFor="keywords" className="block mb-2 text-sm font-medium text-black dark:text-white">
+          <label
+            htmlFor="keywords"
+            className="block mb-2 text-sm font-medium text-black dark:text-white"
+          >
             Keywords
           </label>
           <input
@@ -254,7 +274,10 @@ console.log(formData)
           />
         </div>
         <div>
-          <label htmlFor="lyrics" className="block mb-2 text-sm font-medium text-black dark:text-white">
+          <label
+            htmlFor="lyrics"
+            className="block mb-2 text-sm font-medium text-black dark:text-white"
+          >
             Lyrics
           </label>
           <input
@@ -269,20 +292,18 @@ console.log(formData)
 
         <div className="flex space-x-3">
           <button
-            disabled={status ==='loading'}
+            disabled={status === "loading"}
             type="submit"
-            className={`${status === 'loading' ? 'cursor-wait' : 'cursor-pointer'} py-3 font-owners px-5 rounded text-xs tracking-wide md:text-sm font-semibold text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105`}
+            className={`${
+              status === "loading" ? "cursor-wait" : "cursor-pointer"
+            } py-3 font-owners px-5 rounded text-xs tracking-wide md:text-sm font-semibold text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105`}
           >
-            {status === 'loading' ? 'Please wait' : 'Upload'}
+            {status === "loading" ? "Please wait" : "Upload"}
           </button>
-
         </div>
         {status === "error" && <p>Error sending email, please try again.</p>}
       </form>
-      <div>
-        {audioSrc &&
-          <audio controls src={audioSrc} />}
-      </div>
+      <div>{audioSrc && <audio controls src={audioSrc} />}</div>
     </div>
   );
 };

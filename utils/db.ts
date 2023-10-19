@@ -1,205 +1,203 @@
-import { supabaseAdmin } from '@/lib/providers/supabase/supabase-lib-admin'
-import { supabase } from '@/lib/site/constants'
-import { v4 as uuid } from 'uuid'
+import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
+import { v4 as uuid } from "uuid";
 
 export const getAllArtists = async () => {
   try {
     const res = await fetch(`/api/v1/music/getAllArtists/`, {
-      method: 'GET',
-      cache: 'no-cache',
+      method: "GET",
+      cache: "no-cache",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
         // "Access-Control-Allow-Origin": "*"
-      }
+      },
 
       //  mode: 'no-cors',
-    })
+    });
 
     if (res.ok) {
-      const artists = await res.json()
+      const artists = await res.json();
 
       //const data = songs.json()
-      return artists
+      return artists;
     }
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 export const getAllSongs = async () => {
   try {
     const res = await fetch(`/api/v1/music/getAllSongs/`, {
-      method: 'GET',
-      cache: 'no-cache',
+      method: "GET",
+      cache: "no-cache",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
         // "Access-Control-Allow-Origin": "*"
-      }
+      },
 
       //  mode: 'no-cors',
-    })
+    });
 
     if (res.ok) {
-      const songs = await res.json()
+      const songs = await res.json();
 
       //const data = songs.json()
-      return songs
+      return songs;
     }
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 export const addMewArtist = async ({ updates }: any) => {
   try {
     const res = await fetch(`/api/v1/music/addNewArtist`, {
-      method: 'POST',
-      cache: 'no-cache',
+      method: "POST",
+      cache: "no-cache",
       headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': JSON.stringify(updates).length.toString()
+        "Content-Type": "application/json",
+        "Content-Length": JSON.stringify(updates).length.toString(),
 
         // "Access-Control-Allow-Origin": "*"
       },
-      body: JSON.stringify({ updates })
+      body: JSON.stringify({ updates }),
 
       //  mode: 'no-cors',
-    })
+    });
 
     if (res.ok) {
-      const artist = await res.json()
+      const artist = await res.json();
 
       //const data = songs.json()
-      return artist
+      return artist;
     }
   } catch (error) {
-    throw error
+    throw error;
   }
-}
-
+};
 
 export const updateArtist = async ({ updates }: any) => {
-  const {artist_id: artistId} = updates
+  const { artist_id: artistId } = updates;
   try {
     const res = await fetch(`/api/v1/music/editArtist`, {
-      method: 'POST',
-      cache: 'no-cache',
+      method: "POST",
+      cache: "no-cache",
       headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': JSON.stringify(updates).length.toString()
+        "Content-Type": "application/json",
+        "Content-Length": JSON.stringify(updates).length.toString(),
 
         // "Access-Control-Allow-Origin": "*"
       },
-      body: JSON.stringify({ updates, artistId })
+      body: JSON.stringify({ updates, artistId }),
 
       //  mode: 'no-cors',
-    })
+    });
 
     if (res.ok) {
-      const artist = await res.json()
+      const artist = await res.json();
 
       //const data = songs.json()
-      return  {artist, ok: true}
+      return { artist, ok: true };
     }
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 export const updateSong = async ({ updates }: any) => {
-  const {songId} = updates
+  const { songId } = updates;
   try {
     const res = await fetch(`/api/v1/music/editSong`, {
-      method: 'POST',
-      cache: 'no-cache',
+      method: "POST",
+      cache: "no-cache",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
         //  "Content-Length": JSON.stringify(updates).length.toString(),
 
         // "Access-Control-Allow-Origin": "*"
       },
-      body: JSON.stringify({ updates, songId })
+      body: JSON.stringify({ updates, songId }),
 
       //  mode: 'no-cors',
-    })
+    });
 
     if (res.ok) {
-      const song = await res.json()
+      const song = await res.json();
 
       //const data = songs.json()
-      return {song, ok: true}
+      return { song, ok: true };
     }
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 export const addNewSong = async ({ updates }: any) => {
   try {
     const res = await fetch(`/api/v1/music/addNewSong`, {
-      method: 'POST',
-      cache: 'no-cache',
+      method: "POST",
+      cache: "no-cache",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
         //  "Content-Length": JSON.stringify(updates).length.toString(),
 
         // "Access-Control-Allow-Origin": "*"
       },
-      body: JSON.stringify({ updates })
+      body: JSON.stringify({ updates }),
 
       //  mode: 'no-cors',
-    })
+    });
 
     if (res.ok) {
-      const song = await res.json()
+      const song = await res.json();
 
       //const data = songs.json()
-      return {song, ok: true}
+      return { song, ok: true };
     }
   } catch (error) {
-    throw error
+    throw error;
   }
-}
-export async function deleteFile ({
+};
+export async function deleteFile({
   path,
-  bucket
+  bucket,
 }: {
-  path: string
-  bucket: string
+  path: string;
+  bucket: string;
 }) {
   try {
     const { data, error } = await supabaseAdmin.storage
       .from(bucket)
-      .remove([path])
+      .remove([path]);
     if (error) {
-      throw error
+      throw error;
     }
 
     // const url = URL.createObjectURL(data)
-    return data
+    return data;
   } catch (error) {
-    console.log('Error downloading image: ', error)
+    console.log("Error downloading image: ", error);
   }
 }
 
-export async function downloadFile ({
+export async function downloadFile({
   path,
-  bucket
+  bucket,
 }: {
-  path: string
-  bucket: string
+  path: string;
+  bucket: string;
 }) {
   try {
     const { data, error } = await supabaseAdmin.storage
       .from(bucket)
-      .download(path)
+      .download(path);
     if (error) {
-      throw error
+      throw error;
     }
 
-    const url = URL.createObjectURL(data)
-    return url
+    const url = URL.createObjectURL(data);
+    return url;
   } catch (error) {
-    console.log('Error downloading image: ', error)
+    console.log("Error downloading image: ", error);
   }
 }
 export const uploadFile = async ({
@@ -219,7 +217,10 @@ export const uploadFile = async ({
     const fileExt = file.name.split(".").pop();
     // Replace spaces in the file name with underscores
     const fileNameWithoutSpaces = file.name.replace(/ /g, "_");
-    const fileNameWithoutExtension = fileNameWithoutSpaces.replace(/\.\w+$/, ""); // Remove existing extension
+    const fileNameWithoutExtension = fileNameWithoutSpaces.replace(
+      /\.\w+$/,
+      "",
+    ); // Remove existing extension
     const filePath = `${uid}-${fileNameWithoutExtension}.${fileExt}`;
     const { error: uploadError } = await supabaseAdmin.storage
       .from(bucket)

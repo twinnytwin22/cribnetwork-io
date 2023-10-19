@@ -1,1 +1,1 @@
-export {default}from './CourseLessons'
+export { default } from "./CourseLessons";

@@ -1,1 +1,1 @@
-export {default} from './NetworkBall'
+export { default } from "./NetworkBall";

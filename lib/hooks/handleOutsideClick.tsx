@@ -1,25 +1,28 @@
-'use client'
-import { useEffect } from 'react';
+"use client";
+import { useEffect } from "react";
 
-export function useHandleOutsideClick(isOpen: boolean, setIsOpen: any, id: string) {
+export function useHandleOutsideClick(
+  isOpen: boolean,
+  setIsOpen: any,
+  id: string,
+) {
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
       const targetElement = event.target as Element;
-      if (!targetElement.closest('.' + id)) {
+      if (!targetElement.closest("." + id)) {
         setIsOpen(false);
-        return
+        return;
       }
     };
 
     if (isOpen) {
-      document.addEventListener('mousedown', handleClick);
+      document.addEventListener("mousedown", handleClick);
     } else {
-      document.removeEventListener('mousedown', handleClick);
+      document.removeEventListener("mousedown", handleClick);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClick);
+      document.removeEventListener("mousedown", handleClick);
     };
   }, [isOpen, setIsOpen, id]);
-
 }

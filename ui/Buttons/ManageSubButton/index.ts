@@ -1,1 +1,1 @@
-export {default} from './ManageSubButton'
+export { default } from "./ManageSubButton";

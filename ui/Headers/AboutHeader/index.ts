@@ -1,1 +1,1 @@
-export {default} from './AboutHeader'
+export { default } from "./AboutHeader";

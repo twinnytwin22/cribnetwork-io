@@ -1,1 +1,1 @@
-export {default} from './WebGrant'
+export { default } from "./WebGrant";

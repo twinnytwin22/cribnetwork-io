@@ -64,8 +64,6 @@ h1 {
   line-height: 90px !important;
 }
 
-
-
 .center {
   display: flex;
   justify-content: center;
@@ -102,7 +100,7 @@ h1 {
   position: relative;
   width: 300px;
   height: 200px;
-  background: url("/images/azwindmill.jpg") no-repeat;
+ /* background: url("/images/azwindmill.jpg") no-repeat;*/
   background-size: cover;
 }
 

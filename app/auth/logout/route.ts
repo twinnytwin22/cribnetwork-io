@@ -1,9 +1,9 @@
-import { cookies } from "next/headers";
 import { Database } from "@/types/Database";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-export const revalidate = 0
+export const revalidate = 0;
 
 export async function POST(request: Request) {
   const requestUrl = new URL(request.url);

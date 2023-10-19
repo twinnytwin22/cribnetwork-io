@@ -1,13 +1,13 @@
-import { NextResponse } from 'next/server';
-import { validateRequest } from '@/lib/hooks/validateRequest';
-import { getAllCourses } from '@/lib/providers/sanity/sanity';
-import { supabaseApi } from '@/lib/providers/supabase/routerHandler';
+import { validateRequest } from "@/lib/hooks/validateRequest";
+import { getAllCourses } from "@/lib/providers/sanity/sanity";
+import { supabaseApi } from "@/lib/providers/supabase/routerHandler";
+import { NextResponse } from "next/server";
 export async function POST(req: Request) {
-  if (req.method !== 'POST') {
-    return new Response('error: Method Not Allowed', { status: 405 });
+  if (req.method !== "POST") {
+    return new Response("error: Method Not Allowed", { status: 405 });
   }
   try {
-    if (req.method === 'POST') {
+    if (req.method === "POST") {
       const validationResponse = await validateRequest(req);
 
       if (validationResponse) {
@@ -19,11 +19,14 @@ export async function POST(req: Request) {
 
       // Fetch existing course IDs from Supabase
       const { data: supabaseCourses, error: supabaseError } = await supabaseApi
-        .from('courses')
-        .select('id');
+        .from("courses")
+        .select("id");
 
       if (supabaseError) {
-        console.error('Error fetching course IDs from Supabase:', supabaseError);
+        console.error(
+          "Error fetching course IDs from Supabase:",
+          supabaseError,
+        );
       }
 
       // Upsert all courses into Supabase
@@ -31,8 +34,12 @@ export async function POST(req: Request) {
         const { _id, title, categories, lessons } = sanityCourse;
 
         // Extract titles from lessons and categories arrays
-        const lessonTitles = lessons?.map((lesson: any) => lesson?.title).filter(Boolean);
-        const categoryTitles = categories?.map((category: any) => category?.title).filter(Boolean);
+        const lessonTitles = lessons
+          ?.map((lesson: any) => lesson?.title)
+          .filter(Boolean);
+        const categoryTitles = categories
+          ?.map((category: any) => category?.title)
+          .filter(Boolean);
 
         const courseData = {
           id: _id, // Use the _id from Sanity as the id in Supabase
@@ -42,29 +49,34 @@ export async function POST(req: Request) {
         };
 
         const { data, error } = await supabaseApi
-        .from('courses')
-        .upsert([courseData], {onConflict: 'id'}) // Specify the conflict resolution strategy here
-        .select();
+          .from("courses")
+          .upsert([courseData], { onConflict: "id" }) // Specify the conflict resolution strategy here
+          .select();
         console.log(data);
         if (error) {
-          console.error('Error syncing data to Supabase:', error);
+          console.error("Error syncing data to Supabase:", error);
         }
       });
 
       // Find courses in Supabase that don't exist in Sanity and mark them for deletion
       const coursesToDelete = supabaseCourses?.filter((supabaseCourse: any) => {
-        return !sanityCourses.some((sanityCourse: any) => sanityCourse._id === supabaseCourse.id);
+        return !sanityCourses.some(
+          (sanityCourse: any) => sanityCourse._id === supabaseCourse.id,
+        );
       });
 
       // Delete courses from Supabase
       if (coursesToDelete && coursesToDelete.length > 0) {
         const { error: deleteError } = await supabaseApi
-          .from('courses')
+          .from("courses")
           .delete()
-          .in('id', coursesToDelete.map((course: any) => course.id));
+          .in(
+            "id",
+            coursesToDelete.map((course: any) => course.id),
+          );
 
         if (deleteError) {
-          console.error('Error deleting courses from Supabase:', deleteError);
+          console.error("Error deleting courses from Supabase:", deleteError);
         }
       }
 
@@ -72,20 +84,20 @@ export async function POST(req: Request) {
       await Promise.all(upsertPromises);
 
       return NextResponse.json({
-        success: 'Course data synced to Supabase successfully',
+        success: "Course data synced to Supabase successfully",
         status: 200,
       });
     } else {
       return NextResponse.json({
-        error: 'Method not allowed, or working, please update and try again',
+        error: "Method not allowed, or working, please update and try again",
         status: 405,
       });
     }
   } catch (error) {
     // Handle any unexpected errors here
-    console.error('Error in webhook processing:', error);
+    console.error("Error in webhook processing:", error);
     return NextResponse.json({
-      error: 'Internal server error',
+      error: "Internal server error",
       status: 500,
     });
   }

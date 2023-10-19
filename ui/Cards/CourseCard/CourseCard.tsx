@@ -1,22 +1,20 @@
-'use client'
+"use client";
 import { imageBuilder } from "@/lib/providers/sanity/sanity";
 import Link from "next/link";
 
 const myFun = (myName: string) => {
-  const data = myName.toUpperCase().split(" ").slice(0,2);
+  const data = myName.toUpperCase().split(" ").slice(0, 2);
   const avatarName = data.map((data) => data.charAt(0));
   return avatarName;
 };
 
 const CourseCard = ({ course }) => {
   //console.log(course)
-  const image = imageBuilder(course.image)
-
+  const image = imageBuilder(course.image);
 
   return (
     <div className="w-full max-w-sm">
-      <div
-        className="border border-zinc-300 dark:border-zinc-800 rounded-lg hover:drop-shadow-md overflow-hidden relative bg-white dark:bg-black">
+      <div className="border border-zinc-300 dark:border-zinc-800 rounded-lg hover:drop-shadow-md overflow-hidden relative bg-white dark:bg-black">
         <div className="cursor-pointer h-48 overflow-hidden">
           <Link href={`/portal/learning/course/${course._id}`}>
             <img
@@ -33,7 +31,9 @@ const CourseCard = ({ course }) => {
         {/* card fields section  */}
         <div className="p-4 space-y-2 relative h-60 text-zinc-400 dark:text-zinc-400">
           <div>
-            <p className="text-sm font-bold truncate">{course?.categories[0]?.title}</p>
+            <p className="text-sm font-bold truncate">
+              {course?.categories[0]?.title}
+            </p>
           </div>
           <Link href={`/portal/learning/course/${course?._id}`}>
             <span className="text-xl font-bold text-zinc-600 dark:text-zinc-200 overflow-hidden h-12">
@@ -41,7 +41,12 @@ const CourseCard = ({ course }) => {
             </span>
           </Link>
           <div className="flex gap-2 items-center text-zinc-500 dark:text-zinc-300">
-            <p className="text-sm font-normal">{course?.description.substring(0, 150)}...<Link href={`/portal/learning/course/${course._id}`}><span className="font-bold">(Read more)</span></Link></p>
+            <p className="text-sm font-normal">
+              {course?.description.substring(0, 150)}...
+              <Link href={`/portal/learning/course/${course._id}`}>
+                <span className="font-bold">(Read more)</span>
+              </Link>
+            </p>
           </div>
           <div className="bottom-2 absolute inset-x-0 ">
             <div className="border-t mt-2 mb-2 border-zinc-300 dark:border-zinc-800"></div>
@@ -54,6 +59,5 @@ const CourseCard = ({ course }) => {
     </div>
   );
 };
-
 
 export default CourseCard;

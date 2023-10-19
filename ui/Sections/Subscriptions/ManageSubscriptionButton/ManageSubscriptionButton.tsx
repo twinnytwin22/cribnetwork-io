@@ -1,9 +1,8 @@
-'use client';
-
-import { postData } from '@/lib/hooks/helpers';
-import Button from '../Button';
-import { Session } from '@supabase/supabase-js';
-import { useRouter } from 'next/navigation';
+"use client";
+import { postData } from "@/lib/hooks/helpers";
+import { Session } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
+import Button from "../Button";
 
 interface Props {
   session: Session;
@@ -14,7 +13,7 @@ export default function ManageSubscriptionButton({ session }: Props) {
   const redirectToCustomerPortal = async () => {
     try {
       const { url } = await postData({
-        url: '/api/create-portal-link'
+        url: "/api/create-portal-link",
       });
       router.push(url);
     } catch (error) {

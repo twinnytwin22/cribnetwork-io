@@ -1,1 +1,1 @@
-export {default} from './ContactButton'
+export { default } from "./ContactButton";

@@ -4,20 +4,30 @@ import { v4 as uuid } from "uuid";
 import { Kafka } from "@upstash/kafka";
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
-  let cookie = req.cookies.getAll()
-//console.log(cookie)
+  let cookie = req.cookies.getAll();
+  //console.log(cookie)
   const { pathname } = req.nextUrl;
   const res = NextResponse.redirect(new URL("/", req.url));
   const nonce = uuid();
 
-  const requestOrigin = req.headers.get('origin');
-  const allowedOrigins = ['https://cribnetwork.io', 'http://localhost:3000', 'https://cribmusic.xyz'];
+  const requestOrigin = req.headers.get("origin");
+  const allowedOrigins = [
+    "https://cribnetwork.io",
+    "http://localhost:3000",
+    "https://cribmusic.xyz",
+  ];
   // Check if the request's origin is in the allowed origins list
   if (requestOrigin) {
     // If the origin is allowed, set the appropriate CORS headers
-    res.headers.set('Access-Control-Allow-Origin', '*');
-    res.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.headers.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization');
+    res.headers.set("Access-Control-Allow-Origin", "*");
+    res.headers.set(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, DELETE, OPTIONS",
+    );
+    res.headers.set(
+      "Access-Control-Allow-Headers",
+      "X-Requested-With, Content-Type, Authorization",
+    );
   }
   //console.log(nonce);
   const supabase = createMiddlewareClient({ req, res });
@@ -28,14 +38,14 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
   //console.log(session);
 
   const cspHeaderValue =
-  `default-src 'self'; ` +
-  `script-src 'self' 'nonce-${nonce}' cdnjs.cloudflare.com https://checkout.stripe.com; ` +
-  `style-src 'self' 'nonce-${nonce}' cdnjs.cloudflare.com; ` +
-  `img-src 'self' data: https://*.stripe.com; ` +
-  `font-src 'self' cdnjs.cloudflare.com; ` +
-  `connect-src 'self' https://checkout.stripe.com; ` +
-  `frame-src 'self' https://checkout.stripe.com; ` +
-  `object-src 'none'`;
+    `default-src 'self'; ` +
+    `script-src 'self' 'nonce-${nonce}' cdnjs.cloudflare.com https://checkout.stripe.com; ` +
+    `style-src 'self' 'nonce-${nonce}' cdnjs.cloudflare.com; ` +
+    `img-src 'self' data: https://*.stripe.com; ` +
+    `font-src 'self' cdnjs.cloudflare.com; ` +
+    `connect-src 'self' https://checkout.stripe.com; ` +
+    `frame-src 'self' https://checkout.stripe.com; ` +
+    `object-src 'none'`;
 
   const kafka = new Kafka({
     url: "https://real-goldfish-14081-us1-rest-kafka.upstash.io",
@@ -54,7 +64,7 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
   };
 
   //
-  res.cookies.set('Set-Cookie', 'SameSite=None; Secure');
+  res.cookies.set("Set-Cookie", "SameSite=None; Secure");
 
   const p = kafka.producer();
   const topic = "words";

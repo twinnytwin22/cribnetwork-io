@@ -1,1 +1,1 @@
-export {default} from './EnrollmentButton'
+export { default } from "./EnrollmentButton";

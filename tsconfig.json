@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -21,14 +20,18 @@
         "name": "next"
       }
     ],
-    "typeRoots": [
-      "./types",
-      "./node_modules/@types/"
-    ],
+    "typeRoots": ["./types", "./node_modules/@types/"],
     "paths": {
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "lib/providers/sanity/imageLoader.tsx", "lib/hooks/PortalPageTitle.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "lib/providers/sanity/imageLoader.tsx",
+    "lib/hooks/PortalPageTitle.tsx"
+  ],
   "exclude": ["node_modules"]
 }

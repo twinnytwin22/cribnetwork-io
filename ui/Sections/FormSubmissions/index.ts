@@ -1,1 +1,1 @@
-export {default} from './FormSubmissionsTable'
+export { default } from "./FormSubmissionsTable";

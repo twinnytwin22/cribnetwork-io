@@ -1,50 +1,46 @@
-'use client';
+"use client";
+import { useAuthProvider } from "@/app/context/auth";
+import { postData } from "@/lib/hooks/helpers";
+import { getStripe } from "@/lib/providers/stripe/stripe-client";
+import cn from "classnames";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Button from "./Button";
+type BillingInterval = "lifetime" | "year" | "month";
 
-import { postData } from '@/lib/hooks/helpers';
-import { getStripe } from '@/lib/providers/stripe/stripe-client';
-import cn from 'classnames';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import Button from './Button';
-import { useAuthProvider } from '@/app/context/auth';
-type BillingInterval = 'lifetime' | 'year' | 'month';
-
-export default function Pricing({
-  products,
-  subscription,
-}) {
-  console.log(products)
+export default function Pricing({ products, subscription }) {
+  console.log(products);
   const intervals = Array.from(
     new Set(
-      products.flatMap((product) =>
-        product?.prices?.map((price: any) => price?.interval)
-      )
-    )
+      products.flatMap(
+        (product) => product?.prices?.map((price: any) => price?.interval),
+      ),
+    ),
   );
- // const { user } = useAuthProvider()
+  // const { user } = useAuthProvider()
   const router = useRouter();
   const [billingInterval, setBillingInterval] =
-    useState<BillingInterval>('month');
+    useState<BillingInterval>("month");
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
-  const {user} = useAuthProvider()
+  const { user } = useAuthProvider();
   const handleCheckout = async (price: any) => {
     setPriceIdLoading(price.id);
     if (!user) {
-      return router.push('/login');
+      return router.push("/login");
     }
     if (subscription) {
-      return router.push('/portal');
+      return router.push("/portal");
     }
     try {
       const { sessionId } = await postData({
-        url: '/api/create-checkout-session',
-        data: { price }
+        url: "/api/create-checkout-session",
+        data: { price },
       });
 
       const stripe = await getStripe();
       stripe?.redirectToCheckout({ sessionId });
     } catch (error) {
-      return alert((error));
+      return alert(error);
     } finally {
       setPriceIdLoading(undefined);
     }
@@ -56,7 +52,7 @@ export default function Pricing({
         <div className="max-w-4xl px-4 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
           <div className="sm:flex sm:flex-col sm:align-center"></div>
           <p className="text-2xl font-medium text-black dark:text-white sm:text-center sm:text-4xl">
-            No subscription pricing plans found. Create them in your{' '}
+            No subscription pricing plans found. Create them in your{" "}
             <a
               className="text-red-300 underline"
               href="https://dashboard.stripe.com/products"
@@ -73,7 +69,7 @@ export default function Pricing({
 
   if (products.length === 1)
     return (
-        <section className="dark:bg-black bg-white border border-zinc-200 dark:border-zinc-800 rounded  mx-auto font-owners">
+      <section className="dark:bg-black bg-white border border-zinc-200 dark:border-zinc-800 rounded  mx-auto font-owners">
         <div className="max-w-6xl px-4 py-8 mx-auto sm:py-16 sm:px-6 lg:px-8">
           <div className="sm:flex sm:flex-col sm:align-center">
             <h1 className="text-xl font-extrabold text-black dark:text-white sm:text-center sm:text-2xl">
@@ -94,10 +90,10 @@ export default function Pricing({
               {products[0].prices?.map((price) => {
                 const priceString =
                   price.unit_amount &&
-                  new Intl.NumberFormat('en-US', {
-                    style: 'currency',
+                  new Intl.NumberFormat("en-US", {
+                    style: "currency",
                     currency: price.currency!,
-                    minimumFractionDigits: 0
+                    minimumFractionDigits: 0,
                   }).format(price.unit_amount / 100);
 
                 return (
@@ -114,7 +110,9 @@ export default function Pricing({
                           /{price.interval}
                         </span>
                       </p>
-                      <p className="mt-4 dark:text-zinc-300 text-zinc-700">{price.description}</p>
+                      <p className="mt-4 dark:text-zinc-300 text-zinc-700">
+                        {price.description}
+                      </p>
                       <Button
                         variant="slim"
                         type="button"
@@ -125,8 +123,8 @@ export default function Pricing({
                       >
                         {products[0].name ===
                         subscription?.prices?.products?.name
-                          ? 'Manage'
-                          : 'Subscribe'}
+                          ? "Manage"
+                          : "Subscribe"}
                       </Button>
                     </div>
                   </div>
@@ -140,7 +138,7 @@ export default function Pricing({
 
   return (
     <section className="dark:bg-black bg-white border border-zinc-200 dark:border-zinc-800 rounded  mx-auto font-owners">
-    <div className="max-w-6xl px-4 py-8 mx-auto sm:py-16 sm:px-6 lg:px-8">
+      <div className="max-w-6xl px-4 py-8 mx-auto sm:py-16 sm:px-6 lg:px-8">
         <div className="sm:flex sm:flex-col sm:align-center">
           <h1 className="text-xl font-extrabold text-black dark:text-white sm:text-center sm:text-2xl">
             Pricing Plans
@@ -150,27 +148,27 @@ export default function Pricing({
             plans unlock additional features.
           </p>
           <div className="relative self-center mt-6 dark:bg-zinc-900 bg-zinc-100 border-zinc-200 rounded-lg p-0.5 flex sm:mt-8 border dark:border-zinc-800">
-            {intervals.includes('month') && (
+            {intervals.includes("month") && (
               <button
-                onClick={() => setBillingInterval('month')}
+                onClick={() => setBillingInterval("month")}
                 type="button"
                 className={`${
-                  billingInterval === 'month'
-                    ? 'relative w-1/2 dark:bg-zinc-700 dark:border-zinc-800 bg-white border-zinc-200 shadow-sm text-black dark:text-white'
-                    : 'ml-0.5 relative w-1/2 border border-transparent text-zinc-400'
+                  billingInterval === "month"
+                    ? "relative w-1/2 dark:bg-zinc-700 dark:border-zinc-800 bg-white border-zinc-200 shadow-sm text-black dark:text-white"
+                    : "ml-0.5 relative w-1/2 border border-transparent text-zinc-400"
                 } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
               >
                 Monthly billing
               </button>
             )}
-            {intervals.includes('year') && (
+            {intervals.includes("year") && (
               <button
-                onClick={() => setBillingInterval('year')}
+                onClick={() => setBillingInterval("year")}
                 type="button"
                 className={`${
-                  billingInterval === 'year'
-                    ? 'relative w-1/2 dark:bg-zinc-700 dark:border-zinc-800 bg-white border-zinc-200 shadow-sm text-black dark:text-white'
-                    : 'ml-0.5 relative w-1/2 border border-transparent text-zinc-400'
+                  billingInterval === "year"
+                    ? "relative w-1/2 dark:bg-zinc-700 dark:border-zinc-800 bg-white border-zinc-200 shadow-sm text-black dark:text-white"
+                    : "ml-0.5 relative w-1/2 border border-transparent text-zinc-400"
                 } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
               >
                 Yearly billing
@@ -181,31 +179,33 @@ export default function Pricing({
         <div className="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-3">
           {products.map((product) => {
             const price = product?.prices?.find(
-              (price: any) => price.interval === billingInterval
+              (price: any) => price.interval === billingInterval,
             );
             if (!price) return null;
-            const priceString = new Intl.NumberFormat('en-US', {
-              style: 'currency',
+            const priceString = new Intl.NumberFormat("en-US", {
+              style: "currency",
               currency: price.currency!,
-              minimumFractionDigits: 0
+              minimumFractionDigits: 0,
             }).format((price?.unit_amount || 0) / 100);
             return (
               <div
                 key={product.id}
                 className={cn(
-                  'rounded-lg shadow-sm divide-y divide-zinc-600 dark:bg-zinc-900 bg-white border-zinc-200 ',
+                  "rounded-lg shadow-sm divide-y divide-zinc-600 dark:bg-zinc-900 bg-white border-zinc-200 ",
                   {
-                    'border border-red-300': subscription
+                    "border border-red-300": subscription
                       ? product.name === subscription?.prices?.products?.name
-                      : product.name === 'Freelancer'
-                  }
+                      : product.name === "Freelancer",
+                  },
                 )}
               >
                 <div className="p-6">
                   <h2 className="text-2xl font-semibold leading-6 text-black dark:text-white">
                     {product.name}
                   </h2>
-                  <p className="mt-4 text-zinc-600 dark:text-zinc-300">{product.description}</p>
+                  <p className="mt-4 text-zinc-600 dark:text-zinc-300">
+                    {product.description}
+                  </p>
                   <p className="mt-8">
                     <span className="text-5xl font-extrabold text-black dark:text-white">
                       {priceString}
@@ -222,7 +222,7 @@ export default function Pricing({
                     onClick={() => handleCheckout(price)}
                     className="block w-full py-2 mt-8 text-sm font-semibold text-center"
                   >
-                    {subscription ? 'Manage' : 'Subscribe'}
+                    {subscription ? "Manage" : "Subscribe"}
                   </Button>
                 </div>
               </div>
@@ -233,4 +233,3 @@ export default function Pricing({
     </section>
   );
 }
-
