@@ -10,8 +10,10 @@ async function PortalLayout({ children }: { children: React.ReactNode }) {
       suppressHydrationWarning
     >
       <DashboardSidebar />
-      <div className="flex-1 overflow-x-hidden overflow-y-auto">
-        <div className=" md:ml-24 lg:ml-64 mx-auto min-h-screen h-full mt-24 transition-transform z-0 flex items-center relative">
+      <div className="flex-1 overflow-x-hidden overflow-y-auto relative">
+        <div 
+        style={{position: 'relative'}}
+        className=" md:ml-24 lg:ml-64 mx-auto min-h-screen h-full mt-24 transition-transform z-0 flex items-center relative">
           {children}
         </div>
       </div>

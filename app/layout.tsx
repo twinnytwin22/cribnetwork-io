@@ -40,12 +40,13 @@ export default async function RootLayout({
   return (
     settings && (
       <html lang="en" suppressHydrationWarning>
-        <Script
+        {process.env.NODE_ENV !== 'development' && <Script
+        
           defer
           src="https://unpkg.com/@tinybirdco/flock.js"
           data-host="https://api.us-east.tinybird.co"
           data-token={process.env.NEXT_PUBLIC_TINYBIRD_TRACKER_TOKEN}
-        ></Script>{" "}
+        ></Script>}{" "}
         <body className="max-w-screen w-full relative bg-white dark:bg-black">
           <Providers>
             <NavBar settings={settings} />

@@ -40,62 +40,69 @@ export const AuthContextProvider = ({
     unsubscribeAuthListener,
     user,
     profile,
+    setUserRole, 
+    userRole
   } = useAuthStore();
 
   const router = useRouter();
   const pathname = usePathname();
 
-  const { data, isLoading } = useQuery(
-    ["user", "subscription", "subscriptionData", "authListener"],
-    async () => {
-      // Fetch user and authListener data concurrently
-      const [
-        { data: userSessionData },
-        {
-          data: { subscription: subscriptionData },
+  const onAuthStateChange = async () => {
+    const [
+      { data: userSessionData },
+      {
+        data: { subscription: subscriptionData },
+      },
+    ] = await Promise.all([
+      supabase.auth.getSession(),
+      supabaseAdmin.auth.onAuthStateChange(
+        async (event: AuthChangeEvent, currentSession: Session | null) => {
+          if (currentSession && event === "SIGNED_IN") {
+            const profile = await fetchProfile(currentSession?.user.id);
+            useAuthStore.setState({ user: currentSession?.user, profile });
+            router.refresh();
+          } else if (event === "SIGNED_OUT") {
+            refresh();
+          }
+          if (event === "PASSWORD_RECOVERY") {
+            const newPassword = prompt(
+              "What would you like your new password to be?",
+            );
+            const { data, error } = await supabaseAdmin.auth.updateUser({
+              password: newPassword!,
+            });
+
+            if (data) toast.success("Password updated successfully!");
+            if (error)
+              toast.error("There was an error updating your password.");
+            console.log(error);
+          }
         },
-      ] = await Promise.all([
-        supabase.auth.getSession(),
-        supabaseAdmin.auth.onAuthStateChange(
-          async (event: AuthChangeEvent, currentSession: Session | null) => {
-            if (currentSession && event === "SIGNED_IN") {
-              const profile = await fetchProfile(currentSession?.user.id);
-              useAuthStore.setState({ user: currentSession?.user, profile });
-              router.refresh();
-            } else if (event === "SIGNED_OUT") {
-              refresh();
-            }
-            if (event === "PASSWORD_RECOVERY") {
-              const newPassword = prompt(
-                "What would you like your new password to be?",
-              );
-              const { data, error } = await supabaseAdmin.auth.updateUser({
-                password: newPassword!,
-              });
+      ),
+    ]);
 
-              if (data) toast.success("Password updated successfully!");
-              if (error)
-                toast.error("There was an error updating your password.");
-              console.log(error);
-            }
-          },
-        ),
-      ]);
+    if (userSessionData && userSessionData.session) {
+      const { data: authUser } = await supabase.auth.getUser();
 
-      if (userSessionData && userSessionData.session) {
-        const { data: authUser } = await supabase.auth.getUser();
+      if (authUser?.user) {
+        const profile = await fetchProfile(authUser.user.id);
+        useAuthStore.setState({ profile });
+        useAuthStore.setState({ user: authUser.user });
 
-        if (authUser?.user) {
-          const profile = await fetchProfile(authUser.user.id);
-          useAuthStore.setState({ profile });
-          useAuthStore.setState({ user: authUser.user });
-
-          return { user: authUser.user, profile };
-        }
+        return { user: authUser.user, profile };
       }
-      return { subscription: subscriptionData };
-    },
-  );
+    }
+    return { subscription: subscriptionData };
+  }
+  
+
+  const { data, isLoading } = useQuery({
+    queryKey:["user", "subscription", "subscriptionData", "authListener"],
+    queryFn: () => onAuthStateChange(),
+    onSuccess: (subscription) => {
+      subscription.subscription?.unsubscribe()
+    }      
+    });
 
   const value = useMemo(
     () => ({
@@ -107,9 +114,13 @@ export const AuthContextProvider = ({
       signInWithEmail,
       signOut,
       unsubscribeAuthListener,
+      userRole, 
+      setUserRole
     }),
     [
       data,
+      userRole, 
+      setUserRole,
       user,
       profile,
       isLoading,

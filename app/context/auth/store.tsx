@@ -5,6 +5,8 @@ export interface AuthState {
   user: any;
   profile: any;
   isLoading: boolean;
+  userRole: string;
+  setUserRole: (userRole: string) => void;
   signInWithEmail: (email: string, password: string) => Promise<void>;
   signInWithGoogle: () => Promise<void>;
   signInWithSpotify: () => Promise<void>;
@@ -13,9 +15,11 @@ export interface AuthState {
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
+  userRole: '',
   user: null,
   profile: null,
   isLoading: false,
+  setUserRole: (userRole: string) => set({userRole}),
   signInWithEmail: async (email, password) => {
     toast.info("Signing In");
     try {

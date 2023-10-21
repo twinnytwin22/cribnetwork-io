@@ -1,14 +1,16 @@
 "use client";
+import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
+import { deleteFile } from "@/utils/db";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
-import { FaEye, FaMusic } from "react-icons/fa6";
+import { FaEye, FaMusic, FaTrash } from "react-icons/fa6";
 import { FcCancel, FcCheckmark } from "react-icons/fc";
 import AddArtistForm from "./AddArtist";
 import EditArtistForm from "./EditArtist";
 import EditSongForm from "./EditSong";
 import UploadSongForm from "./UploadSong";
- 
+
 function FormGroup({ artists, songs }) {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -16,8 +18,8 @@ function FormGroup({ artists, songs }) {
   const mode = searchParams.get("mode");
   const edit = searchParams.get("edit");
   const id = searchParams.get("id");
-
-  console.log(id);
+  //const {setImagePreviewOpen, imagePreviewOpen, imagePreview } = useMusicFormStore()
+  //console.log(pathname);
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams);
@@ -42,18 +44,18 @@ function FormGroup({ artists, songs }) {
   return (
     artists &&
     songs && (
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto relative">
+     
         <div className="flex space-x-3 ">
           <div className="text-sm font-medium text-center border-b dark:border-zinc-700 mx-8">
             <ul className="flex flex-wrap -mb-px ">
               <li className="mr-2">
                 <Link
-                  href="/portal/crib-music/?mode=data"
-                  className={`inline-block p-4 rounded-t-lg ${
-                    homeProps.includes(mode)
-                      ? "text-red-300 border-b-2 border-red-400 dark:text-red-300 dark:border-red-300"
-                      : "text-zinc-500 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300"
-                  }`}
+                  href={`${pathname}/?mode=data`}
+                  className={`inline-block p-4 rounded-t-lg ${homeProps.includes(mode)
+                    ? "text-red-300 border-b-2 border-red-400 dark:text-red-300 dark:border-red-300"
+                    : "text-zinc-500 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300"
+                    }`}
                   aria-current={homeProps.includes(mode) ? "page" : undefined}
                 >
                   Overview
@@ -61,25 +63,23 @@ function FormGroup({ artists, songs }) {
               </li>
               <li className="mr-2">
                 <Link
-                  href="/portal/crib-music/?mode=song"
+                  href={`${pathname}/?mode=song`}
                   aria-current={mode === "song" ? "page" : undefined}
-                  className={`inline-block p-4 rounded-t-lg ${
-                    mode === "song"
-                      ? "text-red-300 border-b-2 border-red-400 dark:text-red-300 dark:border-red-300"
-                      : "text-zinc-500 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300"
-                  }`}
+                  className={`inline-block p-4 rounded-t-lg ${mode === "song"
+                    ? "text-red-300 border-b-2 border-red-400 dark:text-red-300 dark:border-red-300"
+                    : "text-zinc-500 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300"
+                    }`}
                 >
                   Upload Song
                 </Link>
               </li>
               <li className="mr-2">
                 <Link
-                  href="/portal/crib-music/?mode=artist"
-                  className={`inline-block p-4 rounded-t-lg ${
-                    mode === "artist"
-                      ? "text-red-300 border-b-2 border-red-400 dark:text-red-300 dark:border-red-300"
-                      : "text-zinc-500 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300"
-                  }`}
+                  href={`${pathname}/?mode=artist`}
+                  className={`inline-block p-4 rounded-t-lg ${mode === "artist"
+                    ? "text-red-300 border-b-2 border-red-400 dark:text-red-300 dark:border-red-300"
+                    : "text-zinc-500 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300"
+                    }`}
                   aria-current={mode === "artist" ? "page" : undefined}
                 >
                   Add Artist
@@ -139,123 +139,182 @@ const ArtistsTable = ({
   artists,
   songs,
 }) => {
+
+  const handleDeleteArtist = async (artistId) => {
+    try {
+      let { error } = await supabaseAdmin.from('artists').delete().eq('artist_id', artistId)
+      if(error){
+        throw new Error(JSON.stringify(error))
+      }
+    //  await deleteFile({path, bucket: 'tracks'})
+
+    } catch (error) {
+      throw error
+    } finally {
+      router.refresh()
+    }
+  }
   return (
-    <table className="w-full text-sm text-left text-zinc-500 dark:text-zinc-400">
-      <thead className="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-400">
-        <tr>
-          <th scope="col" className="px-4 py-3">
-            Artist Name
-          </th>
-          <th scope="col" className="px-4 py-3">
-            Biography
-          </th>
-          <th scope="col" className="px-4 py-3">
-            Contact Email
-          </th>
-          <th scope="col" className="px-4 py-3">
-            Contact Phone
-          </th>
-          <th scope="col" className="px-4 py-3 ">
-            <span className="sr-only">Edit</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {artists.map((artist) => (
-          <tr
-            className="border-b dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-black text-xs md:text-sm min-w-full"
-            key={artist.artist_id}
-          >
-            <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
-              {artist.artist_name}
-            </td>
-            <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
-              {artist.biography}
-            </td>
-            <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
-              {artist.contact_email}
-            </td>
-            <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
-              {artist.contact_phone}
-            </td>
-            <td
-              onClick={() => {
-                router.push(
-                  pathname +
-                    "?" +
-                    createQueryString("edit", "artist") +
-                    "&" +
-                    `id=${artist.artist_id}`
-                );
-              }}
-              className="px-4 py-2 hover:underline font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
-            >
-              Edit
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="bg-white dark:bg-black relative shadow-md sm:rounded-lg overflow-hidden border border-zinc-300 dark:border-zinc-800">
+      <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+        <div className="table-container overflow-x-auto w-full">
+
+          <table className="w-full text-sm text-left text-zinc-500 dark:text-zinc-400">
+            <thead className="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-400">
+              <tr>
+                <th scope="col" className="px-4 py-3">
+                  Artist Name
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Biography
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Contact Email
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Contact Phone
+                </th>
+                <th scope="col" className="px-4 py-3 ">
+                  <span className="sr-only">Edit</span>
+                </th>
+                <th scope="col" className="px-4 py-3 ">
+                  <span className="sr-only">Remove</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {artists.map((artist) => (
+                <tr
+                  className="border-b dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-black text-xs md:text-sm min-w-full"
+                  key={artist.artist_id}
+                >
+                  <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                    {artist.artist_name}
+                  </td>
+                  <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                    {artist.biography}
+                  </td>
+                  <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                    {artist.contact_email}
+                  </td>
+                  <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                    {artist.contact_phone}
+                  </td>
+                  <td
+                    onClick={() => {
+                      router.push(
+                        pathname +
+                        "?" +
+                        createQueryString("edit", "artist") +
+                        "&" +
+                        `id=${artist.artist_id}`
+                      );
+                    }}
+                    className="px-4 py-2 hover:underline font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
+                  >
+                    Edit
+                  </td>
+                  <td onClick={() => handleDeleteArtist(artist.artist_id)}
+                    className="px-4 py-2 hover:underline font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
+                  >
+                    <FaTrash />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   );
 };
 
 const SongsTable = ({ router, pathname, createQueryString, songs }) => {
+
+  const handleDeleteSong = async (songId, path) => {
+    try {
+      let { error } = await supabaseAdmin.from('songs').delete().eq('song_id', songId)
+      if(error){
+        throw new Error(JSON.stringify(error))
+      }
+      await deleteFile({path, bucket: 'tracks'})
+
+    } catch (error) {
+      throw error
+    } finally {
+      router.refresh()
+    }
+  }
   return (
-    <table className="w-full text-sm text-left text-zinc-500 dark:text-zinc-400">
-      <thead className="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-400">
-        <tr>
-          <th scope="col" className="px-4 py-3">
-            Title
-          </th>
-          <th scope="col" className="px-4 py-3">
-            Album
-          </th>
-          <th scope="col" className="px-4 py-3">
-            Release Year
-          </th>
-          <th scope="col" className="px-4 py-3">
-            <FaMusic />
-          </th>
-          <th scope="col" className="px-4 py-3 ">
-            <span className="sr-only">Edit</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {songs.map((song) => (
-          <tr
-            className="border-b dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-black text-xs md:text-sm min-w-full"
-            key={song.song_id}
-          >
-            <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
-              {song.title}
-            </td>
-            <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
-              {song.album}
-            </td>
-            <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
-              {song.release_year}
-            </td>
-            <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
-              {song.music_file_url.length > 1 ? <FcCheckmark /> : <FcCancel />}
-            </td>
-            <td
-              onClick={() => {
-                router.push(
-                  pathname +
-                    "?" +
-                    createQueryString("edit", "song") +
-                    "&" +
-                    `id=${song.song_id}`
-                );
-              }}
-              className="px-4 py-2 hover:underline font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
-            >
-              Edit
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="bg-white dark:bg-black relative shadow-md sm:rounded-lg overflow-hidden border border-zinc-300 dark:border-zinc-800">
+      <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+        <div className="table-container overflow-x-auto w-full">
+          <table className="w-full text-sm text-left text-zinc-500 dark:text-zinc-400">
+            <thead className="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-400">
+              <tr>
+                <th scope="col" className="px-4 py-3">
+                  Title
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Artist
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Release Year
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  <FaMusic />
+                </th>
+                <th scope="col" className="px-4 py-3 ">
+                  <span className="sr-only">Edit</span>
+                </th>
+                <th scope="col" className="px-4 py-3 ">
+                  <span className="sr-only">Remove</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {songs.map((song) => (
+                <tr
+                  className="border-b dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-black text-xs md:text-sm min-w-full"
+                  key={song.song_id}
+                >
+                  <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                    {song.title}
+                  </td>
+                  <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                    {song.artist_name}
+                  </td>
+                  <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                    {song.release_year}
+                  </td>
+                  <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                    {song.music_file_url.length > 1 ? <FcCheckmark /> : <FcCancel />}
+                  </td>
+                  <td
+                    onClick={() => {
+                      router.push(
+                        pathname +
+                        "?" +
+                        createQueryString("edit", "song") +
+                        "&" +
+                        `id=${song.song_id}`
+                      );
+                    }}
+                    className="px-4 py-2 hover:underline font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
+                  >
+                    Edit
+                  </td>
+                  <td onClick={() => handleDeleteSong(song.song_id, song.music_file_url)}
+                    className="px-4 py-2 hover:underline font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
+                  >
+                    <FaTrash />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   );
 };

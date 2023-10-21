@@ -1,9 +1,13 @@
+import { useHandleOutsideClick } from "@/lib/hooks/handleOutsideClick";
+import { allGenres } from "@/lib/site/allGenres";
+import { getCoverImage } from "@/lib/site/constants";
 import { downloadFile, updateSong, uploadFile } from "@/utils/db";
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect } from "react";
 import { toast } from "react-toastify";
-import { UploadSongTypes, useMusicFormStore } from "./store";
- 
+import { ArtistTypes, UploadSongTypes, useMusicFormStore } from "./store";
 const EditSongForm = ({ artists, id, songs }) => {
   const {
     initialState,
@@ -15,18 +19,31 @@ const EditSongForm = ({ artists, id, songs }) => {
     setStatus,
     audioSrc,
     setAudioSrc,
+    imagePreview,
+    imagePreviewOpen,
+    updateSongKeywords,
+    formatTime,
+    setImagePreview,
+    setImagePreviewOpen,
   } = useMusicFormStore();
   const currentSong: UploadSongTypes = songs.find(
     (song: any) => song.song_id.toString() === id.toString(),
   );
-
+  const router = useRouter();
   useEffect(() => {
+    if(currentSong) {
     setStatus("loadingInitialState");
     setFormData(currentSong);
     setStatus("ready");
+    setImagePreview(getCoverImage(currentSong.cover_art_url!))
+    }
   }, [currentSong]);
   console.log(currentSong, "SONG");
-
+  const handleLoadedMetadata = (event: ChangeEvent<HTMLAudioElement>) => {
+    const audio = event.target;
+    const audioDuration = formatTime(audio.duration);
+    setFormData({ ...formData, duration: audioDuration });
+  };
   const { data } = useQuery({
     queryKey: ["data", formData.music_file_url],
     queryFn: () =>
@@ -44,9 +61,8 @@ const EditSongForm = ({ artists, id, songs }) => {
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
-    if (name === "music_file_url") {
-      return;
-    }
+    console.log(name, value, "CHANGE EVENT")
+  
     if (name === "artist_id") {
       // Find the selected artist to set artist_name
       const selectedArtist = artists.find((artist) => artist.id === value);
@@ -68,12 +84,14 @@ const EditSongForm = ({ artists, id, songs }) => {
   //console.log(formData)
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const artistName = artists.find(((artist) => artist.artist_id === formData.artist_id))
+    const artistName = artists.find(
+      (artist: ArtistTypes) => artist.artist_id === formData.artist_id,
+    );
 
     const updates = {
       ...formData,
       music_file_url: musicFile || formData.music_file_url,
-      artist_name: artistName.artist_name
+      artist_name: artistName.artist_name,
       //song_id: new Number(formData.song_id) // Set the music_file_url
     };
 
@@ -91,35 +109,77 @@ const EditSongForm = ({ artists, id, songs }) => {
     } catch (err) {
       setStatus("error");
       console.error("Error:", JSON.stringify(err));
-      // } finally {
-      //   const audio = await downloadFile({ path: musicFile, bucket: 'tracks' })
-      //   if (audio) {
-      //     setAudioSrc(audio);
-      //     setMusicFile(''); // Reset the music file state
-
-      //   }
+    } finally {
+      router.back();
     }
   };
 
   const handleSongUpload = async (e: any) => {
+    e.preventDefault();
     setStatus("loading");
     const file = e?.target.files[0]!; // Get the selected file
+
     if (file) {
       try {
         const uploadedSong = await uploadFile({ file, bucket: "tracks" });
         if (uploadedSong) {
-          setMusicFile(uploadedSong);
-          console.log(uploadedSong);
+          setFormData({ ...formData, music_file_url: uploadedSong });
+          // console.log(uploadedSong);
           setStatus("");
+          return;
         }
       } catch (error) {
         console.error("Error uploading file:", error);
+      } finally {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          setAudioSrc(e.target?.result);
+        };
+        reader.readAsDataURL(file);
       }
     }
   };
+  const handleCoverUpload = async (e: any) => {
+    e.preventDefault();
+    setStatus("loading");
+    const file = e?.target.files[0]!; // Get the selected file
+
+    if (file) {
+      try {
+        const uploadedImage = await uploadFile({ file, bucket: "song_covers" });
+        if (uploadedImage) {
+          setFormData({ ...formData, cover_art_url: uploadedImage });
+          // console.log(uploadedSong);
+          setStatus("");
+          return;
+        }
+      } catch (error) {
+        console.error("Error uploading file:", error);
+      } finally {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          setImagePreview(e.target?.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  };
+  useHandleOutsideClick(imagePreviewOpen, setImagePreviewOpen, "image-preview");
 
   return (
     <div className="w-full p-8 mx-auto z-[100] h-full isolate relative">
+      {imagePreview && imagePreviewOpen && (
+        <div className="absolute z-[9999] flex items-center mx-8 w-full left-0 right-0">
+          <div className="fixed inset-0 bg-black opacity-50 w-full mx-auto left-0 right-0"></div>
+          <Image
+            className="mx-auto relative rounded image-preview left-0 right-0 shadow-lg"
+            src={imagePreview}
+            alt="cover Image"
+            width={500}
+            height={500}
+          />
+        </div>
+      )}
       <h1 className="text-2xl tracking-tight font-bold text-center text-black dark:text-white font-owners">
         Edit Song&nbsp;&nbsp;|&nbsp; {formData.title}
       </h1>
@@ -181,25 +241,59 @@ const EditSongForm = ({ artists, id, songs }) => {
             />
           </div>
 
-          <div>
-            <label
-              htmlFor="genre"
-              className="block mb-2 text-sm font-medium text-black dark:text-white"
-            >
-              Genre
-            </label>
-            <input
-              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 "
-              type="text"
-              id="genre"
-              name="genre"
-              value={formData?.genre || ""}
-              onChange={handleChange}
-            />
+          <div className="relative flex justify-between gap-4">
+            <div className="w-full">
+              <label
+                htmlFor="genre"
+                className="block mb-2 text-sm font-medium text-black dark:text-white"
+              >
+                Genre
+              </label>
+              <select
+                className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 relative"
+                id="genre"
+                name="genre"
+                value={formData?.genre || ""}
+                onChange={handleChange}
+              >
+                <option value="" disabled>
+                  Select Genre
+                </option>
+                {allGenres.map((genre: any) => (
+                  <option key={genre} value={genre}>
+                    {genre}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="w-full">
+              <label
+                htmlFor="second-genre"
+                className="block mb-2 text-sm font-medium text-black dark:text-white"
+              >
+                Secondary Genre
+              </label>
+              <select
+                className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 relative"
+                id="second-genre"
+                name="second-genre"
+              // value={formData?.genre || ""}
+              // onChange={handleChange}
+              >
+                <option value="" disabled>
+                  Select Genre
+                </option>
+                {allGenres.map((genre: any) => (
+                  <option key={genre} value={genre}>
+                    {genre}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="h-fit">
+        <div className="md:flex gap-4 items-end h-fit w-full">
+          <div className="h-fit md:w-1/2 w-full">
             <label
               htmlFor="artist_id"
               className="block mb-2 text-sm font-medium text-black dark:text-white"
@@ -223,19 +317,15 @@ const EditSongForm = ({ artists, id, songs }) => {
               ))}
             </select>
           </div>
-          {/* <div className="h-fit">
-            <label htmlFor="duration" className="block mb-2 text-sm font-medium text-black dark:text-white">
-              Duration
-            </label>
-            <input
-              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border h-full dark:text-white border-zinc-300 dark:border-zinc-600 text-black text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring focus:border block w-full p-2.5 "
-              type="text"
-              id="duration"
-              name="duration"
-              value={formData.duration}
-              onChange={handleChange}
-            />
-          </div> */}
+          {audioSrc && (
+            <div className="h-fit scale-90">
+              <audio
+                controls
+                src={audioSrc}
+                onLoadedMetadata={handleLoadedMetadata}
+              />
+            </div>
+          )}
 
           {/* <div className="h-fit hidden">
             <label htmlFor="licensing_options" className="block mb-2 text-sm font-medium text-black dark:text-white">
@@ -251,42 +341,74 @@ const EditSongForm = ({ artists, id, songs }) => {
             />
           </div> */}
         </div>
-
-        <div>
-          <label
-            htmlFor="music_file_url"
-            className="block mb-2 text-sm font-medium text-black dark:text-white"
-          >
-            Music File URL
-          </label>
-          <div className="flex space-x-2">
+        <div className="flex h-fit space-x-4">
+          <div className="w-full h-fit">
+            <label
+              htmlFor="music_file_url"
+              className="block mb-2 text-sm font-medium text-black dark:text-white"
+            >
+              Music File URL
+            </label>
             <input
-              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border h-full dark:text-white border-zinc-300 dark:border-zinc-600 text-black text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring focus:border block w-full p-2.5 "
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border h-full dark:text-white border-zinc-300 dark:border-zinc-600 text-black text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring focus:border block w-full px-2.5 p-2 "
               type="file"
               id="music_file_url"
               name="music_file_url"
               //  value={musicFile}
               onChange={(e) => handleSongUpload(e)}
             />
-            <div>{audioSrc && <audio controls src={audioSrc} />}</div>
+          </div>
+
+          <div className="w-32">
+            <label
+              htmlFor="release_year"
+              className="block mb-2 text-sm font-medium text-black dark:text-white"
+            >
+              Duration
+            </label>
+            <input
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm  block w-full p-2.5 "
+              type="text"
+              readOnly
+              id="duration"
+              name="duration"
+              value={formData.duration || ""}
+            //onChange={handleChange}
+            />
           </div>
         </div>
 
-        <div>
-          <label
-            htmlFor="cover_art_url"
-            className="block mb-2 text-sm font-medium text-black dark:text-white"
-          >
-            Cover Art URL
-          </label>
-          <input
-            className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border h-full dark:text-white border-zinc-300 dark:border-zinc-600 text-black text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring focus:border block w-full p-2.5 "
-            type="text"
-            id="cover_art_url"
-            name="cover_art_url"
-            value={formData?.cover_art_url || ""}
-            onChange={handleChange}
-          />
+        <div className="flex h-fit space-x-4 rounded items-end">
+          <div className="w-full h-fit">
+            <label
+              htmlFor="cover_art_url"
+              className="block mb-2 text-sm font-medium text-black dark:text-white"
+            >
+              Cover Art URL
+            </label>
+            <input
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border h-full dark:text-white border-zinc-300 dark:border-zinc-600 text-black text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring focus:border block w-full p-2.5 "
+              type="file"
+              id="cover_art_url"
+              name="cover_art_url"
+              //   value={formData.cover_art_url || ''}
+              onChange={(e) => handleCoverUpload(e)}
+            />
+          </div>
+          {imagePreview && (
+            <div
+              onClick={() => {
+                setImagePreviewOpen(true);
+              }}
+            >
+              <Image
+                src={imagePreview}
+                width={50}
+                height={50}
+                alt={"Cover Image"}
+              />
+            </div>
+          )}
         </div>
 
         <div>
@@ -326,9 +448,8 @@ const EditSongForm = ({ artists, id, songs }) => {
           <button
             disabled={status === "loading"}
             type="submit"
-            className={`${
-              status === "loading" ? "cursor-wait" : "cursor-pointer"
-            } py-3 font-owners px-5 rounded text-xs tracking-wide md:text-sm font-semibold text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105`}
+            className={`${status === "loading" ? "cursor-wait" : "cursor-pointer"
+              } py-3 font-owners px-5 rounded text-xs tracking-wide md:text-sm font-semibold text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105`}
           >
             {status === "loading" ? "Please wait" : "Upload"}
           </button>

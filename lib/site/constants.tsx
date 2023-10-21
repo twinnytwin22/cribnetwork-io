@@ -11,6 +11,11 @@ export function useImagePath(url: string) {
   const imagePath = `https://tvuqvrbxusmicpmjqpus.supabase.co/storage/v1/object/public/avatars/${url}`;
   return imagePath;
 }
+
+export const getCoverImage = (fileName: string) => {
+  const imagePath ='https://tvuqvrbxusmicpmjqpus.supabase.co/storage/v1/object/public/song_covers/' + fileName
+  return imagePath
+}
 export function useFilePath(path: string) {
   const url = `https://tvuqvrbxusmicpmjqpus.supabase.co/storage/v1/object/sign/tracks/2b19e5bc-dd2a-4888-a700-f2021694386d.wav`;
 }

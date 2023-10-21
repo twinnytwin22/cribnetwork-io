@@ -3,7 +3,7 @@ import { useAuthProvider } from "@/app/context/auth";
 import { PortalPageTitle } from "@/lib/hooks/PortalPageTitle";
 import { useContactButtonStore } from "@/ui/Buttons/ContactButton/contactButtonStore";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsGlobe2 } from "react-icons/bs";
 import {
   FaBook,
@@ -19,7 +19,7 @@ import {
 } from "react-icons/fa"; // Import the icons you need
 import { FaMusic, FaWpforms } from "react-icons/fa6";
 function DashboardSidebar() {
-  const { user, signOut, profile } = useAuthProvider();
+  const { user, signOut, profile, userRole, setUserRole} = useAuthProvider();
   const [showTooltip, setShowTooltip] = useState("");
   const setOpen = useContactButtonStore((state: any) => state.setOpen);
   const handleOpenModal = () => {
@@ -34,8 +34,13 @@ function DashboardSidebar() {
   };
   const vercel = "https://vercel.com/thecrib/crib-netowork-q2-23/deployments";
   const analyticsUrl = process.env.NEXT_PUBLIC_TINYBIRD_DASHBOARD_URL!!!;
-  const isAdmin = profile?.user_role === "admin";
 
+  console.log(userRole)
+  useEffect(() => {
+    if (profile) {
+      setUserRole(profile?.user_role);
+    };
+  }, [])
   const VercelIcon = () => (
     <svg
       className="w-4 h-4 "
@@ -69,35 +74,35 @@ function DashboardSidebar() {
     {
       title: "Admin",
       icon: <FaCog />,
-      condition: isAdmin,
+      user_role: 'admin',// admin | user 
       href: "https://cribnetwork.sanity.studio",
       target: "_blank",
     },
     {
       title: "Form Submissions",
       icon: <FaWpforms />,
-      condition: isAdmin,
+      user_role: 'admin',// admin | user 
       href: "/portal/form-submissions",
       target: "_blank",
     },
     {
       title: "Music Uploads",
       icon: <FaMusic />,
-      condition: isAdmin,
+      user_role: 'admin',// admin | user 
       href: "/portal/crib-music",
       target: "_blank",
     },
     {
       title: "Database",
       icon: <FaDatabase />,
-      condition: isAdmin,
+      user_role: 'admin',// admin | user 
       href: "https://supabase.com/dashboard/project/tvuqvrbxusmicpmjqpus",
       target: "_blank",
     },
     {
       title: "Deployments",
       icon: <VercelIcon />,
-      condition: isAdmin,
+      user_role: 'admin',// admin | user 
       href: vercel,
       target: "_blank",
     },
@@ -105,7 +110,7 @@ function DashboardSidebar() {
     {
       title: "Analytics",
       icon: <FaChartPie />,
-      condition: isAdmin,
+      user_role: 'admin',// admin | user 
       href: analyticsUrl! as string,
       target: "_self",
     },
@@ -131,6 +136,53 @@ function DashboardSidebar() {
     },
     // Add more items as needed
   ];
+  const filteredSidebarItems = sidebarItems.map((item) => {
+    if (
+      item.hidden || // Hide items with hidden set to true
+      (item.user_role === 'admin' && userRole !== 'admin') || // Hide admin-specific items for non-admin users
+      (item.user_role === 'editor' && userRole !== 'editor') || // Hide editor-specific items for non-editor users
+      (item.user_role === 'user' && userRole !== 'user') // Hide user-specific items for non-user users
+    ) {
+      return null; // Return null for items that should be hidden
+    }
+
+    return (
+      <li
+        key={item.title}
+        className={"relative z-50"}
+      >
+        {item.onClick ? (
+          <div
+            onClick={item.onClick}
+            onMouseEnter={() => handleSetTooltip(item.title)}
+            onMouseLeave={handleHideTooltip}
+            className="flex items-center pl-4 lg:pl-2 p-2 text-base font-medium text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group duration-300 relative ease-in-out z-50"
+          >
+            {item.icon}
+            <span className="ml-3 hidden lg:block">{item.title}</span>
+          </div>
+        ) : (
+          <Link
+            onMouseEnter={() => handleSetTooltip(item.title)}
+            onMouseLeave={handleHideTooltip}
+            target={item?.target}
+            href={item.href}
+            className="flex items-center pl-4 lg:pl-2 p-2 text-base font-medium text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group duration-300 ease-in-out relative z-50"
+          >
+            {item.icon}
+            <span className="ml-3 hidden lg:block">{item.title}</span>
+          </Link>
+        )}
+        {showTooltip && showTooltip === item.title && (
+          <div className="absolute top-0 left-0 ml-2 w-48 max-w-72 p-2.5 rounded-sm z-50 shadow-md lg:hidden">
+            <div className="relative">
+              <p className="text-xs">{item.title}</p>
+            </div>
+          </div>
+        )}
+      </li>
+    );
+  });
 
   const socialRowItems = [
     {
@@ -145,6 +197,7 @@ function DashboardSidebar() {
     },
     { title: "Github", icon: <FaGithub />, href: "#" },
   ];
+
 
   return (
     <aside
@@ -162,45 +215,26 @@ function DashboardSidebar() {
             />
           </div>
         )}
-        <ul className="space-y-2 mt-8 sm:ml-2 relative z-50">
-          {sidebarItems.map((item) => (
-            <li
-              key={item.title}
-              className={item.hidden ? "hidden" : "relative z-50"}
+        {profile?.user_role === 'admin' &&
+          <div className="text-black dark:text-white relative z-50 px-4 text-xs">
+            <select
+              id="view-as"
+              className="bg-zinc-50 border border-zinc-300 text-zinc-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onChange={(e) => setUserRole(e.target.value)}
+              value={userRole!}
             >
-              {item.onClick ? (
-                <div
-                  onClick={item.onClick}
-                  onMouseEnter={() => handleSetTooltip(item.title)}
-                  onMouseLeave={handleHideTooltip}
-                  className="flex items-center pl-4 lg:pl-2 p-2 text-base font-medium text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group duration-300 relative ease-in-out z-50"
-                >
-                  {item.icon}
-                  <span className="ml-3 hidden lg:block">{item.title}</span>
-                </div>
-              ) : (
-                <Link
-                  onMouseEnter={() => handleSetTooltip(item.title)}
-                  onMouseLeave={handleHideTooltip}
-                  target={item?.target}
-                  href={item.href}
-                  className="flex items-center pl-4 lg:pl-2 p-2 text-base font-medium text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group duration-300 ease-in-out relative z-50"
-                >
-                  {item.icon}
-                  <span className="ml-3 hidden lg:block">{item.title}</span>
-                </Link>
-              )}
-              {showTooltip && showTooltip === item.title && (
-                <div className="absolute top-0 left-0 ml-2 w-48 max-w-72 p-2.5 rounded-sm z-50 shadow-md lg:hidden">
-                  <div className="relative">
-                    <p className="text-xs">{item.title}</p>
-                  </div>
-                </div>
-              )}
-            </li>
-          ))}
+              <option value="admin">Admin</option>
+              <option value="editor">Editor</option>
+              <option value="user">User</option>
+            </select>
+          </div>
+        }
+
+        <ul className="space-y-2 mt-8 sm:ml-2 relative z-50">
+          {filteredSidebarItems}
         </ul>
       </div>
+
       <div className="absolute bottom-14 p-4 left-0 text-xs text-zinc-700 dark:text-zinc-300">
         <ul>
           <li>
@@ -235,6 +269,7 @@ function DashboardSidebar() {
           </Link>
         ))}
       </div>
+
     </aside>
   );
 }
