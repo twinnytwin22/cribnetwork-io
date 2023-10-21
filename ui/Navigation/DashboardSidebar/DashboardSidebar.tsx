@@ -201,7 +201,7 @@ function DashboardSidebar() {
 
   return (
     <aside
-      className="fixed  left-0 z-0 w-24 lg:w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-zinc-200 md:translate-x-0 dark:bg-black dark:border-zinc-800"
+      className="fixed  left-0 z-10 w-24 lg:w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-zinc-200 md:translate-x-0 dark:bg-black dark:border-zinc-800"
       aria-label="SideNav"
       id="drawer-navigation"
     >
