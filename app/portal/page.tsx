@@ -6,6 +6,7 @@ import {
 } from "@/lib/providers/supabase/supabase-server";
 import { supabase } from "@/lib/site/constants";
 import PageTitle from "@/ui/Components/PageTitle/PageTitle";
+import { LoadingContainer } from "@/ui/Sections/LoadingContainer";
 import LearningPanel from "@/ui/Sections/PortalOverview/Panels/LearningPanel";
 import NotificationsPanel from "@/ui/Sections/PortalOverview/Panels/NotificationsPanel";
 import UsersTable from "@/ui/Sections/PortalOverview/Panels/UsersTable";
@@ -36,12 +37,11 @@ async function Portal({ searchParams }: { searchParams: { q: string } }) {
     .eq("student_id", session?.user.id)
     .limit(5);
 
-  // console.log(enrollments)
 
   return (
     <section className="w-screen h-full mx-auto relative">
       <PageTitle title="Your Overview" />
-      <React.Suspense fallback="loading">
+      <React.Suspense fallback={<LoadingContainer/>}>
         <div className="hidden">
           <UsersTable users={users} />
         </div>

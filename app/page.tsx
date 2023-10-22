@@ -3,6 +3,7 @@ import { fbUrl, instagramUrl, twitterUrl } from "@/lib/site/constants";
 import HomeHeader from "@/ui/Headers/HomeHeader/HomeHeader";
 import GovernmentCTA from "@/ui/Sections/CTA/GovernmentCTA";
 import CTA from "@/ui/Sections/CTA/HomeCTA";
+import { LoadingContainer } from "@/ui/Sections/LoadingContainer";
 import Mission from "@/ui/Sections/Mission";
 import Overview from "@/ui/Sections/Overview";
 import Services from "@/ui/Sections/Services";
@@ -56,7 +57,7 @@ export default async function Home() {
     return (
       <main className="flex min-h-screen flex-col items-center justify-between  bg-white dark:bg-black  w-full max-w-screen">
         <React.Fragment>
-          <React.Suspense>
+          <React.Suspense fallback={<LoadingContainer />}>
             <HomeHeader content={homeHeaderContent.items[0]} />
             <SocialProof />
             <Overview content={overViewContent} />
