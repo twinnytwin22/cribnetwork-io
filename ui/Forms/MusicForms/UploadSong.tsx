@@ -38,9 +38,7 @@ const UploadSongForm = ({ artists }) => {
       updateSongKeywords(newKeywords);
     }
 
-    if (name === "music_file_url" || "cover_art_url") {
-      return;
-    }
+   
     if (name === "artist_id") {
       // Find the selected artist to set artist_name
       const selectedArtist = artists.find((artist) => artist.id === value);

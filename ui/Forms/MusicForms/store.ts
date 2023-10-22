@@ -128,13 +128,28 @@ export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
       keywords: newGenres,
     },
   })),
-  updateSongKeywords: (newKeywords) =>
-  set((state) => ({
-    formData: {
-      ...state.formData,
-      keywords: newKeywords,
-    },
-  })),
+  updateSongKeywords: (newKeywords: string[]) =>{
+    const output = newKeywords.reduce((prev, curr) => {
+      // get the keyname
+      const [keyName] = curr.split("-");
+      if (prev[keyName]) {
+        // If the property exists then push to Images array
+        prev[keyName].keywords.push(curr);
+      } else {
+        // If the property name does not exist,
+        // create it and add the initial value in the format you want
+        prev[keyName] = { keywords: [curr] };
+      }
+      
+      return prev;
+    }, {});
+  },
+  // set((state) => ({
+  //   formData: {
+  //     ...state.formData,
+  //     keywords: newKeywords,
+  //   },
+  // })),
   formatTime: (time: number): string => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
@@ -149,3 +164,29 @@ export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
   setMusicFile: (musicFile: string) => set({ musicFile }),
   setStatus: (status: string) => set({ status }),
 }));
+const data = [
+  "apple-img1",
+  "apple-img2",
+  "apple-img3",
+  "apple-img4",
+  "apple-img5",
+  "dell-img1",
+  "dell-img2",
+  "dell-img3",
+  "hp-img1",
+  "hp-img2",
+];
+
+const output = data.reduce((prev, curr) => {
+  // get the keyname
+  const [keyName] = curr.split("-");
+  if (prev[keyName]) {
+    // If the property exists then push to Images array
+    prev[keyName].Images.push(curr);
+  } else {
+    // If the property name does not exist,
+    // create it and add the initial value in the format you want
+    prev[keyName] = { Images: [curr] };
+  }
+  return prev;
+}, {});
