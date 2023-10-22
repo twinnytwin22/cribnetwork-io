@@ -37,23 +37,8 @@ const UploadSongForm = ({ artists }) => {
       const newKeywords = value.split(","); // Assuming keywords are comma-separated
       updateSongKeywords(newKeywords);
     }
-
-   
-    if (name === "artist_id") {
-      // Find the selected artist to set artist_name
-      const selectedArtist = artists.find((artist) => artist.id === value);
-      //  console.log(selectedArtist, "SELECTED");
-      // const keywordsArray = formData.keywords?.split(',');
-
-      setFormData({
-        ...formData,
-        [name]: value,
-        artist_name: selectedArtist,
-        //   keywords: keywordsArray
-      });
-    } else {
       setFormData({ ...formData, [name]: value });
-    }
+    
   };
 
   // const handleClose = () => {
@@ -63,10 +48,25 @@ const UploadSongForm = ({ artists }) => {
   console.log(formData);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const selectedArtist = artists.find((artist) => artist.id === formData.artist_id);
 
+    const updates = {
+      //song_id: "",
+      title: formData?.title,
+      artist_id: formData?.artist_id,
+      album: formData?.album,
+      release_year: formData?.release_year,
+      genre: formData?.genre,
+      lyrics: formData?.lyrics,
+      artist_name: selectedArtist,
+      music_file_url: formData?.music_file_url,
+      duration: formData?.duration,
+      keywords:[],
+      cover_art_url:formData?.cover_art_url
+    } 
     try {
       setStatus("loading");
-      const res = await addNewSong({ updates: formData });
+      const res = await addNewSong({ updates });
 
       if (res?.ok) {
         setStatus("success");
@@ -75,7 +75,7 @@ const UploadSongForm = ({ artists }) => {
       }
     } catch (err) {
       setStatus("error");
-      console.error("Error sending email. Please try again later.");
+      console.error("Error sending uploading song. Please try again later.");
     } finally {
       const audio = await downloadFile({ path: musicFile, bucket: "tracks" });
       if (audio) {

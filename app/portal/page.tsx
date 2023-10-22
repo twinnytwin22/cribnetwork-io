@@ -55,24 +55,24 @@ async function Portal({ searchParams }: { searchParams: { q: string } }) {
           <LearningPanel href={"/portal/learning"}>
             {enrollments && enrollments?.length > 0 ? (
               <div className="space-y-2 p-1 ">
-                <p className="text-center font-semibold">Your courses</p>
+                <h2 className="text-center font-semibold">Your courses</h2>
                 {enrollments?.map((course) => (
                   <div
                     key={course.id}
                     className="flex items-center space-x-4 mx-auto justify-between p-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 max-w-sm "
                   >
-                    <p className="text-zinc-800 dark:text-zinc-300 text-center pl-2">
+                    <p className="text-zinc-800 text-sm dark:text-zinc-300 text-center pl-2">
                       {course?.courses?.title}
                     </p>
-                    <Link href={`/portal/learning/course/${course.courses.id}`}>
-                      <button className="bg-red-300 text-black rounded-full font-semibold text-sm p-1 px-3 hover:scale-105 duration-300 ease-in-out">
+                    <Link className=" cursor-pointer" href={`/portal/learning/course/${course.courses.id}`}>
+                      <button className="bg-red-300  cursor-pointer text-black rounded-full font-semibold text-sm p-1 px-3 hover:scale-105 duration-300 ease-in-out">
                         Resume
                       </button>
                     </Link>
                   </div>
                 ))}
-                <Link href={"/portal/learning/my"} prefetch>
-                  <p className="text-xs pl-8 p-2.5 underline text-black dark:text-white">
+                <Link className=" cursor-pointer relative" href={"/portal/learning/my"} prefetch>
+                  <p className="text-xs pl-8 p-2.5 underline text-black dark:text-white cursor-pointer">
                     View All
                   </p>
                 </Link>

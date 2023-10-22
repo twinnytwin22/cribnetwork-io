@@ -59,8 +59,10 @@ export const allGenres = [
   'Psychedelic Rock',
   'Punk Rock',
   'Quiet Storm',
+  'R&B',
   'Red Dirt',
   'Reggae',
+
   'Rock',
   'Roots Reggae',
   'Samba',

@@ -1,7 +1,5 @@
-import { bookingUrl } from "@/lib/site/constants";
 import { useContactButtonStore } from "@/ui/Buttons/ContactButton/contactButtonStore";
 import { addMewArtist } from "@/utils/db";
-import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 import { handleRemoveGenre } from "./actions";
@@ -198,13 +196,9 @@ const AddArtistForm = () => {
             type="submit"
             className="py-3 font-owners px-5 text-xs tracking-wide md:text-sm font-semibold text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105"
           >
-            Send message
+            Add Artist
           </button>
-          <Link href={bookingUrl}>
-            <button className="py-3 font-owners px-5 tracking-wide text-xs md:text-sm font-semibold text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105">
-              Schedule a Call
-            </button>
-          </Link>
+        
         </div>
         {status === "error" && <p>Error sending email, please try again.</p>}
       </form>

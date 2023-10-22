@@ -22,7 +22,7 @@ export const PortalPageTitle = ({
     <div className="w-full relative items-center text-black dark:text-white">
       <div className=" flex items-center space-x-2">
         <div>
-          <p className="text-xl font-bold">{title}</p>
+          <h2 className="text-xl font-bold">{title}</h2>
 
           {subtitle && <p className="text-xs">{subtitle}</p>}
         </div>

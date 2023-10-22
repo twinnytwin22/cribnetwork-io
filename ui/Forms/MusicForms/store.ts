@@ -16,7 +16,7 @@ export interface ArtistTypes {
 }
 
 export interface UploadSongTypes {
-  song_id?: string | number;
+  song_id?: string | number ;
   title: string;
   artist_id: number | string;
   album?: string;
@@ -140,7 +140,7 @@ export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
         // create it and add the initial value in the format you want
         prev[keyName] = { keywords: [curr] };
       }
-      
+
       return prev;
     }, {});
   },

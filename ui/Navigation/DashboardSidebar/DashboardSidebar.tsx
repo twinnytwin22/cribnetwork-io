@@ -159,7 +159,7 @@ function DashboardSidebar() {
             className="flex items-center pl-4 lg:pl-2 p-2 text-base font-medium text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group duration-300 relative ease-in-out z-50"
           >
             {item.icon}
-            <span className="ml-3 hidden lg:block">{item.title}</span>
+            <p className="ml-3 hidden lg:block">{item.title}</p>
           </div>
         ) : (
           <Link

@@ -166,7 +166,7 @@ const ArtistsTable = ({
                   Artist Name
                 </th>
                 <th scope="col" className="px-4 py-3">
-                  Biography
+                  Genres
                 </th>
                 <th scope="col" className="px-4 py-3">
                   Contact Email
@@ -192,7 +192,7 @@ const ArtistsTable = ({
                     {artist.artist_name}
                   </td>
                   <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
-                    {artist.biography}
+                    {artist.genres.toString()}
                   </td>
                   <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
                     {artist.contact_email}
