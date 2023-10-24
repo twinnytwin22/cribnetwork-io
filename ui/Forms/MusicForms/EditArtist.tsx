@@ -1,11 +1,35 @@
 "use client";
 import { updateArtist } from "@/utils/db";
 import { useRouter } from "next/navigation";
-import { FormEvent, useEffect } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ArtistTypes, useMusicFormStore } from "./store";
 
 const EditArtistForm = ({ artists, id, songs }) => {
+  const [genreValue, setGenreValue] = useState("");
+  const [genreArray, setGenreArray] = useState<string[]>([]);
+  const [socialMediaArray, setSocialMediaArray] = useState<any[]>([])
+  console.log(genreArray);
+  const handleGenreChange = (event) => {
+    setGenreValue(event.target.value);
+  };
+
+  const handleSocialMediaUpdate = (event) => {
+    setSocialMediaArray({...socialMediaArray, [event.target.name]: event.target.value})
+
+  };
+console.log(socialMediaArray)
+  const handleInputKeyPress = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent the default behavior (form submission)
+      if (genreValue.trim() !== "") {
+        setGenreArray((prevArray: string[]) => [...prevArray, genreValue]);
+        //setFormData({...formData, genres: [inputValue]})
+        setGenreValue(""); // Clear the input field
+      }
+    }
+  };
+
   const router = useRouter();
   const {
     artistData: formData,
@@ -21,29 +45,30 @@ const EditArtistForm = ({ artists, id, songs }) => {
   useEffect(() => {
     setStatus("loadingInitialState");
     setFormData(currentArtist);
+    setGenreArray(currentArtist?.genres!)
+    setSocialMediaArray([currentArtist.social_media_links])
     setStatus("ready");
   }, [currentArtist]);
-  const handleChange = (e) => {
-    const { value, name } = e.target;
-
-    if (name === "genres") {
-      console.log(name);
-    }
+  const handleChange = (e: { target: { name: any; value: any } }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+
+
     e.preventDefault();
     try {
+
+     
       const artists: ArtistTypes = {
         artist_id: currentArtist.artist_id!!,
         artist_name: formData.artist_name, // Map the artist_name to the form input
-        genres: formData.genres, // Map the genre to the form input
+        genres: genreArray, // Map the genre to the form input
         biography: formData.biography, // Map the biography to the form input
-        image_url: "",
+        image_url: currentArtist?.image_url!,
         contact_email: formData.contact_email,
         contact_phone: formData.contact_phone, // You may add the contact_phone field to match the sample data
-        social_media_links: null,
+        social_media_links: socialMediaArray,
         discography: null,
       };
       // Assuming you have a function to post the artists data
@@ -120,11 +145,16 @@ const EditArtistForm = ({ artists, id, songs }) => {
           <input
             className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 "
             type="text"
-            id="genres"
-            name="genres"
-            value={formData.genres} // Clear the input value
-            onChange={handleChange}
+            value={genreValue}
+            onChange={handleGenreChange}
+            onKeyDown={handleInputKeyPress}
+            placeholder="Press Enter to add a string"
           />
+          <ul className="flex space-x-2">
+            {genreArray.map((str, index) => (
+              <li key={index}>{str}</li>
+            ))}
+          </ul>
         </div>
 
         <div>
@@ -141,7 +171,7 @@ const EditArtistForm = ({ artists, id, songs }) => {
             name="contact_phone"
             value={formData.contact_phone || ""}
             onChange={handleChange}
-            required
+          //  required
           />
         </div>
 
@@ -158,10 +188,96 @@ const EditArtistForm = ({ artists, id, songs }) => {
             id="biography"
             value={formData.biography || ""}
             onChange={handleChange}
-            required
+          //  required
           />
         </div>
-
+        <ul className="space-y-4">
+          <li className="mb-2">
+            <label
+              htmlFor="spotify_url"
+              className="block mb-2 text-sm text-black dark:text-white"
+            >
+              Spotify Artist Page URL
+            </label>
+            <input
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 required"
+              type="text"
+              id="spotify_url"
+              name="spotify_url"
+             value={socialMediaArray[0]?.spotify_url || ""}
+              onChange={handleSocialMediaUpdate}
+            //   required
+            />
+          </li>
+          <li className="mb-2">
+            <label
+              htmlFor="applemusic_url"
+              className="block mb-2 text-sm text-black dark:text-white"
+            >
+              Apple Music URL
+            </label>
+            <input
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 required"
+              type="text"
+              id="applemusic_url"
+              name="applemusic_url"
+              value={socialMediaArray[0]?.applemusic_url|| ""}
+              onChange={handleSocialMediaUpdate}
+              // required
+            />
+          </li>
+          <li className="mb-2">
+            <label
+              htmlFor="instagram_url"
+              className="block mb-2 text-sm text-black dark:text-white"
+            >
+              Instagram URL
+            </label>
+            <input
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 required"
+              type="text"
+              id="instagram_url"
+              name="instagram_url"
+              value={socialMediaArray[0]?.instagram_url || ""}
+              onChange={handleSocialMediaUpdate}
+              //  required
+            />
+          </li>
+          <li className="mb-2">
+            <label
+              htmlFor="x_url"
+              className="block mb-2 text-sm text-black dark:text-white"
+            >
+              X URL
+            </label>
+            <input
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 required"
+              type="text"
+              id="x_url"
+              name="x_url"
+              value={socialMediaArray[0]?.x_url || ""}
+              onChange={handleSocialMediaUpdate}
+              //  required
+            />
+          </li>
+          <li className="mb-2">
+            <label
+              htmlFor="soundcloud_url"
+              className="block mb-2 text-sm text-black dark:text-white"
+            >
+              Soundcloud URL
+            </label>
+            <input
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 required"
+              type="text"
+              id="soundcloud_url"
+              name="soundcloud_url"
+              value={socialMediaArray[0]?.soundcloud_url || ""}
+              onChange={handleSocialMediaUpdate}
+              //  required
+            />
+          </li>
+        </ul>
         <div className="flex space-x-3">
           <button
             type="submit"
