@@ -549,7 +549,7 @@ const EditSongForm = ({ artists, id, songs }) => {
             className={`${status === "loading" ? "cursor-wait" : "cursor-pointer"
               } py-3 font-owners px-5 rounded text-xs tracking-wide md:text-sm font-semibold text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105`}
           >
-            {status === "loading" ? "Please wait" : "Upload"}
+            {status === "loading" ? "Please wait" : "Update"}
           </button>
         </div>
         {status === "error" && <p>Error sending email, please try again.</p>}
