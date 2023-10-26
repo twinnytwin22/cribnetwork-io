@@ -324,6 +324,8 @@ const UploadSongForm = ({ artists }) => {
             />
           </div> */}
           </div>
+          </div>
+          <div>
           <div className="flex h-fit space-x-4">
             <div className="w-full h-fit">
               <label
