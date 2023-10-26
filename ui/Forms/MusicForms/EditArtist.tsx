@@ -68,7 +68,7 @@ const EditArtistForm = ({ artists, id, songs }) => {
 
   useEffect(() => {
     setData();
-  }, [currentArtist]);
+  }, []);
 
   const handleArtistImageUpload = async (e: any) => {
     e.preventDefault();
