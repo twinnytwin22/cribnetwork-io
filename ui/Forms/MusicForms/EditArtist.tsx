@@ -139,7 +139,7 @@ const EditArtistForm = ({ artists, id, songs }) => {
       >
         <div>
           <label
-            htmlFor="email"
+            htmlFor="contact_email"
             className="block mb-2 text-sm text-black dark:text-white"
           >
             Email
@@ -147,7 +147,7 @@ const EditArtistForm = ({ artists, id, songs }) => {
           <input
             className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 required"
             type="email"
-            id="email"
+            id="contact_email"
             name="contact_email"
             value={formData.contact_email || ""}
             onChange={handleChange}
