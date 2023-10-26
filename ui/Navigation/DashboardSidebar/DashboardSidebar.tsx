@@ -40,7 +40,7 @@ function DashboardSidebar() {
     if (profile) {
       setUserRole(profile?.user_role);
     };
-  }, [])
+  }, [profile])
   const VercelIcon = () => (
     <svg
       className="w-4 h-4 "
@@ -90,7 +90,7 @@ function DashboardSidebar() {
       icon: <FaMusic />,
       user_role: 'admin',// admin | user 
       href: "/portal/crib-music",
-      target: "_blank",
+      target: "_self",
     },
     {
       title: "Database",
@@ -140,8 +140,8 @@ function DashboardSidebar() {
     if (
       item.hidden || // Hide items with hidden set to true
       (item.user_role === 'admin' && userRole !== 'admin') || // Hide admin-specific items for non-admin users
-      (item.user_role === 'editor' && userRole !== 'editor') || // Hide editor-specific items for non-editor users
-      (item.user_role === 'user' && userRole !== 'user') // Hide user-specific items for non-user users
+      (item.user_role === 'editor' && userRole !== ('editor' || 'admin')) || // Hide editor-specific items for non-editor users
+      (item.user_role === 'user' && userRole !== ('user '|| 'editor' || 'admin')) // Hide user-specific items for non-user users
     ) {
       return null; // Return null for items that should be hidden
     }

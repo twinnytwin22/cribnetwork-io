@@ -1,11 +1,13 @@
 "use client";
-import { updateArtist } from "@/utils/db";
+import { useHandleOutsideClick } from "@/lib/hooks/handleOutsideClick";
+import { getArtistImage } from "@/lib/site/constants";
+import { updateArtist, uploadFile } from "@/utils/db";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useMusicFormStore } from "./store";
 import { ArtistTypes, SocialMediaLinkTypes } from "./types";
-
 const EditArtistForm = ({ artists, id, songs }) => {
   const router = useRouter();
   const currentArtist: ArtistTypes = artists.find(
@@ -20,10 +22,12 @@ const EditArtistForm = ({ artists, id, songs }) => {
     socialLinkState: socialMediaValues,
     genreArray, 
     genreValue, 
+    imagePreview, imagePreviewOpen, setImagePreviewOpen, setImagePreview
   } = useMusicFormStore();
   const setGenreValue = (genreValue) => useMusicFormStore.setState({genreValue})
   const setGenreArray = (genreArray) => useMusicFormStore.setState({genreArray})
   const setData = () => {
+    setImagePreview(getArtistImage(currentArtist?.image_url))
     setStatus("loadingInitialState");
     setFormData(currentArtist);
     setGenreArray(currentArtist?.genres!)
@@ -56,7 +60,31 @@ const EditArtistForm = ({ artists, id, songs }) => {
   setData()
   }, [currentArtist]);
  
+  const handleArtistImageUpload = async (e: any) => {
+    e.preventDefault();
+    setStatus("loading");
+    const file = e?.target.files[0]!; // Get the selected file
 
+    if (file) {
+      try {
+        const uploadedImage = await uploadFile({ file, bucket: "artist_images" });
+        if (uploadedImage) {
+          setFormData({ ...formData,image_url: uploadedImage });
+          // console.log(uploadedSong);
+          setStatus("");
+          return;
+        }
+      } catch (error) {
+        console.error("Error uploading file:", error);
+      } finally {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          setImagePreview(e.target?.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  };
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -86,9 +114,22 @@ const EditArtistForm = ({ artists, id, songs }) => {
       console.log("Error sending email. Please try again later.");
     }
   };
+  useHandleOutsideClick(imagePreviewOpen, setImagePreviewOpen, 'image-preview')
 
   return (
     <div className="w-full p-8 mx-auto z-[100] h-full isolate relative">
+        {imagePreview && imagePreviewOpen && (
+        <div className="absolute z-[9999] flex items-center mx-8 w-full left-0 right-0">
+          <div className="fixed inset-0 bg-black opacity-50 w-full mx-auto left-0 right-0"></div>
+          <Image
+            className="mx-auto relative rounded image-preview left-0 right-0 shadow-lg"
+            src={imagePreview}
+            alt="cover Image"
+            width={500}
+            height={500}
+          />
+        </div>
+      )}
       <h1 className="text-2xl tracking-tight font-bold text-center text-black dark:text-white font-owners">
         Edit Artist
       </h1>
@@ -130,6 +171,38 @@ const EditArtistForm = ({ artists, id, songs }) => {
             onChange={handleChange}
             //  required
           />
+        </div>
+        <div className="flex h-fit space-x-4 rounded items-end">
+          <div className="w-full h-fit">
+            <label
+              htmlFor="image_url"
+              className="block mb-2 text-sm font-medium text-black dark:text-white"
+            >
+              Artist Image
+            </label>
+            <input
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border h-full dark:text-white border-zinc-300 dark:border-zinc-600 text-black text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring focus:border block w-full p-2.5 "
+              type="file"
+              id="image_url"
+              name="image_url"
+              //   value={formData.cover_art_url || ''}
+              onChange={(e) => handleArtistImageUpload(e)}
+            />
+          </div>
+          {imagePreview && (
+            <div
+              onClick={() => {
+                setImagePreviewOpen(true);
+              }}
+            >
+              <Image
+                src={imagePreview}
+                width={50}
+                height={50}
+                alt={"Cover Image"}
+              />
+            </div>
+          )}
         </div>
         <div>
           <label

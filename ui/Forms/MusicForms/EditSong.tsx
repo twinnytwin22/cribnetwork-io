@@ -1,5 +1,6 @@
 import { useHandleOutsideClick } from "@/lib/hooks/handleOutsideClick";
 import { allGenres } from "@/lib/site/allGenres";
+import { filmMoods } from "@/lib/site/allMoods";
 import { getCoverImage } from "@/lib/site/constants";
 import { downloadFile, updateSong, uploadFile } from "@/utils/db";
 import { useQuery } from "@tanstack/react-query";
@@ -8,35 +9,61 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useMusicFormStore } from "./store";
-import { ArtistTypes, UploadSongTypes } from "./types";
+import { UploadSongTypes } from "./types";
 const EditSongForm = ({ artists, id, songs }) => {
   const {
     initialState,
     formData,
     setFormData,
-    musicFile,
-    setMusicFile,
+    genreArray,
+    moodArray,
+    //musicFile,
+    // setMusicFile,
     status,
     setStatus,
     audioSrc,
     setAudioSrc,
     imagePreview,
     imagePreviewOpen,
-    updateSongKeywords,
+    // updateSongKeywords,
     formatTime,
     setImagePreview,
     setImagePreviewOpen,
   } = useMusicFormStore();
+ // const setGenreValue = (genreValue) => useMusicFormStore.setState({ genreValue })
+  const setGenreArray = (genreArray) => useMusicFormStore.setState({ genreArray })
+  const setMoodValue = (moodValue) => useMusicFormStore.setState({ moodValue })
+  const setMoodArray = (moodArray) => useMusicFormStore.setState({ moodArray })
+
+  const handleGenreSelect = (e) => {
+    const selectedGenre = e.target.value;
+
+    // Check if the selected genre is not already in the genreArray array
+    if (!genreArray.includes(selectedGenre) && genreArray.length < 3) {
+      setGenreArray([...genreArray, selectedGenre]);
+    }
+  };
+
+  const handleMoodSelect = (e) => {
+    const selectedMood = e.target.value;
+
+    // Check if the selected mood is not already in the moodArray array
+    if (!moodArray?.includes(selectedMood) && moodArray.length < 3) {
+      setMoodArray([...moodArray, selectedMood]);
+    }
+  };
   const currentSong: UploadSongTypes = songs.find(
     (song: any) => song.song_id.toString() === id.toString(),
   );
   const router = useRouter();
   useEffect(() => {
-    if(currentSong) {
-    setStatus("loadingInitialState");
-    setFormData(currentSong);
-    setStatus("ready");
-    setImagePreview(getCoverImage(currentSong.cover_art_url!))
+    if (currentSong) {
+      setStatus("loadingInitialState");
+      setFormData(currentSong);
+      setStatus("ready");
+      setGenreArray(currentSong?.genres! || [])
+      setMoodArray(currentSong?.moods! || [])
+      setImagePreview(getCoverImage(currentSong.cover_art_url!))
     }
   }, [currentSong]);
   console.log(currentSong, "SONG");
@@ -63,7 +90,7 @@ const EditSongForm = ({ artists, id, songs }) => {
   ) => {
     const { name, value } = e.target;
     console.log(name, value, "CHANGE EVENT")
-  
+
     if (name === "artist_id") {
       // Find the selected artist to set artist_name
       const selectedArtist = artists.find((artist) => artist.id === value);
@@ -85,14 +112,14 @@ const EditSongForm = ({ artists, id, songs }) => {
   //console.log(formData)
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const artistName = artists.find(
-      (artist: ArtistTypes) => artist.artist_id === formData.artist_id,
-    );
+    const selectedArtist = artists.find((artist) => artist.id === formData.artist_id);
 
     const updates = {
       ...formData,
-      music_file_url: musicFile || formData.music_file_url,
-      artist_name: artistName.artist_name,
+      music_file_url: formData.music_file_url,
+      artist_name: selectedArtist?.artist_name,
+      genres: genreArray,
+      moods: moodArray
       //song_id: new Number(formData.song_id) // Set the music_file_url
     };
 
@@ -104,8 +131,10 @@ const EditSongForm = ({ artists, id, songs }) => {
 
       if (res?.ok) {
         setStatus("success");
-        setFormData(initialState);
+        // setFormData(initialState);
         toast.success("Updated successfully");
+        router.refresh()
+
       }
     } catch (err) {
       setStatus("error");
@@ -167,8 +196,21 @@ const EditSongForm = ({ artists, id, songs }) => {
   };
   useHandleOutsideClick(imagePreviewOpen, setImagePreviewOpen, "image-preview");
 
+  // Function to remove a selected genre
+  const removeGenre = (genre) => {
+    const updatedGenres = genreArray.filter((g) => g !== genre);
+    setGenreArray(updatedGenres);
+  };
+
+  // Function to remove a selected mood
+  const removeMood = (mood) => {
+    const updatedMoods = moodArray.filter((m) => m !== mood);
+    setMoodArray(updatedMoods);
+  };
+
+
   return (
-    <div className="w-full p-8 mx-auto z-[100] h-full isolate relative">
+    <div className="w-full p-8 mx-auto z-[100] h-full isolate relative font-work-sans">
       {imagePreview && imagePreviewOpen && (
         <div className="absolute z-[9999] flex items-center mx-8 w-full left-0 right-0">
           <div className="fixed inset-0 bg-black opacity-50 w-full mx-auto left-0 right-0"></div>
@@ -241,60 +283,7 @@ const EditSongForm = ({ artists, id, songs }) => {
               onChange={handleChange}
             />
           </div>
-
-          <div className="relative flex justify-between gap-4">
-            <div className="w-full">
-              <label
-                htmlFor="genre"
-                className="block mb-2 text-sm font-medium text-black dark:text-white"
-              >
-                Genre
-              </label>
-              <select
-                className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 relative"
-                id="genre"
-                name="genre"
-                value={formData?.genre || ""}
-                onChange={handleChange}
-              >
-                <option value="" disabled>
-                  Select Genre
-                </option>
-                {allGenres.map((genre: any) => (
-                  <option key={genre} value={genre}>
-                    {genre}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="w-full">
-              <label
-                htmlFor="second-genre"
-                className="block mb-2 text-sm font-medium text-black dark:text-white"
-              >
-                Secondary Genre
-              </label>
-              <select
-                className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 relative"
-                id="second-genre"
-                name="second-genre"
-              // value={formData?.genre || ""}
-              // onChange={handleChange}
-              >
-                <option value="" disabled>
-                  Select Genre
-                </option>
-                {allGenres.map((genre: any) => (
-                  <option key={genre} value={genre}>
-                    {genre}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-        <div className="md:flex gap-4 items-end h-fit w-full">
-          <div className="h-fit md:w-1/2 w-full">
+          <div className="h-fit w-full">
             <label
               htmlFor="artist_id"
               className="block mb-2 text-sm font-medium text-black dark:text-white"
@@ -318,6 +307,10 @@ const EditSongForm = ({ artists, id, songs }) => {
               ))}
             </select>
           </div>
+
+        </div>
+        <div className="md:flex gap-4 items-end h-fit w-full">
+
           {audioSrc && (
             <div className="h-fit scale-90">
               <audio
@@ -412,21 +405,79 @@ const EditSongForm = ({ artists, id, songs }) => {
           )}
         </div>
 
-        <div>
-          <label
-            htmlFor="keywords"
-            className="block mb-2 text-sm font-medium text-black dark:text-white"
-          >
-            Keywords
-          </label>
-          <input
-            className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border h-full dark:text-white border-zinc-300 dark:border-zinc-600 text-black text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring focus:border block w-full p-2.5 "
-            type="text"
-            id="keywords"
-            name="keywords"
-            value={formData?.keywords || ""}
-            onChange={handleChange}
-          />
+        <div className="relative flex items-center justify-between gap-4">
+          <div className="w-full">
+            <div className="flex space-x-2 items-center">
+              <label
+                htmlFor="genres"
+                className="block mb-2 text-sm font-medium text-black dark:text-white"
+              >
+                Genres (select up to 3)
+              </label>
+              {genreArray?.map((genre) => (
+                <div className="text-xs font-work-sans" key={genre}>
+                  {genre}{" "}
+                  <button role="button" onClick={() => removeGenre(genre)}>Remove</button>
+                </div>
+              ))}
+            </div>
+            <select
+              multiple
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 relative"
+              id="genres"
+              name="genres"
+              value={genreArray || []}
+              onChange={handleGenreSelect}
+            >
+              <option value="" disabled>
+                Select Genres
+              </option>
+              {allGenres.map((genre: any) => (
+                <option key={genre} value={genre}>
+                  {genre}
+                </option>
+              ))}
+            </select>
+          </div>
+
+        </div>
+        <div className="relative flex items-center justify-between gap-4">
+          <div className="w-full">
+            <div className="flex space-x-4 items-center">
+              <label
+                htmlFor="moods"
+                className="block mb-2 text-sm font-medium text-black dark:text-white"
+              >
+                Moods (select up to 3)
+              </label>
+              {moodArray?.map((mood) => (
+                <div className="text-xs font-work-sans" key={mood}>
+
+                  {mood}{" "}
+                  <button role="button" onClick={() => removeMood(mood)}>Remove</button>
+                </div>
+              ))}
+            </div>
+            <select
+
+              multiple
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 relative"
+              id="moods"
+              name="moods"
+              value={moodArray || []}
+              onChange={handleMoodSelect}
+            >
+              <option value="" disabled>
+                Select Moods
+              </option>
+              {filmMoods.map((mood: any) => (
+                <option key={mood} value={mood}>
+                  {mood}
+                </option>
+              ))}
+            </select>
+          </div>
+
         </div>
         <div>
           <label

@@ -27,12 +27,12 @@ export interface UploadSongTypes {
   title: string;
   artist_id: number | string;
   album?: string;
-  release_year: number;
-  genre: string;
+  release_year: number | null;
+  genres: string[];
   lyrics?: string;
   music_file_url: string;
   cover_art_url: string | null;
-  keywords?: string[];
+  moods: string[];
   artist_name: string;
   duration: string | null;
   //
@@ -50,6 +50,8 @@ export interface UploadMusicFormProps {
   audioSrc: string;
   imagePreview: string;
   imagePreviewOpen: boolean;
+  moodValue: string;
+  moodArray: string[];
   genreValue: string;
   genreArray: string[] | any;
   setSocialLinkState: (state: SocialMediaLinkTypes) => void
@@ -61,6 +63,6 @@ export interface UploadMusicFormProps {
   setStatus: (status: any) => void;
   setMusicFile: (musicFile: any) => void;
   updateGenres: (newGenres: string[]) => void;
-  updateSongKeywords: (newKeywords: string[]) => void;
+//  updateSongKeywords: (newKeywords: string[]) => void;
   formatTime: (time: number) => string;
 }

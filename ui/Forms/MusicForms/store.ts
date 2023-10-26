@@ -1,5 +1,10 @@
 import { create } from "zustand";
-import { ArtistTypes, SocialMediaLinkTypes, UploadMusicFormProps, UploadSongTypes } from "./types";
+import {
+  ArtistTypes,
+  SocialMediaLinkTypes,
+  UploadMusicFormProps,
+  UploadSongTypes,
+} from "./types";
 
 export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
   initialArtistState: {
@@ -21,14 +26,14 @@ export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
     title: "",
     artist_id: "",
     album: "",
-    release_year: 2023,
-    genre: "",
+    release_year: null,
+    genres: [],
     lyrics: "",
     artist_name: "",
     music_file_url: "",
     duration: "",
-    keywords:[], 
-    cover_art_url:''
+    moods: [],
+    cover_art_url: "",
   },
   formData: {
     song_id: "",
@@ -36,14 +41,13 @@ export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
     artist_id: "",
     album: "",
     release_year: 2023,
-    genre: "",
+    genres: [],
     lyrics: "",
     artist_name: "",
     music_file_url: "",
     duration: "",
-    keywords:[],
-    cover_art_url:''
-
+    moods: [],
+    cover_art_url: "",
   },
   artistData: {
     discography: null,
@@ -57,56 +61,43 @@ export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
     artist_name: "",
     genres: [],
 
-
     biography: "",
     contact_phone: "", // Include contact_phone in the state
   },
   initialSocialLinkState: {
-    applemusic_url: '', 
-    spotify_url: '', 
-    instagram_url: '', 
-    x_url: '', 
-    soundcloud_url:'',
-    website_url: ''
+    applemusic_url: "",
+    spotify_url: "",
+    instagram_url: "",
+    x_url: "",
+    soundcloud_url: "",
+    website_url: "",
   },
-  socialLinkState: {    
-    applemusic_url: '', 
-  spotify_url: '', 
-  instagram_url: '', 
-  x_url: '', 
-  soundcloud_url:'',
-  website_url: ''},
+  socialLinkState: {
+    applemusic_url: "",
+    spotify_url: "",
+    instagram_url: "",
+    x_url: "",
+    soundcloud_url: "",
+    website_url: "",
+  },
   imagePreviewOpen: false,
 
   musicFile: "",
   status: "",
   audioSrc: "",
-  imagePreview:"",
+  imagePreview: "",
+  moodValue: "",
+  moodArray: [],
   genreValue: "",
   genreArray: [],
   updateGenres: (newGenres) =>
-  set((state) => ({
-    formData: {
-      ...state.formData,
-      keywords: newGenres,
-    },
-  })),
-  updateSongKeywords: (newKeywords: string[]) =>{
-    const output = newKeywords.reduce((prev, curr) => {
-      // get the keyname
-      const [keyName] = curr.split("-");
-      if (prev[keyName]) {
-        // If the property exists then push to Images array
-        prev[keyName].keywords.push(curr);
-      } else {
-        // If the property name does not exist,
-        // create it and add the initial value in the format you want
-        prev[keyName] = { keywords: [curr] };
-      }
+    set((state) => ({
+      formData: {
+        ...state.formData,
+        keywords: newGenres,
+      },
+    })),
 
-      return prev;
-    }, {});
-  },
   // set((state) => ({
   //   formData: {
   //     ...state.formData,
@@ -116,15 +107,17 @@ export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
   formatTime: (time: number): string => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   },
   setImagePreviewOpen: (imagePreviewOpen: boolean) => {
-    set({ imagePreviewOpen })},
+    set({ imagePreviewOpen });
+  },
   setArtistData: (artistData: ArtistTypes) => set({ artistData }),
   //setGenreArray: (genreArray: string[]) => set([...genreArray, genreValue]),
-  setSocialLinkState: (state: SocialMediaLinkTypes) => set({socialLinkState: state}) ,
+  setSocialLinkState: (state: SocialMediaLinkTypes) =>
+    set({ socialLinkState: state }),
   setFormData: (formData: UploadSongTypes) => set({ formData }),
-  setImagePreview: (imagePreview: string) =>  set({imagePreview}),
+  setImagePreview: (imagePreview: string) => set({ imagePreview }),
   setAudioSrc: (audioSrc: string) => set({ audioSrc }),
   setMusicFile: (musicFile: string) => set({ musicFile }),
   setStatus: (status: string) => set({ status }),
@@ -155,4 +148,3 @@ const output = data.reduce((prev, curr) => {
   }
   return prev;
 }, {});
-

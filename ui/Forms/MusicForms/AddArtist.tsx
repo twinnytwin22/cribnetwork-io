@@ -1,10 +1,12 @@
-import { addMewArtist } from "@/utils/db";
+import { useHandleOutsideClick } from "@/lib/hooks/handleOutsideClick";
+import { addMewArtist, uploadFile } from "@/utils/db";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { FormEvent, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useMusicFormStore } from "./store";
-
 const AddArtistForm = () => {
-
+  const router = useRouter()
   const {
     artistData: formData,
     setArtistData: setFormData,
@@ -15,13 +17,24 @@ const AddArtistForm = () => {
     genreArray,
     genreValue,
     initialArtistState,
+    setImagePreview, 
+    imagePreview,
+    setImagePreviewOpen, 
+    initialSocialLinkState,
+    imagePreviewOpen 
 
   } = useMusicFormStore()
   const setGenreValue = (genreValue) => useMusicFormStore.setState({ genreValue })
   const setGenreArray = (genreArray) => useMusicFormStore.setState({ genreArray })
-
-  useEffect(() => {
+  const nullData = () => {
     setFormData(initialArtistState)
+    setImagePreview(null)
+    setSocialMediaValues(initialSocialLinkState)
+    setGenreArray([])
+  }
+  useEffect(() => {
+  nullData()
+  //  setGenreArray(null)
   },[])
   const handleSocialMediaUpdate = (event) => {
     setSocialMediaValues({ ...socialMediaValues, [event.target.name]: event.target.value })
@@ -44,7 +57,31 @@ const AddArtistForm = () => {
       }
     }
   };
+  const handleArtistImageUpload = async (e: any) => {
+    e.preventDefault();
+    setStatus("loading");
+    const file = e?.target.files[0]!; // Get the selected file
 
+    if (file) {
+      try {
+        const uploadedImage = await uploadFile({ file, bucket: "artist_images" });
+        if (uploadedImage) {
+          setFormData({ ...formData,image_url: uploadedImage });
+          // console.log(uploadedSong);
+          setStatus("");
+          return;
+        }
+      } catch (error) {
+        console.error("Error uploading file:", error);
+      } finally {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          setImagePreview(e.target?.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,7 +92,7 @@ const AddArtistForm = () => {
           artist_name: formData.artist_name, // Map the artist_name to the form input
           genres: genreArray, // Map the genre to the form input
           biography: formData.biography, // Map the biography to the form input
-          image_url: null,
+          image_url: formData.image_url.trim(),
           contact_email: formData.contact_email,
           contact_phone: formData.contact_phone, // You may add the contact_phone field to match the sample data
           social_media_links: socialMediaValues,
@@ -66,6 +103,7 @@ const AddArtistForm = () => {
       if (res.ok) {
         setStatus("success");
         toast.success("Your message was sent successfully");
+        router.back()
       }
 
       setFormData(initialArtistState);
@@ -74,9 +112,22 @@ const AddArtistForm = () => {
       console.log("Error sending email. Please try again later.");
     }
   };
+  useHandleOutsideClick(imagePreviewOpen, setImagePreviewOpen, 'image-preview')
 
   return (
     <div className="w-full p-8 mx-auto z-[100] h-full isolate relative">
+        {imagePreview && imagePreviewOpen && (
+        <div className="absolute z-[9999] flex items-center mx-8 w-full left-0 right-0">
+          <div className="fixed inset-0 bg-black opacity-50 w-full mx-auto left-0 right-0"></div>
+          <Image
+            className="mx-auto relative rounded image-preview left-0 right-0 shadow-lg"
+            src={imagePreview}
+            alt="cover Image"
+            width={500}
+            height={500}
+          />
+        </div>
+      )}
       <h1 className="text-2xl tracking-tight font-bold text-center text-black dark:text-white font-owners">
         Add New Artist
       </h1>
@@ -118,6 +169,38 @@ const AddArtistForm = () => {
             onChange={handleChange}
           //  required
           />
+        </div>
+        <div className="flex h-fit space-x-4 rounded items-end">
+          <div className="w-full h-fit">
+            <label
+              htmlFor="image_url"
+              className="block mb-2 text-sm font-medium text-black dark:text-white"
+            >
+              Artist Image
+            </label>
+            <input
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border h-full dark:text-white border-zinc-300 dark:border-zinc-600 text-black text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring focus:border block w-full p-2.5 "
+              type="file"
+              id="image_url"
+              name="image_url"
+              //   value={formData.cover_art_url || ''}
+              onChange={(e) => handleArtistImageUpload(e)}
+            />
+          </div>
+          {imagePreview && (
+            <div
+              onClick={() => {
+                setImagePreviewOpen(true);
+              }}
+            >
+              <Image
+                src={imagePreview}
+                width={50}
+                height={50}
+                alt={"Cover Image"}
+              />
+            </div>
+          )}
         </div>
         <div>
           <label
