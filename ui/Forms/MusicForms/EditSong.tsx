@@ -112,7 +112,7 @@ const EditSongForm = ({ artists, id, songs }) => {
   //console.log(formData)
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const selectedArtist = artists.find((artist) => artist.id === formData.artist_id);
+    const selectedArtist = artists.find((artist) => artist.artist_id === formData.artist_id);
 
     const updates = {
       ...formData,

@@ -118,13 +118,15 @@ const EditArtistForm = ({ artists, id, songs }) => {
       if (res?.ok) {
         setStatus("success");
         toast.success("Your data was saved successfully");
-        router.refresh();
       }
 
       setData();
     } catch (err) {
       setStatus("error");
       toast.error("Error saving data");
+    } finally{
+      router.refresh();
+
     }
   };
   useHandleOutsideClick(imagePreviewOpen, setImagePreviewOpen, "image-preview");
