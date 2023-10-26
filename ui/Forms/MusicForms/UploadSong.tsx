@@ -36,8 +36,8 @@ const UploadSongForm = ({ artists }) => {
   const setMoodArray = (moodArray) => useMusicFormStore.setState({ moodArray })
   useEffect(() => {
     setFormData(initialState)
-    setGenreArray([''])
-    setMoodArray([''])
+    setGenreArray([])
+    setMoodArray([])
   },[])
   const handleGenreSelect = (e) => {
     const selectedGenre = e.target.value;
