@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { useMusicFormStore } from "./store";
 
 const UploadSongForm = ({ artists }) => {
-  const router = useRouter()
+  const router = useRouter();
   const {
     initialState,
     formData,
@@ -22,23 +22,24 @@ const UploadSongForm = ({ artists }) => {
     setAudioSrc,
     imagePreview,
     imagePreviewOpen,
-    moodArray, 
-    genreArray, 
-   // updateSongKeywords,
+    moodArray,
+    genreArray,
+    // updateSongKeywords,
     formatTime,
     setImagePreview,
     setImagePreviewOpen,
   } = useMusicFormStore();
-  
+
   //const setGenreValue = (genreValue) => useMusicFormStore.setState({ genreValue })
-  const setGenreArray = (genreArray) => useMusicFormStore.setState({ genreArray })
-  const setMoodValue = (moodValue) => useMusicFormStore.setState({ moodValue })
-  const setMoodArray = (moodArray) => useMusicFormStore.setState({ moodArray })
+  const setGenreArray = (genreArray) =>
+    useMusicFormStore.setState({ genreArray });
+  const setMoodValue = (moodValue) => useMusicFormStore.setState({ moodValue });
+  const setMoodArray = (moodArray) => useMusicFormStore.setState({ moodArray });
   useEffect(() => {
-    setFormData(initialState)
-    setGenreArray([])
-    setMoodArray([])
-  },[])
+    setFormData(initialState);
+    setGenreArray([]);
+    setMoodArray([]);
+  }, []);
   const handleGenreSelect = (e) => {
     const selectedGenre = e.target.value;
 
@@ -64,19 +65,20 @@ const UploadSongForm = ({ artists }) => {
 
   const handleChange = (e: ChangeEvent<any>) => {
     const { name, value } = e.target;
-   
-      setFormData({ ...formData, [name]: value });
-    
+
+    setFormData({ ...formData, [name]: value });
   };
 
   // const handleClose = () => {
   //   store.setOpen(false);
   // };
 
-  console.log(formData);
+  //console.log(formData);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const selectedArtist = artists.find((artist) => artist.id === formData.artist_id);
+    const selectedArtist = artists.find(
+      (artist) => artist.id === formData.artist_id,
+    );
 
     const updates = {
       //song_id: "",
@@ -89,9 +91,9 @@ const UploadSongForm = ({ artists }) => {
       artist_name: selectedArtist?.artist_name,
       music_file_url: formData?.music_file_url,
       duration: formData?.duration,
-      moods:moodArray,
-      cover_art_url:formData?.cover_art_url
-    } 
+      moods: moodArray,
+      cover_art_url: formData?.cover_art_url,
+    };
     try {
       setStatus("loading");
       const res = await addNewSong({ updates });
@@ -100,8 +102,7 @@ const UploadSongForm = ({ artists }) => {
         setStatus("success");
         //setFormData(initialState);
         toast.success("Your message was sent successfully");
-        router.back()
-
+        router.back();
       }
     } catch (err) {
       setStatus("error");
@@ -165,7 +166,7 @@ const UploadSongForm = ({ artists }) => {
       }
     }
   };
-  useHandleOutsideClick(imagePreviewOpen, setImagePreviewOpen, 'image-preview')
+  useHandleOutsideClick(imagePreviewOpen, setImagePreviewOpen, "image-preview");
 
   const removeGenre = (genre) => {
     const updatedGenres = genreArray.filter((g) => g !== genre);
@@ -178,8 +179,25 @@ const UploadSongForm = ({ artists }) => {
     setMoodArray(updatedMoods);
   };
 
+  const handleSongTypeChange = (e) => {
+
+    const {value} = e.target
+
+    if(value ==='lyrics-instrumental'){
+      setFormData({...formData, has_lyrics: true, instrumental: false })
+    }
+
+    if(value === 'instrumental'){
+      setFormData({...formData, has_lyrics: false, instrumental: true })
+
+    }
+  };
+console.log(formData)
   return (
-    <div className="w-full p-8 mx-auto z-[100] h-full isolate relative" style={{position: 'relative'}}>
+    <div
+      className="w-full p-8 mx-auto z-[100] h-full isolate relative"
+      style={{ position: "relative" }}
+    >
       {imagePreview && imagePreviewOpen && (
         <div className="absolute z-[9999] flex items-center mx-8 w-full left-0 right-0">
           <div className="fixed inset-0 bg-black opacity-50 w-full mx-auto left-0 right-0"></div>
@@ -248,38 +266,37 @@ const UploadSongForm = ({ artists }) => {
               type="text"
               id="release_year"
               name="release_year"
-              value={formData?.release_year || ''}
+              value={formData?.release_year || ""}
               onChange={handleChange}
             />
           </div>
 
-         
-        <div className="md:flex gap-4 items-end h-fit w-full">
-          <div className="h-fit w-full">
-            <label
-              htmlFor="artist_id"
-              className="block mb-2 text-sm font-medium text-black dark:text-white"
-            >
-              Artist
-            </label>
-            <select
-              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 "
-              id="artist_id"
-              name="artist_id"
-              value={formData.artist_id}
-              onChange={handleChange}
-            >
-              <option value="" disabled>
-                Select an artist
-              </option>
-              {artists.map((artist) => (
-                <option key={artist.artist_id} value={artist.artist_id}>
-                  {artist.artist_name}
+          <div className="md:flex gap-4 items-end h-fit w-full">
+            <div className="h-fit w-full">
+              <label
+                htmlFor="artist_id"
+                className="block mb-2 text-sm font-medium text-black dark:text-white"
+              >
+                Artist
+              </label>
+              <select
+                className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 "
+                id="artist_id"
+                name="artist_id"
+                value={formData.artist_id}
+                onChange={handleChange}
+              >
+                <option value="" disabled>
+                  Select an artist
                 </option>
-              ))}
-            </select>
-          </div>
-          {/* <div className="h-fit">
+                {artists.map((artist) => (
+                  <option key={artist.artist_id} value={artist.artist_id}>
+                    {artist.artist_name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {/* <div className="h-fit">
             <label htmlFor="duration" className="block mb-2 text-sm font-medium text-black dark:text-white">
               Duration
             </label>
@@ -293,7 +310,7 @@ const UploadSongForm = ({ artists }) => {
             />
           </div> */}
 
-          {/* <div className="h-fit hidden">
+            {/* <div className="h-fit hidden">
             <label htmlFor="licensing_options" className="block mb-2 text-sm font-medium text-black dark:text-white">
               Licensing Options
             </label>
@@ -306,162 +323,195 @@ const UploadSongForm = ({ artists }) => {
               onChange={handleChange}
             />
           </div> */}
-  
-        </div>
-        <div className="flex h-fit space-x-4">
-          <div className="w-full h-fit">
-            <label
-              htmlFor="music_file_url"
-              className="block mb-2 text-sm font-medium text-black dark:text-white"
-            >
-              Music File URL
-            </label>
-            <input
-              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border h-full dark:text-white border-zinc-300 dark:border-zinc-600 text-black text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring focus:border block w-full px-2.5 p-2 "
-              type="file"
-              id="music_file_url"
-              name="music_file_url"
-              //  value={musicFile}
-              onChange={(e) => handleSongUpload(e)}
-            />
           </div>
-
-          <div className="w-32">
-            <label
-              htmlFor="release_year"
-              className="block mb-2 text-sm font-medium text-black dark:text-white"
-            >
-              Duration
-            </label>
-            <input
-              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm  block w-full p-2.5 "
-              type="text"
-              readOnly
-              id="duration"
-              name="duration"
-              value={formData.duration || ""}
-              //onChange={handleChange}
-            />
-          </div>
-          {audioSrc && (
-            <div className="h-fit scale-90">
-              <audio
-                controls
-                src={audioSrc}
-                onLoadedMetadata={handleLoadedMetadata}
+          <div className="flex h-fit space-x-4">
+            <div className="w-full h-fit">
+              <label
+                htmlFor="music_file_url"
+                className="block mb-2 text-sm font-medium text-black dark:text-white"
+              >
+                Music File URL
+              </label>
+              <input
+                className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border h-full dark:text-white border-zinc-300 dark:border-zinc-600 text-black text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring focus:border block w-full px-2.5 p-2 "
+                type="file"
+                id="music_file_url"
+                name="music_file_url"
+                //  value={musicFile}
+                onChange={(e) => handleSongUpload(e)}
               />
             </div>
-          )}
-        </div>
+
+            <div className="w-32">
+              <label
+                htmlFor="release_year"
+                className="block mb-2 text-sm font-medium text-black dark:text-white"
+              >
+                Duration
+              </label>
+              <input
+                className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm  block w-full p-2.5 "
+                type="text"
+                readOnly
+                id="duration"
+                name="duration"
+                value={formData.duration || ""}
+                //onChange={handleChange}
+              />
+            </div>
+            {audioSrc && (
+              <div className="h-fit scale-90">
+                <audio
+                  controls
+                  src={audioSrc}
+                  onLoadedMetadata={handleLoadedMetadata}
+                />
+              </div>
+            )}
+          </div>
         </div>
         <div>
-        <div className="flex h-fit space-x-4 rounded items-end">
-          <div className="w-full h-fit">
-            <label
-              htmlFor="cover_art_url"
-              className="block mb-2 text-sm font-medium text-black dark:text-white"
-            >
-              Cover Art URL
-            </label>
-            <input
-              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border h-full dark:text-white border-zinc-300 dark:border-zinc-600 text-black text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring focus:border block w-full p-2.5 "
-              type="file"
-              id="cover_art_url"
-              name="cover_art_url"
-              //   value={formData.cover_art_url || ''}
-              onChange={(e) => handleCoverUpload(e)}
-            />
-          </div>
-          {imagePreview && (
-            <div
-              onClick={() => {
-                setImagePreviewOpen(true);
-              }}
-            >
-              <Image
-                src={imagePreview}
-                width={50}
-                height={50}
-                alt={"Cover Image"}
+          <div className="flex h-fit space-x-4 rounded items-end">
+            <div className="w-full h-fit">
+              <label
+                htmlFor="cover_art_url"
+                className="block mb-2 text-sm font-medium text-black dark:text-white"
+              >
+                Cover Art URL
+              </label>
+              <input
+                className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border h-full dark:text-white border-zinc-300 dark:border-zinc-600 text-black text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring focus:border block w-full p-2.5 "
+                type="file"
+                id="cover_art_url"
+                name="cover_art_url"
+                //   value={formData.cover_art_url || ''}
+                onChange={(e) => handleCoverUpload(e)}
               />
             </div>
-          )}
-        </div>
-      
-        <div className="relative flex items-center justify-between gap-4">
-          <div className="w-full">
-            <div className="flex space-x-2 items-center">
-              <label
-                htmlFor="genres"
-                className="block mb-2 text-sm font-medium text-black dark:text-white"
+            {imagePreview && (
+              <div
+                onClick={() => {
+                  setImagePreviewOpen(true);
+                }}
               >
-                Genres (select up to 3)
-              </label>
-              {genreArray?.map((genre) => (
-                <div className="text-xs font-work-sans" key={genre}>
-                  {genre}{" "}
-                  <button role="button" onClick={() => removeGenre(genre)}>Remove</button>
-                </div>
-              ))}
-            </div>
-            <select
-              multiple
-              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 relative"
-              id="genres"
-              name="genres"
-              value={genreArray || []}
-              onChange={handleGenreSelect}
-            >
-              <option value="" disabled>
-                Select Genres
-              </option>
-              {allGenres.map((genre: any) => (
-                <option key={genre} value={genre}>
-                  {genre}
-                </option>
-              ))}
-            </select>
+                <Image
+                  src={imagePreview}
+                  width={50}
+                  height={50}
+                  alt={"Cover Image"}
+                />
+              </div>
+            )}
           </div>
 
-        </div>
-        <div className="relative flex items-center justify-between gap-4">
-          <div className="w-full">
-            <div className="flex space-x-4 items-center">
-              <label
-                htmlFor="moods"
-                className="block mb-2 text-sm font-medium text-black dark:text-white"
+          <div className="relative flex items-center justify-between gap-4">
+            <div className="w-full">
+              <div className="flex space-x-2 items-center">
+                <label
+                  htmlFor="genres"
+                  className="block mb-2 text-sm font-medium text-black dark:text-white"
+                >
+                  Genres (select up to 3)
+                </label>
+                {genreArray?.map((genre) => (
+                  <div className="text-xs font-work-sans" key={genre}>
+                    {genre}{" "}
+                    <button role="button" onClick={() => removeGenre(genre)}>
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <select
+                multiple
+                className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 relative"
+                id="genres"
+                name="genres"
+                value={genreArray || []}
+                onChange={handleGenreSelect}
               >
-                Moods (select up to 3)
-              </label>
-              {moodArray?.map((mood) => (
-                <div className="text-xs font-work-sans" key={mood}>
-
-                  {mood}{" "}
-                  <button role="button" onClick={() => removeMood(mood)}>Remove</button>
-                </div>
-              ))}
-            </div>
-            <select
-
-              multiple
-              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 relative"
-              id="moods"
-              name="moods"
-              value={moodArray || []}
-              onChange={handleMoodSelect}
-            >
-              <option value="" disabled>
-                Select Moods
-              </option>
-              {filmMoods.map((mood: any) => (
-                <option key={mood} value={mood}>
-                  {mood}
+                <option value="" disabled>
+                  Select Genres
                 </option>
-              ))}
-            </select>
+                {allGenres.map((genre: any) => (
+                  <option key={genre} value={genre}>
+                    {genre}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-
+          <div className="relative flex items-center justify-between gap-4">
+            <div className="w-full">
+              <div className="flex space-x-4 items-center">
+                <label
+                  htmlFor="moods"
+                  className="block mb-2 text-sm font-medium text-black dark:text-white"
+                >
+                  Moods (select up to 3)
+                </label>
+                {moodArray?.map((mood) => (
+                  <div className="text-xs font-work-sans" key={mood}>
+                    {mood}{" "}
+                    <button role="button" onClick={() => removeMood(mood)}>
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <select
+                multiple
+                className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 relative"
+                id="moods"
+                name="moods"
+                value={moodArray || []}
+                onChange={handleMoodSelect}
+              >
+                <option value="" disabled>
+                  Select Moods
+                </option>
+                {filmMoods.map((mood: any) => (
+                  <option key={mood} value={mood}>
+                    {mood}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
         </div>
+        <div className="flex items-center w-full space-x-4">
+          <div className="flex w-full items-center pl-4 border border-zinc-300 rounded dark:border-zinc-700">
+            <input
+              onChange={handleSongTypeChange}
+              name="song-type"
+              id="instrumental"
+              type="radio"
+              className="w-4 h-4 text-blue-600 bg-zinc-100 border-zinc-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-zinc-800 focus:ring-2 dark:bg-zinc-700 dark:border-zinc-600"
+              value={"instrumental"}
+            />
+            <label
+              className="w-full py-4 ml-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
+              htmlFor="instrumental"
+            >
+              Instrumental Only
+            </label>
+          </div>
+          <div className="flex w-full items-center pl-4 border border-zinc-300 rounded dark:border-zinc-700">
+            <input
+              onChange={handleSongTypeChange}
+              name="song-type"
+              id="lyrics-instrumental"
+              type="radio"
+              className="w-4 h-4 text-blue-600 bg-zinc-100 border-zinc-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-zinc-800 focus:ring-2 dark:bg-zinc-700 dark:border-zinc-600"
+              value={"lyrics-instrumental"}
+            />
+            <label
+              className="w-full py-4 ml-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
+              htmlFor="lyrics-instrumental"
+            >
+              Has Lyrics
+            </label>
+          </div>
         </div>
         <div>
           <label

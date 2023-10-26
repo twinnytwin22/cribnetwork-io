@@ -35,7 +35,7 @@ function DashboardSidebar() {
   const vercel = "https://vercel.com/thecrib/crib-netowork-q2-23/deployments";
   const analyticsUrl = process.env.NEXT_PUBLIC_TINYBIRD_DASHBOARD_URL!!!;
 
-  console.log(userRole)
+  //console.log(userRole)
   useEffect(() => {
     if (profile) {
       setUserRole(profile?.user_role);

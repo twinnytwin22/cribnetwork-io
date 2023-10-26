@@ -32,7 +32,7 @@ const EditSongForm = ({ artists, id, songs }) => {
   } = useMusicFormStore();
  // const setGenreValue = (genreValue) => useMusicFormStore.setState({ genreValue })
   const setGenreArray = (genreArray) => useMusicFormStore.setState({ genreArray })
-  const setMoodValue = (moodValue) => useMusicFormStore.setState({ moodValue })
+  //const setMoodValue = (moodValue) => useMusicFormStore.setState({ moodValue })
   const setMoodArray = (moodArray) => useMusicFormStore.setState({ moodArray })
 
   const handleGenreSelect = (e) => {
@@ -208,7 +208,19 @@ const EditSongForm = ({ artists, id, songs }) => {
     setMoodArray(updatedMoods);
   };
 
+  const handleSongTypeChange = (e) => {
 
+    const {value} = e.target
+
+    if(value ==='instrumental-lyrics'){
+      setFormData({...formData, has_lyrics: true, instrumental: false })
+    }
+
+    if(value === 'instrumental'){
+      setFormData({...formData, has_lyrics: false, instrumental: true })
+
+    }
+  };
   return (
     <div className="w-full p-8 mx-auto z-[100] h-full isolate relative font-work-sans">
       {imagePreview && imagePreviewOpen && (
@@ -478,6 +490,40 @@ const EditSongForm = ({ artists, id, songs }) => {
             </select>
           </div>
 
+        </div>
+        <div className="flex items-center w-full space-x-4">
+          <div className="flex w-full items-center pl-4 border border-zinc-300 rounded dark:border-zinc-700">
+            <input
+              onChange={handleSongTypeChange}
+              name="song-type"
+              id="instrumental"
+              type="radio"
+              className="w-4 h-4 text-blue-600 bg-zinc-100 border-zinc-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-zinc-800 focus:ring-2 dark:bg-zinc-700 dark:border-zinc-600"
+              value={"instrumental"}
+            />
+            <label
+              className="w-full py-4 ml-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
+              htmlFor="instrumental"
+            >
+              Instrumental Only
+            </label>
+          </div>
+          <div className="flex w-full items-center pl-4 border border-zinc-300 rounded dark:border-zinc-700">
+            <input
+              onChange={handleSongTypeChange}
+              name="song-type"
+              id="lyrics-instrumental"
+              type="radio"
+              className="w-4 h-4 text-blue-600 bg-zinc-100 border-zinc-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-zinc-800 focus:ring-2 dark:bg-zinc-700 dark:border-zinc-600"
+              value={"lyrics-instrumental"}
+            />
+            <label
+              className="w-full py-4 ml-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
+              htmlFor="lyrics-instrumental"
+            >
+              Has Lyrics
+            </label>
+          </div>
         </div>
         <div>
           <label

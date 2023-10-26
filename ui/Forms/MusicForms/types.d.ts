@@ -34,7 +34,9 @@ export interface UploadSongTypes {
   cover_art_url: string | null;
   moods: string[];
   artist_name: string;
-  duration: string | null;
+  duration: string | null;    
+  instrumental: boolean, 
+  has_lyrics: boolean,
   //
 }
 

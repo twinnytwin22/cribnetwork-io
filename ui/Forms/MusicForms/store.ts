@@ -34,6 +34,8 @@ export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
     duration: "",
     moods: [],
     cover_art_url: "",
+    instrumental: true, 
+    has_lyrics: false,
   },
   formData: {
     song_id: "",
@@ -48,6 +50,8 @@ export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
     duration: "",
     moods: [],
     cover_art_url: "",
+    instrumental: true, 
+    has_lyrics: false,
   },
   artistData: {
     discography: null,
