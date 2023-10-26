@@ -91,10 +91,10 @@ const AddArtistForm = () => {
           //artist_id: 1,
           artist_name: formData.artist_name, // Map the artist_name to the form input
           genres: genreArray, // Map the genre to the form input
-          biography: formData.biography, // Map the biography to the form input
-          image_url: formData.image_url.trim(),
-          contact_email: formData.contact_email,
-          contact_phone: formData.contact_phone, // You may add the contact_phone field to match the sample data
+          biography: formData?.biography, // Map the biography to the form input
+          image_url: formData?.image_url.trim(),
+          contact_email: formData?.contact_email,
+          contact_phone: formData?.contact_phone, // You may add the contact_phone field to match the sample data
           social_media_links: socialMediaValues,
           discography: null,
         },
@@ -103,13 +103,15 @@ const AddArtistForm = () => {
       if (res.ok) {
         setStatus("success");
         toast.success("Your message was sent successfully");
-        router.back()
       }
 
-      setFormData(initialArtistState);
+
     } catch (err) {
       setStatus("error");
       console.log("Error sending email. Please try again later.");
+    } finally {
+      nullData()
+      router.back()
     }
   };
   useHandleOutsideClick(imagePreviewOpen, setImagePreviewOpen, 'image-preview')

@@ -20,28 +20,38 @@ const EditArtistForm = ({ artists, id, songs }) => {
     setStatus,
     setSocialLinkState: setSocialMediaValues,
     socialLinkState: socialMediaValues,
-    genreArray, 
-    genreValue, 
-    imagePreview, imagePreviewOpen, setImagePreviewOpen, setImagePreview
+    genreArray,
+    genreValue,
+    imagePreview,
+    imagePreviewOpen,
+    setImagePreviewOpen,
+    setImagePreview,
   } = useMusicFormStore();
-  const setGenreValue = (genreValue) => useMusicFormStore.setState({genreValue})
-  const setGenreArray = (genreArray) => useMusicFormStore.setState({genreArray})
+  const setGenreValue = (genreValue) =>
+    useMusicFormStore.setState({ genreValue });
+  const setGenreArray = (genreArray) =>
+    useMusicFormStore.setState({ genreArray });
   const setData = () => {
-    setImagePreview(getArtistImage(currentArtist?.image_url))
+    setImagePreview(getArtistImage(currentArtist?.image_url));
     setStatus("loadingInitialState");
     setFormData(currentArtist);
-    setGenreArray(currentArtist?.genres!)
-    setSocialMediaValues(currentArtist?.social_media_links as SocialMediaLinkTypes)
+    setGenreArray(currentArtist?.genres!);
+    setSocialMediaValues(
+      currentArtist?.social_media_links as SocialMediaLinkTypes,
+    );
     setStatus("ready");
-  }
-  
-//console.log(genreArray);
+  };
+
+  //console.log(genreArray);
   const handleGenreChange = (event) => {
     setGenreValue(event.target.value);
   };
 
   const handleSocialMediaUpdate = (event) => {
-    setSocialMediaValues({...socialMediaValues, [event.target.name]: event.target.value})
+    setSocialMediaValues({
+      ...socialMediaValues,
+      [event.target.name]: event.target.value,
+    });
   };
   const handleInputKeyPress = (event) => {
     if (event.key === "Enter") {
@@ -57,9 +67,9 @@ const EditArtistForm = ({ artists, id, songs }) => {
   };
 
   useEffect(() => {
-  setData()
+    setData();
   }, [currentArtist]);
- 
+
   const handleArtistImageUpload = async (e: any) => {
     e.preventDefault();
     setStatus("loading");
@@ -67,9 +77,12 @@ const EditArtistForm = ({ artists, id, songs }) => {
 
     if (file) {
       try {
-        const uploadedImage = await uploadFile({ file, bucket: "artist_images" });
+        const uploadedImage = await uploadFile({
+          file,
+          bucket: "artist_images",
+        });
         if (uploadedImage) {
-          setFormData({ ...formData,image_url: uploadedImage });
+          setFormData({ ...formData, image_url: uploadedImage });
           // console.log(uploadedSong);
           setStatus("");
           return;
@@ -93,32 +106,32 @@ const EditArtistForm = ({ artists, id, songs }) => {
         artist_name: formData.artist_name, // Map the artist_name to the form input
         genres: genreArray, // Map the genre to the form input
         biography: formData.biography, // Map the biography to the form input
-        image_url: currentArtist?.image_url!,
+        image_url: formData?.image_url!,
         contact_email: formData.contact_email,
         contact_phone: formData.contact_phone, // You may add the contact_phone field to match the sample data
         social_media_links: socialMediaValues,
         discography: null,
       };
       // Assuming you have a function to post the artists data
-      const res  = await updateArtist({ updates: artists });
+      const res = await updateArtist({ updates: artists });
 
       if (res?.ok) {
         setStatus("success");
-        toast.success("Your message was sent successfully");
+        toast.success("Your data was saved successfully");
         router.refresh();
       }
 
       setData();
     } catch (err) {
       setStatus("error");
-      console.log("Error sending email. Please try again later.");
+      toast.error("Error saving data");
     }
   };
-  useHandleOutsideClick(imagePreviewOpen, setImagePreviewOpen, 'image-preview')
+  useHandleOutsideClick(imagePreviewOpen, setImagePreviewOpen, "image-preview");
 
   return (
     <div className="w-full p-8 mx-auto z-[100] h-full isolate relative">
-        {imagePreview && imagePreviewOpen && (
+      {imagePreview && imagePreviewOpen && (
         <div className="absolute z-[9999] flex items-center mx-8 w-full left-0 right-0">
           <div className="fixed inset-0 bg-black opacity-50 w-full mx-auto left-0 right-0"></div>
           <Image
@@ -240,7 +253,7 @@ const EditArtistForm = ({ artists, id, songs }) => {
             name="contact_phone"
             value={formData.contact_phone || ""}
             onChange={handleChange}
-          //  required
+            //  required
           />
         </div>
 
@@ -257,7 +270,7 @@ const EditArtistForm = ({ artists, id, songs }) => {
             id="biography"
             value={formData.biography || ""}
             onChange={handleChange}
-          //  required
+            //  required
           />
         </div>
         <ul className="space-y-4">
@@ -273,9 +286,9 @@ const EditArtistForm = ({ artists, id, songs }) => {
               type="text"
               id="spotify_url"
               name="spotify_url"
-             value={socialMediaValues?.spotify_url || ""}
+              value={socialMediaValues?.spotify_url || ""}
               onChange={handleSocialMediaUpdate}
-            //   required
+              //   required
             />
           </li>
           <li className="mb-2">
@@ -290,7 +303,7 @@ const EditArtistForm = ({ artists, id, songs }) => {
               type="text"
               id="applemusic_url"
               name="applemusic_url"
-              value={socialMediaValues?.applemusic_url|| ""}
+              value={socialMediaValues?.applemusic_url || ""}
               onChange={handleSocialMediaUpdate}
               // required
             />
