@@ -156,7 +156,7 @@ function DashboardSidebar() {
             onClick={item.onClick}
             onMouseEnter={() => handleSetTooltip(item.title)}
             onMouseLeave={handleHideTooltip}
-            className="flex items-center pl-4 lg:pl-2 p-2 text-base font-medium text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group duration-300 relative ease-in-out z-50"
+            className="flex items-center pl-4 lg:pl-2 p-2 text-sm font-medium text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group duration-300 relative ease-in-out z-50"
           >
             {item.icon}
             <p className="ml-3 hidden lg:block">{item.title}</p>
@@ -167,7 +167,7 @@ function DashboardSidebar() {
             onMouseLeave={handleHideTooltip}
             target={item?.target}
             href={item.href}
-            className="flex items-center pl-4 lg:pl-2 p-2 text-base font-medium text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group duration-300 ease-in-out relative z-50"
+            className="flex items-center pl-4 lg:pl-2 p-2 text-sm font-medium text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group duration-300 ease-in-out relative z-50"
           >
             {item.icon}
             <span className="ml-3 hidden lg:block">{item.title}</span>
@@ -201,7 +201,7 @@ function DashboardSidebar() {
 
   return (
     <aside
-      className="fixed  left-0 z-10 w-24 lg:w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-zinc-200 md:translate-x-0 dark:bg-black dark:border-zinc-800"
+      className="fixed  left-0 z-10 w-24 lg:w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-zinc-200 md:translate-x-0 dark:bg-black dark:border-zinc-800 font-work-sans"
       aria-label="SideNav"
       id="drawer-navigation"
     >
@@ -230,7 +230,7 @@ function DashboardSidebar() {
           </div>
         }
 
-        <ul className="space-y-2 mt-8 sm:ml-2 relative z-50">
+        <ul className="space-y-2 mt-8 sm:ml-2 relative z-50 text-sm">
           {filteredSidebarItems}
         </ul>
       </div>
