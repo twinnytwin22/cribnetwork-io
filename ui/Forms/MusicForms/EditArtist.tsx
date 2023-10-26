@@ -1,65 +1,65 @@
 "use client";
 import { updateArtist } from "@/utils/db";
 import { useRouter } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect } from "react";
 import { toast } from "react-toastify";
-import { ArtistTypes, useMusicFormStore } from "./store";
+import { useMusicFormStore } from "./store";
+import { ArtistTypes, SocialMediaLinkTypes } from "./types";
 
 const EditArtistForm = ({ artists, id, songs }) => {
-  const [genreValue, setGenreValue] = useState("");
-  const [genreArray, setGenreArray] = useState<string[]>([]);
-  const [socialMediaArray, setSocialMediaArray] = useState<any[]>([])
-  console.log(genreArray);
-  const handleGenreChange = (event) => {
-    setGenreValue(event.target.value);
-  };
-
-  const handleSocialMediaUpdate = (event) => {
-    setSocialMediaArray({...socialMediaArray, [event.target.name]: event.target.value})
-
-  };
-console.log(socialMediaArray)
-  const handleInputKeyPress = (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault(); // Prevent the default behavior (form submission)
-      if (genreValue.trim() !== "") {
-        setGenreArray((prevArray: string[]) => [...prevArray, genreValue]);
-        //setFormData({...formData, genres: [inputValue]})
-        setGenreValue(""); // Clear the input field
-      }
-    }
-  };
-
   const router = useRouter();
+  const currentArtist: ArtistTypes = artists.find(
+    (artist: any) => artist.artist_id.toString() === id.toString(),
+  );
   const {
     artistData: formData,
     setArtistData: setFormData,
     status,
     setStatus,
-    initialArtistState,
+    setSocialLinkState: setSocialMediaValues,
+    socialLinkState: socialMediaValues,
+    genreArray, 
+    genreValue, 
   } = useMusicFormStore();
-  const currentArtist: ArtistTypes = artists.find(
-    (artist: any) => artist.artist_id.toString() === id.toString(),
-  );
-  console.log(currentArtist);
-  useEffect(() => {
+  const setGenreValue = (genreValue) => useMusicFormStore.setState({genreValue})
+  const setGenreArray = (genreArray) => useMusicFormStore.setState({genreArray})
+  const setData = () => {
     setStatus("loadingInitialState");
     setFormData(currentArtist);
     setGenreArray(currentArtist?.genres!)
-    setSocialMediaArray([currentArtist.social_media_links])
+    setSocialMediaValues(currentArtist?.social_media_links as SocialMediaLinkTypes)
     setStatus("ready");
-  }, [currentArtist]);
+  }
+  
+//console.log(genreArray);
+  const handleGenreChange = (event) => {
+    setGenreValue(event.target.value);
+  };
+
+  const handleSocialMediaUpdate = (event) => {
+    setSocialMediaValues({...socialMediaValues, [event.target.name]: event.target.value})
+  };
+  const handleInputKeyPress = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent the default behavior (form submission)
+      if (genreValue.trim() !== "") {
+        setGenreArray((prevArray: string[]) => [...prevArray, genreValue]);
+        setGenreValue(""); // Clear the input field
+      }
+    }
+  };
   const handleChange = (e: { target: { name: any; value: any } }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  useEffect(() => {
+  setData()
+  }, [currentArtist]);
+ 
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-
-
     e.preventDefault();
     try {
-
-     
       const artists: ArtistTypes = {
         artist_id: currentArtist.artist_id!!,
         artist_name: formData.artist_name, // Map the artist_name to the form input
@@ -68,23 +68,19 @@ console.log(socialMediaArray)
         image_url: currentArtist?.image_url!,
         contact_email: formData.contact_email,
         contact_phone: formData.contact_phone, // You may add the contact_phone field to match the sample data
-        social_media_links: socialMediaArray,
+        social_media_links: socialMediaValues,
         discography: null,
       };
       // Assuming you have a function to post the artists data
-      const res = await updateArtist({ updates: artists });
-
-      // Simulate a successful response for demonstration
-      //  const res = { ok: true };
+      const res  = await updateArtist({ updates: artists });
 
       if (res?.ok) {
         setStatus("success");
-        // store.setOpen(false)
         toast.success("Your message was sent successfully");
         router.refresh();
       }
 
-      setFormData(initialArtistState);
+      setData();
     } catch (err) {
       setStatus("error");
       console.log("Error sending email. Please try again later.");
@@ -204,7 +200,7 @@ console.log(socialMediaArray)
               type="text"
               id="spotify_url"
               name="spotify_url"
-             value={socialMediaArray[0]?.spotify_url || ""}
+             value={socialMediaValues?.spotify_url || ""}
               onChange={handleSocialMediaUpdate}
             //   required
             />
@@ -221,7 +217,7 @@ console.log(socialMediaArray)
               type="text"
               id="applemusic_url"
               name="applemusic_url"
-              value={socialMediaArray[0]?.applemusic_url|| ""}
+              value={socialMediaValues?.applemusic_url|| ""}
               onChange={handleSocialMediaUpdate}
               // required
             />
@@ -238,7 +234,7 @@ console.log(socialMediaArray)
               type="text"
               id="instagram_url"
               name="instagram_url"
-              value={socialMediaArray[0]?.instagram_url || ""}
+              value={socialMediaValues?.instagram_url || ""}
               onChange={handleSocialMediaUpdate}
               //  required
             />
@@ -255,7 +251,7 @@ console.log(socialMediaArray)
               type="text"
               id="x_url"
               name="x_url"
-              value={socialMediaArray[0]?.x_url || ""}
+              value={socialMediaValues?.x_url || ""}
               onChange={handleSocialMediaUpdate}
               //  required
             />
@@ -272,7 +268,7 @@ console.log(socialMediaArray)
               type="text"
               id="soundcloud_url"
               name="soundcloud_url"
-              value={socialMediaArray[0]?.soundcloud_url || ""}
+              value={socialMediaValues?.soundcloud_url || ""}
               onChange={handleSocialMediaUpdate}
               //  required
             />

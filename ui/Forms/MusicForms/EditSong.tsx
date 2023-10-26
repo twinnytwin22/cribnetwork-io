@@ -7,7 +7,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect } from "react";
 import { toast } from "react-toastify";
-import { ArtistTypes, UploadSongTypes, useMusicFormStore } from "./store";
+import { useMusicFormStore } from "./store";
+import { ArtistTypes, UploadSongTypes } from "./types";
 const EditSongForm = ({ artists, id, songs }) => {
   const {
     initialState,

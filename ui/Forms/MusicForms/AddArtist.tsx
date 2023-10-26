@@ -1,39 +1,50 @@
-import { useContactButtonStore } from "@/ui/Buttons/ContactButton/contactButtonStore";
 import { addMewArtist } from "@/utils/db";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect } from "react";
 import { toast } from "react-toastify";
-import { handleRemoveGenre } from "./actions";
+import { useMusicFormStore } from "./store";
 
 const AddArtistForm = () => {
-  const [formData, setFormData] = useState<any | null>({
-    email: "",
-    subject: "",
-    message: "",
-    artist_name: "", // New field: Artist Name
-    genres: [], // New field: Genre
-    biography: "",
-    contact_phone: "", // New field: Biography
-  });
-  const [status, setStatus] = useState("");
-  const store = useContactButtonStore();
+
+  const {
+    artistData: formData,
+    setArtistData: setFormData,
+    status,
+    setStatus,
+    setSocialLinkState: setSocialMediaValues,
+    socialLinkState: socialMediaValues,
+    genreArray,
+    genreValue,
+    initialArtistState,
+
+  } = useMusicFormStore()
+  const setGenreValue = (genreValue) => useMusicFormStore.setState({ genreValue })
+  const setGenreArray = (genreArray) => useMusicFormStore.setState({ genreArray })
+
+  useEffect(() => {
+    setFormData(initialArtistState)
+  },[])
+  const handleSocialMediaUpdate = (event) => {
+    setSocialMediaValues({ ...socialMediaValues, [event.target.name]: event.target.value })
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleGenreChange = (e) => {
-    const value = e.target.value;
-    if (value.trim() !== "") {
-      setFormData((prevData) => ({
-        ...prevData,
-        genres: [...prevData.genres, value],
-      }));
+  const handleGenreChange = (event) => {
+    setGenreValue(event.target.value);
+  };
+
+  const handleInputKeyPress = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent the default behavior (form submission)
+      if (genreValue.trim() !== "") {
+        setGenreArray((prevArray: string[]) => [...prevArray, genreValue]);
+        setGenreValue(""); // Clear the input field
+      }
     }
   };
 
-  const handleClose = () => {
-    store.setOpen(false);
-  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,37 +53,22 @@ const AddArtistForm = () => {
         {
           //artist_id: 1,
           artist_name: formData.artist_name, // Map the artist_name to the form input
-          genres: formData.genres, // Map the genre to the form input
+          genres: genreArray, // Map the genre to the form input
           biography: formData.biography, // Map the biography to the form input
           image_url: null,
-          contact_email: formData.email,
+          contact_email: formData.contact_email,
           contact_phone: formData.contact_phone, // You may add the contact_phone field to match the sample data
-          social_media_links: null,
+          social_media_links: socialMediaValues,
           discography: null,
         },
       ];
-
-      // Assuming you have a function to post the artists data
       const res = await addMewArtist({ updates: artists });
-
-      // Simulate a successful response for demonstration
-      //  const res = { ok: true };
-
       if (res.ok) {
         setStatus("success");
-        store.setOpen(false);
         toast.success("Your message was sent successfully");
       }
 
-      setFormData({
-        email: "",
-        subject: "",
-        message: "",
-        artist_name: "",
-        genres: [],
-        biography: "",
-        contact_phone: "", // Include contact_phone in the state
-      });
+      setFormData(initialArtistState);
     } catch (err) {
       setStatus("error");
       console.log("Error sending email. Please try again later.");
@@ -100,7 +96,7 @@ const AddArtistForm = () => {
             type="email"
             id="email"
             name="email"
-            value={formData.email}
+            value={formData?.contact_email || ''}
             onChange={handleChange}
             required
           />
@@ -118,9 +114,9 @@ const AddArtistForm = () => {
             type="text"
             id="artist_name"
             name="artist_name"
-            value={formData.artist_name}
+            value={formData.artist_name || ''}
             onChange={handleChange}
-            //  required
+          //  required
           />
         </div>
         <div>
@@ -133,27 +129,16 @@ const AddArtistForm = () => {
           <input
             className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 "
             type="text"
-            id="genre"
-            name="genre"
-            value="" // Clear the input value
+            value={genreValue || ''}
             onChange={handleGenreChange}
+            onKeyDown={handleInputKeyPress}
+            placeholder="Press Enter to add a string"
           />
-          <div>
-            {formData.genres.map((genre, index) => (
-              <span
-                key={index}
-                className="inline-block bg-red-100 text-red-600 px-2 py-1 m-1 rounded-full"
-              >
-                {genre}
-                <button
-                  type="button"
-                  onClick={() => handleRemoveGenre(index, setFormData)}
-                >
-                  Remove
-                </button>
-              </span>
+          <ul className="flex space-x-2">
+            {genreArray.map((str, index) => (
+              <li key={index}>{str}</li>
             ))}
-          </div>
+          </ul>
         </div>
 
         <div>
@@ -168,7 +153,7 @@ const AddArtistForm = () => {
             type="text"
             id="contact_phone"
             name="contact_phone"
-            value={formData.contact_phone}
+            value={formData?.contact_phone || ''}
             onChange={handleChange}
             required
           />
@@ -185,12 +170,98 @@ const AddArtistForm = () => {
             className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border h-full dark:text-white border-zinc-300 dark:border-zinc-600 text-black text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring focus:border block w-full p-2.5 required"
             name="biography"
             id="biography"
-            value={formData.biography}
+            value={formData?.biography || ''}
             onChange={handleChange}
             required
           />
         </div>
-
+        <ul className="space-y-4">
+          <li className="mb-2">
+            <label
+              htmlFor="spotify_url"
+              className="block mb-2 text-sm text-black dark:text-white"
+            >
+              Spotify Artist Page URL
+            </label>
+            <input
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 required"
+              type="text"
+              id="spotify_url"
+              name="spotify_url"
+              value={socialMediaValues?.spotify_url || ""}
+              onChange={handleSocialMediaUpdate}
+            //   required
+            />
+          </li>
+          <li className="mb-2">
+            <label
+              htmlFor="applemusic_url"
+              className="block mb-2 text-sm text-black dark:text-white"
+            >
+              Apple Music URL
+            </label>
+            <input
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 required"
+              type="text"
+              id="applemusic_url"
+              name="applemusic_url"
+              value={socialMediaValues?.applemusic_url || ""}
+              onChange={handleSocialMediaUpdate}
+            // required
+            />
+          </li>
+          <li className="mb-2">
+            <label
+              htmlFor="instagram_url"
+              className="block mb-2 text-sm text-black dark:text-white"
+            >
+              Instagram URL
+            </label>
+            <input
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 required"
+              type="text"
+              id="instagram_url"
+              name="instagram_url"
+              value={socialMediaValues?.instagram_url || ""}
+              onChange={handleSocialMediaUpdate}
+            //  required
+            />
+          </li>
+          <li className="mb-2">
+            <label
+              htmlFor="x_url"
+              className="block mb-2 text-sm text-black dark:text-white"
+            >
+              X URL
+            </label>
+            <input
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 required"
+              type="text"
+              id="x_url"
+              name="x_url"
+              value={socialMediaValues?.x_url || ""}
+              onChange={handleSocialMediaUpdate}
+            //  required
+            />
+          </li>
+          <li className="mb-2">
+            <label
+              htmlFor="soundcloud_url"
+              className="block mb-2 text-sm text-black dark:text-white"
+            >
+              Soundcloud URL
+            </label>
+            <input
+              className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 required"
+              type="text"
+              id="soundcloud_url"
+              name="soundcloud_url"
+              value={socialMediaValues?.soundcloud_url || ""}
+              onChange={handleSocialMediaUpdate}
+            //  required
+            />
+          </li>
+        </ul>
         <div className="flex space-x-3">
           <button
             type="submit"
@@ -198,7 +269,7 @@ const AddArtistForm = () => {
           >
             Add Artist
           </button>
-        
+
         </div>
         {status === "error" && <p>Error sending email, please try again.</p>}
       </form>

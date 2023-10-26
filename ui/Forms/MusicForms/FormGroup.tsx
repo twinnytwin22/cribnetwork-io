@@ -45,7 +45,6 @@ function FormGroup({ artists, songs }) {
     artists &&
     songs && (
       <div className="max-w-5xl mx-auto relative">
-     
         <div className="flex space-x-3 ">
           <div className="text-sm font-medium text-center border-b dark:border-zinc-700 mx-8">
             <ul className="flex flex-wrap -mb-px ">

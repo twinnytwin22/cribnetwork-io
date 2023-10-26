@@ -2,7 +2,7 @@ import { useHandleOutsideClick } from "@/lib/hooks/handleOutsideClick";
 import { allGenres } from "@/lib/site/allGenres";
 import { addNewSong, downloadFile, uploadFile } from "@/utils/db";
 import Image from "next/image";
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent, FormEvent, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useMusicFormStore } from "./store";
 
@@ -24,6 +24,11 @@ const UploadSongForm = ({ artists }) => {
     setImagePreview,
     setImagePreviewOpen,
   } = useMusicFormStore();
+  
+
+  useEffect(() => {
+    setFormData(initialState)
+  },[])
 
   const handleLoadedMetadata = (event: ChangeEvent<HTMLAudioElement>) => {
     const audio = event.target;
