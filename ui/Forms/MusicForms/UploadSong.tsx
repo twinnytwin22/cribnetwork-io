@@ -1,7 +1,7 @@
 import { useHandleOutsideClick } from "@/lib/hooks/handleOutsideClick";
 import { allGenres } from "@/lib/site/allGenres";
 import { filmMoods } from "@/lib/site/allMoods";
-import { addNewSong, downloadFile, uploadFile } from "@/utils/db";
+import { addNewSong, uploadFile } from "@/utils/db";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect } from "react";
@@ -76,9 +76,8 @@ const UploadSongForm = ({ artists }) => {
   //console.log(formData);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const selectedArtist = artists.find(
-      (artist) => artist.artist_id === formData.artist_id,
-    );
+    const selectedArtist = artists.find((artist) => artist.artist_id === formData.artist_id);
+
 
     const updates = {
       //song_id: "",
@@ -88,7 +87,7 @@ const UploadSongForm = ({ artists }) => {
       release_year: formData?.release_year,
       genres: genreArray,
       lyrics: formData?.lyrics,
-      artist_name: selectedArtist?.artist_name,
+      artist_name: selectedArtist?.artist_name!!,
       music_file_url: formData?.music_file_url,
       duration: formData?.duration,
       moods: moodArray,
@@ -102,18 +101,18 @@ const UploadSongForm = ({ artists }) => {
         setStatus("success");
         //setFormData(initialState);
         toast.success("Your message was sent successfully");
-        router.back();
       }
     } catch (err) {
       setStatus("error");
       console.error("Error sending uploading song. Please try again later.");
     } finally {
-      const audio = await downloadFile({ path: musicFile, bucket: "tracks" });
-      if (audio) {
-        setAudioSrc(audio);
-        setMusicFile(""); // Reset the music file state
-      }
-    }
+    //   const audio = await downloadFile({ path: formData?.music_file_url, bucket: "tracks" });
+    //   if (audio) {
+    //     setAudioSrc(audio);
+    //     setMusicFile(""); // Reset the music file state
+    //   }
+  router.back()  
+  }
   };
 
   const handleSongUpload = async (e: any) => {
