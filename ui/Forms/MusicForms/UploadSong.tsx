@@ -33,7 +33,7 @@ const UploadSongForm = ({ artists }) => {
   //const setGenreValue = (genreValue) => useMusicFormStore.setState({ genreValue })
   const setGenreArray = (genreArray) =>
     useMusicFormStore.setState({ genreArray });
-  const setMoodValue = (moodValue) => useMusicFormStore.setState({ moodValue });
+  ///const setMoodValue = (moodValue) => useMusicFormStore.setState({ moodValue });
   const setMoodArray = (moodArray) => useMusicFormStore.setState({ moodArray });
   useEffect(() => {
     setFormData(initialState);
@@ -192,7 +192,7 @@ const UploadSongForm = ({ artists }) => {
 
     }
   };
-console.log(formData)
+//console.log(formData)
   return (
     <div
       className="w-full p-8 mx-auto z-[100] h-full isolate relative"
