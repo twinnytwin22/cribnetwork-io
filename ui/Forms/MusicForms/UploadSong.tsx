@@ -76,7 +76,7 @@ const UploadSongForm = ({ artists }) => {
   //console.log(formData);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const selectedArtist = artists.find((artist) => artist.artist_id === formData.artist_id);
+    const selectedArtist = artists.find((artist) => Number(artist.artist_id) === Number(formData.artist_id));
 
 
     const updates = {
