@@ -207,7 +207,7 @@ function DashboardSidebar() {
     >
       <div className="overflow-y-auto py-5 px-3 h-full ">
         {profile && (
-          <div className="scale-75 -ml-2 hidden lg:block">
+          <div className="scale-75 -ml-2 hidden font-owners tracking-widest lg:block">
             <PortalPageTitle
               title={`Hello, ${profile.full_name}`}
               subtitle={user.email}

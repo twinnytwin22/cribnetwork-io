@@ -46,7 +46,7 @@ function FormGroup({ artists, songs }) {
     songs && (
       <div className="max-w-5xl mx-auto relative">
         <div className="flex space-x-3 ">
-          <div className="text-sm font-medium text-center border-b dark:border-zinc-700 mx-8">
+          <div className="text-sm font-normal text-center border-b dark:border-zinc-700 mx-8">
             <ul className="flex flex-wrap -mb-px ">
               <li className="mr-2">
                 <Link
@@ -104,11 +104,11 @@ function FormGroup({ artists, songs }) {
         {homeProps.includes(mode) && !edit && (
           <div className="space-y-4 p-8">
             <div>
-              <h2 className="text-semibold font-owners text-lg">Artists</h2>
+              <h2 className="font-bold font-owners text-lg">Artists</h2>
               <ArtistsTable {...queryProps} />
             </div>
             <div>
-              <h2 className="text-semibold font-owners text-lg">Songs</h2>
+              <h2 className="font-bold font-owners text-lg">Songs</h2>
               <SongsTable {...queryProps} />
             </div>
           </div>
@@ -159,7 +159,7 @@ const ArtistsTable = ({
         <div className="table-container overflow-x-auto w-full">
 
           <table className="w-full text-sm text-left text-zinc-500 dark:text-zinc-400">
-            <thead className="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-400">
+            <thead className="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-400 font-owners tracking-widest">
               <tr>
                 <th scope="col" className="px-4 py-3">
                   Artist Name
@@ -181,22 +181,22 @@ const ArtistsTable = ({
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className=" font-work-sans text-xs">
               {artists.map((artist) => (
                 <tr
                   className="border-b dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-black text-xs md:text-sm min-w-full"
                   key={artist.artist_id}
                 >
-                  <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                  <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
                     {artist.artist_name}
                   </td>
-                  <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                  <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
                     {artist.genres.toString()}
                   </td>
-                  <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                  <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
                     {artist.contact_email}
                   </td>
-                  <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                  <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
                     {artist.contact_phone}
                   </td>
                   <td
@@ -209,12 +209,12 @@ const ArtistsTable = ({
                         `id=${artist.artist_id}`
                       );
                     }}
-                    className="px-4 py-2 hover:underline font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
+                    className="px-4 py-2 hover:underline font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
                   >
                     Edit
                   </td>
                   <td onClick={() => handleDeleteArtist(artist.artist_id)}
-                    className="px-4 py-2 hover:underline font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
+                    className="px-4 py-2 hover:underline font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
                   >
                     <FaTrash />
                   </td>
@@ -249,7 +249,7 @@ const SongsTable = ({ router, pathname, createQueryString, songs }) => {
       <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
         <div className="table-container overflow-x-auto w-full">
           <table className="w-full text-sm text-left text-zinc-500 dark:text-zinc-400">
-            <thead className="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-400">
+            <thead className="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-400 font-owners tracking-widest">
               <tr>
                 <th scope="col" className="px-4 py-3">
                   Title
@@ -271,22 +271,22 @@ const SongsTable = ({ router, pathname, createQueryString, songs }) => {
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className=" font-work-sans text-xs">
               {songs.map((song) => (
                 <tr
                   className="border-b dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-black text-xs md:text-sm min-w-full"
                   key={song.song_id}
                 >
-                  <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                  <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
                     {song.title}
                   </td>
-                  <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                  <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
                     {song.artist_name}
                   </td>
-                  <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                  <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
                     {song.release_year}
                   </td>
-                  <td className="px-4 py-2 font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                  <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
                     {song.music_file_url.length > 1 ? <FcCheckmark /> : <FcCancel />}
                   </td>
                   <td
@@ -299,12 +299,12 @@ const SongsTable = ({ router, pathname, createQueryString, songs }) => {
                         `id=${song.song_id}`
                       );
                     }}
-                    className="px-4 py-2 hover:underline font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
+                    className="px-4 py-2 hover:underline font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
                   >
                     Edit
                   </td>
                   <td onClick={() => handleDeleteSong(song.song_id, song.music_file_url)}
-                    className="px-4 py-2 hover:underline font-medium text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
+                    className="px-4 py-2 hover:underline font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
                   >
                     <FaTrash />
                   </td>
