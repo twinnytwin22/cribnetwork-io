@@ -232,7 +232,7 @@ const SongsTable = ({ router, pathname, createQueryString, songs }) => {
 
   const handleDeleteSong = async (songId, path) => {
     try {
-      let { error } = await supabaseAdmin.from('songs').delete().eq('song_id', songId)
+      let { error } = await supabaseAdmin.from('songs').delete().eq('id', songId)
       if(error){
         throw new Error(JSON.stringify(error))
       }
@@ -275,7 +275,7 @@ const SongsTable = ({ router, pathname, createQueryString, songs }) => {
               {songs.map((song) => (
                 <tr
                   className="border-b dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-black text-xs md:text-sm min-w-full"
-                  key={song.song_id}
+                  key={song.id}
                 >
                   <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
                     {song.title}
@@ -296,14 +296,14 @@ const SongsTable = ({ router, pathname, createQueryString, songs }) => {
                         "?" +
                         createQueryString("edit", "song") +
                         "&" +
-                        `id=${song.song_id}`
+                        `id=${song.id}`
                       );
                     }}
                     className="px-4 py-2 hover:underline font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
                   >
                     Edit
                   </td>
-                  <td onClick={() => handleDeleteSong(song.song_id, song.music_file_url)}
+                  <td onClick={() => handleDeleteSong(song.id, song.music_file_url)}
                     className="px-4 py-2 hover:underline font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
                   >
                     <FaTrash />

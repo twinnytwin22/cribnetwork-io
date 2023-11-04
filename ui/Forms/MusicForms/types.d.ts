@@ -23,7 +23,7 @@ export interface ArtistTypes {
 }
 
 export interface UploadSongTypes {
-  song_id?: string | number;
+  id?: string | number;
   title: string;
   artist_id: number | string;
   album?: string;

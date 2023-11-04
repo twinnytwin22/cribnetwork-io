@@ -22,7 +22,7 @@ export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
   },
 
   initialState: {
-    song_id: "",
+    id: "",
     title: "",
     artist_id: "",
     album: "",
@@ -38,7 +38,7 @@ export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
     has_lyrics: false,
   },
   formData: {
-    song_id: "",
+    id: "",
     title: "",
     artist_id: "",
     album: "",
