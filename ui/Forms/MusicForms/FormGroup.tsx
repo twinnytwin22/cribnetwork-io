@@ -141,7 +141,7 @@ const ArtistsTable = ({
 
   const handleDeleteArtist = async (artistId) => {
     try {
-      let { error } = await supabaseAdmin.from('artists').delete().eq('artist_id', artistId)
+      let { error } = await supabaseAdmin.from('artists').delete().eq('id', artistId)
       if(error){
         throw new Error(JSON.stringify(error))
       }
@@ -185,7 +185,7 @@ const ArtistsTable = ({
               {artists.map((artist) => (
                 <tr
                   className="border-b dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-black text-xs md:text-sm min-w-full"
-                  key={artist.artist_id}
+                  key={artist.id}
                 >
                   <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
                     {artist.artist_name}
@@ -206,14 +206,14 @@ const ArtistsTable = ({
                         "?" +
                         createQueryString("edit", "artist") +
                         "&" +
-                        `id=${artist.artist_id}`
+                        `id=${artist.id}`
                       );
                     }}
                     className="px-4 py-2 hover:underline font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
                   >
                     Edit
                   </td>
-                  <td onClick={() => handleDeleteArtist(artist.artist_id)}
+                  <td onClick={() => handleDeleteArtist(artist.id)}
                     className="px-4 py-2 hover:underline font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
                   >
                     <FaTrash />

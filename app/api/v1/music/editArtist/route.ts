@@ -1,18 +1,18 @@
-import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
+import { NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 //export const dynamic = 'force-dynamic'
 export async function POST(request: Request) {
   const { updates, artistId } = await request.json();
-  const { artist_id } = updates;
+  const { id } = updates;
   try {
     if (request.method === "POST") {
       const { data: artist, error } = await supabaseAdmin
         .from("artists")
         .update(updates)
-        .eq("artist_id", artist_id || artistId)
+        .eq("id", id || artistId)
         .select()
         .single();
       //.eq('student_id', userId)

@@ -76,7 +76,7 @@ const UploadSongForm = ({ artists }) => {
   //console.log(formData);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const selectedArtist = artists.find((artist) => Number(artist.artist_id) === Number(formData.artist_id));
+    const selectedArtist = artists.find((artist) => artist.id === formData.artist_id);
 
 
     const updates = {
@@ -289,7 +289,7 @@ const UploadSongForm = ({ artists }) => {
                   Select an artist
                 </option>
                 {artists.map((artist) => (
-                  <option key={artist.artist_id} value={artist.artist_id}>
+                  <option key={artist.id} value={artist.id}>
                     {artist.artist_name}
                   </option>
                 ))}

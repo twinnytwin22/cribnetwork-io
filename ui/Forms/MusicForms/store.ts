@@ -10,7 +10,7 @@ export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
   initialArtistState: {
     discography: null,
     social_media_links: null,
-    artist_id: "",
+    id: "",
     image_url: "",
     contact_email: "",
     subject: "",
@@ -58,7 +58,7 @@ export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
     social_media_links: null,
 
     image_url: "",
-    artist_id: "",
+    id: "",
     contact_email: "",
     subject: "",
     message: "",

@@ -11,7 +11,7 @@ import { ArtistTypes, SocialMediaLinkTypes } from "./types";
 const EditArtistForm = ({ artists, id, songs }) => {
   const router = useRouter();
   const currentArtist: ArtistTypes = artists.find(
-    (artist: any) => artist.artist_id.toString() === id.toString(),
+    (artist: any) => artist.id.toString() === id.toString(),
   );
   const {
     artistData: formData,
@@ -102,7 +102,7 @@ const EditArtistForm = ({ artists, id, songs }) => {
     e.preventDefault();
     try {
       const artists: ArtistTypes = {
-        artist_id: currentArtist.artist_id!!,
+        id: currentArtist.id!!,
         artist_name: formData.artist_name, // Map the artist_name to the form input
         genres: genreArray, // Map the genre to the form input
         biography: formData.biography, // Map the biography to the form input

@@ -8,7 +8,7 @@ export interface SocialMediaLinkTypes {
 }
 
 export interface ArtistTypes {
-  artist_id: string | number;
+  id: string | number;
   discography: string | any;
   image_url: string;
   contact_email?: string;

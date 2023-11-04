@@ -77,7 +77,7 @@ export const addMewArtist = async ({ updates }: any) => {
 };
 
 export const updateArtist = async ({ updates }: any) => {
-  const { artist_id: artistId } = updates;
+  const { id: artistId } = updates;
   try {
     const res = await fetch(`/api/v1/music/editArtist`, {
       method: "POST",

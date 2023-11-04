@@ -53,7 +53,7 @@ const EditSongForm = ({ artists, id, songs }) => {
     }
   };
   const currentSong: UploadSongTypes = songs.find(
-    (song: any) => song.song_id.toString() === id.toString(),
+    (song: any) => song.id.toString() === id.toString(),
   );
   const router = useRouter();
   useEffect(() => {
@@ -112,7 +112,7 @@ const EditSongForm = ({ artists, id, songs }) => {
   //console.log(formData)
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const selectedArtist = artists.find((artist) => Number(artist.artist_id) === Number(formData.artist_id));
+    const selectedArtist = artists.find((artist) => artist.id === formData.artist_id);
 
     const updates = {
       ...formData,
@@ -120,7 +120,6 @@ const EditSongForm = ({ artists, id, songs }) => {
       artist_name: selectedArtist?.artist_name,
       genres: genreArray,
       moods: moodArray
-      //song_id: new Number(formData.song_id) // Set the music_file_url
     };
 
     try {
@@ -313,7 +312,7 @@ const EditSongForm = ({ artists, id, songs }) => {
                 Select an artist
               </option>
               {artists.map((artist) => (
-                <option key={artist.artist_id} value={artist.artist_id}>
+                <option key={artist.id} value={artist.id}>
                   {artist.artist_name}
                 </option>
               ))}
