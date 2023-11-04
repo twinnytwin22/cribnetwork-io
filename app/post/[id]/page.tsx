@@ -1,5 +1,5 @@
 import { getBlogPosts, imageBuilder } from "@/lib/providers/sanity/sanity";
-import ArticleComponent from "@/ui/Components/ArticleComponent/ArticleComponent";
+import ArticleComponent from "@/ui/Components/ArticleComponent";
 import type { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 
