@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect } from "react";
+import { FaDeleteLeft } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { useMusicFormStore } from "./store";
 import { UploadSongTypes } from "./types";
@@ -210,8 +211,8 @@ const EditSongForm = ({ artists, id, songs }) => {
   const handleSongTypeChange = (e) => {
 
     const {value} = e.target
-
-    if(value ==='instrumental-lyrics'){
+    
+    if(value ==='lyrics-instrumental'){
       setFormData({...formData, has_lyrics: true, instrumental: false })
     }
 
@@ -219,6 +220,8 @@ const EditSongForm = ({ artists, id, songs }) => {
       setFormData({...formData, has_lyrics: false, instrumental: true })
 
     }
+
+    console.log(value, formData, "FORMDATA")
   };
   return (
     <div className="w-full p-8 mx-auto z-[100] h-full isolate relative font-work-sans">
@@ -426,9 +429,9 @@ const EditSongForm = ({ artists, id, songs }) => {
                 Genres (select up to 3)
               </label>
               {genreArray?.map((genre) => (
-                <div className="text-xs font-work-sans" key={genre}>
+                <div className="text-xs font-work-sans items-center h-fit flex" key={genre}>
                   {genre}{" "}
-                  <button role="button" onClick={() => removeGenre(genre)}>Remove</button>
+                  <button role="button"  className="text-lg ml-2" onClick={() => removeGenre(genre)}><FaDeleteLeft/></button>
                 </div>
               ))}
             </div>
@@ -452,7 +455,7 @@ const EditSongForm = ({ artists, id, songs }) => {
           </div>
 
         </div>
-        <div className="relative flex items-center justify-between gap-4">
+        <div className="relative flex items-center justify-between gap-4 h-fit">
           <div className="w-full">
             <div className="flex space-x-4 items-center">
               <label
@@ -462,10 +465,10 @@ const EditSongForm = ({ artists, id, songs }) => {
                 Moods (select up to 3)
               </label>
               {moodArray?.map((mood) => (
-                <div className="text-xs font-work-sans" key={mood}>
+                <div className="text-xs font-work-sans items-center h-fit flex" key={mood}>
 
                   {mood}{" "}
-                  <button role="button" onClick={() => removeMood(mood)}>Remove</button>
+                  <button role="button" className="text-lg ml-2" onClick={() => removeMood(mood)}><FaDeleteLeft/></button>
                 </div>
               ))}
             </div>
@@ -497,6 +500,7 @@ const EditSongForm = ({ artists, id, songs }) => {
               name="song-type"
               id="instrumental"
               type="radio"
+              checked={formData?.instrumental}
               className="w-4 h-4 text-blue-600 bg-zinc-100 border-zinc-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-zinc-800 focus:ring-2 dark:bg-zinc-700 dark:border-zinc-600"
               value={"instrumental"}
             />
@@ -513,6 +517,7 @@ const EditSongForm = ({ artists, id, songs }) => {
               name="song-type"
               id="lyrics-instrumental"
               type="radio"
+              checked={formData?.has_lyrics}
               className="w-4 h-4 text-blue-600 bg-zinc-100 border-zinc-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-zinc-800 focus:ring-2 dark:bg-zinc-700 dark:border-zinc-600"
               value={"lyrics-instrumental"}
             />

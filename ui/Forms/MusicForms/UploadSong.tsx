@@ -14,8 +14,8 @@ const UploadSongForm = ({ artists }) => {
     initialState,
     formData,
     setFormData,
-    musicFile,
-    setMusicFile,
+    // musicFile,
+    // setMusicFile,
     status,
     setStatus,
     audioSrc,
@@ -36,6 +36,8 @@ const UploadSongForm = ({ artists }) => {
   ///const setMoodValue = (moodValue) => useMusicFormStore.setState({ moodValue });
   const setMoodArray = (moodArray) => useMusicFormStore.setState({ moodArray });
   useEffect(() => {
+    setAudioSrc(null)
+    setImagePreview(null)
     setFormData(initialState);
     setGenreArray([]);
     setMoodArray([]);
