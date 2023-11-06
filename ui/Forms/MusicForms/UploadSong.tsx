@@ -80,7 +80,6 @@ const UploadSongForm = ({ artists }) => {
 
 
     const updates = {
-      //song_id: "",
       title: formData?.title,
       artist_id: formData?.artist_id,
       album: formData?.album,
