@@ -94,6 +94,8 @@ function BuildGrantForm() {
       } catch (err) {
         setStatus("error");
         console.log("Error sending email. Please try again later.");
+      } finally {
+        router.refresh()
       }
     }
   };

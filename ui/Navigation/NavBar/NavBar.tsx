@@ -112,7 +112,7 @@ function NavBar({ settings }: { settings: any }) {
                   </div>
                   {/* Submenu */}
                   <div
-                    className={`absolute left-0 mt-2 w-48 bg-white dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg shadow-lg ${isSubMenuOpen
+                    className={` font-work-sans absolute left-0 mt-2 w-48 bg-white dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg shadow-lg ${isSubMenuOpen
                         ? "opacity-100 visible"
                         : "opacity-0 invisible"
                       } transition duration-300`}
@@ -128,6 +128,12 @@ function NavBar({ settings }: { settings: any }) {
                       className="block px-4 py-2 text-zinc-900 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:text-zinc-500 dark:hover:bg-transparent"
                     >
                       Digital Marketing
+                    </Link>
+                    <Link
+                      href="/music"
+                      className="block px-4 py-2 text-zinc-900 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:text-zinc-500 dark:hover:bg-transparent"
+                    >
+                      Music Services
                     </Link>
                     <Link
                       href="/technical-support"
