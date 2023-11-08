@@ -22,7 +22,7 @@ function HomeHeader() {
     const image = '/site_images/globe-big_logo.svg'
     const imageLight = '/site_images/globe-big_logo-black.svg'
     const bgImage = '/site_images/globe-dot-bg.svg'
-    const introP =`Welcome to Crib Music Global, where music finds its global stage. We are your one-stop destination for music licensing, administration, and supervision services. At Crib Music Global, we harmonize your creative journey with the modern world, opening doors to endless opportunities.`
+    const introP =`Welcome to Crib Music Global, where music finds its global stage. We are your one-stop destination for music licensing, administration, and supervision services. We are currently looking for musicians and composers that have amazing music. If you feel like that's you submit below!`
     return (
         <section className='min-h-[600px] h-full bg-white dark:bg-black flex items center overflow-hidden border-b border-zinc-200 dark:border-zinc-800 relative'>
             <Image
@@ -37,7 +37,7 @@ function HomeHeader() {
             />
 
             <div>
-            <div className='h-32 p-8'>
+            <div className='h-32 p-8 relative z-10'>
                 <Image
                             loader={supabaseLoader}
 

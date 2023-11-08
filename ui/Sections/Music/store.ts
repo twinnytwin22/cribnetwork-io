@@ -12,6 +12,7 @@ genreValue?: string
 initialState: any
 step: number | null
 cookieStatus: boolean
+showShare: boolean
 }
 
 
@@ -44,7 +45,8 @@ export const useSyncFormStore = create<SyncFormState>((set) => ({
     sync_interest: false,
     genreValue: "",
     step:1,
-    cookieStatus: false
+    cookieStatus: false, 
+    showShare: false
 }))
 
 

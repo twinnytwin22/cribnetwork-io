@@ -9,14 +9,15 @@ import Overview from "@/ui/Sections/Overview";
 import Services from "@/ui/Sections/Services";
 import SocialProof from "@/ui/Sections/SocialProof";
 import { getSiteImage } from "@/utils/use-server";
-import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa6";
 
 const metaImage = getSiteImage("/share.png");
-export const metadata: Metadata = {
+export const metadata = {
+  metadataBase: new URL('https://cribnetwork.io'),
+
   openGraph: {
     title: "CRIB | Digital Services",
     description: "Innovating the Digital Experience.",

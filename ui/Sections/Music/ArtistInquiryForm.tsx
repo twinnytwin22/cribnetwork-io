@@ -6,9 +6,11 @@ import { setArtistInquiryCookie } from "@/lib/site/cookies/cookie-setter";
 import { checkArtistInquirySubmission } from "@/utils/db";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { FaBell, FaCookie, FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa6";
+import { BsShare } from "react-icons/bs";
+import { FaBell, FaCookie, FaDiscord, FaInstagram, FaTwitter } from "react-icons/fa6";
 import { FiAlertCircle } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { SyncFormState, useSyncFormStore } from "./store";
@@ -16,10 +18,11 @@ const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
 const MusicianForm: React.FC = () => {
     const router = useRouter();
-    const { genres, initialState, step, cookieStatus } = useSyncFormStore();
+    const { genres, initialState, step, cookieStatus, showShare } = useSyncFormStore();
     const [formData, setFormData] = useState<SyncFormState>(initialState);
     const setGenres = (genres) => useSyncFormStore.setState({ genres });
     const setStep = (step) => useSyncFormStore.setState({ step });
+    const setShowShare = (state) => useSyncFormStore.setState({ showShare: state });
 
     const { data: artistInquiryCookie, isLoading } = useQuery({
         queryKey: ["artistInquiryCookie"],
@@ -27,11 +30,13 @@ const MusicianForm: React.FC = () => {
         //  refetchOnMount: !!!showCookieConsentBar,
         // enabled: showCookieConsentBar!!
     });
-
-    useEffect(() => {
+    const resetData = () => {
         setStep(1);
         setFormData(initialState);
         setGenres([]);
+    }
+    useEffect(() => {
+    resetData()
     }, []);
 
     const handleGenreSelect = (e) => {
@@ -83,20 +88,23 @@ const MusicianForm: React.FC = () => {
             };
             //  console.log(updates);
 
-            const res = await fetch("/api/v1/music/syncArtistInquiry", {
+            const res = await fetch("/api/submissions/syncArtistInquiry", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updates),
             });
 
-            if (res.ok) {
+            if (res) {
                 toast.success("Your submission has been sent");
                 await setArtistInquiryCookie(true);
                 setFormData(initialState);
+                setGenres([])
+                //setStep(3)
             }
         } catch (error) {
             console.log(error);
         } finally {
+                setStep(3)
             router.refresh();
         }
     };
@@ -316,7 +324,7 @@ const MusicianForm: React.FC = () => {
         const eventDates = [
             {
                 date: 'November 19th, 2023'
-            }, 
+            },
             {
                 date: 'December 3, 2023'
             }
@@ -328,64 +336,77 @@ const MusicianForm: React.FC = () => {
                 <div className="w-full max-w-xl mx-auto grid md:grid-cols-2 gap-4">
                     <div>
                         <div className="aspect-video rounded-t">
-                    <Image
-                            loader={supabaseLoader}
+                            <Image
+                                loader={supabaseLoader}
 
-                    src={image}
-                    className="aspect-video object-cover w-full h-full mx-auto rounded-t"
-                    alt="Crib Logo"
-                    width={345}
-                    height={300}
-                    priority
-                />
-                </div>
-                    <div className="border mx-auto border-zinc-300 dark:border-zinc-800 rounded-b  overflow-hidden relative bg-white dark:bg-black p-8">
-                
-                        <h2 className="text-2xl text-center font-semibold text-zinc-800 dark:text-white mb-4">
-                            Sync Sunday
-                        </h2>
-                        <h3 className="text-center font-semibold">
-                        Upcoming Date:
-                        </h3>
-                        <p className="text-sm text-center mb-6"> {eventDates[0].date}</p>
-                        <div className="flex items-center justify-center mx-auto">
-                            <button
-                                className="px-4 py-2 text-black bg-red-300 rounded hover:bg-red-400 focus:outline-none font-semibold relative ease-in-out duration-300"
-                                onClick={() => {
-                                    // Handle the action to save to the calendar
-                                }}
-                            >
-                                Save to Calendar
-                            </button>
+                                src={image}
+                                className="aspect-video object-cover w-full h-full mx-auto rounded-t"
+                                alt="Crib Logo"
+                                width={345}
+                                height={300}
+                                priority
+                            />
                         </div>
-                    </div>
+                        <div className="border mx-auto border-zinc-300 dark:border-zinc-800 rounded-b  overflow-hidden relative bg-white dark:bg-black p-8">
+
+                            <h2 className="text-2xl text-center font-semibold text-zinc-800 dark:text-white mb-4">
+                                Sync Sunday
+                            </h2>
+                            <h3 className="text-center font-semibold">
+                                Upcoming Date:
+                            </h3>
+                            <p className="text-sm text-center mb-6"> {eventDates[0].date}</p>
+                            <div className="flex items-center justify-center mx-auto">
+                                <Link href={'https://lu.ma/event/evt-kPpL1DxtCQp624U'}>
+                                    <button
+                                        className="bg-red-300 mx-auto text-black px-2.5 p-1 rounded hover:bg-red-400 text-sm font-semibold flex items-center space-x-2 duration-300 ease-in-out"
+
+                                    >
+                                        RSVP
+                                    </button></Link>
+                            </div>
+                        </div>
                     </div>
                     <div>
                         <div className="border border-zinc-300 dark:border-zinc-800 rounded overflow-hidden relative bg-white dark:bg-black p-8">
-                        <div className="mb-4">
-                        <p className="text-zinc-800 dark:text-zinc-200 mb-4">
-                            Sync Sunday is back. We'll be reviewing music live and providing feedback in the context of sync.
-                        </p>
-                            <p className="text-zinc-700 dark:text-zinc-300 mb-2">Event Dates:</p>
-                            <ul className="text-sm">
-                                {eventDates.map((eventDate) => (<li key={eventDate.date} className="mb-1">
-                                    <p className="flex items-center"><span className="mr-2 text-zinc-800 dark:text-zinc-200">
-                                       <FaBell/>
-                                    </span>
-                                    {eventDate.date}</p>
-                                </li>))}
-                              
-                                {/* Add more dates as needed */}
-                            </ul>
-                        </div>                        </div>
+                            <div
+                               
+                                className="text-black dark:text-white my-2  flex items-center space-x-2 font-bold"
+                            > Share with a friend.
+                                <BsShare className="ml-4 hover:scale-125 duration-200 ease-in-out cursor-pointer"  onClick={() => setShowShare(true)}/>
+                            </div>
+                            <div className="mb-4">
+                                <p className="text-zinc-800 dark:text-zinc-200 mb-4">
+                                    Sync Sunday is back. We'll be reviewing music live and providing feedback in the context of sync.
+                                </p>
+                                <p className="text-zinc-700 dark:text-zinc-300 mb-2">Event Dates:</p>
+                                <ul className="text-sm">
+                                    {eventDates.map((eventDate) => (<li key={eventDate.date} className="mb-1">
+                                        <p className="flex items-center"><span className="mr-2 text-zinc-800 dark:text-zinc-200">
+                                            <FaBell />
+                                        </span>
+                                            {eventDate.date}</p>
+                                    </li>))}
+
+                                    {/* Add more dates as needed */}
+                                </ul>
+                            </div>                        </div>
                         <div className="flex mx-auto items-center h-1/2 justify-center space-x-4 text-xl">
-                            <FaTwitter />
-                            <FaFacebook />
-                            <FaInstagram />
+                            <Link href={'https://x.com/cribnmusicglobal'}>
+                                <FaTwitter />
+                            </Link>
+                            <Link href={'https://discord.com/invite/2kRJmu3RYS'}>
+
+                                <FaDiscord />
+                            </Link>
+                            <Link href={'https://www.instagram.com/cribmusicglobal/'}>
+
+                                <FaInstagram />
+                            </Link>
                         </div>
                     </div>
                 </div>
-               {process.env.NODE_ENV === 'development'&& <button
+                {process.env.NODE_ENV === 'development' && <button
                     className="bg-red-300 mx-auto text-black px-2.5 p-1 rounded hover:bg-red-400 text-sm font-semibold flex items-center space-x-2"
                     type="button" onClick={() => setArtistInquiryCookie(false)}> <FaCookie />
                     DELETE COOKIE
@@ -399,6 +420,7 @@ const MusicianForm: React.FC = () => {
             {step === 1 && !hasCookie && renderStep1()}
             {step === 2 && !hasCookie && renderStep2()}
             {(step === 3 || hasCookie) && renderStep3()}
+
         </section>
     );
 };

@@ -9,6 +9,8 @@ import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 
 export const metadata = {
+  metadataBase: new URL('https://cribnetwork.io'),
+
   title: "CRIB",
   description: "Connect. Revolutionize. Innovate. Boost.",
 
@@ -17,7 +19,7 @@ export const metadata = {
   referrer: "origin-when-cross-origin",
   keywords: allKeywords,
   authors: [{ name: "Randal Herndon" }],
-  colorScheme: "dark",
+ // colorScheme: "dark",
   creator: "Randal Herndon",
   publisher: "Randal Herndon",
   formatDetection: {
