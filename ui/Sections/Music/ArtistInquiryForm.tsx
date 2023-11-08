@@ -390,8 +390,9 @@ const MusicianForm: React.FC = () => {
 
                                     {/* Add more dates as needed */}
                                 </ul>
-                            </div>                        </div>
-                        <div className="flex mx-auto items-center h-1/2 justify-center space-x-4 text-xl">
+                            </div>                        
+                            </div>
+                        <div className="flex mx-auto items-center py-4 justify-center space-x-4 text-xl">
                             <Link href={'https://x.com/cribnmusicglobal'}>
                                 <FaTwitter />
                             </Link>
