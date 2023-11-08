@@ -78,11 +78,20 @@ const EditSongForm = ({ artists, id, songs }) => {
     queryFn: () =>
       downloadFile({ path: formData.music_file_url, bucket: "tracks" }),
     enabled: !!formData && formData?.music_file_url.length > 1,
-    onSuccess: (data) => {
-      setAudioSrc(data);
-    },
+    // onSuccess: (data) => {
+    // },
     refetchOnMount: false,
   });
+
+  useEffect(() => {
+
+    if (audioSrc){
+      return
+    }
+    if(data && !audioSrc){
+      setAudioSrc(data);
+    }
+  },[data, audioSrc])
 
   //console.log(data)
 

@@ -33,7 +33,7 @@ function SiteContextProvider({ children }: { children: React.ReactNode }) {
     blockCookiesMutation.mutate(false);
     handleCloseCookieBar();
   };
-  const acceptCookiesMutation = useMutation(setCookieConsent, {
+  const acceptCookiesMutation = useMutation({mutationFn: setCookieConsent, 
     onSuccess: () => {
       // Invalidate the query to trigger a refresh of the cookieConsent data
       qc.invalidateQueries({ queryKey: ["cookieConsent"] });
@@ -41,7 +41,7 @@ function SiteContextProvider({ children }: { children: React.ReactNode }) {
   });
 
   // Mutation for blocking cookies
-  const blockCookiesMutation = useMutation(setCookieConsent, {
+  const blockCookiesMutation = useMutation({mutationFn: setCookieConsent, 
     onSuccess: () => {
       // Invalidate the query to trigger a refresh of the cookieConsent data
       qc.invalidateQueries({ queryKey: ["cookieConsent"] });

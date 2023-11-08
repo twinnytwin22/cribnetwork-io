@@ -88,6 +88,7 @@ export const AuthContextProvider = ({
         const profile = await fetchProfile(authUser.user.id);
         useAuthStore.setState({ profile });
         useAuthStore.setState({ user: authUser.user });
+        subscriptionData?.unsubscribe()
 
         return { user: authUser.user, profile };
       }
@@ -99,9 +100,7 @@ export const AuthContextProvider = ({
   const { data, isLoading } = useQuery({
     queryKey:["user", "subscription", "subscriptionData", "authListener"],
     queryFn: () => onAuthStateChange(),
-    onSuccess: (subscription) => {
-      subscription.subscription?.unsubscribe()
-    }      
+     
     });
 
   const value = useMemo(
