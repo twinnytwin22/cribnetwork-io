@@ -289,7 +289,7 @@ const MusicianForm: React.FC = () => {
                             className="flex md:items-center space-x-2 mt-2 text-sm text-zinc-500 dark:text-zinc-400"
                         >
                             <FiAlertCircle className="mr-2 w-5" />
-                            {`Please provide a public, Soundcloud, Dropbox, or Disco link. No other format will be accepted.`}
+                            {`Please provide a public, Soundcloud, Dropbox, Disco, or Personal Sync Portfolio URL. Links from streaming sites other than Soundcloud will not be accepted. `}
                         </p>
                     </div>
                     <div className="flex items-center pl-4 border border-zinc-200 rounded dark:border-zinc-700 mb-6 accent-red-300">
