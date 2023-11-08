@@ -154,11 +154,11 @@ export async function POST(req: Request) {
             }
       
             .custom-section {
+              max-width: 600px;
+              padding: 3rem;
               display: flex; /* Use flexbox to align image and content */
               background-color: black;
               color: white;
-              padding: 1rem;
-              padding-bottom: 3em;
             }
       
             .custom-section-left {

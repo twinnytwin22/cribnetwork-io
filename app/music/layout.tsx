@@ -4,9 +4,9 @@ import BlogSocialShare from "@/ui/Components/BlogSocialShare";
 import { useSyncFormStore } from "@/ui/Sections/Music/store";
 import React from "react";
 
-function layout({children}) {
+function Layout({children}) {
    const {showShare} = useSyncFormStore()
-  console.log(showShare)
+  //console.log(showShare)
   const setShowShare = (state) => useSyncFormStore.setState({ showShare: state});
   useHandleOutsideClick(showShare, setShowShare, "share-crib-music");
 
@@ -26,4 +26,4 @@ function layout({children}) {
   )
 }
 
-export default layout
+export default Layout

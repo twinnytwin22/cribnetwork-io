@@ -417,10 +417,11 @@ const MusicianForm: React.FC = () => {
 
     return (
         <section className="w-full bg-white dark:bg-zinc-950 text-black dark:text-white font-work-sans py-16">
+            <div className="px-4">
             {step === 1 && !hasCookie && renderStep1()}
             {step === 2 && !hasCookie && renderStep2()}
             {(step === 3 || hasCookie) && renderStep3()}
-
+</div>
         </section>
     );
 };
