@@ -14,3 +14,18 @@ export async function getCookieConsent() {
     return "false";
   }
 }
+
+export async function getArtistInquiryCookie() {
+  const artistInquiryCookie = getCookie("artistInquiryCookie");
+
+  if (artistInquiryCookie === "submitted") {
+    // Cookie exists, return its value
+    return new Promise((resolve) =>
+      setTimeout(() => {
+        resolve(artistInquiryCookie);
+      }, 500),
+    );
+  } else {
+    return "false";
+  }
+}

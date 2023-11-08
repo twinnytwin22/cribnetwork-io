@@ -237,3 +237,29 @@ export const uploadFile = async ({
     throw error;
   }
 };
+
+
+export const checkArtistInquirySubmission = async (email: string) => {
+  try {
+  const { data: submission, error: submissionError } = await supabaseAdmin
+  .from("form_submissions")
+  .select()
+  .match({
+    email, 
+    form_type: 'Sync Artist Inquiry'
+  })
+  .maybeSingle()
+
+  if (submission){
+    return submission
+  }
+
+  if(submissionError){
+    console.log(submissionError)
+  }
+  } catch (error) {
+    console.log(error)
+  }
+  
+
+}

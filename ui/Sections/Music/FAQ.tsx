@@ -7,7 +7,7 @@ function FAQ() {
     const [activeIndex, setActiveIndex] = useState(-1);
 
       return (
-        <div id='faq' className="py-16 p-4 select-none">
+        <div id='faq' className="py-16 p-4 select-none ">
             <h2 className="mb-4 text-4xl tracking-tight font-medium font-owners text-zinc-900 dark:text-white">FAQs.</h2>
 
           {faqs.map((faq, index) => (

@@ -1,28 +1,50 @@
 import { create } from 'zustand'
 
 export interface SyncFormState {
-name: string
+artist_name: string
 email: string
 genres: string[]
-twitter_url?: string
-instagram_url?: string
+twitter_hash?: string
+instagram_hash?: string
 playlist_url: string
-syncInterest: boolean
+sync_interest: boolean
 genreValue?: string
-
+initialState: any
+step: number | null
+cookieStatus: boolean
 }
 
 
 export const useSyncFormStore = create<SyncFormState>((set) => ({
-    name: "",
+
+    fornData: {
+        artist_name: "",
+        playlist_url: '',
+        email: "",
+        genres: [],
+        instagram_hash: "",
+        twitter_hash: '',
+        sync_interest: false,
+    },
+    initialState: {
+        artist_name: "",
+        playlist_url: '',
+        email: "",
+        genres: [],
+        instagram_hash: "",
+        twitter_hash: '',
+        sync_interest: false,
+    },
+    artist_name: "",
     playlist_url: '',
     email: "",
     genres: [],
-    instagram_url: "",
-    twitter_url: '',
-    syncInterest: false,
+    instagram_hash: "",
+    twitter_hash: '',
+    sync_interest: false,
     genreValue: "",
-
+    step:1,
+    cookieStatus: false
 }))
 
 

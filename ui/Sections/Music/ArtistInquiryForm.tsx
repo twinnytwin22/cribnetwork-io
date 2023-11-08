@@ -1,28 +1,39 @@
 "use client";
+import supabaseLoader from "@/lib/providers/supabase/image-loader";
 import { allGenres } from "@/lib/site/allGenres";
+import { getArtistInquiryCookie } from "@/lib/site/cookies/cookie-getter";
+import { setArtistInquiryCookie } from "@/lib/site/cookies/cookie-setter";
+import { checkArtistInquirySubmission } from "@/utils/db";
+import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { FaBell, FaCookie, FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa6";
 import { FiAlertCircle } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { SyncFormState, useSyncFormStore } from "./store";
+const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
 const MusicianForm: React.FC = () => {
     const router = useRouter();
-    const { genres } = useSyncFormStore();
-    const initialState = {
-        name: "",
-        playlist_url: "",
-        email: "",
-        genres: [],
-        instagram_url: "",
-        twitter_url: "",
-        syncInterest: false,
-    }
+    const { genres, initialState, step, cookieStatus } = useSyncFormStore();
     const [formData, setFormData] = useState<SyncFormState>(initialState);
-    useEffect(() => {
-        setFormData(initialState);
-    }, []);
     const setGenres = (genres) => useSyncFormStore.setState({ genres });
+    const setStep = (step) => useSyncFormStore.setState({ step });
+
+    const { data: artistInquiryCookie, isLoading } = useQuery({
+        queryKey: ["artistInquiryCookie"],
+        queryFn: getArtistInquiryCookie,
+        //  refetchOnMount: !!!showCookieConsentBar,
+        // enabled: showCookieConsentBar!!
+    });
+
+    useEffect(() => {
+        setStep(1);
+        setFormData(initialState);
+        setGenres([]);
+    }, []);
+
     const handleGenreSelect = (e) => {
         const selectedGenre = e.target.value;
 
@@ -42,35 +53,102 @@ const MusicianForm: React.FC = () => {
         const updatedGenres = genres.filter((g) => g !== genre);
         setGenres(updatedGenres);
     };
+    const handleArtistEmailCheck = async () => {
+        const email = formData.email!;
 
+        if (!email.match(emailRegex)) {
+            alert("Please provide a valid email");
+            return;
+        }
+        try {
+            const submitted = await checkArtistInquirySubmission(email);
+            if (submitted) {
+                await setArtistInquiryCookie(true);
+                setStep(3);
+            } else {
+                setStep(2);
+            }
+        } catch (error) {
+            throw error;
+        }
+    };
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         try {
-            const updates = { ...formData, genres: genres }
+            const updates = {
+                ...formData,
+                genres: genres,
+                form_type: "Sync Artist Inquiry",
+            };
+            //  console.log(updates);
 
-            // Handle form submission, e.g., sending data to your server
-            console.log(updates);
-
-            const res = await fetch('/api/music/syncArtistInquiry', {
+            const res = await fetch("/api/v1/music/syncArtistInquiry", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updates),
-              });
+            });
 
             if (res.ok) {
-                toast.success('Your submission has been sent')
-                setFormData(initialState)
+                toast.success("Your submission has been sent");
+                await setArtistInquiryCookie(true);
+                setFormData(initialState);
             }
         } catch (error) {
-            console.log(error)
+            console.log(error);
         } finally {
-            router.refresh()
+            router.refresh();
         }
     };
 
-    return (
-        <section className="w-full bg-white dark:bg-zinc-950 text-black dark:text-white font-work-sans py-16">
+    const getInitialCookieStatus = () => {
+        if (artistInquiryCookie === "submitted") {
+            return true;
+        }
+        if (cookieStatus) {
+            return true;
+        }
+        return false;
+    };
+    const hasCookie = getInitialCookieStatus();
+
+    const renderStep1 = () => {
+        return (
+            <form className="max-w-xl mx-auto p-4">
+                <h1 className="text-2xl font-medium mb-4 font-owners">
+                    Enter Email Below
+                </h1>
+                <div className="relative z-0 w-full mb-6 group">
+                    <input
+                        required
+                        placeholder=""
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="block py-2.5 px-0 w-full text-sm text-zinc-900 bg-transparent border-0 border-b-2 border-zinc-300 appearance-none dark:text-white dark:border-zinc-600 dark:focus:border-red-200 focus:outline-none focus:ring-0 focus:border-red-300 peer"
+                    />
+                    <label
+                        className="peer-focus:font-medium absolute text-sm text-zinc-500 dark:text-zinc-300 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-300 peer-focus:dark:text-red-200 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        htmlFor="email"
+                    >
+                        Email
+                    </label>
+                </div>
+                <button
+                    type="button"
+                    className="bg-red-300 text-black px-2.5 p-1 rounded hover:bg-red-400 text-sm font-semibold"
+                    onClick={handleArtistEmailCheck}
+                >
+                    Next
+                </button>
+            </form>
+        );
+    };
+
+    const renderStep2 = () => {
+        return (
             <div className="max-w-5xl mx-auto p-4">
                 <h1 className="text-2xl font-medium mb-4 font-owners">
                     Musician Information Form
@@ -80,28 +158,29 @@ const MusicianForm: React.FC = () => {
                         <input
                             placeholder=""
                             type="text"
-                            id="name"
-                            name="name"
-                            value={formData.name}
+                            id="artist_name"
+                            name="artist_name"
+                            value={formData.artist_name}
                             onChange={handleChange}
                             className="block py-2.5 px-0 w-full text-sm text-zinc-900 bg-transparent border-0 border-b-2 border-zinc-300 appearance-none dark:text-white dark:border-zinc-600 dark:focus:border-red-200 focus:outline-none focus:ring-0 focus:border-red-300 peer"
                         />
                         <label
                             className="peer-focus:font-medium absolute text-sm text-zinc-500 dark:text-zinc-300 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-300 peer-focus:dark:text-red-200 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                            htmlFor="name"
+                            htmlFor="artist_name"
                         >
                             Name / Artist Name
                         </label>
                     </div>
                     <div className="relative z-0 w-full mb-6 group">
                         <input
+                            disabled
                             placeholder=""
                             type="email"
                             id="email"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            className="block py-2.5 px-0 w-full text-sm text-zinc-900 bg-transparent border-0 border-b-2 border-zinc-300 appearance-none dark:text-white dark:border-zinc-600 dark:focus:border-red-200 focus:outline-none focus:ring-0 focus:border-red-300 peer"
+                            className="block py-2.5 px-0 w-full text-sm text-zinc-700 bg-transparent border-0 border-b-2 border-zinc-300 appearance-none dark:text-zinc-200 dark:border-zinc-600 dark:focus:border-red-200 focus:outline-none focus:ring-0 focus:border-red-300 peer"
                         />
                         <label
                             className="peer-focus:font-medium absolute text-sm text-zinc-500 dark:text-zinc-300 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-300 peer-focus:dark:text-red-200 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
@@ -151,9 +230,9 @@ const MusicianForm: React.FC = () => {
                         <input
                             placeholder=""
                             type="text"
-                            id="twitter_url"
-                            name="twitter_url"
-                            value={formData.twitter_url}
+                            id="twitter_hash"
+                            name="twitter_hash"
+                            value={formData.twitter_hash}
                             onChange={handleChange}
                             className="block py-2.5 px-0 w-full text-sm text-zinc-900 bg-transparent border-0 border-b-2 border-zinc-300 appearance-none dark:text-white dark:border-zinc-600 dark:focus:border-red-200 focus:outline-none focus:ring-0 focus:border-red-300 peer"
                         />{" "}
@@ -168,9 +247,9 @@ const MusicianForm: React.FC = () => {
                         <input
                             placeholder=""
                             type="text"
-                            id="instagram_url"
-                            name="instagram_url"
-                            value={formData.instagram_url}
+                            id="instagram_hash"
+                            name="instagram_hash"
+                            value={formData.instagram_hash}
                             onChange={handleChange}
                             className="block py-2.5 px-0 w-full text-sm text-zinc-900 bg-transparent border-0 border-b-2 border-zinc-300 appearance-none dark:text-white dark:border-zinc-600 dark:focus:border-red-200 focus:outline-none focus:ring-0 focus:border-red-300 peer"
                         />{" "}
@@ -208,8 +287,8 @@ const MusicianForm: React.FC = () => {
                     <div className="flex items-center pl-4 border border-zinc-200 rounded dark:border-zinc-700 mb-6 accent-red-300">
                         <input
                             type="checkbox"
-                            name="syncInterest"
-                            checked={formData.syncInterest}
+                            name="sync_interest"
+                            checked={formData.sync_interest}
                             onChange={handleChange}
                         />{" "}
                         <label
@@ -222,12 +301,104 @@ const MusicianForm: React.FC = () => {
                     </div>
                     <button
                         type="submit"
-                        className="bg-red-300 text-white p-2 rounded hover:bg-red-400"
+                        className="bg-red-300 text-black px-2.5 p-1 rounded hover:bg-red-400 text-sm font-semibold"
                     >
                         Submit
                     </button>
                 </form>
             </div>
+        );
+    };
+
+    const renderStep3 = () => {
+        const image = '/site_images/studio.jpg'
+
+        const eventDates = [
+            {
+                date: 'November 19th, 2023'
+            }, 
+            {
+                date: 'December 3, 2023'
+            }
+        ]
+
+        return (
+            <div>
+
+                <div className="w-full max-w-xl mx-auto grid md:grid-cols-2 gap-4">
+                    <div>
+                        <div className="aspect-video rounded-t">
+                    <Image
+                            loader={supabaseLoader}
+
+                    src={image}
+                    className="aspect-video object-cover w-full h-full mx-auto rounded-t"
+                    alt="Crib Logo"
+                    width={345}
+                    height={300}
+                    priority
+                />
+                </div>
+                    <div className="border mx-auto border-zinc-300 dark:border-zinc-800 rounded-b  overflow-hidden relative bg-white dark:bg-black p-8">
+                
+                        <h2 className="text-2xl text-center font-semibold text-zinc-800 dark:text-white mb-4">
+                            Sync Sunday
+                        </h2>
+                        <h3 className="text-center font-semibold">
+                        Upcoming Date:
+                        </h3>
+                        <p className="text-sm text-center mb-6"> {eventDates[0].date}</p>
+                        <div className="flex items-center justify-center mx-auto">
+                            <button
+                                className="px-4 py-2 text-black bg-red-300 rounded hover:bg-red-400 focus:outline-none font-semibold relative ease-in-out duration-300"
+                                onClick={() => {
+                                    // Handle the action to save to the calendar
+                                }}
+                            >
+                                Save to Calendar
+                            </button>
+                        </div>
+                    </div>
+                    </div>
+                    <div>
+                        <div className="border border-zinc-300 dark:border-zinc-800 rounded overflow-hidden relative bg-white dark:bg-black p-8">
+                        <div className="mb-4">
+                        <p className="text-zinc-800 dark:text-zinc-200 mb-4">
+                            Sync Sunday is back. We'll be reviewing music live and providing feedback in the context of sync.
+                        </p>
+                            <p className="text-zinc-700 dark:text-zinc-300 mb-2">Event Dates:</p>
+                            <ul className="text-sm">
+                                {eventDates.map((eventDate) => (<li key={eventDate.date} className="mb-1">
+                                    <p className="flex items-center"><span className="mr-2 text-zinc-800 dark:text-zinc-200">
+                                       <FaBell/>
+                                    </span>
+                                    {eventDate.date}</p>
+                                </li>))}
+                              
+                                {/* Add more dates as needed */}
+                            </ul>
+                        </div>                        </div>
+                        <div className="flex mx-auto items-center h-1/2 justify-center space-x-4 text-xl">
+                            <FaTwitter />
+                            <FaFacebook />
+                            <FaInstagram />
+                        </div>
+                    </div>
+                </div>
+               {process.env.NODE_ENV === 'development'&& <button
+                    className="bg-red-300 mx-auto text-black px-2.5 p-1 rounded hover:bg-red-400 text-sm font-semibold flex items-center space-x-2"
+                    type="button" onClick={() => setArtistInquiryCookie(false)}> <FaCookie />
+                    DELETE COOKIE
+                </button>}
+            </div>
+        );
+    };
+
+    return (
+        <section className="w-full bg-white dark:bg-zinc-950 text-black dark:text-white font-work-sans py-16">
+            {step === 1 && !hasCookie && renderStep1()}
+            {step === 2 && !hasCookie && renderStep2()}
+            {(step === 3 || hasCookie) && renderStep3()}
         </section>
     );
 };
