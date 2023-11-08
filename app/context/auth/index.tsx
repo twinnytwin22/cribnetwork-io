@@ -93,13 +93,15 @@ export const AuthContextProvider = ({
         return { user: authUser.user, profile };
       }
     }
+    subscriptionData?.unsubscribe()
+
     return { subscription: subscriptionData };
   }
   
 
   const { data, isLoading } = useQuery({
     queryKey:["user", "subscription", "subscriptionData", "authListener"],
-    queryFn: () => onAuthStateChange(),
+    queryFn: () =>  onAuthStateChange(),
      
     });
 

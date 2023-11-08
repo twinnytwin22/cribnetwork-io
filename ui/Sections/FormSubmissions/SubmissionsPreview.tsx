@@ -1,5 +1,7 @@
 "use client";
+import { convertDatetime } from "@/lib/hooks/convertDatetime";
 import { useHandleOutsideClick } from "@/lib/hooks/handleOutsideClick";
+import Link from "next/link";
 import { useFormSubmissionTableStore } from "./store";
 
 const SubmissionPreview = () => {
@@ -15,6 +17,21 @@ const SubmissionPreview = () => {
     setPreviewOpen(false);
   };
 
+  function createTwitterProfileLink(handle, platform) {
+    // Remove the '@' symbol if it's included in the handle
+    const handleWithoutAt = handle.startsWith('@')
+      ? handle.substring(1)
+      : handle;
+
+    // Construct the Twitter profile URL
+    const twitterProfileLink = `https://${platform}.com/${handleWithoutAt}`;
+
+    return twitterProfileLink;
+  }
+  const profileLink = (handle: string, platform: string) => createTwitterProfileLink(handle, platform);
+
+
+  const dateCreated = convertDatetime(submission.created_at)?.supaDate
   return (
     <div className=" z-[60]  w-full p-3 rounded-lg top-14 right-0 ">
       <div className="">
@@ -46,17 +63,50 @@ const SubmissionPreview = () => {
               <strong>Form Type:</strong> {submission?.form_type || ""}
             </p>
             <p className="mb-2">
-              <strong>First Name:</strong> {submission?.first_name || ""}
+              <strong>Date Created:</strong> {dateCreated || ""}
             </p>
-            <p className="mb-2">
-              <strong>Last Name:</strong> {submission?.last_name || ""}
-            </p>
-            <p className="mb-2">
-              <strong>Phone Number:</strong> {submission?.phone_number || ""}
-            </p>
-            <p className="mb-2">
-              <strong>Message:</strong> {submission?.message || ""}
-            </p>
+            {submission?.first_name &&
+              <p className="mb-2">
+                <strong>First Name:</strong> {submission?.first_name || ""}
+              </p>}
+            {submission?.last_name &&
+
+              <p className="mb-2">
+                <strong>Last Name:</strong> {submission?.last_name || ""}
+              </p>}
+            {submission?.artist_name &&
+
+              <p className="mb-2">
+                <strong>Artist Name / Name:</strong> {submission?.artist_name || ""}
+              </p>}
+            {submission?.genres && submission?.genres.length > 0 &&
+              <p className="mb-2">
+                <strong>Genres:</strong> {submission?.genres.toString() || ""}
+              </p>}
+            {submission?.playlist_url &&
+
+              <p className="mb-2">
+                <strong>Playlist URL:</strong> <Link className="underline" href={submission.playlist_url}>{submission?.playlist_url || ""}</Link>
+              </p>}
+            {submission?.phone_number &&
+
+              <p className="mb-2">
+                <strong>Phone Number:</strong> {submission?.phone_number || ""}
+              </p>}
+            {submission?.instagram_hash &&
+
+              <p className="mb-2">
+                <strong>Instagram URL:</strong> <Link className="underline" href={profileLink(submission.instagram_hash, 'instagram')}> {submission?.instagram_hash || ""}</Link>
+              </p>}
+            {submission?.twitter_hash &&
+
+              <p className="mb-2">
+                <strong>Twitter URL:</strong> <Link className="underline" href={profileLink(submission.twitter_hash, 'twitter')}> {submission?.twitter_hash || ""}</Link>
+              </p>}
+            {submission?.message &&
+              <p className="mb-2">
+                <strong>Message:</strong> {submission?.message || ""}
+              </p>}
           </div>
           {submission.form_questions?.map(({ question, response }, index) => (
             <div key={index} className="mt-4">

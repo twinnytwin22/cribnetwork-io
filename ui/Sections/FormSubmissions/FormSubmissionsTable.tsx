@@ -54,7 +54,7 @@ function FormSubmissionsTable({ data, tableHeaders }) {
               <td className="px-4 py-3">{submission?.form_type}</td>
               <td className="px-4 py-3">{submission?.company_name || "---"}</td>
               <td className="px-4 py-3">
-                {submission?.first_name + submission?.last_name}
+                {(submission?.first_name + submission?.last_name) || (submission?.artist_name || '') }
               </td>
               <td className="px-4 py-3">
                 {submission?.phone_number?.toString()}
