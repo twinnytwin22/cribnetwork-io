@@ -29,8 +29,9 @@ export default function FormTableSearchBar() {
       if (error) {
         throw error;
       }
+      if(data){
       setFilteredSubmissions(data);
-
+      }
       return data;
     } catch (error) {
       console.error("Error searching:", error);
@@ -42,9 +43,6 @@ export default function FormTableSearchBar() {
     queryKey: ["data", searchTerm],
     queryFn: () => search(searchTerm),
     enabled: Boolean(searchTerm),
-    // onSuccess: (data) => {
-    //   setFilteredSubmissions(data);
-    // },
   });
 
   //console.log(data, "DATA")

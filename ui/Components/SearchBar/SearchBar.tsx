@@ -1,7 +1,6 @@
 "use client";
 import { useHandleOutsideClick } from "@/lib/hooks/handleOutsideClick";
 import { supabase } from "@/lib/site/constants";
-import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 const SearchBar = () => {
@@ -52,11 +51,7 @@ const SearchBar = () => {
     setSearchTerm("");
     setIsOpen(false);
   };
-  const { data: searchData } = useQuery({
-    // queryKey: [],
-    // queryFn: search,
-    // enabled: (searchTerm?.length >= 2) && searchInputRef?.current
-  });
+
   return (
     <form className="flex items-center flex-grow relative">
       <label htmlFor="simple-search" className="sr-only">
