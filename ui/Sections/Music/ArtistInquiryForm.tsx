@@ -124,7 +124,7 @@ const MusicianForm: React.FC = () => {
         return (
             <form className="max-w-xl mx-auto p-4">
                 <h1 className="text-2xl font-medium mb-4 font-owners">
-                    Enter Email Below
+                    Enter Email to Get Started.
                 </h1>
                 <div className="relative z-0 w-full mb-6 group">
                     <input
