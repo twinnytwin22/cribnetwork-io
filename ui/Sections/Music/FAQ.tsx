@@ -16,7 +16,7 @@ function FAQ() {
                 className="w-full flex items-center justify-between p-2.5 bg-zinc-100 dark:bg-zinc-950 text-black dark:text-white rounded hover:bg-zinc-50 dark:hover:bg-zinc-900 focus:outline-none border border-zinc-200 dark:border-zinc-800"
                 onClick={() => setActiveIndex(index === activeIndex ? -1 : index)}
               >
-                <span className=' font-work-sans text-sm'>{faq.question}</span>
+                <span className='text-left font-work-sans text-sm'>{faq.question}</span>
                 <FaChevronDown/>
               </button>
               {index === activeIndex && (

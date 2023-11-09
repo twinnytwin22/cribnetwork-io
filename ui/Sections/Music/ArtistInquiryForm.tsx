@@ -164,6 +164,7 @@ const MusicianForm: React.FC = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="relative z-0 w-full mb-6 group">
                         <input
+                        required
                             placeholder=""
                             type="text"
                             id="artist_name"
@@ -270,6 +271,7 @@ const MusicianForm: React.FC = () => {
                     </div>
                     <div className="relative z-0 w-full mb-6 group">
                         <input
+                        required
                             placeholder=""
                             type="text"
                             id="playlist_url"
