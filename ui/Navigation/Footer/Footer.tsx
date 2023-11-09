@@ -212,7 +212,7 @@ export const DevFooter = ({ logo, settings }) => {
   };
   return (
     <footer className="bg-white rounded-lg shadow relative dark:bg-black">
-      <div className="absolute right-12 top-8 md:top-12 w-12 h-12 md:w-20 md:h-20">
+      <div className="absolute right-12 bottom-4  w-12 h-12 md:w-20 md:h-20 hidden md:block">
         <Image
           alt="Aws Partner Logo"
           width={100}
@@ -232,7 +232,7 @@ export const DevFooter = ({ logo, settings }) => {
               priority
             />
           </Link>
-          <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-zinc-500 sm:mb-0 dark:text-zinc-400">
+          <ul className="flex mt-2 flex-wrap items-center mb-6 text-sm font-medium text-zinc-500 sm:mb-0 dark:text-zinc-400">
             <li>
               <Link href="/about" className="mr-4 hover:underline md:mr-6 ">
                 About
@@ -281,7 +281,7 @@ export const DevFooter = ({ logo, settings }) => {
         </div>
         <span className="hidden md:block text-sm text-zinc-500 sm:text-center dark:text-zinc-400">
           © 2023{" "}
-          <a href="https://flowbite.com/" className="hover:underline">
+          <a href="https://cribnetwork.io/" className="hover:underline">
             CRIB, LLC™
           </a>
           . All Rights Reserved.
