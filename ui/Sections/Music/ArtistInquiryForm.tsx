@@ -393,7 +393,7 @@ const MusicianForm: React.FC = () => {
                             </div>                        
                             </div>
                         <div className="flex mx-auto items-center py-4 justify-center space-x-4 text-xl">
-                            <Link href={'https://x.com/cribnmusicglobal'}>
+                            <Link href={'https://x.com/cribmusicglobal'}>
                                 <FaTwitter />
                             </Link>
                             <Link href={'https://discord.com/invite/2kRJmu3RYS'}>
