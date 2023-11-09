@@ -53,7 +53,7 @@ function FormSubmissionsWrapper({
           id="submission-preview"
           className="submission-preview fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 bg-opacity-70 dark:bg-opacity-70 bg-white dark:bg-black"
         >
-          <div className="modal space-y-4 w-full max-w-xl bg-white dark:bg-black max-h-2/3  -top-12 left-0 lg:left-32 relative rounded-lg text-black dark:text-white border border-zinc-200 dark:border-zinc-800 p-4 shadow-lg">
+          <div className="modal space-y-4 w-full max-w-3xl bg-white dark:bg-black max-h-2/3  -top-12 left-0 lg:left-32 relative rounded-lg text-black dark:text-white border border-zinc-200 dark:border-zinc-800 p-4 shadow-lg">
             {previewOpen && <SubmissionPreview />}
             {formTypeInputOpen && (
               <div className="space-y-4">
