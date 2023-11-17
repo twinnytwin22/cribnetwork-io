@@ -1,5 +1,6 @@
 "use client";
 import { useAuthProvider } from "@/app/context/auth";
+import { UserRoleTypes } from "@/app/context/auth/store";
 import { PortalPageTitle } from "@/lib/hooks/PortalPageTitle";
 import { useContactButtonStore } from "@/ui/Buttons/ContactButton/contactButtonStore";
 import Link from "next/link";
@@ -19,7 +20,7 @@ import {
 } from "react-icons/fa"; // Import the icons you need
 import { FaMusic, FaWpforms } from "react-icons/fa6";
 function DashboardSidebar() {
-  const { user, signOut, profile, userRole, setUserRole} = useAuthProvider();
+  const { user, signOut, profile, userRole, setUserRole } = useAuthProvider();
   const [showTooltip, setShowTooltip] = useState("");
   const setOpen = useContactButtonStore((state: any) => state.setOpen);
   const handleOpenModal = () => {
@@ -39,8 +40,8 @@ function DashboardSidebar() {
   useEffect(() => {
     if (profile) {
       setUserRole(profile?.user_role);
-    };
-  }, [profile])
+    }
+  }, [profile]);
   const VercelIcon = () => (
     <svg
       className="w-4 h-4 "
@@ -57,62 +58,74 @@ function DashboardSidebar() {
       />
     </svg>
   );
+
+  interface ISideBarItems {
+    title: string;
+    icon: any;
+    href?: string;
+    target?: string;
+    user_role: UserRoleTypes;
+    hidden?: boolean;
+    onClick?: () => Promise<void>;
+  }
   ///   console.log(user)
-  const sidebarItems = [
+  const sidebarItems: ISideBarItems[] = [
     {
       title: "Overview",
       icon: <BsGlobe2 className=" -rotate-12" />,
       href: "/portal",
       target: "_self",
+      user_role: UserRoleTypes.user,
     },
     {
       title: "Account",
       icon: <FaUser />,
       href: "/portal/account",
       target: "_self",
+      user_role: UserRoleTypes.user,
     },
     {
       title: "Admin",
       icon: <FaCog />,
-      user_role: 'admin',// admin | user 
       href: "https://cribnetwork.sanity.studio",
       target: "_blank",
+      user_role: UserRoleTypes.admin,
     },
     {
       title: "Form Submissions",
       icon: <FaWpforms />,
-      user_role: 'admin',// admin | user 
       href: "/portal/form-submissions",
       target: "_blank",
+      user_role: UserRoleTypes.admin,
     },
     {
       title: "Music Uploads",
       icon: <FaMusic />,
-      user_role: 'admin',// admin | user 
       href: "/portal/crib-music",
       target: "_self",
+      user_role: UserRoleTypes.editor, // admin | user
     },
     {
       title: "Database",
       icon: <FaDatabase />,
-      user_role: 'admin',// admin | user 
       href: "https://supabase.com/dashboard/project/tvuqvrbxusmicpmjqpus",
       target: "_blank",
+      user_role: UserRoleTypes.admin, // admin | user
     },
     {
       title: "Deployments",
       icon: <VercelIcon />,
-      user_role: 'admin',// admin | user 
       href: vercel,
       target: "_blank",
+      user_role: UserRoleTypes.admin, // admin | user
     },
 
     {
       title: "Analytics",
       icon: <FaChartPie />,
-      user_role: 'admin',// admin | user 
       href: analyticsUrl! as string,
       target: "_self",
+      user_role: UserRoleTypes.admin, // admin | user
     },
 
     {
@@ -121,36 +134,45 @@ function DashboardSidebar() {
       hidden: true,
       href: "#",
       target: "_self",
+      user_role: UserRoleTypes.admin,
     },
     {
       title: "Learning",
       icon: <FaBook />,
       href: "/portal/learning",
       target: "_self",
+      user_role: UserRoleTypes.admin,
     },
     {
       title: "Sign Out",
       icon: <FaSignOutAlt />,
       onClick: signOut,
       target: "_self",
+      user_role: UserRoleTypes.user,
     },
     // Add more items as needed
   ];
+
   const filteredSidebarItems = sidebarItems.map((item) => {
-    if (
-      item.hidden || // Hide items with hidden set to true
-      (item.user_role === 'admin' && userRole !== 'admin') || // Hide admin-specific items for non-admin users
-      (item.user_role === 'editor' && userRole !== ('editor' || 'admin')) || // Hide editor-specific items for non-editor users
-      (item.user_role === 'user' && userRole !== ('user '|| 'editor' || 'admin')) // Hide user-specific items for non-user users
-    ) {
+    const isUser =
+      userRole === "user" && item.user_role.trim() === "user".trim();
+    const isEditor =
+      (userRole === ("editor" || "user" || "admin") &&
+        (item.user_role.trim() === "editor".trim() ||
+          item.user_role.trim() === "user".trim())) ||
+      isUser;
+    const isAdmin =
+      (userRole === "admin" &&
+        (item.user_role.trim() === "editor".trim() ||
+          item.user_role.trim() === "admin".trim() ||
+          item.user_role.trim() === "user".trim())) ||
+      isEditor;
+    // console.log(isAdmin, item.title, item.user_role, userRole) ;
+    if (item.hidden) {
       return null; // Return null for items that should be hidden
     }
-
     return (
-      <li
-        key={item.title}
-        className={"relative z-50"}
-      >
+      <li hidden={!isAdmin} key={item.title} className={`relative z-50 `}>
         {item.onClick ? (
           <div
             onClick={item.onClick}
@@ -166,7 +188,7 @@ function DashboardSidebar() {
             onMouseEnter={() => handleSetTooltip(item.title)}
             onMouseLeave={handleHideTooltip}
             target={item?.target}
-            href={item.href}
+            href={item.href!}
             className="flex items-center pl-4 lg:pl-2 p-2 text-sm font-medium text-zinc-900 rounded-lg dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-700 group duration-300 ease-in-out relative z-50"
           >
             {item.icon}
@@ -198,7 +220,6 @@ function DashboardSidebar() {
     { title: "Github", icon: <FaGithub />, href: "#" },
   ];
 
-
   return (
     <aside
       className="fixed  left-0 z-10 w-24 lg:w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-zinc-200 md:translate-x-0 dark:bg-black dark:border-zinc-800 font-work-sans"
@@ -215,7 +236,7 @@ function DashboardSidebar() {
             />
           </div>
         )}
-        {profile?.user_role === 'admin' &&
+        {profile?.user_role === "admin" && (
           <div className="text-black dark:text-white relative z-50 px-4 text-xs">
             <select
               id="view-as"
@@ -228,7 +249,7 @@ function DashboardSidebar() {
               <option value="user">User</option>
             </select>
           </div>
-        }
+        )}
 
         <ul className="space-y-2 mt-8 sm:ml-2 relative z-50 text-sm">
           {filteredSidebarItems}
@@ -269,7 +290,6 @@ function DashboardSidebar() {
           </Link>
         ))}
       </div>
-
     </aside>
   );
 }

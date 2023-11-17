@@ -1,11 +1,18 @@
 import { supabase } from "@/lib/site/constants";
 import { toast } from "react-toastify";
 import { create } from "zustand";
+
+
+export enum UserRoleTypes {
+  user = 'user',
+  admin = 'admin',
+  editor = 'editor'
+}
 export interface AuthState {
   user: any;
   profile: any;
   isLoading: boolean;
-  userRole: string;
+  userRole: UserRoleTypes
   setUserRole: (userRole: string) => void;
   signInWithEmail: (email: string, password: string) => Promise<void>;
   signInWithGoogle: () => Promise<void>;
@@ -15,11 +22,11 @@ export interface AuthState {
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  userRole: '',
+  userRole: UserRoleTypes.user,
   user: null,
   profile: null,
   isLoading: false,
-  setUserRole: (userRole: string) => set({userRole}),
+  setUserRole: (userRole: any) => set({userRole}),
   signInWithEmail: async (email, password) => {
     toast.info("Signing In");
     try {
