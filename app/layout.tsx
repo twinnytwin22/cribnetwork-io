@@ -3,11 +3,15 @@ import { getSiteSettings } from "@/lib/providers/sanity/sanity";
 import allKeywords from "@/lib/site/seoKeywords";
 import Footer from "@/ui/Navigation/Footer";
 import NavBar from "@/ui/Navigation/NavBar/NavBar";
+import { headers } from 'next/headers';
 import Script from "next/script";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
-
+const headersList = headers()
+const pathname = headersList.get('next-url')
+const excludedFromAnalytics = pathname?.startsWith('/portal')
+console.log(excludedFromAnalytics)
 export const metadata = {
   metadataBase: new URL("https://cribnetwork.io"),
 
@@ -42,7 +46,7 @@ export default async function RootLayout({
   return (
     settings && (
       <html lang="en" suppressHydrationWarning>
-        {process.env.NODE_ENV !== "development" && (
+        {(process.env.NODE_ENV !== "development" || !excludedFromAnalytics) && (
           <Script
             defer
             src="https://unpkg.com/@tinybirdco/flock.js"
