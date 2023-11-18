@@ -86,19 +86,10 @@ const UploadSongForm = ({ artists }) => {
     );
 
     const updates = {
-      title: formData?.title,
-      artist_id: formData?.artist_id,
-      album: formData?.album,
-      release_year: formData?.release_year,
+      ...formData,
       genres: genreArray,
-      lyrics: formData?.lyrics,
       artist_name: selectedArtist?.artist_name!!,
-      music_file_url: formData?.music_file_url,
-      duration: formData?.duration,
       moods: moodArray,
-      cover_art_url: formData?.cover_art_url,
-      has_lyric: formData?.has_lyrics,
-      instrumental: formData?.instrumental
     };
     try {
       setStatus("loading");
@@ -185,7 +176,9 @@ const UploadSongForm = ({ artists }) => {
     setMoodArray(updatedMoods);
   };
 
-  const handleSongTypeChange = (e) => {
+  const handleSongTypeChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    ) => {
     const { value } = e.target;
 
     if (value === "lyrics-instrumental") {
@@ -201,7 +194,7 @@ const UploadSongForm = ({ artists }) => {
   );
   //const filteredSongs = currentArtist ? songs.filter((song) => song.artist_name === currentArtist?.artist_name) : []
   //console.log(formData)
-  console.log(currentArtist);
+  //console.log(formData);
 
   useEffect(() => {}, [userRole, currentArtist]);
   return (

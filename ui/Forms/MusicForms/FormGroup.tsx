@@ -29,7 +29,7 @@ function FormGroup({ artists, songs, }) {
 
   //const {setImagePreviewOpen, imagePreviewOpen, imagePreview } = useMusicFormStore()
   //console.log(pathname);
-  console.log(user);
+ // console.log(user);
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams);
