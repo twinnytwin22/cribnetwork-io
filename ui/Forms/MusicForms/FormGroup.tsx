@@ -13,20 +13,23 @@ import EditSongForm from "./EditSong";
 import UploadSongForm from "./UploadSong";
 
 function FormGroup({ artists, songs }) {
-  const { userRole, user } = useAuthProvider()
+  const { userRole, user } = useAuthProvider();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const mode = searchParams.get("mode");
   const edit = searchParams.get("edit");
   const id = searchParams.get("id");
-  const currentArtist = artists.find((artist: { contact_email: string}) => artist.contact_email === user.email)
-  const filteredSongs = currentArtist ? songs.filter((song) => song.artist_name === currentArtist?.artist_name) : []
+  const currentArtist = artists.find(
+    (artist: { contact_email: string }) => artist.contact_email === user.email,
+  );
+  const filteredSongs = currentArtist
+    ? songs.filter((song) => song.artist_name === currentArtist?.artist_name)
+    : [];
 
-  
   //const {setImagePreviewOpen, imagePreviewOpen, imagePreview } = useMusicFormStore()
   //console.log(pathname);
-  console.log(user)
+  console.log(user);
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams);
@@ -44,7 +47,7 @@ function FormGroup({ artists, songs }) {
     pathname,
     createQueryString,
     artists,
-    songs: (userRole === "admin") ? songs : filteredSongs ,
+    songs: userRole === "admin" ? songs : filteredSongs,
     id,
   };
   const homeProps = ["data", null];
@@ -58,10 +61,11 @@ function FormGroup({ artists, songs }) {
               <li className="mr-2">
                 <Link
                   href={`${pathname}/?mode=data`}
-                  className={`inline-block p-4 rounded-t-lg ${homeProps.includes(mode)
+                  className={`inline-block p-4 rounded-t-lg ${
+                    homeProps.includes(mode)
                       ? "text-red-300 border-b-2 border-red-400 dark:text-red-300 dark:border-red-300"
                       : "text-zinc-500 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300"
-                    }`}
+                  }`}
                   aria-current={homeProps.includes(mode) ? "page" : undefined}
                 >
                   Overview
@@ -71,23 +75,23 @@ function FormGroup({ artists, songs }) {
                 <Link
                   href={`${pathname}/?mode=song`}
                   aria-current={mode === "song" ? "page" : undefined}
-                  className={`inline-block p-4 rounded-t-lg ${mode === "song"
+                  className={`inline-block p-4 rounded-t-lg ${
+                    mode === "song"
                       ? "text-red-300 border-b-2 border-red-400 dark:text-red-300 dark:border-red-300"
                       : "text-zinc-500 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300"
-                    }`}
+                  }`}
                 >
                   Upload Song
                 </Link>
               </li>
-              <li
-                hidden={userRole !== 'admin'}
-                className="mr-2">
+              <li hidden={userRole !== "admin"} className="mr-2">
                 <Link
                   href={`${pathname}/?mode=artist`}
-                  className={`inline-block p-4 rounded-t-lg ${mode === "artist"
+                  className={`inline-block p-4 rounded-t-lg ${
+                    mode === "artist"
                       ? "text-red-300 border-b-2 border-red-400 dark:text-red-300 dark:border-red-300"
                       : "text-zinc-500 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300"
-                    }`}
+                  }`}
                   aria-current={mode === "artist" ? "page" : undefined}
                 >
                   Add Artist
@@ -112,9 +116,7 @@ function FormGroup({ artists, songs }) {
         {mode === "artist" && !edit && <AddArtistForm />}
         {homeProps.includes(mode) && !edit && (
           <div className="space-y-4 p-8">
-            <div                 
-            hidden={userRole !== 'admin'}
-               >
+            <div hidden={userRole !== "admin"}>
               <h2 className="font-semibold font-owners text-lg">Artists</h2>
               <ArtistsTable {...queryProps} />
             </div>
@@ -214,10 +216,10 @@ const ArtistsTable = ({
                     onClick={() => {
                       router.push(
                         pathname +
-                        "?" +
-                        createQueryString("edit", "artist") +
-                        "&" +
-                        `id=${artist.id}`,
+                          "?" +
+                          createQueryString("edit", "artist") +
+                          "&" +
+                          `id=${artist.id}`,
                       );
                     }}
                     className="px-4 py-2 hover:underline font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
@@ -285,53 +287,54 @@ const SongsTable = ({ router, pathname, createQueryString, songs }) => {
               </tr>
             </thead>
             <tbody className=" font-work-sans text-xs">
-              {songs.map((song) =>  {
-                const usersSongs = song.artist_name
+              {songs.map((song) => {
+                const usersSongs = song.artist_name;
                 return (
-                <tr
-                  className="border-b dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-black text-xs md:text-sm min-w-full"
-                  key={song.id}
-                >
-                  <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
-                    {song.title}
-                  </td>
-                  <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
-                    {song.artist_name}
-                  </td>
-                  <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
-                    {song.release_year}
-                  </td>
-                  <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
-                    {song.music_file_url.length > 1 ? (
-                      <FcCheckmark />
-                    ) : (
-                      <FcCancel />
-                    )}
-                  </td>
-                  <td
-                    onClick={() => {
-                      router.push(
-                        pathname +
-                        "?" +
-                        createQueryString("edit", "song") +
-                        "&" +
-                        `id=${song.id}`,
-                      );
-                    }}
-                    className="px-4 py-2 hover:underline font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
+                  <tr
+                    className="border-b dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-black text-xs md:text-sm min-w-full"
+                    key={song.id}
                   >
-                    Edit
-                  </td>
-                  <td
-                    onClick={() =>
-                      handleDeleteSong(song.id, song.music_file_url)
-                    }
-                    className="px-4 py-2 hover:underline font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
-                  >
-                    <FaTrash />
-                  </td>
-                </tr>
-              )})}
+                    <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                      {song.title}
+                    </td>
+                    <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                      {song.artist_name}
+                    </td>
+                    <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                      {song.release_year}
+                    </td>
+                    <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
+                      {song.music_file_url.length > 1 ? (
+                        <FcCheckmark />
+                      ) : (
+                        <FcCancel />
+                      )}
+                    </td>
+                    <td
+                      onClick={() => {
+                        router.push(
+                          pathname +
+                            "?" +
+                            createQueryString("edit", "song") +
+                            "&" +
+                            `id=${song.id}`,
+                        );
+                      }}
+                      className="px-4 py-2 hover:underline font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
+                    >
+                      Edit
+                    </td>
+                    <td
+                      onClick={() =>
+                        handleDeleteSong(song.id, song.music_file_url)
+                      }
+                      className="px-4 py-2 hover:underline font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
+                    >
+                      <FaTrash />
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

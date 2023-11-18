@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { useMusicFormStore } from "./store";
 
 const UploadSongForm = ({ artists }) => {
-  const {userRole, user} = useAuthProvider()
+  const { userRole, user } = useAuthProvider();
   const router = useRouter();
   const {
     initialState,
@@ -194,15 +194,14 @@ const UploadSongForm = ({ artists }) => {
       setFormData({ ...formData, has_lyrics: false, instrumental: true });
     }
   };
-  const currentArtist = artists.find((artist: { contact_email: string}) => artist.contact_email === user.email)
+  const currentArtist = artists.find(
+    (artist: { contact_email: string }) => artist.contact_email === user.email,
+  );
   //const filteredSongs = currentArtist ? songs.filter((song) => song.artist_name === currentArtist?.artist_name) : []
   //console.log(formData)
-  console.log(currentArtist)
+  console.log(currentArtist);
 
-
-  useEffect(() => {
-
-  }, [userRole, currentArtist])
+  useEffect(() => {}, [userRole, currentArtist]);
   return (
     <div
       className="w-full p-8 mx-auto z-[100] h-full isolate relative"
@@ -290,27 +289,29 @@ const UploadSongForm = ({ artists }) => {
                 Artist
               </label>
               <select
-              disabled={userRole !== "admin"}
+                disabled={userRole !== "admin"}
                 className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 "
                 id="artist_id"
                 name="artist_id"
                 value={formData.artist_id}
                 onChange={handleChange}
               >
-                {userRole === "admin" &&
-                <option hidden value="" disabled>
-                  Select an artist
-                </option>}
-
-                {userRole === "admin" && artists.map((artist) => (
-                  <option key={artist.id} value={artist.id}>
-                    {artist.artist_name}
+                {userRole === "admin" && (
+                  <option hidden value="" disabled>
+                    Select an artist
                   </option>
-                ))}
+                )}
 
-              {userRole !== "admin" && currentArtist &&  (
+                {userRole === "admin" &&
+                  artists.map((artist) => (
+                    <option key={artist.id} value={artist.id}>
+                      {artist.artist_name}
+                    </option>
+                  ))}
+
+                {userRole !== "admin" && currentArtist && (
                   <option key={currentArtist.id} value={currentArtist?.id}>
-                    {currentArtist?.artist_name || ''}
+                    {currentArtist?.artist_name || ""}
                   </option>
                 )}
               </select>
