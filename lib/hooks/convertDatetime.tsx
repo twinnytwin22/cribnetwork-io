@@ -39,7 +39,7 @@ export function convertDatetime(datetimeStr: string) {
     day: "numeric",
   });
 
-  const supaDate = dtObject.toLocaleDateString('en-us',{
+  const supaDate = dtObject.toLocaleDateString("en-us", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -47,7 +47,7 @@ export function convertDatetime(datetimeStr: string) {
     minute: "2-digit",
     second: "2-digit",
     timeZoneName: "short",
-  })
+  });
 
   return { shortDate, longDate, timePast, supaDate };
 }

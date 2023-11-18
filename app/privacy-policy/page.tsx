@@ -1,7 +1,7 @@
 import { getSiteSettings } from "@/lib/providers/sanity/sanity";
 import { PortableBlogText } from "@/ui/Components/PortableBlogText/PortableBlogText";
 
-export const revalidate = 0; 
+export const revalidate = 0;
 
 async function page() {
   const settings = await getSiteSettings();

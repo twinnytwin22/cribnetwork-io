@@ -31,10 +31,11 @@ const EditSongForm = ({ artists, id, songs }) => {
     setImagePreview,
     setImagePreviewOpen,
   } = useMusicFormStore();
- // const setGenreValue = (genreValue) => useMusicFormStore.setState({ genreValue })
-  const setGenreArray = (genreArray) => useMusicFormStore.setState({ genreArray })
+  // const setGenreValue = (genreValue) => useMusicFormStore.setState({ genreValue })
+  const setGenreArray = (genreArray) =>
+    useMusicFormStore.setState({ genreArray });
   //const setMoodValue = (moodValue) => useMusicFormStore.setState({ moodValue })
-  const setMoodArray = (moodArray) => useMusicFormStore.setState({ moodArray })
+  const setMoodArray = (moodArray) => useMusicFormStore.setState({ moodArray });
 
   const handleGenreSelect = (e) => {
     const selectedGenre = e.target.value;
@@ -62,9 +63,9 @@ const EditSongForm = ({ artists, id, songs }) => {
       setStatus("loadingInitialState");
       setFormData(currentSong);
       setStatus("ready");
-      setGenreArray(currentSong?.genres! || [])
-      setMoodArray(currentSong?.moods! || [])
-      setImagePreview(getCoverImage(currentSong.cover_art_url!))
+      setGenreArray(currentSong?.genres! || []);
+      setMoodArray(currentSong?.moods! || []);
+      setImagePreview(getCoverImage(currentSong.cover_art_url!));
     }
   }, [currentSong]);
   console.log(currentSong, "SONG");
@@ -84,14 +85,13 @@ const EditSongForm = ({ artists, id, songs }) => {
   });
 
   useEffect(() => {
-
-    if (audioSrc){
-      return
+    if (audioSrc) {
+      return;
     }
-    if(data && !audioSrc){
+    if (data && !audioSrc) {
       setAudioSrc(data);
     }
-  },[data, audioSrc])
+  }, [data, audioSrc]);
 
   //console.log(data)
 
@@ -99,7 +99,7 @@ const EditSongForm = ({ artists, id, songs }) => {
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
-    console.log(name, value, "CHANGE EVENT")
+    console.log(name, value, "CHANGE EVENT");
 
     if (name === "artist_id") {
       // Find the selected artist to set artist_name
@@ -122,14 +122,16 @@ const EditSongForm = ({ artists, id, songs }) => {
   //console.log(formData)
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const selectedArtist = artists.find((artist) => artist.id === formData.artist_id);
+    const selectedArtist = artists.find(
+      (artist) => artist.id === formData.artist_id,
+    );
 
     const updates = {
       ...formData,
       music_file_url: formData.music_file_url,
       artist_name: selectedArtist?.artist_name,
       genres: genreArray,
-      moods: moodArray
+      moods: moodArray,
     };
 
     try {
@@ -142,8 +144,7 @@ const EditSongForm = ({ artists, id, songs }) => {
         setStatus("success");
         // setFormData(initialState);
         toast.success("Updated successfully");
-        router.refresh()
-
+        router.refresh();
       }
     } catch (err) {
       setStatus("error");
@@ -218,19 +219,17 @@ const EditSongForm = ({ artists, id, songs }) => {
   };
 
   const handleSongTypeChange = (e) => {
+    const { value } = e.target;
 
-    const {value} = e.target
-    
-    if(value ==='lyrics-instrumental'){
-      setFormData({...formData, has_lyrics: true, instrumental: false })
+    if (value === "lyrics-instrumental") {
+      setFormData({ ...formData, has_lyrics: true, instrumental: false });
     }
 
-    if(value === 'instrumental'){
-      setFormData({...formData, has_lyrics: false, instrumental: true })
-
+    if (value === "instrumental") {
+      setFormData({ ...formData, has_lyrics: false, instrumental: true });
     }
 
-    console.log(value, formData, "FORMDATA")
+    console.log(value, formData, "FORMDATA");
   };
   return (
     <div className="w-full p-8 mx-auto z-[100] h-full isolate relative font-work-sans">
@@ -330,10 +329,8 @@ const EditSongForm = ({ artists, id, songs }) => {
               ))}
             </select>
           </div>
-
         </div>
         <div className="md:flex gap-4 items-end h-fit w-full">
-
           {audioSrc && (
             <div className="h-fit scale-90">
               <audio
@@ -390,7 +387,7 @@ const EditSongForm = ({ artists, id, songs }) => {
               id="duration"
               name="duration"
               value={formData.duration || ""}
-            //onChange={handleChange}
+              //onChange={handleChange}
             />
           </div>
         </div>
@@ -438,9 +435,18 @@ const EditSongForm = ({ artists, id, songs }) => {
                 Genres (select up to 3)
               </label>
               {genreArray?.map((genre) => (
-                <div className="text-xs font-work-sans items-center h-fit flex" key={genre}>
+                <div
+                  className="text-xs font-work-sans items-center h-fit flex"
+                  key={genre}
+                >
                   {genre}{" "}
-                  <button role="button"  className="text-lg ml-2" onClick={() => removeGenre(genre)}><FaDeleteLeft/></button>
+                  <button
+                    role="button"
+                    className="text-lg ml-2"
+                    onClick={() => removeGenre(genre)}
+                  >
+                    <FaDeleteLeft />
+                  </button>
                 </div>
               ))}
             </div>
@@ -462,7 +468,6 @@ const EditSongForm = ({ artists, id, songs }) => {
               ))}
             </select>
           </div>
-
         </div>
         <div className="relative flex items-center justify-between gap-4 h-fit">
           <div className="w-full">
@@ -474,15 +479,22 @@ const EditSongForm = ({ artists, id, songs }) => {
                 Moods (select up to 3)
               </label>
               {moodArray?.map((mood) => (
-                <div className="text-xs font-work-sans items-center h-fit flex" key={mood}>
-
+                <div
+                  className="text-xs font-work-sans items-center h-fit flex"
+                  key={mood}
+                >
                   {mood}{" "}
-                  <button role="button" className="text-lg ml-2" onClick={() => removeMood(mood)}><FaDeleteLeft/></button>
+                  <button
+                    role="button"
+                    className="text-lg ml-2"
+                    onClick={() => removeMood(mood)}
+                  >
+                    <FaDeleteLeft />
+                  </button>
                 </div>
               ))}
             </div>
             <select
-
               multiple
               className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 relative"
               id="moods"
@@ -500,7 +512,6 @@ const EditSongForm = ({ artists, id, songs }) => {
               ))}
             </select>
           </div>
-
         </div>
         <div className="flex items-center w-full space-x-4">
           <div className="flex w-full items-center pl-4 border border-zinc-300 rounded dark:border-zinc-700">
@@ -559,8 +570,9 @@ const EditSongForm = ({ artists, id, songs }) => {
           <button
             disabled={status === "loading"}
             type="submit"
-            className={`${status === "loading" ? "cursor-wait" : "cursor-pointer"
-              } py-3 font-owners px-5 rounded text-xs tracking-wide md:text-sm font-semibold text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105`}
+            className={`${
+              status === "loading" ? "cursor-wait" : "cursor-pointer"
+            } py-3 font-owners px-5 rounded text-xs tracking-wide md:text-sm font-semibold text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105`}
           >
             {status === "loading" ? "Please wait" : "Update"}
           </button>

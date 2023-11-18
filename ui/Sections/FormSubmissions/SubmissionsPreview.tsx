@@ -19,7 +19,7 @@ const SubmissionPreview = () => {
 
   function createTwitterProfileLink(handle, platform) {
     // Remove the '@' symbol if it's included in the handle
-    const handleWithoutAt = handle.startsWith('@')
+    const handleWithoutAt = handle.startsWith("@")
       ? handle.substring(1)
       : handle;
 
@@ -28,10 +28,10 @@ const SubmissionPreview = () => {
 
     return twitterProfileLink;
   }
-  const profileLink = (handle: string, platform: string) => createTwitterProfileLink(handle, platform);
+  const profileLink = (handle: string, platform: string) =>
+    createTwitterProfileLink(handle, platform);
 
-
-  const dateCreated = convertDatetime(submission.created_at)?.supaDate
+  const dateCreated = convertDatetime(submission.created_at)?.supaDate;
   return (
     <div className=" z-[60]  w-full p-3 rounded-lg top-14 right-0 ">
       <div className="">
@@ -65,48 +65,69 @@ const SubmissionPreview = () => {
             <p className="mb-2">
               <strong>Date Created:</strong> {dateCreated || ""}
             </p>
-            {submission?.first_name &&
+            {submission?.first_name && (
               <p className="mb-2">
                 <strong>First Name:</strong> {submission?.first_name || ""}
-              </p>}
-            {submission?.last_name &&
-
+              </p>
+            )}
+            {submission?.last_name && (
               <p className="mb-2">
                 <strong>Last Name:</strong> {submission?.last_name || ""}
-              </p>}
-            {submission?.artist_name &&
-
+              </p>
+            )}
+            {submission?.artist_name && (
               <p className="mb-2">
-                <strong>Artist Name / Name:</strong> {submission?.artist_name || ""}
-              </p>}
-            {submission?.genres && submission?.genres.length > 0 &&
+                <strong>Artist Name / Name:</strong>{" "}
+                {submission?.artist_name || ""}
+              </p>
+            )}
+            {submission?.genres && submission?.genres.length > 0 && (
               <p className="mb-2">
                 <strong>Genres:</strong> {submission?.genres.toString() || ""}
-              </p>}
-            {submission?.playlist_url &&
-
+              </p>
+            )}
+            {submission?.playlist_url && (
               <p className="mb-2">
-                <strong>Playlist URL:</strong> <Link className="underline" href={submission.playlist_url}>{submission?.playlist_url || ""}</Link>
-              </p>}
-            {submission?.phone_number &&
-
+                <strong>Playlist URL:</strong>{" "}
+                <Link className="underline" href={submission.playlist_url}>
+                  {submission?.playlist_url || ""}
+                </Link>
+              </p>
+            )}
+            {submission?.phone_number && (
               <p className="mb-2">
                 <strong>Phone Number:</strong> {submission?.phone_number || ""}
-              </p>}
-            {submission?.instagram_hash &&
-
+              </p>
+            )}
+            {submission?.instagram_hash && (
               <p className="mb-2">
-                <strong>Instagram URL:</strong> <Link className="underline" href={profileLink(submission.instagram_hash, 'instagram')}> {submission?.instagram_hash || ""}</Link>
-              </p>}
-            {submission?.twitter_hash &&
-
+                <strong>Instagram URL:</strong>{" "}
+                <Link
+                  className="underline"
+                  href={profileLink(submission.instagram_hash, "instagram")}
+                >
+                  {" "}
+                  {submission?.instagram_hash || ""}
+                </Link>
+              </p>
+            )}
+            {submission?.twitter_hash && (
               <p className="mb-2">
-                <strong>Twitter URL:</strong> <Link className="underline" href={profileLink(submission.twitter_hash, 'twitter')}> {submission?.twitter_hash || ""}</Link>
-              </p>}
-            {submission?.message &&
+                <strong>Twitter URL:</strong>{" "}
+                <Link
+                  className="underline"
+                  href={profileLink(submission.twitter_hash, "twitter")}
+                >
+                  {" "}
+                  {submission?.twitter_hash || ""}
+                </Link>
+              </p>
+            )}
+            {submission?.message && (
               <p className="mb-2">
                 <strong>Message:</strong> {submission?.message || ""}
-              </p>}
+              </p>
+            )}
           </div>
           {submission.form_questions?.map(({ question, response }, index) => (
             <div key={index} className="mt-4">

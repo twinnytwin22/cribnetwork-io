@@ -40,8 +40,8 @@ export const AuthContextProvider = ({
     unsubscribeAuthListener,
     user,
     profile,
-    setUserRole, 
-    userRole
+    setUserRole,
+    userRole,
   } = useAuthStore();
 
   const router = useRouter();
@@ -88,22 +88,20 @@ export const AuthContextProvider = ({
         const profile = await fetchProfile(authUser.user.id);
         useAuthStore.setState({ profile });
         useAuthStore.setState({ user: authUser.user });
-        subscriptionData?.unsubscribe()
+        subscriptionData?.unsubscribe();
 
         return { user: authUser.user, profile };
       }
     }
-    subscriptionData?.unsubscribe()
+    subscriptionData?.unsubscribe();
 
     return { subscription: subscriptionData };
-  }
-  
+  };
 
   const { data, isLoading } = useQuery({
-    queryKey:["user", "subscription", "subscriptionData", "authListener"],
-    queryFn: () =>  onAuthStateChange(),
-     
-    });
+    queryKey: ["user", "subscription", "subscriptionData", "authListener"],
+    queryFn: () => onAuthStateChange(),
+  });
 
   const value = useMemo(
     () => ({
@@ -115,12 +113,12 @@ export const AuthContextProvider = ({
       signInWithEmail,
       signOut,
       unsubscribeAuthListener,
-      userRole, 
-      setUserRole
+      userRole,
+      setUserRole,
     }),
     [
       data,
-      userRole, 
+      userRole,
       setUserRole,
       user,
       profile,

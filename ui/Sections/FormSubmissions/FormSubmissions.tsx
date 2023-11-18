@@ -9,11 +9,7 @@ import FormTableSearchBar from "./FormTableSearchBar";
 import { useFormSubmissionTableStore } from "./store";
 
 function FormSubmissions({ data, formTableProps, formTypes }) {
-  const {
-  
-    setSelectedFormTypes,
-  
-  } = useFormSubmissionTableStore();
+  const { setSelectedFormTypes } = useFormSubmissionTableStore();
 
   useEffect(() => {
     setSelectedFormTypes(formTypes);
@@ -32,7 +28,6 @@ function FormSubmissions({ data, formTableProps, formTypes }) {
             <AddFormType />
             <div className="flex items-center space-x-3 w-full md:w-auto">
               <button
-              
                 id="actionsDropdownButton"
                 data-dropdown-toggle="actionsDropdown"
                 className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-zinc-900 focus:outline-none bg-white rounded-lg border border-zinc-200 hover:bg-zinc-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-zinc-200 dark:focus:ring-zinc-700 dark:bg-zinc-950 dark:text-zinc-400 dark:border-zinc-600 dark:hover:text-white dark:hover:bg-zinc-700"

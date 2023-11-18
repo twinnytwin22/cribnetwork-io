@@ -1,4 +1,3 @@
-
 const CourseDetails = ({ course }) => {
   return (
     <div className="bg-white dark:bg-black rounded-lg p-8 border border-zinc-200 dark:border-zinc-800">

@@ -1,4 +1,3 @@
-
 function UsersTable({ users }) {
   return (
     <div className="overflow-x-auto text-sm px-10 mb-8 rounded w-full mx-auto ">

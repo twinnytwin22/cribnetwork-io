@@ -1,5 +1,5 @@
 import ContactForm from "../../Forms/ContactPageForm";
- 
+
 export const ContactModal = ({ handleClose }) => {
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center mx-8">

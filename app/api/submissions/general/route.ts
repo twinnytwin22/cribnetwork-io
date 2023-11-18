@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 //import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
- 
+
 async function sendEmail(msg: any) {
   try {
     await sgMail.send(msg);

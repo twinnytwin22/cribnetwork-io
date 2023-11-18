@@ -6,7 +6,7 @@ import BlogPostsPreview from "@/ui/Sections/BlogPreview/BlogPostsPreview";
 import CTA from "@/ui/Sections/CTA/HomeCTA";
 import MeetTheFounder from "@/ui/Sections/MeetTheFounder/MeetTheFounder";
 import { getSiteImage } from "@/utils/use-server";
- 
+
 export const revalidate = 0;
 
 //const backgroundImage = "/images/azwindmill.jpg"

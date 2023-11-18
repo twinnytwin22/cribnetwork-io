@@ -2,7 +2,7 @@
 import ContactButton from "@/ui/Buttons/ContactButton/";
 import { useContactButtonStore } from "@/ui/Buttons/ContactButton/contactButtonStore";
 import Image from "next/image";
- 
+
 function AboutHeader({ images }) {
   const setOpen = useContactButtonStore((state: any) => state.setOpen);
   const handleOpenModal = () => {

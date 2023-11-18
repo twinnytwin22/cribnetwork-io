@@ -1,4 +1,3 @@
-
 function SocialProof() {
   return (
     <section className="bg-zinc-100 dark:bg-zinc-950 w-full border-b border-zinc-300 dark:border-zinc-800">

@@ -1,4 +1,3 @@
-
 import { getSiteSettings } from "@/lib/providers/sanity/sanity";
 import AuthComponent from "@/ui/Auth/AuthComponent/AuthComponent";
 

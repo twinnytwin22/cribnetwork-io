@@ -1,4 +1,3 @@
-
 function PageTitle({ title }) {
   return (
     <div className=" px-10 mx-auto w-full">

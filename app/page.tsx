@@ -16,7 +16,7 @@ import { FaTwitter } from "react-icons/fa6";
 
 const metaImage = getSiteImage("/share.png");
 export const metadata = {
-  metadataBase: new URL('https://cribnetwork.io'),
+  metadataBase: new URL("https://cribnetwork.io"),
 
   openGraph: {
     title: "CRIB | Digital Services",

@@ -34,9 +34,9 @@ export interface UploadSongTypes {
   cover_art_url: string | null;
   moods: string[];
   artist_name: string;
-  duration: string | null;    
-  instrumental: boolean, 
-  has_lyrics: boolean,
+  duration: string | null;
+  instrumental: boolean;
+  has_lyrics: boolean;
   //
 }
 
@@ -56,7 +56,7 @@ export interface UploadMusicFormProps {
   moodArray: string[];
   genreValue: string;
   genreArray: string[] | any;
-  setSocialLinkState: (state: SocialMediaLinkTypes) => void
+  setSocialLinkState: (state: SocialMediaLinkTypes) => void;
   setArtistData: (artistData: ArtistTypes) => void;
   setFormData: (formData: UploadSongTypes) => void;
   setAudioSrc: (audioSrc: any) => void;
@@ -65,6 +65,6 @@ export interface UploadMusicFormProps {
   setStatus: (status: any) => void;
   setMusicFile: (musicFile: any) => void;
   updateGenres: (newGenres: string[]) => void;
-//  updateSongKeywords: (newKeywords: string[]) => void;
+  //  updateSongKeywords: (newKeywords: string[]) => void;
   formatTime: (time: number) => string;
 }

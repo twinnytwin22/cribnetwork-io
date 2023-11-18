@@ -4,14 +4,7 @@ import { getSiteImage } from "@/utils/use-server";
 import Image from "next/image";
 import Link from "next/link";
 import PortableText from "../../Components/PortableText/PortableText";
-const BlogPost = ({
-  _createdAt,
-  title,
-  content,
-  author,
-  slug,
-  coverImage,
-}) => {
+const BlogPost = ({ _createdAt, title, content, author, slug, coverImage }) => {
   const image = imageBuilder(coverImage);
   const excerptPg = content.slice(0, 1);
   const excerpt = excerptPg;

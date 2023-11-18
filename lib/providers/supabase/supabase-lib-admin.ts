@@ -3,7 +3,7 @@ import { BrowserCookieAuthStorageAdapter } from "@supabase/auth-helpers-shared";
 import { createClient } from "@supabase/supabase-js";
 import Stripe from "stripe";
 import { stripe } from "../stripe/stripe";
- 
+
 const authStorage = new BrowserCookieAuthStorageAdapter();
 
 export const supabaseUrl =

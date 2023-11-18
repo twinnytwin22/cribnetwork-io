@@ -5,7 +5,7 @@ import { renderSubscriptionButton } from "@/ui/Buttons/ManageSubButton/ManageSub
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
- 
+
 export default function AccountForm({ subscription, session }) {
   const [loading, setLoading] = useState(true);
   const [fullname, setFullname] = useState<string | null>(null);

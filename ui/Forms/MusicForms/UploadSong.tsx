@@ -1,3 +1,4 @@
+import { useAuthProvider } from "@/app/context/auth";
 import { useHandleOutsideClick } from "@/lib/hooks/handleOutsideClick";
 import { allGenres } from "@/lib/site/allGenres";
 import { filmMoods } from "@/lib/site/allMoods";
@@ -9,6 +10,7 @@ import { toast } from "react-toastify";
 import { useMusicFormStore } from "./store";
 
 const UploadSongForm = ({ artists }) => {
+  const {userRole, user} = useAuthProvider()
   const router = useRouter();
   const {
     initialState,
@@ -36,12 +38,13 @@ const UploadSongForm = ({ artists }) => {
   ///const setMoodValue = (moodValue) => useMusicFormStore.setState({ moodValue });
   const setMoodArray = (moodArray) => useMusicFormStore.setState({ moodArray });
   useEffect(() => {
-    setAudioSrc(null)
-    setImagePreview(null)
+    setAudioSrc(null);
+    setImagePreview(null);
     setFormData(initialState);
     setGenreArray([]);
     setMoodArray([]);
   }, []);
+
   const handleGenreSelect = (e) => {
     const selectedGenre = e.target.value;
 
@@ -78,8 +81,9 @@ const UploadSongForm = ({ artists }) => {
   //console.log(formData);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const selectedArtist = artists.find((artist) => artist.id === formData.artist_id);
-
+    const selectedArtist = artists.find(
+      (artist) => artist.id === formData.artist_id,
+    );
 
     const updates = {
       title: formData?.title,
@@ -107,13 +111,13 @@ const UploadSongForm = ({ artists }) => {
       setStatus("error");
       console.error("Error sending uploading song. Please try again later.");
     } finally {
-    //   const audio = await downloadFile({ path: formData?.music_file_url, bucket: "tracks" });
-    //   if (audio) {
-    //     setAudioSrc(audio);
-    //     setMusicFile(""); // Reset the music file state
-    //   }
-  router.back()  
-  }
+      //   const audio = await downloadFile({ path: formData?.music_file_url, bucket: "tracks" });
+      //   if (audio) {
+      //     setAudioSrc(audio);
+      //     setMusicFile(""); // Reset the music file state
+      //   }
+      router.back();
+    }
   };
 
   const handleSongUpload = async (e: any) => {
@@ -180,19 +184,25 @@ const UploadSongForm = ({ artists }) => {
   };
 
   const handleSongTypeChange = (e) => {
+    const { value } = e.target;
 
-    const {value} = e.target
-
-    if(value ==='lyrics-instrumental'){
-      setFormData({...formData, has_lyrics: true, instrumental: false })
+    if (value === "lyrics-instrumental") {
+      setFormData({ ...formData, has_lyrics: true, instrumental: false });
     }
 
-    if(value === 'instrumental'){
-      setFormData({...formData, has_lyrics: false, instrumental: true })
-
+    if (value === "instrumental") {
+      setFormData({ ...formData, has_lyrics: false, instrumental: true });
     }
   };
-//console.log(formData)
+  const currentArtist = artists.find((artist: { contact_email: string}) => artist.contact_email === user.email)
+  //const filteredSongs = currentArtist ? songs.filter((song) => song.artist_name === currentArtist?.artist_name) : []
+  //console.log(formData)
+  console.log(currentArtist)
+
+
+  useEffect(() => {
+
+  }, [userRole, currentArtist])
   return (
     <div
       className="w-full p-8 mx-auto z-[100] h-full isolate relative"
@@ -280,20 +290,29 @@ const UploadSongForm = ({ artists }) => {
                 Artist
               </label>
               <select
+              disabled={userRole !== "admin"}
                 className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 "
                 id="artist_id"
                 name="artist_id"
                 value={formData.artist_id}
                 onChange={handleChange}
               >
-                <option value="" disabled>
+                {userRole === "admin" &&
+                <option hidden value="" disabled>
                   Select an artist
-                </option>
-                {artists.map((artist) => (
+                </option>}
+
+                {userRole === "admin" && artists.map((artist) => (
                   <option key={artist.id} value={artist.id}>
                     {artist.artist_name}
                   </option>
                 ))}
+
+              {userRole !== "admin" && currentArtist &&  (
+                  <option key={currentArtist.id} value={currentArtist?.id}>
+                    {currentArtist?.artist_name || ''}
+                  </option>
+                )}
               </select>
             </div>
             {/* <div className="h-fit">
@@ -324,8 +343,8 @@ const UploadSongForm = ({ artists }) => {
             />
           </div> */}
           </div>
-          </div>
-          <div>
+        </div>
+        <div>
           <div className="flex h-fit space-x-4">
             <div className="w-full h-fit">
               <label

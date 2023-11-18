@@ -3,7 +3,7 @@ import { useState } from "react";
 import { BsFillQuestionSquareFill } from "react-icons/bs";
 export const PortalPageTitle = ({
   title,
-  toolTip, 
+  toolTip,
   subtitle,
 }: {
   title: string;

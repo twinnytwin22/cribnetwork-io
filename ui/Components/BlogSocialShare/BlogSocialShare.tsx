@@ -5,7 +5,7 @@ import {
   LinkedinShareButton,
   TelegramShareButton,
   TwitterShareButton,
-  WhatsappShareButton
+  WhatsappShareButton,
 } from "next-share";
 import { usePathname } from "next/navigation";
 import {
@@ -13,7 +13,7 @@ import {
   BsLinkedin,
   BsTelegram,
   BsTwitter,
-  BsWhatsapp
+  BsWhatsapp,
 } from "react-icons/bs";
 function BlogSocialShare({ title }) {
   const path = usePathname();

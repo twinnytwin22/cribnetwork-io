@@ -48,7 +48,6 @@ function NavBar({ settings }: { settings: any }) {
           />
         </Link>
         <div className="flex md:order-2 gap-4 items-center w-auto">
-        
           <div className="hidden md:block">
             <DarkModeSwitch />
           </div>
@@ -78,8 +77,9 @@ function NavBar({ settings }: { settings: any }) {
           </button>
         </div>
         <div
-          className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isMobileMenuOpen ? "" : "hidden"
-            }`}
+          className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${
+            isMobileMenuOpen ? "" : "hidden"
+          }`}
           id="navbar-sticky"
         >
           {!isHidden && (
@@ -90,9 +90,7 @@ function NavBar({ settings }: { settings: any }) {
                   href="/about"
                   className="block py-2 pl-3 pr-4 text-zinc-900 rounded hover:bg-zinc-100 md:hover:bg-transparent md:hover:text-zinc-700 md:p-0 md:dark:hover:text-zinc-500 dark:text-white  dark:hover:text-white md:dark:hover:bg-transparent dark:border-zinc-700 ease-in-out duration-300"
                 >
-                  <p>
-                  About
-                  </p>
+                  <p>About</p>
                 </Link>
               </li>
               <li className="relative">
@@ -100,22 +98,21 @@ function NavBar({ settings }: { settings: any }) {
                 <div
                   className="relative group drop-dizzle font-owners"
                   onMouseEnter={() => setIsSubMenuOpen(true)}
-                //   onMouseLeave={() => setIsSubMenuOpen(false)}
+                  //   onMouseLeave={() => setIsSubMenuOpen(false)}
                 >
                   <div
                     onClick={handleServicesClick}
                     className="block py-2 pl-3 pr-4 text-zinc-900 rounded hover:bg-zinc-100 md:hover:bg-transparent md:hover:text-zinc-700 md:p-0 md:dark:hover:text-zinc-500 dark:text-white dark:hover:text-white md:dark:hover:bg-transparent dark:border-zinc-700 ease-in-out duration-300"
                   >
-                    <p>
-                    Services
-                    </p>
+                    <p>Services</p>
                   </div>
                   {/* Submenu */}
                   <div
-                    className={` font-work-sans absolute left-0 mt-2 w-48 bg-white dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg shadow-lg ${isSubMenuOpen
+                    className={` font-work-sans absolute left-0 mt-2 w-48 bg-white dark:bg-black border border-zinc-200 dark:border-zinc-700 rounded-lg shadow-lg ${
+                      isSubMenuOpen
                         ? "opacity-100 visible"
                         : "opacity-0 invisible"
-                      } transition duration-300`}
+                    } transition duration-300`}
                   >
                     <Link
                       href="/web-development"

@@ -1,4 +1,3 @@
-
 const Circles = () => {
   return (
     <div className="  items-center w-full max-w-lg relative text-black dark:text-white scale-75 mx-auto justify-center lg:scale-100">

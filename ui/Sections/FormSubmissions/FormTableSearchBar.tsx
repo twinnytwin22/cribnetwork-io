@@ -29,8 +29,8 @@ export default function FormTableSearchBar() {
       if (error) {
         throw error;
       }
-      if(data){
-      setFilteredSubmissions(data);
+      if (data) {
+        setFilteredSubmissions(data);
       }
       return data;
     } catch (error) {

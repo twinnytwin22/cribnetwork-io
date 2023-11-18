@@ -4,7 +4,7 @@ import { setCookieConsent } from "@/lib/site/cookies/cookie-setter";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { createContext, useContext, useState } from "react";
 import { MdCancel } from "react-icons/md";
- 
+
 export const SiteContext = createContext({});
 export const useSiteContext = () => useContext(SiteContext);
 
@@ -33,7 +33,8 @@ function SiteContextProvider({ children }: { children: React.ReactNode }) {
     blockCookiesMutation.mutate(false);
     handleCloseCookieBar();
   };
-  const acceptCookiesMutation = useMutation({mutationFn: setCookieConsent, 
+  const acceptCookiesMutation = useMutation({
+    mutationFn: setCookieConsent,
     onSuccess: () => {
       // Invalidate the query to trigger a refresh of the cookieConsent data
       qc.invalidateQueries({ queryKey: ["cookieConsent"] });
@@ -41,7 +42,8 @@ function SiteContextProvider({ children }: { children: React.ReactNode }) {
   });
 
   // Mutation for blocking cookies
-  const blockCookiesMutation = useMutation({mutationFn: setCookieConsent, 
+  const blockCookiesMutation = useMutation({
+    mutationFn: setCookieConsent,
     onSuccess: () => {
       // Invalidate the query to trigger a refresh of the cookieConsent data
       qc.invalidateQueries({ queryKey: ["cookieConsent"] });

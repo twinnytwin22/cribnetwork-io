@@ -124,9 +124,8 @@ const EditArtistForm = ({ artists, id, songs }) => {
     } catch (err) {
       setStatus("error");
       toast.error("Error saving data");
-    } finally{
+    } finally {
       router.refresh();
-
     }
   };
   useHandleOutsideClick(imagePreviewOpen, setImagePreviewOpen, "image-preview");

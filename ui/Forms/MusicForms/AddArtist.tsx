@@ -6,7 +6,7 @@ import { FormEvent, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useMusicFormStore } from "./store";
 const AddArtistForm = () => {
-  const router = useRouter()
+  const router = useRouter();
   const {
     artistData: formData,
     setArtistData: setFormData,
@@ -17,27 +17,31 @@ const AddArtistForm = () => {
     genreArray,
     genreValue,
     initialArtistState,
-    setImagePreview, 
+    setImagePreview,
     imagePreview,
-    setImagePreviewOpen, 
+    setImagePreviewOpen,
     initialSocialLinkState,
-    imagePreviewOpen 
-
-  } = useMusicFormStore()
-  const setGenreValue = (genreValue) => useMusicFormStore.setState({ genreValue })
-  const setGenreArray = (genreArray) => useMusicFormStore.setState({ genreArray })
+    imagePreviewOpen,
+  } = useMusicFormStore();
+  const setGenreValue = (genreValue) =>
+    useMusicFormStore.setState({ genreValue });
+  const setGenreArray = (genreArray) =>
+    useMusicFormStore.setState({ genreArray });
   const nullData = () => {
-    setFormData(initialArtistState)
-    setImagePreview(null)
-    setSocialMediaValues(initialSocialLinkState)
-    setGenreArray([])
-  }
+    setFormData(initialArtistState);
+    setImagePreview(null);
+    setSocialMediaValues(initialSocialLinkState);
+    setGenreArray([]);
+  };
   useEffect(() => {
-  nullData()
-  //  setGenreArray(null)
-  },[])
+    nullData();
+    //  setGenreArray(null)
+  }, []);
   const handleSocialMediaUpdate = (event) => {
-    setSocialMediaValues({ ...socialMediaValues, [event.target.name]: event.target.value })
+    setSocialMediaValues({
+      ...socialMediaValues,
+      [event.target.name]: event.target.value,
+    });
   };
 
   const handleChange = (e) => {
@@ -64,9 +68,12 @@ const AddArtistForm = () => {
 
     if (file) {
       try {
-        const uploadedImage = await uploadFile({ file, bucket: "artist_images" });
+        const uploadedImage = await uploadFile({
+          file,
+          bucket: "artist_images",
+        });
         if (uploadedImage) {
-          setFormData({ ...formData,image_url: uploadedImage });
+          setFormData({ ...formData, image_url: uploadedImage });
           // console.log(uploadedSong);
           setStatus("");
           return;
@@ -104,21 +111,19 @@ const AddArtistForm = () => {
         setStatus("success");
         toast.success("Your message was sent successfully");
       }
-
-
     } catch (err) {
       setStatus("error");
       console.log("Error sending email. Please try again later.");
     } finally {
-      nullData()
-      router.back()
+      nullData();
+      router.back();
     }
   };
-  useHandleOutsideClick(imagePreviewOpen, setImagePreviewOpen, 'image-preview')
+  useHandleOutsideClick(imagePreviewOpen, setImagePreviewOpen, "image-preview");
 
   return (
     <div className="w-full p-8 mx-auto z-[100] h-full isolate relative">
-        {imagePreview && imagePreviewOpen && (
+      {imagePreview && imagePreviewOpen && (
         <div className="absolute z-[9999] flex items-center mx-8 w-full left-0 right-0">
           <div className="fixed inset-0 bg-black opacity-50 w-full mx-auto left-0 right-0"></div>
           <Image
@@ -149,7 +154,7 @@ const AddArtistForm = () => {
             type="email"
             id="contact_email"
             name="contact_email"
-            value={formData?.contact_email || ''}
+            value={formData?.contact_email || ""}
             onChange={handleChange}
             required
           />
@@ -167,9 +172,9 @@ const AddArtistForm = () => {
             type="text"
             id="artist_name"
             name="artist_name"
-            value={formData.artist_name || ''}
+            value={formData.artist_name || ""}
             onChange={handleChange}
-          //  required
+            //  required
           />
         </div>
         <div className="flex h-fit space-x-4 rounded items-end">
@@ -214,7 +219,7 @@ const AddArtistForm = () => {
           <input
             className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 "
             type="text"
-            value={genreValue || ''}
+            value={genreValue || ""}
             onChange={handleGenreChange}
             onKeyDown={handleInputKeyPress}
             placeholder="Press Enter to add a string"
@@ -238,7 +243,7 @@ const AddArtistForm = () => {
             type="text"
             id="contact_phone"
             name="contact_phone"
-            value={formData?.contact_phone || ''}
+            value={formData?.contact_phone || ""}
             onChange={handleChange}
             required
           />
@@ -255,7 +260,7 @@ const AddArtistForm = () => {
             className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border h-full dark:text-white border-zinc-300 dark:border-zinc-600 text-black text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring focus:border block w-full p-2.5 required"
             name="biography"
             id="biography"
-            value={formData?.biography || ''}
+            value={formData?.biography || ""}
             onChange={handleChange}
             required
           />
@@ -275,7 +280,7 @@ const AddArtistForm = () => {
               name="spotify_url"
               value={socialMediaValues?.spotify_url || ""}
               onChange={handleSocialMediaUpdate}
-            //   required
+              //   required
             />
           </li>
           <li className="mb-2">
@@ -292,7 +297,7 @@ const AddArtistForm = () => {
               name="applemusic_url"
               value={socialMediaValues?.applemusic_url || ""}
               onChange={handleSocialMediaUpdate}
-            // required
+              // required
             />
           </li>
           <li className="mb-2">
@@ -309,7 +314,7 @@ const AddArtistForm = () => {
               name="instagram_url"
               value={socialMediaValues?.instagram_url || ""}
               onChange={handleSocialMediaUpdate}
-            //  required
+              //  required
             />
           </li>
           <li className="mb-2">
@@ -326,7 +331,7 @@ const AddArtistForm = () => {
               name="x_url"
               value={socialMediaValues?.x_url || ""}
               onChange={handleSocialMediaUpdate}
-            //  required
+              //  required
             />
           </li>
           <li className="mb-2">
@@ -343,7 +348,7 @@ const AddArtistForm = () => {
               name="soundcloud_url"
               value={socialMediaValues?.soundcloud_url || ""}
               onChange={handleSocialMediaUpdate}
-            //  required
+              //  required
             />
           </li>
         </ul>
@@ -354,7 +359,6 @@ const AddArtistForm = () => {
           >
             Add Artist
           </button>
-
         </div>
         {status === "error" && <p>Error sending email, please try again.</p>}
       </form>

@@ -38,7 +38,7 @@ const securityHeaders = [
 const nextConfig = {
   experimental: {
     //  appDir: true,
-  //  serverActions: true,
+    //  serverActions: true,
   },
   images: {
     remotePatterns: [

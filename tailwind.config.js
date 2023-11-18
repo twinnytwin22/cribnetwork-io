@@ -16,7 +16,7 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       fontFamily: {
-        'work-sans': ['Work Sans', 'sans-serif'],
+        "work-sans": ["Work Sans", "sans-serif"],
 
         professor: ["professor", "sans-serif"],
         owners: ["owners", "sans-serif"],

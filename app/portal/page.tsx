@@ -37,11 +37,10 @@ async function Portal({ searchParams }: { searchParams: { q: string } }) {
     .eq("student_id", session?.user.id)
     .limit(5);
 
-
   return (
     <section className="w-screen h-full mx-auto relative">
       <PageTitle title="Your Overview" />
-      <React.Suspense fallback={<LoadingContainer/>}>
+      <React.Suspense fallback={<LoadingContainer />}>
         <div className="hidden">
           <UsersTable users={users} />
         </div>
@@ -64,14 +63,21 @@ async function Portal({ searchParams }: { searchParams: { q: string } }) {
                     <p className="text-zinc-800 text-sm dark:text-zinc-300 text-center pl-2">
                       {course?.courses?.title}
                     </p>
-                    <Link className=" cursor-pointer" href={`/portal/learning/course/${course.courses.id}`}>
+                    <Link
+                      className=" cursor-pointer"
+                      href={`/portal/learning/course/${course.courses.id}`}
+                    >
                       <button className="bg-red-300  cursor-pointer text-black rounded-full font-semibold text-sm p-1 px-3 hover:scale-105 duration-300 ease-in-out">
                         Resume
                       </button>
                     </Link>
                   </div>
                 ))}
-                <Link className=" cursor-pointer relative" href={"/portal/learning/my"} prefetch>
+                <Link
+                  className=" cursor-pointer relative"
+                  href={"/portal/learning/my"}
+                  prefetch
+                >
                   <p className="text-xs pl-8 p-2.5 underline text-black dark:text-white cursor-pointer">
                     View All
                   </p>

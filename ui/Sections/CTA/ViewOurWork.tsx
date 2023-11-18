@@ -1,4 +1,3 @@
-
 function ViewOurWork() {
   const cardClass =
     "hover:shadow-zinc-200 hover:shadow-2xl dark:hover:shadow-zinc-800 max-w-md w-full mx-auto ease-in-out duration-500  ";
