@@ -11,7 +11,7 @@ import "./globals.css";
 const headersList = headers()
 const pathname = headersList.get('next-url')
 const excludedFromAnalytics = pathname?.startsWith('/portal')
-console.log(excludedFromAnalytics)
+//console.log(excludedFromAnalytics)
 export const metadata = {
   metadataBase: new URL("https://cribnetwork.io"),
 
