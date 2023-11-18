@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
+import { NextResponse } from "next/server";
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
@@ -7,7 +7,7 @@ const headers = {
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 export const dynamic = "force-dynamic";
-export const revalidate = 0;
+//export const revalidate = 0;
 //export const dynamic = 'force-dynamic'
 export async function POST(request: Request) {
   const { updates } = await request.json();
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
         .single();
       //.eq('student_id', userId)
       // .limit(5)
-      console.log(song);
+     // console.log(song);
 
       if (error) {
         throw new Error("Error adding song:" + JSON.stringify(error));

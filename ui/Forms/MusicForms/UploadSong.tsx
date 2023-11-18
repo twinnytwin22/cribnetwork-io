@@ -78,7 +78,7 @@ const UploadSongForm = ({ artists }) => {
   //   store.setOpen(false);
   // };
 
-  //console.log(formData);
+  console.log(formData);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const selectedArtist = artists.find(
@@ -104,7 +104,7 @@ const UploadSongForm = ({ artists }) => {
       setStatus("loading");
       const res = await addNewSong({ updates });
 
-      if (res?.ok) {
+      if (res) {
         setStatus("success");
         //setFormData(initialState);
         toast.success("Your message was sent successfully");
@@ -201,9 +201,9 @@ const UploadSongForm = ({ artists }) => {
   );
   //const filteredSongs = currentArtist ? songs.filter((song) => song.artist_name === currentArtist?.artist_name) : []
   //console.log(formData)
-  console.log(currentArtist);
+  //console.log(currentArtist);
 
-  useEffect(() => {}, [userRole, currentArtist]);
+  //useEffect(() => {}, [userRole, currentArtist]);
   return (
     <div
       className="w-full p-8 mx-auto z-[100] h-full isolate relative"
