@@ -3,15 +3,17 @@ import { useHandleOutsideClick } from "@/lib/hooks/handleOutsideClick";
 import { getArtistImage } from "@/lib/site/constants";
 import { updateArtist, uploadFile } from "@/utils/db";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FormEvent, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useMusicFormStore } from "./store";
 import { ArtistTypes, SocialMediaLinkTypes } from "./types";
-const EditArtistForm = ({ artists, id, songs }) => {
+const EditArtistForm = ({ artists, id, songs, user }) => {
   const router = useRouter();
+  const pathname = usePathname()
+  console.log(pathname)
   const currentArtist: ArtistTypes = artists.find(
-    (artist: any) => artist.id.toString() === id.toString(),
+    (artist: any) => (artist?.id.toString() === id?.toString()) || (artist?.contact_email === user.email),
   );
   const {
     artistData: formData,
@@ -32,10 +34,10 @@ const EditArtistForm = ({ artists, id, songs }) => {
   const setGenreArray = (genreArray) =>
     useMusicFormStore.setState({ genreArray });
   const setData = () => {
-    setImagePreview(getArtistImage(currentArtist?.image_url));
+   currentArtist && setImagePreview(getArtistImage(currentArtist?.image_url));
     setStatus("loadingInitialState");
-    setFormData(currentArtist);
-    setGenreArray(currentArtist?.genres!);
+    setFormData(currentArtist || []);
+    setGenreArray(currentArtist?.genres! || []);
     setSocialMediaValues(
       currentArtist?.social_media_links as SocialMediaLinkTypes,
     );
@@ -144,8 +146,8 @@ const EditArtistForm = ({ artists, id, songs }) => {
           />
         </div>
       )}
-      <h1 className="text-2xl tracking-tight font-bold text-center text-black dark:text-white font-owners">
-        Edit Artist
+      <h1 className="text-2xl tracking-tight font-medium text-center text-black dark:text-white font-owners">
+       {pathname === "/portal/account" ? 'Edit Your Artist Profile' : 'Edit Artist'}
       </h1>
       <form
         onSubmit={(e) => handleSubmit(e)}
@@ -163,9 +165,11 @@ const EditArtistForm = ({ artists, id, songs }) => {
             type="email"
             id="contact_email"
             name="contact_email"
-            value={formData.contact_email || ""}
+            value={formData.contact_email || user?.email || ''}
             onChange={handleChange}
-            required
+            //required
+
+            disabled
           />
         </div>
 
@@ -203,7 +207,7 @@ const EditArtistForm = ({ artists, id, songs }) => {
               onChange={(e) => handleArtistImageUpload(e)}
             />
           </div>
-          {imagePreview && (
+          {imagePreview.length > 1 &&  (
             <div
               onClick={() => {
                 setImagePreviewOpen(true);
@@ -364,7 +368,7 @@ const EditArtistForm = ({ artists, id, songs }) => {
         <div className="flex space-x-3">
           <button
             type="submit"
-            className="py-3 font-owners rounded px-5 text-xs tracking-wide md:text-sm font-semibold text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105"
+            className="py-3 font-owners rounded px-5 text-xs tracking-wide md:text-sm font-medium text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105"
           >
             Update
           </button>

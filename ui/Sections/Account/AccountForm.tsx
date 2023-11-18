@@ -103,6 +103,7 @@ export default function AccountForm({ subscription, session }) {
             Email
           </label>
           <input
+            
             id="email"
             type="text"
             value={user?.email}

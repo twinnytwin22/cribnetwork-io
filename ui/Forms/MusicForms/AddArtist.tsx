@@ -135,7 +135,7 @@ const AddArtistForm = () => {
           />
         </div>
       )}
-      <h1 className="text-2xl tracking-tight font-bold text-center text-black dark:text-white font-owners">
+      <h1 className="text-2xl tracking-tight font-medium text-center text-black dark:text-white font-owners">
         Add New Artist
       </h1>
       <form
@@ -355,7 +355,7 @@ const AddArtistForm = () => {
         <div className="flex space-x-3">
           <button
             type="submit"
-            className="py-3 font-owners px-5 text-xs tracking-wide md:text-sm font-semibold text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105"
+            className="py-3 font-owners px-5 text-xs tracking-wide md:text-sm font-medium text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105"
           >
             Add Artist
           </button>

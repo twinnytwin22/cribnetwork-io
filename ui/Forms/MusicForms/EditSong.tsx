@@ -68,7 +68,7 @@ const EditSongForm = ({ artists, id, songs }) => {
       setImagePreview(getCoverImage(currentSong.cover_art_url!));
     }
   }, [currentSong]);
-  console.log(currentSong, "SONG");
+ // console.log(currentSong, "SONG");
   const handleLoadedMetadata = (event: ChangeEvent<HTMLAudioElement>) => {
     const audio = event.target;
     const audioDuration = formatTime(audio.duration);
@@ -99,12 +99,12 @@ const EditSongForm = ({ artists, id, songs }) => {
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
-    console.log(name, value, "CHANGE EVENT");
+    //console.log(name, value, "CHANGE EVENT");
 
     if (name === "artist_id") {
       // Find the selected artist to set artist_name
       const selectedArtist = artists.find((artist) => artist.id === value);
-      console.log(selectedArtist, "SELECTED");
+     // console.log(selectedArtist, "SELECTED");
       setFormData({
         ...formData,
         [name]: value,
@@ -229,7 +229,7 @@ const EditSongForm = ({ artists, id, songs }) => {
       setFormData({ ...formData, has_lyrics: false, instrumental: true });
     }
 
-    console.log(value, formData, "FORMDATA");
+    //console.log(value, formData, "FORMDATA");
   };
   return (
     <div className="w-full p-8 mx-auto z-[100] h-full isolate relative font-work-sans">
@@ -245,7 +245,7 @@ const EditSongForm = ({ artists, id, songs }) => {
           />
         </div>
       )}
-      <h1 className="text-2xl tracking-tight font-bold text-center text-black dark:text-white font-owners">
+      <h1 className="text-2xl tracking-tight font-medium text-center text-black dark:text-white font-owners">
         Edit Song&nbsp;&nbsp;|&nbsp; {formData.title}
       </h1>
 
@@ -313,6 +313,7 @@ const EditSongForm = ({ artists, id, songs }) => {
               Artist
             </label>
             <select
+            disabled
               className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 "
               id="artist_id"
               name="artist_id"
@@ -572,7 +573,7 @@ const EditSongForm = ({ artists, id, songs }) => {
             type="submit"
             className={`${
               status === "loading" ? "cursor-wait" : "cursor-pointer"
-            } py-3 font-owners px-5 rounded text-xs tracking-wide md:text-sm font-semibold text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105`}
+            } py-3 font-owners px-5 rounded text-xs tracking-wide md:text-sm font-medium text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105`}
           >
             {status === "loading" ? "Please wait" : "Update"}
           </button>
