@@ -82,7 +82,7 @@ const UploadSongForm = ({ artists }) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const selectedArtist = artists.find(
-      (artist) => artist.id === formData.artist_id,
+      (artist: {id: string}) => artist.id === formData.artist_id,
     );
 
     const updates = {
@@ -97,6 +97,8 @@ const UploadSongForm = ({ artists }) => {
       duration: formData?.duration,
       moods: moodArray,
       cover_art_url: formData?.cover_art_url,
+      has_lyric: formData?.has_lyrics,
+      instrumental: formData?.instrumental
     };
     try {
       setStatus("loading");

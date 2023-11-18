@@ -4,7 +4,7 @@ import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
 import { deleteFile } from "@/utils/db";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { FaEye, FaMusic, FaTrash } from "react-icons/fa6";
 import { FcCancel, FcCheckmark } from "react-icons/fc";
 import AddArtistForm from "./AddArtist";
@@ -243,6 +243,31 @@ const ArtistsTable = ({
 };
 
 const SongsTable = ({ router, pathname, createQueryString, songs }) => {
+  const [sortConfig, setSortConfig] = useState<{
+    key: number | string | null;
+    direction: "ascending" | "descending";
+  }>({
+    key: null,
+    direction: "ascending",
+  });
+  const handleSort = (key: string) => {
+    let direction: "ascending" | "descending" = "ascending";
+    if (sortConfig.key === key && sortConfig.direction === "ascending") {
+      direction = "descending";
+    }
+    setSortConfig({ key, direction });
+  };
+
+
+
+  const sortedSongs = [...songs].sort((a, b) => {
+    if (sortConfig.key! && sortConfig.direction === "ascending") {
+      return a[sortConfig.key] > b[sortConfig.key] ? 1 : -1;
+    } else {
+      return a[sortConfig.key!] < b[sortConfig.key!] ? 1 : -1;
+    }
+  });
+
   const handleDeleteSong = async (songId, path) => {
     try {
       let { error } = await supabaseAdmin
@@ -266,19 +291,29 @@ const SongsTable = ({ router, pathname, createQueryString, songs }) => {
           <table className="w-full text-sm text-left text-zinc-500 dark:text-zinc-400">
             <thead className="text-xs text-zinc-700 uppercase bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-400 font-owners tracking-widest">
               <tr>
-                <th scope="col" className="px-4 py-3">
-                  Title
+                <th 
+                                  onClick={() => handleSort("title")}
+                                  scope="col" className="px-4 py-3 cursor-pointer">
+                                    Title 
+
                 </th>
-                <th scope="col" className="px-4 py-3">
-                  Artist
+                <th
+                  onClick={() => handleSort("artist_name")}
+                  scope="col" className="px-4 py-3 cursor-pointer">
+                  Artist 
                 </th>
-                <th scope="col" className="px-4 py-3">
+                <th 
+                  onClick={() => handleSort("release_year")}
+                  scope="col" className="px-4 py-3 cursor-pointer">
                   Release Year
                 </th>
-                <th scope="col" className="px-4 py-3">
-                  <FaMusic />
+                <th 
+                  onClick={() => handleSort("music_file_url")}
+                  scope="col" className="px-4 py-3 cursor-pointer">
+                  <FaMusic /> 
                 </th>
-                <th scope="col" className="px-4 py-3 ">
+                <th 
+                scope="col" className="px-4 py-3 ">
                   <span className="sr-only">Edit</span>
                 </th>
                 <th scope="col" className="px-4 py-3 ">
@@ -287,7 +322,7 @@ const SongsTable = ({ router, pathname, createQueryString, songs }) => {
               </tr>
             </thead>
             <tbody className=" font-work-sans text-xs">
-              {songs.map((song) => {
+              {sortedSongs.map((song) => {
                 const usersSongs = song.artist_name;
                 return (
                   <tr

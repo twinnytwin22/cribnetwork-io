@@ -108,7 +108,7 @@ const EditSongForm = ({ artists, id, songs }) => {
       setFormData({
         ...formData,
         [name]: value,
-        artist_name: selectedArtist,
+        artist_name: selectedArtist.artist_name,
       });
     } else {
       setFormData({ ...formData, [name]: value });
