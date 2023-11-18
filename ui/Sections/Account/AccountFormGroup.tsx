@@ -25,11 +25,11 @@ function AccountFormGroup({ songs, artists, session, subscription, props }) {
                     <li  className="mr-2">
                             <Link
                                 href={`${pathname}/?mode=account`}
-                                className={`inline-block p-4 rounded-t-lg ${mode === "account"
+                                className={`inline-block p-4 rounded-t-lg ${(!mode || mode === "account")
                                         ? "text-red-300 border-b-2 border-red-400 dark:text-red-300 dark:border-red-300"
                                         : "text-zinc-500 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300"
                                     }`}
-                                aria-current={mode === "account" ? "page" : undefined}
+                                aria-current={(!mode || mode === "account") ? "page" : undefined}
                             >
                                 Edit Account
                             </Link>
@@ -51,7 +51,7 @@ function AccountFormGroup({ songs, artists, session, subscription, props }) {
 
                     </ul>
                 </div>
-                {mode === "account" &&
+                {(!mode || mode === "account") &&
                 <div className="py-8">
                     <AccountForm {...props} />
                 </div>}

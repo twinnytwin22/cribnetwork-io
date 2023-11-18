@@ -2,7 +2,6 @@ import {
   getSession,
   getSubscription,
 } from "@/lib/providers/supabase/supabase-server";
-import PageTitle from "@/ui/Components/PageTitle/PageTitle";
 import AccountFormGroup from "@/ui/Sections/Account/AccountFormGroup";
 import { getAllArtists, getAllSongs } from "@/utils/use-server";
 import { Suspense } from "react";
@@ -24,7 +23,7 @@ async function AccountPage() {
   return (
     userFormProps && (
       <section className="w-screen relative mx-auto h-full ">
-      <PageTitle title={"Your Account"} />
+      {/* <PageTitle title={"Your Account"} /> */}
       <Suspense>
           <AccountFormGroup {...userFormProps} props={userFormProps} />
           </Suspense>

@@ -94,7 +94,7 @@ export default function AccountForm({ subscription, session }) {
 
   return (
     user && (
-      <div className="w-full bg-white mx-auto rounded-md shadow dark:border md:mt-0 sm:max-w-md  dark:bg-black dark:border-zinc-800 p-4 text-black dark:text-zinc-200">
+      <div className="w-full bg-white mx-auto rounded-md font-work-sans shadow dark:border md:mt-0 sm:max-w-md  dark:bg-black dark:border-zinc-800 p-4 text-black dark:text-zinc-200">
         <div className="mb-4">
           <label
             htmlFor="email"
@@ -106,9 +106,9 @@ export default function AccountForm({ subscription, session }) {
             
             id="email"
             type="text"
-            value={user?.email}
+            value={user?.email || ''}
             disabled
-            className="mt-1 px-2 py-1 w-full rounded-md border border-zinc-300 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900  text-black dark:text-white "
+            className="mt-1 px-2 py-1 w-full font-work-sans rounded-md border border-zinc-300 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900  text-black dark:text-white "
           />
         </div>
         <div className="mb-4">
