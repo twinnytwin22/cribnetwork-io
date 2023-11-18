@@ -11,7 +11,6 @@ import { ArtistTypes, SocialMediaLinkTypes } from "./types";
 const EditArtistForm = ({ artists, id, songs, user }) => {
   const router = useRouter();
   const pathname = usePathname()
-  console.log(pathname)
   const currentArtist: ArtistTypes = artists.find(
     (artist: any) => (artist?.id.toString() === id?.toString()) || (artist?.contact_email === user.email),
   );
