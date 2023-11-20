@@ -48,7 +48,7 @@ const CourseHeader = ({
             </div>
             {settings ? (
               <Link href={"/portal/learning/my"} prefetch>
-                <button className="w-max min-w-[170px] text-black font-semibold bg-red-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-red-100  rounded-md text-sm px-5 py-2.5 text-center ">
+                <button className="w-max min-w-[170px] text-black font-medium bg-red-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-red-100  rounded-md text-sm px-5 py-2.5 text-center ">
                   View Your Courses
                 </button>
               </Link>

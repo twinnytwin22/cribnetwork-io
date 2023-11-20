@@ -304,7 +304,7 @@ function BuildGrantForm() {
   };
   return (
     <div>
-      <h1 className="text-3xl font-owners font-semibold">{"Get Started"}</h1>
+      <h1 className="text-3xl font-owners font-medium">{"Get Started"}</h1>
       <form
         onSubmit={(e: FormEvent<HTMLFormElement>) => handleSubmit(e)}
         className="w-full mx-auto h-[410px] max-h-full min-h-full relative"

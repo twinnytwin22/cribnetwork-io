@@ -151,7 +151,7 @@ function EnrollmentButton({ course }) {
       <div className="space-x-2 flex justify-center w-fit mx-auto">
         <button
           onClick={handleButtonAction}
-          className=" w-max min-w-[95px] md:min-w-[105px] xl:min-w-[160px] text-black font-semibold bg-red-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-red-100 rounded-md text-sm px-5 py-2.5 text-center mx-auto justify-center flex"
+          className=" w-max min-w-[95px] md:min-w-[105px] xl:min-w-[160px] text-black font-medium bg-red-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-red-100 rounded-md text-sm px-5 py-2.5 text-center mx-auto justify-center flex"
         >
           {enrollmentStatus === "not_enrolled" && "Enroll"}
           {enrollmentStatus === "enrolled" && "Start Course"}
@@ -159,7 +159,7 @@ function EnrollmentButton({ course }) {
         </button>
         <button
           onClick={handleBookMarkAction}
-          className={`min-w-[40px] lg:min-w-[40px] w-fit text-black font-semibold bg-red-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-red-100 rounded-md text-sm px-2.5 py-2.5 text-center mx-auto justify-center flex`}
+          className={`min-w-[40px] lg:min-w-[40px] w-fit text-black font-medium bg-red-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-red-100 rounded-md text-sm px-2.5 py-2.5 text-center mx-auto justify-center flex`}
         >
           {bookMarkedStatus !== "false" ? (
             <FaBookmark className="text-black" />

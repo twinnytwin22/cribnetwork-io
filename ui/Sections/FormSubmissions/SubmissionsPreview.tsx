@@ -52,7 +52,7 @@ const SubmissionPreview = () => {
           />
         </svg>
         <div className="p-4">
-          <h2 className="text-2xl font-semibold mb-4 text-center">
+          <h2 className="text-2xl font-medium mb-4 text-center">
             Submission
           </h2>
           <div>
@@ -131,9 +131,9 @@ const SubmissionPreview = () => {
           </div>
           {submission.form_questions?.map(({ question, response }, index) => (
             <div key={index} className="mt-4">
-              <h2 className="text-lg font-semibold">Question {index + 1}:</h2>
+              <h2 className="text-lg font-medium">Question {index + 1}:</h2>
               <p className="mb-2">{question}</p>
-              <h2 className="text-lg font-semibold">Response {index + 1}:</h2>
+              <h2 className="text-lg font-medium">Response {index + 1}:</h2>
               <p className="mb-2">{response}</p>
             </div>
           ))}

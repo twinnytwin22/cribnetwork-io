@@ -91,7 +91,7 @@ function SiteContextProvider({ children }: { children: React.ReactNode }) {
               <p className=" md:w-1/2 text-sm p-2.5 md:p-0 text-center md:text-left">
                 {cookieMessage}
               </p>
-              <div className="flex space-x-4 mx-auto justify-around font-owners text-sm font-semibold ">
+              <div className="flex space-x-4 mx-auto justify-around font-owners text-sm font-medium ">
                 <button className="hover:text-red-300 hidden">
                   Manage Settings
                 </button>

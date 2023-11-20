@@ -117,11 +117,11 @@ function FormGroup({ artists, songs, }) {
         {homeProps.includes(mode) && !edit && (
           <div className="space-y-4 p-8">
             <div hidden={userRole !== "admin"}>
-              <h2 className="font-semibold font-owners text-lg">Artists</h2>
+              <h2 className="font-medium font-owners text-lg">Artists</h2>
               <ArtistsTable {...queryProps} />
             </div>
             <div>
-              <h2 className="font-semibold font-owners text-lg">Songs</h2>
+              <h2 className="font-medium font-owners text-lg">Songs</h2>
               <SongsTable {...queryProps} />
             </div>
           </div>

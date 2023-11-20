@@ -1,11 +1,10 @@
 "use client";
-import React from "react";
 
 // Functional component to render a single quiz
 function Quiz({ quiz }) {
   return (
     <div className="border-t border-zinc-300 dark:border-zinc-800">
-      <p className="text-zinc-800 dark:text-zinc-300 font-semibold text-lg">
+      <p className="text-zinc-800 dark:text-zinc-300 font-medium text-lg">
         {quiz.title}
       </p>
       {quiz.questions.map((question: any) => (

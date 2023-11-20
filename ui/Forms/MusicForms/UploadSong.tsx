@@ -78,7 +78,7 @@ const UploadSongForm = ({ artists }) => {
   //   store.setOpen(false);
   // };
 
-  console.log(formData);
+  //console.log(formData);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const selectedArtist = artists.find(
@@ -560,7 +560,7 @@ const UploadSongForm = ({ artists }) => {
             type="submit"
             className={`${
               status === "loading" ? "cursor-wait" : "cursor-pointer"
-            } py-3 font-owners px-5 rounded text-xs tracking-wide md:text-sm font-semibold text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105`}
+            } py-3 font-owners px-5 rounded text-xs tracking-wide md:text-sm font-medium text-center text-black bg-red-300 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:scale-105`}
           >
             {status === "loading" ? "Please wait" : "Upload"}
           </button>

@@ -22,7 +22,7 @@ function CourseQuizzes({ course }) {
                       key={quiz._id}
                       className="border-t border-zinc-300 dark:border-zinc-800 flex justify-between items-center"
                     >
-                      <p className="text-zinc-800 dark:text-zinc-300 font-semibold text-lg my-4">
+                      <p className="text-zinc-800 dark:text-zinc-300 font-medium text-lg my-4">
                         {quiz.title}
                       </p>
                       <button className="text-black bg-red-300 px-2.5 p-1 h-fit rounded-lg font-bold">

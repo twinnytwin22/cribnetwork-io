@@ -144,12 +144,12 @@ function Course({ course, image }) {
         <div className="relative pt-1">
           <div className="flex mb-2 items-center justify-between">
             <div>
-              <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full">
+              <span className="text-xs font-medium inline-block py-1 px-2 uppercase rounded-full">
                 Lesson Progress
               </span>
             </div>
             <div className="text-right">
-              <span className="text-xs font-semibold inline-block text-red-3">
+              <span className="text-xs font-medium inline-block text-red-3">
                 {progress.toFixed(2)}%
               </span>
             </div>
@@ -195,7 +195,7 @@ function Course({ course, image }) {
             </div>
           )}
 
-          <div className="absolute z-30 left-2 right-0 top-28 text-zinc-300 select-none font-semibold">
+          <div className="absolute z-30 left-2 right-0 top-28 text-zinc-300 select-none font-medium">
             {course?.title}
           </div>
           <div className="p-4 relative space-y-4">
@@ -211,7 +211,7 @@ function Course({ course, image }) {
                   style={{ cursor: "pointer" }}
                 >
                   <p
-                    className={`font-semibold text-base ${
+                    className={`font-medium text-base ${
                       lessons[activeLessonIndex]?.title === lesson?.title
                         ? "text-red-300"
                         : "text-zinc-800 dark:text-zinc-300"

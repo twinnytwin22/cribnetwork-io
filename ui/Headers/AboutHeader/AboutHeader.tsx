@@ -13,7 +13,7 @@ function AboutHeader({ images }) {
     <section className="bg-white dark:bg-zinc-950 py-8">
       <div className="grid max-w-screen-xl mt-16 px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 w-full">
         <div className="mr-auto place-self-center lg:col-span-7">
-          <h1 className="max-w-xl mb-4 text-3xl leading-snug font-owners font-semibold tracking-normal md:text-4xl xl:text-5xl dark:text-white text-zinc-600">
+          <h1 className="max-w-xl mb-4 text-3xl leading-snug font-owners font-medium tracking-normal md:text-4xl xl:text-5xl dark:text-white text-zinc-600">
             Providing practical & scalable solutions.
           </h1>
           <p className="max-w-2xl mb-6 font-light text-zinc-500 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-400 font-owners">

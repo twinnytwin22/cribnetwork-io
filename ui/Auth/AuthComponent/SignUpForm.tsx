@@ -70,7 +70,7 @@ export const SignUpForm = ({ logo }) => {
                 <button
                   formAction="/auth/sign-up"
                   type="submit"
-                  className="w-full text-black font-semibold bg-red-200 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300  rounded-md text-sm px-5 py-2.5 text-center "
+                  className="w-full text-black font-medium bg-red-200 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300  rounded-md text-sm px-5 py-2.5 text-center "
                 >
                   Sign Up
                 </button>
@@ -106,7 +106,7 @@ export const SignUpForm = ({ logo }) => {
         </Link>
         <div className="w-full bg-white rounded-md shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-black dark:border-zinc-800">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8 w-full">
-            <p className="text-base font-semibold leading-tight text-center tracking-tight text-zinc-900 md:text-lg dark:text-white">
+            <p className="text-base font-medium leading-tight text-center tracking-tight text-zinc-900 md:text-lg dark:text-white">
               Please check your inbox and confirm your email.
             </p>
           </div>

@@ -65,7 +65,7 @@ function page() {
           <div className="absolute inset-0 bg-black opacity-75 "></div>
 
           <div className="mx-auto relative z-10">
-            <h1 className="text-5xl font-owners font-semibold text-white text-center">
+            <h1 className="text-5xl font-owners font-medium text-white text-center">
               Small Business Build Grant
             </h1>
           </div>
@@ -96,7 +96,7 @@ function page() {
         </section>
         <section className="-mt-16 relative">
           <div className="relative ">
-            <h1 className="text-3xl font-owners font-semibold text-center">
+            <h1 className="text-3xl font-owners font-medium text-center">
               Grant Details
             </h1>
             <ul className=" text-zinc-500 dark:text-zinc-300 mx-auto max-w-4xl w-full px-8 space-y-6">
@@ -121,7 +121,7 @@ function page() {
           </div>
           <div className="md:grid md:grid-cols-2 max-w-7xl mx-auto ">
             <div className="p-16">
-              <h1 className="text-3xl font-owners font-semibold ">
+              <h1 className="text-3xl font-owners font-medium ">
                 About you.
               </h1>
               <p className="mb-8 text-zinc-500 dark:text-zinc-300 ">

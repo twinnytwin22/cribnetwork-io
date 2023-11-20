@@ -154,7 +154,7 @@ const MusicianForm: React.FC = () => {
         </div>
         <button
           type="button"
-          className="bg-red-300 text-black px-2.5 p-1 rounded hover:bg-red-400 text-sm font-semibold"
+          className="bg-red-300 text-black px-2.5 p-1 rounded hover:bg-red-400 text-sm font-medium"
           onClick={handleArtistEmailCheck}
         >
           Next
@@ -319,7 +319,7 @@ const MusicianForm: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="bg-red-300 text-black px-2.5 p-1 rounded hover:bg-red-400 text-sm font-semibold"
+            className="bg-red-300 text-black px-2.5 p-1 rounded hover:bg-red-400 text-sm font-medium"
           >
             Submit
           </button>
@@ -354,14 +354,14 @@ const MusicianForm: React.FC = () => {
               />
             </div>
             <div className="border mx-auto border-zinc-300 dark:border-zinc-800 rounded-b  overflow-hidden relative bg-white dark:bg-black p-8">
-              <h2 className="text-2xl text-center font-semibold text-zinc-800 dark:text-white mb-4">
+              <h2 className="text-2xl text-center font-medium text-zinc-800 dark:text-white mb-4">
                 Sync Sunday
               </h2>
-              <h3 className="text-center font-semibold">Upcoming Date:</h3>
+              <h3 className="text-center font-medium">Upcoming Date:</h3>
               <p className="text-sm text-center mb-6"> {eventDates[0].date}</p>
               <div className="flex items-center justify-center mx-auto">
                 <Link href={"https://lu.ma/event/evt-kPpL1DxtCQp624U"}>
-                  <button className="bg-red-300 mx-auto text-black px-2.5 p-1 rounded hover:bg-red-400 text-sm font-semibold flex items-center space-x-2 duration-300 ease-in-out">
+                  <button className="bg-red-300 mx-auto text-black px-2.5 p-1 rounded hover:bg-red-400 text-sm font-medium flex items-center space-x-2 duration-300 ease-in-out">
                     RSVP
                   </button>
                 </Link>
@@ -417,7 +417,7 @@ const MusicianForm: React.FC = () => {
         </div>
         {process.env.NODE_ENV === "development" && (
           <button
-            className="bg-red-300 mx-auto text-black px-2.5 p-1 rounded hover:bg-red-400 text-sm font-semibold flex items-center space-x-2"
+            className="bg-red-300 mx-auto text-black px-2.5 p-1 rounded hover:bg-red-400 text-sm font-medium flex items-center space-x-2"
             type="button"
             onClick={() => setArtistInquiryCookie(false)}
           >

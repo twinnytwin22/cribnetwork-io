@@ -90,7 +90,7 @@ export const LoginForm = ({ logo }) => {
                 formAction={"/auth/login"}
                 //  onClick={() =>signInWithEmail(email, password)}
                 type="submit"
-                className="w-full text-black font-semibold bg-red-200 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-red-300  rounded-md text-sm px-5 py-2.5 text-center "
+                className="w-full text-black font-medium bg-red-200 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-red-300  rounded-md text-sm px-5 py-2.5 text-center "
               >
                 Sign in
               </button>

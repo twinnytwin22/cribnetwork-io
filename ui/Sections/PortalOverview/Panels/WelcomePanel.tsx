@@ -31,7 +31,7 @@ function WelcomePanel({
               <div className="flex items-center space-x-4 text-zinc-800 dark:text-zinc-300 cursor-pointer ">
                 <p
                   onClick={() => redirectToCustomerPortal(router)}
-                  className="text-center font-semibold hover:font-bold duration-300 ease-in-out"
+                  className="text-center font-medium hover:font-bold duration-300 ease-in-out"
                 >
                   Manage Subscription
                 </p>
@@ -41,7 +41,7 @@ function WelcomePanel({
               <div className="flex items-center space-x-4 text-zinc-800 dark:text-zinc-300 cursor-pointer ">
                 <Link
                   href={"/portal/account"}
-                  className="text-center font-semibold hover:font-bold duration-300 ease-in-out"
+                  className="text-center font-medium hover:font-bold duration-300 ease-in-out"
                 >
                   Manage Account
                 </Link>

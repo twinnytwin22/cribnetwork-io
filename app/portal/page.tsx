@@ -1,8 +1,8 @@
 import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
 import {
-  getActiveProductsWithPrices,
-  getSession,
-  getSubscription,
+    getActiveProductsWithPrices,
+    getSession,
+    getSubscription,
 } from "@/lib/providers/supabase/supabase-server";
 import { supabase } from "@/lib/site/constants";
 import PageTitle from "@/ui/Components/PageTitle/PageTitle";
@@ -54,7 +54,7 @@ async function Portal({ searchParams }: { searchParams: { q: string } }) {
           <LearningPanel href={"/portal/learning"}>
             {enrollments && enrollments?.length > 0 ? (
               <div className="space-y-2 p-1 ">
-                <h2 className="text-center font-semibold">Your courses</h2>
+                <h2 className="text-center font-medium">Your courses</h2>
                 {enrollments?.map((course) => (
                   <div
                     key={course.id}
@@ -67,7 +67,7 @@ async function Portal({ searchParams }: { searchParams: { q: string } }) {
                       className=" cursor-pointer"
                       href={`/portal/learning/course/${course.courses.id}`}
                     >
-                      <button className="bg-red-300  cursor-pointer text-black rounded-full font-semibold text-sm p-1 px-3 hover:scale-105 duration-300 ease-in-out">
+                      <button className="bg-red-300  cursor-pointer text-black rounded-full font-medium text-sm p-1 px-3 hover:scale-105 duration-300 ease-in-out">
                         Resume
                       </button>
                     </Link>

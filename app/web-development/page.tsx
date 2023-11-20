@@ -72,7 +72,7 @@ async function page() {
       <section className="bg-zinc-100 dark:bg-zinc-950 w-full border-b border-zinc-300 dark:border-zinc-800">
         <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8  lg:py-16 lg:grid-cols-12">
           <div className="mr-auto place-self-center lg:col-span-7">
-            <h1 className="max-w-2xl mb-4 text-4xl font-semibold tracking-tight leading-none md:text-5xl xl:text-6xl text-black dark:text-white font-owners">
+            <h1 className="max-w-2xl mb-4 text-4xl font-medium tracking-tight leading-none md:text-5xl xl:text-6xl text-black dark:text-white font-owners">
               {introH}{" "}
             </h1>
             <p className="max-w-2xl mb-6 font-light text-zinc-600 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-300 italic">
@@ -97,7 +97,7 @@ async function page() {
       <section className="bg-white dark:bg-black  border-b border-zinc-300 dark:border-zinc-800">
         <div className="gap-16 flex flex-col items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
           <div className="font-light  text-zinc-500 sm:text-lg dark:text-zinc-400 order-last lg:order-first">
-            <h2 className="mb-4 text-4xl tracking-tight font-semibold text-zinc-900 dark:text-white  font-owners">
+            <h2 className="mb-4 text-4xl tracking-tight font-medium text-zinc-900 dark:text-white  font-owners">
               {customWepH}
             </h2>
             <p className="max-w-2xl mb-6 font-light text-zinc-600 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-300 italic">
@@ -138,7 +138,7 @@ async function page() {
             </p>
           </div>
           <div className="font-light text-zinc-500 sm:text-lg dark:text-zinc-400">
-            <h2 className="mb-4 text-4xl tracking-tight font-semibold text-zinc-900 dark:text-white  font-owners">
+            <h2 className="mb-4 text-4xl tracking-tight font-medium text-zinc-900 dark:text-white  font-owners">
               {cmsWepH}
             </h2>
             <p className="max-w-2xl mb-6 font-light text-zinc-600 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-300 italic">
@@ -153,7 +153,7 @@ async function page() {
       <section className="bg-white dark:bg-black  border-b border-zinc-300 dark:border-zinc-800">
         <div className="gap-16 flex flex-col items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
           <div className="font-light  text-zinc-500 sm:text-lg dark:text-zinc-400 order-last lg:order-first">
-            <h2 className="mb-4 text-4xl tracking-tight font-semibold text-zinc-900 dark:text-white  font-owners">
+            <h2 className="mb-4 text-4xl tracking-tight font-medium text-zinc-900 dark:text-white  font-owners">
               {webAppH}
             </h2>
             <p className="max-w-2xl mb-6 font-light text-zinc-600 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-300 italic">
@@ -194,7 +194,7 @@ async function page() {
             />
           </div>
           <div className="font-light text-zinc-500 sm:text-lg dark:text-zinc-400">
-            <h2 className="mb-4 text-4xl tracking-tight font-semibold text-zinc-900 dark:text-white  font-owners">
+            <h2 className="mb-4 text-4xl tracking-tight font-medium text-zinc-900 dark:text-white  font-owners">
               {microH}
             </h2>
             <p className="max-w-2xl mb-6 font-light text-zinc-600 lg:mb-8 md:text-lg lg:text-xl dark:text-zinc-300 italic">

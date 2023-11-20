@@ -119,7 +119,7 @@ export default function Pricing({ products, subscription }) {
                         disabled={false}
                         loading={priceIdLoading === price.id}
                         onClick={() => handleCheckout(price)}
-                        className="block w-full py-2 mt-12 text-sm font-semibold text-center text-black dark:text-white rounded-md hover:bg-zinc-900 "
+                        className="block w-full py-2 mt-12 text-sm font-medium text-center text-black dark:text-white rounded-md hover:bg-zinc-900 "
                       >
                         {products[0].name ===
                         subscription?.prices?.products?.name
@@ -200,7 +200,7 @@ export default function Pricing({ products, subscription }) {
                 )}
               >
                 <div className="p-6">
-                  <h2 className="text-2xl font-semibold leading-6 text-black dark:text-white">
+                  <h2 className="text-2xl font-medium leading-6 text-black dark:text-white">
                     {product.name}
                   </h2>
                   <p className="mt-4 text-zinc-600 dark:text-zinc-300">
@@ -220,7 +220,7 @@ export default function Pricing({ products, subscription }) {
                     disabled={!user}
                     loading={priceIdLoading === price.id}
                     onClick={() => handleCheckout(price)}
-                    className="block w-full py-2 mt-8 text-sm font-semibold text-center"
+                    className="block w-full py-2 mt-8 text-sm font-medium text-center"
                   >
                     {subscription ? "Manage" : "Subscribe"}
                   </Button>

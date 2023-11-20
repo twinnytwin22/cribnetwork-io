@@ -87,11 +87,11 @@ function FormSubmissions({ data, formTableProps, formTypes }) {
         >
           <span className="text-sm font-normal text-zinc-500 dark:text-zinc-400">
             Showing
-            <span className="font-semibold text-zinc-900 dark:text-white">
+            <span className="font-medium text-zinc-900 dark:text-white">
               1-{data?.length}
             </span>
             of
-            <span className="font-semibold text-zinc-900 dark:text-white">
+            <span className="font-medium text-zinc-900 dark:text-white">
               {data?.length}
             </span>
           </span>

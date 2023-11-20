@@ -17,7 +17,7 @@ function LearningPanel({
         {href && (
           <Link href={href}>
             <div className="flex items-center space-x-4 text-zinc-800 dark:text-zinc-300 ">
-              <p className="text-center font-semibold hover:font-bold duration-300 ease-in-out">
+              <p className="text-center font-medium hover:font-bold duration-300 ease-in-out">
                 Go to Learning
               </p>
               <FaRightLong />

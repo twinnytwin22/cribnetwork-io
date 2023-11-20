@@ -78,7 +78,7 @@ function HomeHeader({ content }) {
             experience.
           </span>
         </h1>
-        <p className="uppercase font-semibold py-2 pb-6 tracking-wider text-zinc-300">
+        <p className="uppercase font-medium py-2 pb-6 tracking-wider text-zinc-300">
           Connect. Revolutionize. Innovate. Boost.
         </p>
         <p className="mb-8 text-lg font-normal lg:text-xl sm:px-16 xl:px-48 text-zinc-400 max-w-screen-lg mx-auto">
@@ -126,7 +126,7 @@ function HomeHeader({ content }) {
           </div>
         </div>
         <div className="px-4 pt-8 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
-          <span className="font-semibold text-zinc-300 uppercase tracking-wider">
+          <span className="font-medium text-zinc-300 uppercase tracking-wider">
             WITH SUPPORT FROM{" "}
           </span>
           <div className="flex flex-wrap justify-center items-center mt-8 text-zinc-500 sm:justify-around max-w-sm mx-auto">

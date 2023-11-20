@@ -66,7 +66,7 @@ const BlogPostsPreview = ({ blogPosts }) => {
     <section className="bg-white dark:bg-zinc-950 border-t border-b border-zinc-200 dark:border-zinc-800 py-8">
       <div className="py-8 px-4 mx-auto max-w-screen-xl w-full lg:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-          <h2 className="mb-4 text-3xl lg:text-4xl tracking-normal font-semibold font-owners text-zinc-900 dark:text-white">
+          <h2 className="mb-4 text-3xl lg:text-4xl tracking-normal font-medium font-owners text-zinc-900 dark:text-white">
             Our Blog
           </h2>
           <p className="font-light text-zinc-500 sm:text-xl dark:text-zinc-400">
