@@ -4,14 +4,19 @@ import Panel from "./Panel";
 function NotificationsPanel({
   children,
   span,
+  hidden
 }: {
   children: React.ReactNode;
   span?: string | number;
+  hidden: boolean
 }) {
-  return (
+  return  (
+    <React.Fragment>
+    {!hidden &&
     <Panel title="Notifications" span={span?.toString()}>
       {children}
-    </Panel>
+    </Panel>}
+    </React.Fragment>
   );
 }
 

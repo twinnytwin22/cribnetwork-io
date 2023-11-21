@@ -12,9 +12,9 @@ const Panel = ({
   return (
     <Suspense fallback="loading...">
       <div
-        className={`col-span-6 md:col-span-${
+        className={` xl:col-span-2 p-4 bg-white dark:bg-black rounded w-full border border-zinc-200 dark:border-zinc-800 relative col-span-6 md:col-span-${
           span ? span : "3"
-        } xl:col-span-2 p-4 bg-white dark:bg-black rounded w-full border border-zinc-200 dark:border-zinc-800 relative`}
+        }`}
       >
         <h1 className="text-xl font-bold text-black dark:text-white text-center">
           {title}
