@@ -302,7 +302,7 @@ const SongsTable = ({ router, pathname, createQueryString, songs }) => {
                 <th
                   onClick={() => handleSort("release_year")}
                   scope="col" className="px-4 py-3 cursor-pointer">
-                  Release Year
+                  Plays
                 </th>
                 <th
                   onClick={() => handleSort("music_file_url")}
@@ -333,7 +333,7 @@ const SongsTable = ({ router, pathname, createQueryString, songs }) => {
                       {song.artist_name}
                     </td>
                     <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
-                      {song.release_year}
+                      {song.play_count.toString()}
                     </td>
                     <td className="px-4 py-2 font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer">
                       {song.music_file_url.length > 1 ? (
