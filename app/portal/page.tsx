@@ -73,10 +73,11 @@ async function Portal({ searchParams }: { searchParams: { q: string } }) {
                   <div className="space-y-2">
                     {currentArtistSongs.slice(0, 3).map((song) => (
                       <div
+                      key={song.id}
                         className="flex items-center space-x-4 mx-auto justify-between p-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 max-w-sm "
                       >
                         <p className="text-zinc-800 text-sm dark:text-zinc-300 text-center pl-2"
-                          key={song.id}>
+                          >
                           {song.title}
                         </p>
                         <button className=" border  mx-auto flex justify-center border-zinc-200 dark:border-zinc-800 cursor-pointer text-black dark:text-white rounded-full font-medium text-sm p-1 px-3 hover:scale-105 duration-300 ease-in-out">
