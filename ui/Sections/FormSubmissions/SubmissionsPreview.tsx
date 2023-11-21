@@ -89,7 +89,7 @@ const SubmissionPreview = () => {
             {submission?.playlist_url && (
               <p className="mb-2">
                 <strong>Playlist URL:</strong>{" "}
-                <Link className="underline" href={submission.playlist_url}>
+                <Link className="underline" target="_blank" href={submission.playlist_url}>
                   {submission?.playlist_url || ""}
                 </Link>
               </p>
