@@ -19,6 +19,7 @@ import {
   FaUser,
 } from "react-icons/fa"; // Import the icons you need
 import { FaMusic, FaWpforms } from "react-icons/fa6";
+import { FiMail } from "react-icons/fi";
 function DashboardSidebar() {
   const { user, signOut, profile, userRole, setUserRole } = useAuthProvider();
   const [showTooltip, setShowTooltip] = useState("");
@@ -140,6 +141,13 @@ function DashboardSidebar() {
       title: "Learning",
       icon: <FaBook />,
       href: "/portal/learning",
+      target: "_self",
+      user_role: UserRoleTypes.admin,
+    },
+    {
+      title: "Email",
+      icon: <FiMail />,
+      href: "/portal/email",
       target: "_self",
       user_role: UserRoleTypes.admin,
     },
