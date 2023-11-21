@@ -9,7 +9,9 @@
 p {
   font-family: "Work Sans", sans-serif;
 }
-
+.tox-statusbar__branding {
+  display: none;
+}
 h1 h2 {
   font-family: "owners", sans-serif;
 }
