@@ -36,13 +36,13 @@ async function Portal({ searchParams }: { searchParams: { q: string } }) {
     getAllArtists(),
   ]);
 
-
-  const currentArtist = artists.artists?.find(
+  const adminEmails = ['randal.herndon@gmail.com', 'randal@cribnetwork.io']
+  const currentArtist = !adminEmails.includes(session?.user.email!) ? artists.artists?.find(
     (artist: { contact_email: string }) => artist.contact_email === session?.user.email //"blvckheartmoney@gmail.com" //,
-  );
-  const currentArtistSongs = currentArtist
+  ) : [];
+  const currentArtistSongs = currentArtist && !adminEmails.includes(session?.user.email!)
     ? songs.songs?.filter((song) => song.artist_name === currentArtist?.artist_name)
-    : [];
+    : songs.songs || [];
 
   const { data: enrollments, error } = await supabase
     .from("student_enrollments")
