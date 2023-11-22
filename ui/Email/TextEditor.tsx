@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 import { UseThemeProps } from "next-themes/dist/types";
 import { useEffect, useRef, useState } from "react";
 import { FaWindowClose } from "react-icons/fa";
-import { FaFile, FaFolder } from "react-icons/fa6";
+import { FaFile, FaFolder, FaPaperPlane } from "react-icons/fa6";
 import { GoLog } from "react-icons/go";
 import { MdOutlineSaveAlt } from "react-icons/md";
 import { Editor as TinyMCEEditor } from "tinymce";
@@ -81,12 +81,17 @@ export default function TextEditor() {
             </div>
             <div className="flex">
               <div className="flex flex-col w-fit items-center space-y-4  px-4 font-extrabold -ml-14 invert">
+              <button
+                  className="dark:text-black font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-lg p-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
+                 // onClick={() => setFileManagerOpen(true)}
+                >
+                  <FaPaperPlane/>
+                </button>
                 <button
                   className="dark:text-black font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-lg p-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
-                  onClick={() => log(editorRef, savedContent, setSavedContent)}
+                  onClick={() => setFileManagerOpen(true)}
                 >
-                  <GoLog />
-                  {/* Log editor content */}
+                  <FaFolder />
                 </button>
                 <button
                   className="dark:text-black font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-lg p-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
@@ -98,10 +103,14 @@ export default function TextEditor() {
                 </button>
                 <button
                   className="dark:text-black font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-lg p-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
-                  onClick={() => setFileManagerOpen(true)}
+                  onClick={() => log(editorRef, savedContent, setSavedContent)}
                 >
-                  <FaFolder />
+                  <GoLog />
+                  {/* Log editor content */}
                 </button>
+             
+            
+              
               </div>
               <div className="w-full">
                 <Component
