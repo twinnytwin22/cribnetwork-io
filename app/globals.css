@@ -12,6 +12,10 @@ p {
 .tox-statusbar__branding {
   display: none;
 }
+.tox .tox-editor-header {
+  font-family:'Work Sans', sans-serif;
+
+}
 h1 h2 {
   font-family: "owners", sans-serif;
 }
@@ -35,7 +39,9 @@ h1 h2 {
   );
 }
 
+
 @media (prefers-color-scheme: dark) {
+
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
