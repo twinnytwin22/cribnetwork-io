@@ -60,7 +60,7 @@ export const editorPropsDark = {
 }
 
 
-// ... (rest of the code remains unchanged)
+const image = 'https://cdn.sanity.io/images/6d8w1e5g/production/b9657d582fceef81348198cd3d0aa9bb853729d4-748x167.png?w=256&q=75'// ... (rest of the code remains unchanged)
 export const HTML = [
   {
     title: 'Initial Email',
@@ -71,10 +71,12 @@ export const HTML = [
     <p>I am confident that my catalog, coupled with my background in XXGENREXX, aligns seamlessly with your library and song selection. To provide you with a glimpse of my work, I have attached a few samples in both audio and video formats. I hope you find them reflective of the unique style I bring to the table.</p>
     <p>I am open to discussing my approach further, and I would love the opportunity to learn more about your creative process and criteria for selecting music. Pursuing music supervision is an aspiration of mine, and I believe our shared passion for creating memorable soundscapes could lead to a fruitful collaboration.</p>
     <p>I look forward to the possibility of hearing back from you and the opportunity to connect further. Thank you for considering my inquiry, and I appreciate your time.</p>
-    <p>Warm regards,</p>
-    <p>Randal Herndon</p>
-    <p>Founder / Composer</p>
-    <p>Crib Music Global</p>
+    <p>Warm regards,<br/>
+    Randal Herndon<br/>
+    Crib Music Global<br/>
+    </p>
+    <a href="https://cribmusic.xyz" target="_blank" rel="noopener">
+    <img src=${image} alt="logo" style="width: 150px"/></a>
     <p><a href="https://cribmusic.xyz" target="_blank" rel="noopener">cribmusic.xyz</a></p>`,
     description: 'Initial Email'
   },
@@ -87,10 +89,12 @@ export const HTML = [
     <p>I am confident that my catalog, coupled with my background in XXGENREXX, aligns seamlessly with your library and song selection. To provide you with a glimpse of my work, I have attached a few samples in both audio and video formats. I hope you find them reflective of the unique style I bring to the table.</p>
     <p>I am open to discussing my approach further, and I would love the opportunity to learn more about your creative process and criteria for selecting music. Pursuing music supervision is an aspiration of mine, and I believe our shared passion for creating memorable soundscapes could lead to a fruitful collaboration.</p>
     <p>I look forward to the possibility of hearing back from you and the opportunity to connect further. Thank you for considering my inquiry, and I appreciate your time.</p>
-    <p>Warm regards,</p>
-    <p>Randal Herndon</p>
-    <p>Founder / Composer</p>
-    <p>Crib Music Global</p>
+    <p>Warm regards,<br/>
+    Randal Herndon<br/>
+    Crib Music Global<br/>
+    </p>
+    <a href="https://cribmusic.xyz" target="_blank" rel="noopener">
+    <img src=${image} alt="logo" style="width: 150px"/></a>
     <p><a href="https://cribmusic.xyz" target="_blank" rel="noopener">cribmusic.xyz</a></p>`,
     description: 'Initial Email'
 
@@ -104,10 +108,12 @@ export const HTML = [
     <p>I am confident that my catalog, coupled with my background in XXGENREXX, aligns seamlessly with your library and song selection. To provide you with a glimpse of my work, I have attached a few samples in both audio and video formats. I hope you find them reflective of the unique style I bring to the table.</p>
     <p>I am open to discussing my approach further, and I would love the opportunity to learn more about your creative process and criteria for selecting music. Pursuing music supervision is an aspiration of mine, and I believe our shared passion for creating memorable soundscapes could lead to a fruitful collaboration.</p>
     <p>I look forward to the possibility of hearing back from you and the opportunity to connect further. Thank you for considering my inquiry, and I appreciate your time.</p>
-    <p>Warm regards,</p>
-    <p>Randal Herndon</p>
-    <p>Founder / Composer</p>
-    <p>Crib Music Global</p>
+    <p>Warm regards,<br/>
+    Randal Herndon<br/>
+    Crib Music Global<br/>
+    </p>
+    <a href="https://cribmusic.xyz" target="_blank" rel="noopener">
+    <img src=${image} alt="logo" style="width: 150px"/></a>
     <p><a href="https://cribmusic.xyz" target="_blank" rel="noopener">cribmusic.xyz</a></p>`,
     description: 'Initial Email'
 
@@ -121,10 +127,12 @@ export const HTML = [
     <p>I am confident that my catalog, coupled with my background in XXGENREXX, aligns seamlessly with your library and song selection. To provide you with a glimpse of my work, I have attached a few samples in both audio and video formats. I hope you find them reflective of the unique style I bring to the table.</p>
     <p>I am open to discussing my approach further, and I would love the opportunity to learn more about your creative process and criteria for selecting music. Pursuing music supervision is an aspiration of mine, and I believe our shared passion for creating memorable soundscapes could lead to a fruitful collaboration.</p>
     <p>I look forward to the possibility of hearing back from you and the opportunity to connect further. Thank you for considering my inquiry, and I appreciate your time.</p>
-    <p>Warm regards,</p>
-    <p>Randal Herndon</p>
-    <p>Founder / Composer</p>
-    <p>Crib Music Global</p>
+    <p>Warm regards,<br/>
+    Randal Herndon<br/>
+    Crib Music Global<br/>
+    </p>
+    <a href="https://cribmusic.xyz" target="_blank" rel="noopener">
+    <img src=${image} alt="logo" style="width: 150px"/></a>
     <p><a href="https://cribmusic.xyz" target="_blank" rel="noopener">cribmusic.xyz</a></p>`,
     description: 'Initial Email'
 
@@ -138,10 +146,12 @@ export const HTML = [
     <p>I am confident that my catalog, coupled with my background in XXGENREXX, aligns seamlessly with your library and song selection. To provide you with a glimpse of my work, I have attached a few samples in both audio and video formats. I hope you find them reflective of the unique style I bring to the table.</p>
     <p>I am open to discussing my approach further, and I would love the opportunity to learn more about your creative process and criteria for selecting music. Pursuing music supervision is an aspiration of mine, and I believe our shared passion for creating memorable soundscapes could lead to a fruitful collaboration.</p>
     <p>I look forward to the possibility of hearing back from you and the opportunity to connect further. Thank you for considering my inquiry, and I appreciate your time.</p>
-    <p>Warm regards,</p>
-    <p>Randal Herndon</p>
-    <p>Founder / Composer</p>
-    <p>Crib Music Global</p>
+    <p>Warm regards,<br/>
+    Randal Herndon<br/>
+    Crib Music Global<br/>
+    </p>
+    <a href="https://cribmusic.xyz" target="_blank" rel="noopener">
+    <img src=${image} alt="logo" style="width: 150px"/></a>
     <p><a href="https://cribmusic.xyz" target="_blank" rel="noopener">cribmusic.xyz</a></p>`,
     description: 'Initial Email'
 

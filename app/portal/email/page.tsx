@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic'
 
 async function page() {
   return (
-    <div className="h-screen mt-20 text-black dark:text-white w-full px-4"><TextEditor/></div>
+    <div className="min-h-screen mt-20 pb-24 text-black dark:text-white w-full px-4"><TextEditor/></div>
   )
 }
 
