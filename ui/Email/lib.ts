@@ -52,7 +52,7 @@ export const editorPropsDark = {
 
     content_style: 
     `
-    body { background-color: black; color: white; }`,
+    body { background-color: black;}`,
     
 
     ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),

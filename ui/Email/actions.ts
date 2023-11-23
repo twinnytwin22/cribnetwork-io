@@ -1,5 +1,7 @@
 import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
+import { MutableRefObject } from "react";
 import { toast } from "react-toastify";
+import { Editor } from "tinymce";
 import { HTML } from "./lib";
 
 export const getExistingDocs = async () => {
@@ -16,28 +18,34 @@ export const forceRerender = async (setMounted: (mounted: boolean) => void) => {
 export const saveToDB = async (
   editorRef: any,
   savedContent: string,
+  title: string ,
   id?: string | null,
-  title?: string | null
+ 
 ) => {
   try {
     if (savedContent && editorRef.current && !id) {
       const { data, error } = await supabaseAdmin
         .from("email_templates")
         .upsert({
-          html: savedContent, //editorRef.current.getContent()
-          title
+          element: savedContent, //editorRef.current.getContent()
+          title,
         })
         .select()
         .single();
       if (data) {
         toast.success("File saved to db");
       }
+
+      if(error){
+        console.log(error)
+        return error
+      }
     } else if (savedContent && editorRef && id!!) {
       const { data, error } = await supabaseAdmin
         .from("email_templates")
         .upsert({
-          html: savedContent,
-          title
+          element: savedContent,
+          title,
         })
         .eq("id", id)
         .select()
@@ -45,9 +53,15 @@ export const saveToDB = async (
       if (data) {
         toast.success("File saved to db");
       }
+
+      if (error){
+        console.log(error)
+        return error
+      }
     }
   } catch (error) {
-    console.log(error);
+    console.log(error)
+return error
   } finally {
   }
 };
@@ -60,21 +74,31 @@ export const log = (
   if (editorRef.current) {
     setSavedContent(editorRef.current.getContent());
     if (savedContent) {
-      console.log("Saved content:",savedContent);
+      console.log("Saved content:", savedContent);
       toast.success("Saved");
     }
   }
   // console.log(savedContent)
 };
 
-export const setNewContent = (e, existingDocs, editorRef) => {
+export const setNewContent = (
+  e: any,
+  existingDocs: any[] | undefined,
+  editorRef: MutableRefObject<Editor | null>,
+  setTitle: (title: string) => void,
+  setDocument: (document: any) => void
+) => {
   const { value } = e.target;
   if (value && existingDocs) {
     const option = [...HTML, ...existingDocs!].find(
       ({ title }) => title === value,
     );
-    if (editorRef.current) {
+    
+    if (editorRef.current && option) {
+      setTitle(option.title)
+      setDocument(option)
       editorRef.current.setContent(option?.element!);
     }
+    return option
   }
 };

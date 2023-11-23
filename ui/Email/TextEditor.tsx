@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Editor } from "@tinymce/tinymce-react";
 import { useTheme } from "next-themes";
 import { UseThemeProps } from "next-themes/dist/types";
-import { useEffect, useRef, useState } from "react";
+import { ButtonHTMLAttributes, useEffect, useRef, useState } from "react";
 import { FaWindowClose } from "react-icons/fa";
 import { FaFile, FaFolder, FaPaperPlane } from "react-icons/fa6";
 import { GoLog } from "react-icons/go";
@@ -33,6 +33,8 @@ export default function TextEditor() {
     setTitle,
     fileManagerOpen,
     setFileManagerOpen,
+    document, 
+    setDocument
   } = useEditorStore();
   const [editorProps, setEditorProps] = useState<any>({});
   const [] = useState(false);
@@ -43,21 +45,32 @@ export default function TextEditor() {
     queryFn: () => getExistingDocs(),
     enabled: mounted,
   });
+  console.log(document, 'DOC')
 
   useEffect(() => {
     setEditorProps(getEditorProps(currentTheme!));
     forceRerender(setMounted);
   }, [currentTheme!!, mounted, editorProps]);
 
+  const updateTitle = (e) => {
+    const { value, name }:ButtonHTMLAttributes<HTMLButtonElement> = e.target;
+    setTitle(value);
+    setDocument({
+      title: value
+    })
+  };
+
+  const editorMenuProps = {
+    setFileManagerOpen,
+    editorRef,
+    savedContent,
+    setSavedContent,
+    title, 
+    document
+  };
   if (!mounted) {
     return null;
   }
-
-  const updateTitle = (e) => {
-    const { value, name } = e.target;
-    setTitle(value);
-  };
-
   return (
     <div className="max-w-5xl mx-auto ">
       <div>
@@ -69,8 +82,10 @@ export default function TextEditor() {
                 name="title"
                 id="title"
                 type="text"
+                value={title || ''}
                 placeholder=""
                 onChange={updateTitle}
+               // onBlur={() => console.log('blur blur blur')}
               />
               <label
                 className="peer-focus:font-medium absolute peer-focus:ml-3  text-sm text-zinc-500 dark:text-zinc-300 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-300 peer-focus:dark:text-red-200 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
@@ -80,43 +95,12 @@ export default function TextEditor() {
               </label>
             </div>
             <div className="flex">
-              <div className="flex flex-col w-fit items-center space-y-4  px-4 font-extrabold -ml-14 invert">
-              <button
-                  className="dark:text-black font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-lg p-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
-                 // onClick={() => setFileManagerOpen(true)}
-                >
-                  <FaPaperPlane/>
-                </button>
-                <button
-                  className="dark:text-black font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-lg p-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
-                  onClick={() => setFileManagerOpen(true)}
-                >
-                  <FaFolder />
-                </button>
-                <button
-                  className="dark:text-black font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-lg p-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
-                  onClick={() => saveToDB(editorRef, savedContent)}
-                  //name="submitbtn"
-                  type="button"
-                >
-                  <MdOutlineSaveAlt />
-                </button>
-                <button
-                  className="dark:text-black font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-lg p-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
-                  onClick={() => log(editorRef, savedContent, setSavedContent)}
-                >
-                  <GoLog />
-                  {/* Log editor content */}
-                </button>
-             
-            
-              
-              </div>
+              <EditorMenu {...editorMenuProps} />
               <div className="w-full">
                 <Component
                   onEditorChange={setSavedContent}
                   //tinymceScriptSrc="/tinymce/tinymce.min.js"
-                  onInit={(evt, editor) => (editorRef.current = editor)}
+                  onInit={(evt: any, editor: TinyMCEEditor | null) => (editorRef.current = editor)}
                   {...editorProps}
                 />
               </div>
@@ -139,7 +123,7 @@ export default function TextEditor() {
               <button
                 value={option.title}
                 className="dark:text-black mx-auto font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
-                onClick={(e) => setNewContent(e, existingDocs, editorRef)}
+                onClick={(e) => setNewContent(e, existingDocs, editorRef, setTitle, setDocument)}
               >
                 Use
               </button>
@@ -157,7 +141,7 @@ export default function TextEditor() {
               <div className="relative p-4" key={doc.id}>
                 <button
                   value={doc.title}
-                  onClick={(e) => setNewContent(e, existingDocs, editorRef)}
+                  onClick={(e) => setNewContent(e, existingDocs, editorRef, setTitle, setDocument)}
                   className="text-sm relative"
                 >
                   <FaFile className="text-4xl w-14 " />
@@ -171,3 +155,44 @@ export default function TextEditor() {
     </div>
   );
 }
+
+const EditorMenu = ({
+  setFileManagerOpen,
+  editorRef,
+  savedContent,
+  setSavedContent,
+  title, 
+  document
+}: any) => {
+  return (
+    <div className="flex flex-col w-fit items-center space-y-4  px-4 font-extrabold -ml-14 invert">
+      <button
+        className="dark:text-black font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-lg p-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
+        // onClick={() => setFileManagerOpen(true)}
+      >
+        <FaPaperPlane />
+      </button>
+      <button
+        className="dark:text-black font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-lg p-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
+        onClick={() => setFileManagerOpen(true)}
+      >
+        <FaFolder />
+      </button>
+      <button
+        disabled={!title}
+        className="dark:text-black font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-lg p-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
+        onClick={() => saveToDB(editorRef, savedContent,title!, (document.id && document.id.length > 1) ? document.id : undefined)}
+        type="button"
+      >
+        <MdOutlineSaveAlt />
+      </button>
+      <button
+        className="dark:text-black font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-lg p-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
+        onClick={() => log(editorRef, savedContent, setSavedContent)}
+      >
+        <GoLog />
+        {/* Log editor content */}
+      </button>
+    </div>
+  );
+};
