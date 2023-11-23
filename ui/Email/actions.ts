@@ -19,7 +19,7 @@ export const saveToDB = async (
   editorRef: any,
   savedContent: string,
   title: string ,
-  id?: string | null,
+  id: string | null,
  
 ) => {
   try {
@@ -43,7 +43,7 @@ export const saveToDB = async (
     } else if (savedContent && editorRef && id!!) {
       const { data, error } = await supabaseAdmin
         .from("email_templates")
-        .upsert({
+        .update({
           element: savedContent,
           title,
         })

@@ -55,9 +55,12 @@ export default function TextEditor() {
   const updateTitle = (e) => {
     const { value, name }:ButtonHTMLAttributes<HTMLButtonElement> = e.target;
     setTitle(value);
+    if (!document){
     setDocument({
-      title: value
+      title: value,
+      id: null
     })
+  }
   };
 
   const editorMenuProps = {
@@ -181,7 +184,7 @@ const EditorMenu = ({
       <button
         disabled={!title}
         className="dark:text-black font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-lg p-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
-        onClick={() => saveToDB(editorRef, savedContent,title!, (document.id && document.id.length > 1) ? document.id : undefined)}
+        onClick={() => saveToDB(editorRef, savedContent,title ? title : document.title, document.id  ? document.id : null)}
         type="button"
       >
         <MdOutlineSaveAlt />
