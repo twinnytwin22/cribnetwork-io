@@ -1,76 +1,38 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
 import { Editor } from "@tinymce/tinymce-react";
-import { useTheme } from "next-themes";
-import { UseThemeProps } from "next-themes/dist/types";
-import { ButtonHTMLAttributes, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useRef } from "react";
 import { FaWindowClose } from "react-icons/fa";
 import { FaFile, FaFolder, FaPaperPlane } from "react-icons/fa6";
 import { GoLog } from "react-icons/go";
 import { MdOutlineSaveAlt } from "react-icons/md";
 import { Editor as TinyMCEEditor } from "tinymce";
-import {
-  forceRerender,
-  getExistingDocs,
-  log,
-  saveToDB,
-  setNewContent,
-} from "./actions";
-import { HTML, getEditorProps } from "./lib";
+import { log, saveToDB, setNewContent } from "./actions";
+import useEditorContext from "./context";
+import { FileDocumentProps, HTML } from "./lib";
 import { useEditorStore } from "./store";
 
 const Component: any = Editor;
 
 export default function TextEditor() {
   const editorRef = useRef<TinyMCEEditor | null>(null);
-  const { theme, systemTheme }: UseThemeProps = useTheme();
-  const currentTheme = theme === "system" ? systemTheme : theme;
-  const [mounted, setMounted] = useState<boolean>(false);
+
+  const router = useRouter();
   const {
-    savedContent,
     setSavedContent,
     title,
     setTitle,
     fileManagerOpen,
     setFileManagerOpen,
-    document, 
-    setDocument
-  } = useEditorStore();
-  const [editorProps, setEditorProps] = useState<any>({});
-  const [] = useState(false);
-  useEffect(() => setMounted(true), []);
+    setDocument,
+    documents: existingDocs,
+    updateTitle, 
+    mounted, 
+    editorProps, 
+    getEditorMenuProps
+  } = useEditorContext();
 
-  const { data: existingDocs } = useQuery({
-    queryKey: ["data"],
-    queryFn: () => getExistingDocs(),
-    enabled: mounted,
-  });
-  console.log(document, 'DOC')
-
-  useEffect(() => {
-    setEditorProps(getEditorProps(currentTheme!));
-    forceRerender(setMounted);
-  }, [currentTheme!!, mounted, editorProps]);
-
-  const updateTitle = (e) => {
-    const { value, name }:ButtonHTMLAttributes<HTMLButtonElement> = e.target;
-    setTitle(value);
-    if (!document){
-    setDocument({
-      title: value,
-      id: null
-    })
-  }
-  };
-
-  const editorMenuProps = {
-    setFileManagerOpen,
-    editorRef,
-    savedContent,
-    setSavedContent,
-    title, 
-    document
-  };
+  const editorMenuProps = getEditorMenuProps(editorRef)
   if (!mounted) {
     return null;
   }
@@ -85,10 +47,10 @@ export default function TextEditor() {
                 name="title"
                 id="title"
                 type="text"
-                value={title || ''}
+                value={title || ""}
                 placeholder=""
                 onChange={updateTitle}
-               // onBlur={() => console.log('blur blur blur')}
+                // onBlur={() => console.log('blur blur blur')}
               />
               <label
                 className="peer-focus:font-medium absolute peer-focus:ml-3  text-sm text-zinc-500 dark:text-zinc-300 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-300 peer-focus:dark:text-red-200 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
@@ -103,7 +65,9 @@ export default function TextEditor() {
                 <Component
                   onEditorChange={setSavedContent}
                   //tinymceScriptSrc="/tinymce/tinymce.min.js"
-                  onInit={(evt: any, editor: TinyMCEEditor | null) => (editorRef.current = editor)}
+                  onInit={(evt: any, editor: TinyMCEEditor | null) =>
+                    (editorRef.current = editor)
+                  }
                   {...editorProps}
                 />
               </div>
@@ -113,7 +77,7 @@ export default function TextEditor() {
       </div>
       <div className=" ">
         <div className="flex gap-4 w-full py-4 px-2  overflow-x-scroll">
-          {HTML.map((option) => (
+          {HTML.map((option: FileDocumentProps) => (
             <div
               className=" min-w-[350px]  p-6 bg-white border border-zinc-200 rounded-md shadow dark:bg-black dark:border-zinc-700 hover:ring-2 hover:ring-red-300 focus:ring-2 focus:ring-green-700 focus:outline-none"
               key={option.title}
@@ -126,7 +90,15 @@ export default function TextEditor() {
               <button
                 value={option.title}
                 className="dark:text-black mx-auto font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
-                onClick={(e) => setNewContent(e, existingDocs, editorRef, setTitle, setDocument)}
+                onClick={(e) =>
+                  setNewContent(
+                    e,
+                    existingDocs,
+                    editorRef,
+                    setTitle,
+                    setDocument,
+                  )
+                }
               >
                 Use
               </button>
@@ -140,18 +112,28 @@ export default function TextEditor() {
             <div className="block" onClick={() => setFileManagerOpen(false)}>
               <FaWindowClose />
             </div>
-            {existingDocs?.map((doc) => (
-              <div className="relative p-4" key={doc.id}>
-                <button
-                  value={doc.title}
-                  onClick={(e) => setNewContent(e, existingDocs, editorRef, setTitle, setDocument)}
-                  className="text-sm relative"
-                >
-                  <FaFile className="text-4xl w-14 " />
-                  {doc?.title}
-                </button>
-              </div>
-            ))}
+            <div className="flex flex-wrap items-center gap-4">
+              {existingDocs?.map((doc: FileDocumentProps) => (
+                <div className="relative p-4" key={doc.id}>
+                  <button
+                    value={doc.title}
+                    onClick={(e) =>
+                      setNewContent(
+                        e,
+                        existingDocs,
+                        editorRef,
+                        setTitle,
+                        setDocument,
+                      )
+                    }
+                    className="text-sm relative"
+                  >
+                    <FaFile className="text-4xl w-14 " />
+                    {doc?.title}
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
@@ -164,9 +146,11 @@ const EditorMenu = ({
   editorRef,
   savedContent,
   setSavedContent,
-  title, 
-  document
+  title,
+  doc,
 }: any) => {
+  const router = useRouter();
+const {documents, setDocument, setTitle, setDocuments} = useEditorStore()
   return (
     <div className="flex flex-col w-fit items-center space-y-4  px-4 font-extrabold -ml-14 invert">
       <button
@@ -184,7 +168,25 @@ const EditorMenu = ({
       <button
         disabled={!title}
         className="dark:text-black font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-lg p-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
-        onClick={() => saveToDB(editorRef, savedContent,title ? title : document.title, document.id  ? document.id : null)}
+        onClick={(e) => {
+          saveToDB(
+            editorRef,
+            savedContent,
+            title ? title : doc.title,
+            doc.id ? doc.id : null,
+            setDocuments,
+            setDocument
+            //router,
+          );
+          setNewContent(
+            e,
+            documents,
+            editorRef,
+            setTitle,
+            setDocument,
+          )
+        }
+        }
         type="button"
       >
         <MdOutlineSaveAlt />

@@ -60,8 +60,19 @@ export const editorPropsDark = {
 }
 
 
+export interface FileDocumentProps {
+  title: string
+  element?: string | null
+  description?: string | null
+  id?: string | null
+  created_at?: string | null
+
+
+
+}
+
 const image = 'https://cdn.sanity.io/images/6d8w1e5g/production/b9657d582fceef81348198cd3d0aa9bb853729d4-748x167.png?w=256&q=75'// ... (rest of the code remains unchanged)
-export const HTML = [
+export const HTML: FileDocumentProps[] = [
   {
     title: 'Initial Email',
     element: `
