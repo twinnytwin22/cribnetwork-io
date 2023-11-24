@@ -122,6 +122,7 @@ export function EditorContextProvider({
       setEditorProps,
       isLoading,
       getEditorMenuProps,
+      theme
     ],
   );
 
