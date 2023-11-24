@@ -48,7 +48,7 @@ export function EditorContextProvider({
   useEffect(() => {
     setEditorProps(getEditorProps(currentTheme!));
     forceRerender(setMounted);
-  }, [currentTheme!!, mounted, editorProps]);
+  }, [theme, mounted, editorProps, currentTheme, setEditorProps]);
 
   const {
     savedContent,
@@ -63,7 +63,7 @@ export function EditorContextProvider({
     setDocuments,
   } = useEditorStore();
   const isLoading = !editorProps || !mounted || !documents;
-  const getEditorMenuProps = (editorRef) => ({
+  const getEditorMenuProps = (editorRef: any) => ({
     setFileManagerOpen,
     editorRef,
     savedContent,

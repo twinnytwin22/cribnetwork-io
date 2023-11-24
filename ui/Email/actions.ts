@@ -14,7 +14,7 @@ export const getExistingDocs = async () => {
     console.log(error);
   }
 };
-export const forceRerender = async (setMounted: (mounted: boolean) => void) => {
+export const forceRerender = (setMounted: (mounted: boolean) => void) => {
   setMounted(false);
   requestAnimationFrame(() => setMounted(true));
 };
