@@ -10,9 +10,11 @@ import { useMusicFormStore } from "./store";
 import { ArtistTypes, SocialMediaLinkTypes } from "./types";
 const EditArtistForm = ({ artists, id, songs, user }) => {
   const router = useRouter();
-  const pathname = usePathname()
+  const pathname = usePathname();
   const currentArtist: ArtistTypes = artists.find(
-    (artist: any) => (artist?.id.toString() === id?.toString()) || (artist?.contact_email === user.email),
+    (artist: any) =>
+      artist?.id.toString() === id?.toString() ||
+      artist?.contact_email === user.email,
   );
   const {
     artistData: formData,
@@ -33,7 +35,7 @@ const EditArtistForm = ({ artists, id, songs, user }) => {
   const setGenreArray = (genreArray) =>
     useMusicFormStore.setState({ genreArray });
   const setData = () => {
-   currentArtist && setImagePreview(getArtistImage(currentArtist?.image_url));
+    currentArtist && setImagePreview(getArtistImage(currentArtist?.image_url));
     setStatus("loadingInitialState");
     setFormData(currentArtist || []);
     setGenreArray(currentArtist?.genres! || []);
@@ -146,7 +148,9 @@ const EditArtistForm = ({ artists, id, songs, user }) => {
         </div>
       )}
       <h1 className="text-2xl tracking-tight font-medium text-center text-black dark:text-white font-owners">
-       {pathname === "/portal/account" ? 'Edit Your Artist Profile' : 'Edit Artist'}
+        {pathname === "/portal/account"
+          ? "Edit Your Artist Profile"
+          : "Edit Artist"}
       </h1>
       <form
         onSubmit={(e) => handleSubmit(e)}
@@ -164,7 +168,7 @@ const EditArtistForm = ({ artists, id, songs, user }) => {
             type="email"
             id="contact_email"
             name="contact_email"
-            value={formData.contact_email || user?.email || ''}
+            value={formData.contact_email || user?.email || ""}
             onChange={handleChange}
             //required
 
@@ -206,7 +210,7 @@ const EditArtistForm = ({ artists, id, songs, user }) => {
               onChange={(e) => handleArtistImageUpload(e)}
             />
           </div>
-          {imagePreview.length > 1 &&  (
+          {imagePreview.length > 1 && (
             <div
               onClick={() => {
                 setImagePreviewOpen(true);

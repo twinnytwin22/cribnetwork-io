@@ -332,7 +332,6 @@ const MusicianForm: React.FC = () => {
     const image = "/site_images/studio.jpg";
 
     const eventDates = [
-     
       {
         date: "December 3, 2023",
       },

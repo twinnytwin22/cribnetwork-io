@@ -1,19 +1,19 @@
 "use client";
 import { copyToClipboard } from "@/lib/hooks/copyToClipboard";
 import {
-    FacebookShareButton,
-    LinkedinShareButton,
-    TelegramShareButton,
-    TwitterShareButton,
-    WhatsappShareButton,
+  FacebookShareButton,
+  LinkedinShareButton,
+  TelegramShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
 } from "next-share";
 import { usePathname } from "next/navigation";
 import {
-    BsFacebook,
-    BsLinkedin,
-    BsTelegram,
-    BsTwitter,
-    BsWhatsapp,
+  BsFacebook,
+  BsLinkedin,
+  BsTelegram,
+  BsTwitter,
+  BsWhatsapp,
 } from "react-icons/bs";
 function BlogSocialShare({ title }) {
   const path = usePathname();

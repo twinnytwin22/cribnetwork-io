@@ -12,7 +12,7 @@ export async function GET(request: Request) {
         .select();
       //.eq('student_id', userId)
       // .limit(5)
-    //  console.log(artists);
+      //  console.log(artists);
 
       if (error) {
         throw new Error("Error fetching drops");

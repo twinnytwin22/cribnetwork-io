@@ -1,80 +1,87 @@
 const getApiKey = () => {
-  if (process.env.TINYMCE_API_KEY as string || process.env.NEXT_PUBLIC_TINYMCE_API_KEY as string){
-    return process.env.TINYMCE_API_KEY || process.env.NEXT_PUBLIC_TINYMCE_API_KEY
+  if (
+    (process.env.TINYMCE_API_KEY as string) ||
+    (process.env.NEXT_PUBLIC_TINYMCE_API_KEY as string)
+  ) {
+    return (
+      process.env.TINYMCE_API_KEY || process.env.NEXT_PUBLIC_TINYMCE_API_KEY
+    );
   }
-  throw Error('TinyMCE Key Not available')
-}
+  throw Error("TinyMCE Key Not available");
+};
 
-
-
-const baseProps = {}
+const baseProps = {};
 
 export const editorProps = {
-    initialValue: "",
-    apiKey: getApiKey(),
-    init: {
-      height: 600,
-      plugins: 'save ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
-      toolbar: 'save | undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-      tinycomments_mode: 'embedded',
-      tinycomments_author: 'Author name',
-      mergetags_list: [
-        { value: 'First.Name', title: 'First Name' },
-        { value: 'Email', title: 'Email' },
-      ],
-      save_enablewhendirty: false,
+  initialValue: "",
+  apiKey: getApiKey(),
+  init: {
+    height: 600,
+    plugins:
+      "save ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss",
+    toolbar:
+      "save | undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+    tinycomments_mode: "embedded",
+    tinycomments_author: "Author name",
+    mergetags_list: [
+      { value: "First.Name", title: "First Name" },
+      { value: "Email", title: "Email" },
+    ],
+    save_enablewhendirty: false,
 
-      //skin: 'oxide',
-      //content_css: '' ,
-      ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
-    },
-}
-
+    //skin: 'oxide',
+    //content_css: '' ,
+    ai_request: (request, respondWith) =>
+      respondWith.string(() =>
+        Promise.reject("See docs to implement AI Assistant"),
+      ),
+  },
+};
 
 export const editorPropsDark = {
   initialValue: "",
   apiKey: getApiKey(),
   init: {
     height: 600,
-    plugins: 'save ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
-    toolbar: 'save | undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-    tinycomments_mode: 'embedded',
-    tinycomments_author: 'Author name',
+    plugins:
+      "save ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss",
+    toolbar:
+      "save | undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+    tinycomments_mode: "embedded",
+    tinycomments_author: "Author name",
     mergetags_list: [
-      { value: 'First.Name', title: 'First Name' },
-      { value: 'Email', title: 'Email' },
+      { value: "First.Name", title: "First Name" },
+      { value: "Email", title: "Email" },
     ],
-    skin: 'oxide-dark',
-    content_css: 'dark' ,
+    skin: "oxide-dark",
+    content_css: "dark",
     save_enablewhendirty: false,
 
-   // skin_style: 'body { background-color: black; color: white; }',
+    // skin_style: 'body { background-color: black; color: white; }',
 
-    content_style: 
-    `
+    content_style: `
     body { background-color: black;}`,
-    
 
-    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+    ai_request: (request, respondWith) =>
+      respondWith.string(() =>
+        Promise.reject("See docs to implement AI Assistant"),
+      ),
   },
-}
-
+};
 
 export interface FileDocumentProps {
-  title: string
-  element?: string | null
-  description?: string | null
-  id?: string | null
-  created_at?: string | null
-
-
-
+  title: string;
+  element?: string | null;
+  description?: string | null;
+  id?: string | null;
+  created_at?: string | null;
 }
 
-const image = 'https://cdn.sanity.io/images/6d8w1e5g/production/b9657d582fceef81348198cd3d0aa9bb853729d4-748x167.png?w=256&q=75'// ... (rest of the code remains unchanged)
+const image =
+  "https://cdn.sanity.io/images/6d8w1e5g/production/b9657d582fceef81348198cd3d0aa9bb853729d4-748x167.png?w=256&q=75"; // ... (rest of the code remains unchanged)
 export const HTML: FileDocumentProps[] = [
   {
-    title: 'Initial Email',
+    title: "Initial Email",
     element: `
     <p>Dear XXXX,</p>
     <p>I trust this message finds you in good spirits and that your week is off to a fantastic start. My name is Randal Herndon, and I'm a composer and songwriter specializing in XXXGENREXXXX music. I've been admiring your work, particularly as the supervisor on XXSHOWXXFILMXX, and I am reaching out to explore the possibility of connecting you with my music catalog.</p>
@@ -89,10 +96,10 @@ export const HTML: FileDocumentProps[] = [
     <a href="https://cribmusic.xyz" target="_blank" rel="noopener">
     <img src=${image} alt="logo" style="width: 150px"/></a>
     <p><a href="https://cribmusic.xyz" target="_blank" rel="noopener">cribmusic.xyz</a></p>`,
-    description: 'Initial Email'
+    description: "Initial Email",
   },
   {
-    title: '1st Follow Up Email',
+    title: "1st Follow Up Email",
     element: `
     <p>Dear XXXX,</p>
     <p>I trust this message finds you in good spirits and that your week is off to a fantastic start. My name is Randal Herndon, and I'm a composer and songwriter specializing in XXXGENREXXXX music. I've been admiring your work, particularly as the supervisor on XXSHOWXXFILMXX, and I am reaching out to explore the possibility of connecting you with my music catalog.</p>
@@ -107,11 +114,10 @@ export const HTML: FileDocumentProps[] = [
     <a href="https://cribmusic.xyz" target="_blank" rel="noopener">
     <img src=${image} alt="logo" style="width: 150px"/></a>
     <p><a href="https://cribmusic.xyz" target="_blank" rel="noopener">cribmusic.xyz</a></p>`,
-    description: 'Initial Email'
-
+    description: "Initial Email",
   },
   {
-    title: 'Invite new Artist',
+    title: "Invite new Artist",
     element: `
     <p>Dear XXXX,</p>
     <p>I trust this message finds you in good spirits and that your week is off to a fantastic start. My name is Randal Herndon, and I'm a composer and songwriter specializing in XXXGENREXXXX music. I've been admiring your work, particularly as the supervisor on XXSHOWXXFILMXX, and I am reaching out to explore the possibility of connecting you with my music catalog.</p>
@@ -126,11 +132,10 @@ export const HTML: FileDocumentProps[] = [
     <a href="https://cribmusic.xyz" target="_blank" rel="noopener">
     <img src=${image} alt="logo" style="width: 150px"/></a>
     <p><a href="https://cribmusic.xyz" target="_blank" rel="noopener">cribmusic.xyz</a></p>`,
-    description: 'Initial Email'
-
+    description: "Initial Email",
   },
   {
-    title: 'Welcome new artist',
+    title: "Welcome new artist",
     element: `
     <p>Dear XXXX,</p>
     <p>I trust this message finds you in good spirits and that your week is off to a fantastic start. My name is Randal Herndon, and I'm a composer and songwriter specializing in XXXGENREXXXX music. I've been admiring your work, particularly as the supervisor on XXSHOWXXFILMXX, and I am reaching out to explore the possibility of connecting you with my music catalog.</p>
@@ -145,11 +150,10 @@ export const HTML: FileDocumentProps[] = [
     <a href="https://cribmusic.xyz" target="_blank" rel="noopener">
     <img src=${image} alt="logo" style="width: 150px"/></a>
     <p><a href="https://cribmusic.xyz" target="_blank" rel="noopener">cribmusic.xyz</a></p>`,
-    description: 'Initial Email'
-
+    description: "Initial Email",
   },
   {
-    title: 'Fresh Email',
+    title: "Fresh Email",
     element: `
     <p>Dear XXXX,</p>
     <p>I trust this message finds you in good spirits and that your week is off to a fantastic start. My name is Randal Herndon, and I'm a composer and songwriter specializing in XXXGENREXXXX music. I've been admiring your work, particularly as the supervisor on XXSHOWXXFILMXX, and I am reaching out to explore the possibility of connecting you with my music catalog.</p>
@@ -164,11 +168,9 @@ export const HTML: FileDocumentProps[] = [
     <a href="https://cribmusic.xyz" target="_blank" rel="noopener">
     <img src=${image} alt="logo" style="width: 150px"/></a>
     <p><a href="https://cribmusic.xyz" target="_blank" rel="noopener">cribmusic.xyz</a></p>`,
-    description: 'Initial Email'
-
+    description: "Initial Email",
   },
 ];
-
 
 // const initFullProps = {
 //   menubar: "edit view format tools table help",
@@ -227,13 +229,13 @@ export const HTML: FileDocumentProps[] = [
 //   content_style: `
 //     html{
 //       display: flex;
-//       flex-flow: row nowrap; 
-//       justify-content: center; 
-//       margin: 0; 
-//       padding: 0; 
+//       flex-flow: row nowrap;
+//       justify-content: center;
+//       margin: 0;
+//       padding: 0;
 //       background: rgb(248 249 250);
 //     }
-  
+
 //     body {
 //       zoom: 1.5;
 //       width:150mm;
@@ -244,16 +246,16 @@ export const HTML: FileDocumentProps[] = [
 //       line-height: 1.5;
 //       font-family: Arial;
 //       font-size: 12pt;
-//       background: rgb(248 249 250); 
+//       background: rgb(248 249 250);
 //       overflow-x: auto;
 //       cursor: auto;
 //       color: black;
 //     }
-  
+
 //     .mce-content-body p {
 //       margin: 0
 //     }
-  
+
 //     figure {
 //       outline: 3px solid #dedede;
 //       position: relative;
@@ -270,12 +272,10 @@ export const HTML: FileDocumentProps[] = [
 //     `,
 // };
 
-
 export const getEditorProps = (mode) => {
-  if (mode === 'dark'){
-    return editorPropsDark
-  } else if (mode === 'light'){
-    return editorProps
+  if (mode === "dark") {
+    return editorPropsDark;
+  } else if (mode === "light") {
+    return editorProps;
   }
-
-}
+};

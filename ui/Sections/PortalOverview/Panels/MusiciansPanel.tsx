@@ -15,7 +15,7 @@ function MusiciansPanel({
       {children}
       <div className="absolute bottom-8 left-8 w-full right-0">
         {href && (
-             <Link href={href}>
+          <Link href={href}>
             <div className="flex items-center space-x-4 text-zinc-800 dark:text-zinc-300 ">
               <p className="text-center font-medium hover:font-bold duration-300 ease-in-out">
                 Go to Music
@@ -23,7 +23,6 @@ function MusiciansPanel({
               <FaRightLong />
             </div>
           </Link>
-    
         )}
       </div>
     </Panel>

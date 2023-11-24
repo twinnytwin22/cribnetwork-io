@@ -1,15 +1,26 @@
-'use client'
-import { useQuery } from '@tanstack/react-query'
-import { useTheme } from 'next-themes'
-import { UseThemeProps } from 'next-themes/dist/types'
-import React, { ButtonHTMLAttributes, createContext, useContext, useEffect, useMemo, useState } from 'react'
-import { forceRerender, getExistingDocs } from './actions'
-import { FileDocumentProps, getEditorProps } from './lib'
-import { useEditorStore } from './store'
+"use client";
+import { useQuery } from "@tanstack/react-query";
+import { useTheme } from "next-themes";
+import { UseThemeProps } from "next-themes/dist/types";
+import React, {
+  ButtonHTMLAttributes,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { forceRerender, getExistingDocs } from "./actions";
+import { FileDocumentProps, getEditorProps } from "./lib";
+import { useEditorStore } from "./store";
 
-const store = useEditorStore.getState()
-const EditorContext = createContext<FileDocumentProps | any>(store)
-export function EditorContextProvider({ children }: { children: React.ReactNode }) {
+const store = useEditorStore.getState();
+const EditorContext = createContext<FileDocumentProps | any>(store);
+export function EditorContextProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { theme, systemTheme }: UseThemeProps = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
   const [mounted, setMounted] = useState<boolean>(false);
@@ -49,9 +60,9 @@ export function EditorContextProvider({ children }: { children: React.ReactNode 
     document: doc,
     setDocument,
     documents,
-    setDocuments
+    setDocuments,
   } = useEditorStore();
-  const isLoading = !editorProps || !mounted || !documents
+  const isLoading = !editorProps || !mounted || !documents;
   const getEditorMenuProps = (editorRef) => ({
     setFileManagerOpen,
     editorRef,
@@ -62,62 +73,63 @@ export function EditorContextProvider({ children }: { children: React.ReactNode 
   });
 
   const registerDocuments = async () => {
-    const res = await getExistingDocs()
+    const res = await getExistingDocs();
 
     if (res) {
-      console.log(res, 'registered docs')
+      console.log(res, "registered docs");
 
-      setDocuments(res)
+      setDocuments(res);
     }
-    const docs = useEditorStore.getState().documents
-    return docs
-  }
+    const docs = useEditorStore.getState().documents;
+    return docs;
+  };
 
   const { data } = useQuery({
-    queryKey: ['data'], 
-    queryFn: () => registerDocuments()
-  })
-  const values = useMemo(() => ({
-    savedContent,
-    setSavedContent,
-    title,
-    setTitle,
-    fileManagerOpen,
-    setFileManagerOpen,
-    doc,
-    setDocument,
-    documents,
-    updateTitle,
-    mounted,
-    editorProps,
-    setEditorProps,
-    isLoading,
-    getEditorMenuProps
-  }), [
-    savedContent,
-    setSavedContent,
-    title,
-    setTitle,
-    fileManagerOpen,
-    setFileManagerOpen,
-    doc,
-    setDocument,
-    documents,
-    updateTitle,
-    mounted,
-    editorProps,
-    setEditorProps,
-    isLoading,
-    getEditorMenuProps
-  ])
-
-
+    queryKey: ["data"],
+    queryFn: () => registerDocuments(),
+  });
+  const values = useMemo(
+    () => ({
+      savedContent,
+      setSavedContent,
+      title,
+      setTitle,
+      fileManagerOpen,
+      setFileManagerOpen,
+      doc,
+      setDocument,
+      documents,
+      updateTitle,
+      mounted,
+      editorProps,
+      setEditorProps,
+      isLoading,
+      getEditorMenuProps,
+    }),
+    [
+      savedContent,
+      setSavedContent,
+      title,
+      setTitle,
+      fileManagerOpen,
+      setFileManagerOpen,
+      doc,
+      setDocument,
+      documents,
+      updateTitle,
+      mounted,
+      editorProps,
+      setEditorProps,
+      isLoading,
+      getEditorMenuProps,
+    ],
+  );
 
   return (
     <EditorContext.Provider value={values}>{children}</EditorContext.Provider>
-  )
+  );
 }
 
 export default function useEditorContext() {
-  return useContext(EditorContext)
+  return useContext(EditorContext);
 }

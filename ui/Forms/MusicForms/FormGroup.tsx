@@ -12,7 +12,7 @@ import EditArtistForm from "./EditArtist";
 import EditSongForm from "./EditSong";
 import UploadSongForm from "./UploadSong";
 
-function FormGroup({ artists, songs, }) {
+function FormGroup({ artists, songs }) {
   const { userRole, user } = useAuthProvider();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -61,10 +61,11 @@ function FormGroup({ artists, songs, }) {
               <li className="mr-2">
                 <Link
                   href={`${pathname}/?mode=data`}
-                  className={`inline-block p-4 rounded-t-lg ${homeProps.includes(mode)
+                  className={`inline-block p-4 rounded-t-lg ${
+                    homeProps.includes(mode)
                       ? "text-red-300 border-b-2 border-red-400 dark:text-red-300 dark:border-red-300"
                       : "text-zinc-500 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300"
-                    }`}
+                  }`}
                   aria-current={homeProps.includes(mode) ? "page" : undefined}
                 >
                   Overview
@@ -74,10 +75,11 @@ function FormGroup({ artists, songs, }) {
                 <Link
                   href={`${pathname}/?mode=song`}
                   aria-current={mode === "song" ? "page" : undefined}
-                  className={`inline-block p-4 rounded-t-lg ${mode === "song"
+                  className={`inline-block p-4 rounded-t-lg ${
+                    mode === "song"
                       ? "text-red-300 border-b-2 border-red-400 dark:text-red-300 dark:border-red-300"
                       : "text-zinc-500 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300"
-                    }`}
+                  }`}
                 >
                   Upload Song
                 </Link>
@@ -85,10 +87,11 @@ function FormGroup({ artists, songs, }) {
               <li hidden={userRole !== "admin"} className="mr-2">
                 <Link
                   href={`${pathname}/?mode=artist`}
-                  className={`inline-block p-4 rounded-t-lg ${mode === "artist"
+                  className={`inline-block p-4 rounded-t-lg ${
+                    mode === "artist"
                       ? "text-red-300 border-b-2 border-red-400 dark:text-red-300 dark:border-red-300"
                       : "text-zinc-500 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300"
-                    }`}
+                  }`}
                   aria-current={mode === "artist" ? "page" : undefined}
                 >
                   Add Artist
@@ -213,10 +216,10 @@ const ArtistsTable = ({
                     onClick={() => {
                       router.push(
                         pathname +
-                        "?" +
-                        createQueryString("edit", "artist") +
-                        "&" +
-                        `id=${artist.id}`,
+                          "?" +
+                          createQueryString("edit", "artist") +
+                          "&" +
+                          `id=${artist.id}`,
                       );
                     }}
                     className="px-4 py-2 hover:underline font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"
@@ -255,8 +258,6 @@ const SongsTable = ({ router, pathname, createQueryString, songs }) => {
     setSortConfig({ key, direction });
   };
 
-
-
   const sortedSongs = [...songs].sort((a, b) => {
     if (sortConfig.key! && sortConfig.direction === "ascending") {
       return a[sortConfig.key] > b[sortConfig.key] ? 1 : -1;
@@ -290,27 +291,33 @@ const SongsTable = ({ router, pathname, createQueryString, songs }) => {
               <tr>
                 <th
                   onClick={() => handleSort("title")}
-                  scope="col" className="px-4 py-3 cursor-pointer">
+                  scope="col"
+                  className="px-4 py-3 cursor-pointer"
+                >
                   Title
-
                 </th>
                 <th
                   onClick={() => handleSort("artist_name")}
-                  scope="col" className="px-4 py-3 cursor-pointer">
+                  scope="col"
+                  className="px-4 py-3 cursor-pointer"
+                >
                   Artist
                 </th>
                 <th
                   onClick={() => handleSort("release_year")}
-                  scope="col" className="px-4 py-3 cursor-pointer">
+                  scope="col"
+                  className="px-4 py-3 cursor-pointer"
+                >
                   Plays
                 </th>
                 <th
                   onClick={() => handleSort("music_file_url")}
-                  scope="col" className="px-4 py-3 cursor-pointer">
+                  scope="col"
+                  className="px-4 py-3 cursor-pointer"
+                >
                   <FaMusic />
                 </th>
-                <th
-                  scope="col" className="px-4 py-3 ">
+                <th scope="col" className="px-4 py-3 ">
                   <span className="sr-only">Edit</span>
                 </th>
                 <th scope="col" className="px-4 py-3 ">
@@ -346,10 +353,10 @@ const SongsTable = ({ router, pathname, createQueryString, songs }) => {
                       onClick={() => {
                         router.push(
                           pathname +
-                          "?" +
-                          createQueryString("edit", "song") +
-                          "&" +
-                          `id=${song.id}`,
+                            "?" +
+                            createQueryString("edit", "song") +
+                            "&" +
+                            `id=${song.id}`,
                         );
                       }}
                       className="px-4 py-2 hover:underline font-normal text-zinc-900 whitespace-nowrap dark:text-white cursor-pointer"

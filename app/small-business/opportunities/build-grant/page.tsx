@@ -121,9 +121,7 @@ function page() {
           </div>
           <div className="md:grid md:grid-cols-2 max-w-7xl mx-auto ">
             <div className="p-16">
-              <h1 className="text-3xl font-owners font-medium ">
-                About you.
-              </h1>
+              <h1 className="text-3xl font-owners font-medium ">About you.</h1>
               <p className="mb-8 text-zinc-500 dark:text-zinc-300 ">
                 {aboutYou}
               </p>

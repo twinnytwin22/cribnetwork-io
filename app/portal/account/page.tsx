@@ -10,23 +10,22 @@ async function AccountPage() {
     getSession(),
     getSubscription(),
     getAllArtists(),
-    getAllSongs()
+    getAllSongs(),
   ]);
 
   const userFormProps = {
-    session, 
+    session,
     subscription,
-    artists: artists.artists, 
-    songs, 
-    
-  }
+    artists: artists.artists,
+    songs,
+  };
   return (
     userFormProps && (
       <section className="w-screen relative mx-auto h-full ">
-      {/* <PageTitle title={"Your Account"} /> */}
-      <Suspense>
+        {/* <PageTitle title={"Your Account"} /> */}
+        <Suspense>
           <AccountFormGroup {...userFormProps} props={userFormProps} />
-          </Suspense>
+        </Suspense>
       </section>
     )
   );

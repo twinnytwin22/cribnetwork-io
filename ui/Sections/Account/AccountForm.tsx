@@ -103,10 +103,9 @@ export default function AccountForm({ subscription, session }) {
             Email
           </label>
           <input
-            
             id="email"
             type="text"
-            value={user?.email || ''}
+            value={user?.email || ""}
             disabled
             className="mt-1 px-2 py-1 w-full font-work-sans rounded-md border border-zinc-300 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900  text-black dark:text-white "
           />

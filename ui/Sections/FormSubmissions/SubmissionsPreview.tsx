@@ -52,9 +52,7 @@ const SubmissionPreview = () => {
           />
         </svg>
         <div className="p-4">
-          <h2 className="text-2xl font-medium mb-4 text-center">
-            Submission
-          </h2>
+          <h2 className="text-2xl font-medium mb-4 text-center">Submission</h2>
           <div>
             <p className="mb-2">
               <strong>Email:</strong> {submission?.email || ""}
@@ -89,7 +87,11 @@ const SubmissionPreview = () => {
             {submission?.playlist_url && (
               <p className="mb-2">
                 <strong>Playlist URL:</strong>{" "}
-                <Link className="underline" target="_blank" href={submission.playlist_url}>
+                <Link
+                  className="underline"
+                  target="_blank"
+                  href={submission.playlist_url}
+                >
                   {submission?.playlist_url || ""}
                 </Link>
               </p>

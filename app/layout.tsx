@@ -45,7 +45,7 @@ export default async function RootLayout({
   return (
     settings && (
       <html lang="en" suppressHydrationWarning>
-        {(process.env.NODE_ENV !== "development" ) && (
+        {process.env.NODE_ENV !== "development" && (
           <Script
             defer
             src="https://unpkg.com/@tinybirdco/flock.js"

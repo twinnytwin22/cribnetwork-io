@@ -26,13 +26,13 @@ export default function TextEditor() {
     setFileManagerOpen,
     setDocument,
     documents: existingDocs,
-    updateTitle, 
-    mounted, 
-    editorProps, 
-    getEditorMenuProps
+    updateTitle,
+    mounted,
+    editorProps,
+    getEditorMenuProps,
   } = useEditorContext();
 
-  const editorMenuProps = getEditorMenuProps(editorRef)
+  const editorMenuProps = getEditorMenuProps(editorRef);
   if (!mounted) {
     return null;
   }
@@ -150,7 +150,7 @@ const EditorMenu = ({
   doc,
 }: any) => {
   const router = useRouter();
-const {documents, setDocument, setTitle, setDocuments} = useEditorStore()
+  const { documents, setDocument, setTitle, setDocuments } = useEditorStore();
   return (
     <div className="flex flex-col w-fit items-center space-y-4  px-4 font-extrabold -ml-14 invert">
       <button
@@ -175,18 +175,11 @@ const {documents, setDocument, setTitle, setDocuments} = useEditorStore()
             title ? title : doc.title,
             doc.id ? doc.id : null,
             setDocuments,
-            setDocument
+            setDocument,
             //router,
           );
-          setNewContent(
-            e,
-            documents,
-            editorRef,
-            setTitle,
-            setDocument,
-          )
-        }
-        }
+          setNewContent(e, documents, editorRef, setTitle, setDocument);
+        }}
         type="button"
       >
         <MdOutlineSaveAlt />

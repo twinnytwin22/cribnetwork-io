@@ -68,7 +68,7 @@ const EditSongForm = ({ artists, id, songs }) => {
       setImagePreview(getCoverImage(currentSong.cover_art_url!));
     }
   }, [currentSong]);
- // console.log(currentSong, "SONG");
+  // console.log(currentSong, "SONG");
   const handleLoadedMetadata = (event: ChangeEvent<HTMLAudioElement>) => {
     const audio = event.target;
     const audioDuration = formatTime(audio.duration);
@@ -104,7 +104,7 @@ const EditSongForm = ({ artists, id, songs }) => {
     if (name === "artist_id") {
       // Find the selected artist to set artist_name
       const selectedArtist = artists.find((artist) => artist.id === value);
-     // console.log(selectedArtist, "SELECTED");
+      // console.log(selectedArtist, "SELECTED");
       setFormData({
         ...formData,
         [name]: value,
@@ -313,7 +313,7 @@ const EditSongForm = ({ artists, id, songs }) => {
               Artist
             </label>
             <select
-            disabled
+              disabled
               className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 "
               id="artist_id"
               name="artist_id"

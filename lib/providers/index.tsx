@@ -22,10 +22,8 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
               defaultTheme="dark"
             >
               <InvoiceContextProvider>
-                <EditorContextProvider>
-                {children}
-                </EditorContextProvider>
-                </InvoiceContextProvider>
+                <EditorContextProvider>{children}</EditorContextProvider>
+              </InvoiceContextProvider>
             </ThemeProvider>
           </Suspense>
         </SiteContextProvider>
