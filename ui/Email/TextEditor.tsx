@@ -7,6 +7,7 @@ import { FaFile, FaFolder, FaPaperPlane } from "react-icons/fa6";
 import { GoLog } from "react-icons/go";
 import { MdOutlineSaveAlt } from "react-icons/md";
 import { Editor as TinyMCEEditor } from "tinymce";
+import { LoadingContainer } from "../Sections/LoadingContainer";
 import { log, saveToDB, setNewContent } from "./actions";
 import useEditorContext from "./context";
 import { FileDocumentProps, HTML } from "./lib";
@@ -31,18 +32,23 @@ export default function TextEditor() {
     editorProps,
     getEditorMenuProps,
     savedContent,
+    isLoading
   } = useEditorContext();
 
   //console.log(savedContent);
 
   const editorMenuProps = getEditorMenuProps(editorRef);
-  if (!mounted) {
-    return null;
+  if (isLoading) {
+    return (
+      <div className="max-w-5xl mx-auto ">
+        <LoadingContainer/>
+        </div>
+    );
   }
   return (
     <div className="max-w-5xl mx-auto ">
       <div>
-        {mounted && (
+        {mounted && editorProps && (
           <div className=" grayscale">
             <div className="group py-2 ml-3">
               <input
@@ -64,9 +70,9 @@ export default function TextEditor() {
             </div>
             <div className="flex">
               <EditorMenu {...editorMenuProps} />
-              <div className="w-full">
+              <div className="w-full will-change-auto">
                 <Component
-                value={savedContent}
+                  value={savedContent}
                //   initialValue={savedContent || ""}
                   onEditorChange={setSavedContent}
                   //tinymceScriptSrc="/tinymce/tinymce.min.js"

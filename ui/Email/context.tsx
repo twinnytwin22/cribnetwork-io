@@ -40,7 +40,6 @@ export function EditorContextProvider({
     setEditorRef,
     editorRef,
   } = useEditorStore();
-  const isLoading = !editorProps || !mounted || !documents;
 
   useEffect(() => {
     setEditorProps(getEditorProps(currentTheme!));
@@ -70,7 +69,7 @@ export function EditorContextProvider({
     setSavedContent,
     title,
     doc,
-    isLoading,
+  //  isLoading,
   ]);
   useEffect(
     () => editorProps && setMounted(true),
@@ -112,18 +111,18 @@ export function EditorContextProvider({
     const res = await getExistingDocs();
 
     if (res) {
-      console.log(res, "registered docs");
-
       setDocuments(res);
     }
     const docs = useEditorStore.getState().documents;
     return docs;
   };
 
-  const { data } = useQuery({
+  const { data,isLoading:loading } = useQuery({
     queryKey: ["data"],
     queryFn: () => registerDocuments(),
   });
+  const isLoading = !editorProps || !mounted || !documents  || loading || !data;
+
   const values = useMemo(
     () => ({
       savedContent,
