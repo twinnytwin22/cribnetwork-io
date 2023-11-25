@@ -114,7 +114,7 @@ export const HTML: FileDocumentProps[] = [
     <a href="https://cribmusic.xyz" target="_blank" rel="noopener">
     <img src=${image} alt="logo" style="width: 150px"/></a>
     <p><a href="https://cribmusic.xyz" target="_blank" rel="noopener">cribmusic.xyz</a></p>`,
-    description: "Initial Email",
+    description: "Follow up Initial email ",
   },
   {
     title: "Invite new Artist",
@@ -132,7 +132,7 @@ export const HTML: FileDocumentProps[] = [
     <a href="https://cribmusic.xyz" target="_blank" rel="noopener">
     <img src=${image} alt="logo" style="width: 150px"/></a>
     <p><a href="https://cribmusic.xyz" target="_blank" rel="noopener">cribmusic.xyz</a></p>`,
-    description: "Initial Email",
+    description: "Approved submissions and invite",
   },
   {
     title: "Welcome new artist",
@@ -150,7 +150,7 @@ export const HTML: FileDocumentProps[] = [
     <a href="https://cribmusic.xyz" target="_blank" rel="noopener">
     <img src=${image} alt="logo" style="width: 150px"/></a>
     <p><a href="https://cribmusic.xyz" target="_blank" rel="noopener">cribmusic.xyz</a></p>`,
-    description: "Initial Email",
+    description: "Onboarding email for new artists",
   },
   {
     title: "Fresh Email",
@@ -168,7 +168,7 @@ export const HTML: FileDocumentProps[] = [
     <a href="https://cribmusic.xyz" target="_blank" rel="noopener">
     <img src=${image} alt="logo" style="width: 150px"/></a>
     <p><a href="https://cribmusic.xyz" target="_blank" rel="noopener">cribmusic.xyz</a></p>`,
-    description: "Initial Email",
+    description: "Blank email with intro and signature.",
   },
 ];
 

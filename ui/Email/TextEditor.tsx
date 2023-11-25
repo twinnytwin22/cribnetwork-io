@@ -68,7 +68,7 @@ export default function TextEditor() {
                 Document Name
               </label>
             </div>
-            <div className="flex">
+            <div className="flex relative">
               <EditorMenu {...editorMenuProps} />
               <div className="w-full will-change-auto">
                 <Component
@@ -165,7 +165,7 @@ const EditorMenu = ({ editorRef, doc }: any) => {
     setSavedContent,
   } = useEditorStore();
   return (
-    <div className="flex flex-col w-fit items-center space-y-4  px-4 font-extrabold -ml-14 invert">
+    <div className="flex flex-col w-fit items-center space-y-4  px-4 font-extrabold  invert">
       <button
         className="dark:text-black font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-lg p-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
         // onClick={() => setFileManagerOpen(true)}
