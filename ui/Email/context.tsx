@@ -37,10 +37,10 @@ export function EditorContextProvider({
     setDocument,
     documents,
     setDocuments,
-    setEditorProps, 
+    setEditorProps,
     editorProps,
-    setEditorRef, 
-    editorRef
+    setEditorRef,
+    editorRef,
   } = useEditorStore();
   const isLoading = !editorProps || !mounted || !documents;
 
@@ -66,25 +66,38 @@ export function EditorContextProvider({
       title,
       doc,
     });
-  }, [setFileManagerOpen, savedContent, setSavedContent, title, doc, isLoading]);
-  useEffect(() =>  editorProps && setMounted(true), [editorProps, getEditorProps,mounted]);
+  }, [
+    setFileManagerOpen,
+    savedContent,
+    setSavedContent,
+    title,
+    doc,
+    isLoading,
+  ]);
+  useEffect(
+    () => editorProps && setMounted(true),
+    [editorProps, getEditorProps, mounted],
+  );
 
-  const updateTitle = useCallback((e: { target: React.ButtonHTMLAttributes<HTMLButtonElement>; }) => {
-    const { value, name }: ButtonHTMLAttributes<HTMLButtonElement> = e.target;
-    if (doc && value) {
-      setTitle(value as string);
-      setDocument({
-        ...doc,
-        title: value as string,
-      });
-    }
-    if (!doc) {
-      setDocument({
-        title: value as string,
-        id: null,
-      });
-    }
-  },  [setTitle, setDocument, doc]);
+  const updateTitle = useCallback(
+    (e: { target: React.ButtonHTMLAttributes<HTMLButtonElement> }) => {
+      const { value, name }: ButtonHTMLAttributes<HTMLButtonElement> = e.target;
+      if (doc && value) {
+        setTitle(value as string);
+        setDocument({
+          ...doc,
+          title: value as string,
+        });
+      }
+      if (!doc) {
+        setDocument({
+          title: value as string,
+          id: null,
+        });
+      }
+    },
+    [setTitle, setDocument, doc],
+  );
 
   const registerDocuments = async () => {
     const res = await getExistingDocs();
@@ -119,7 +132,7 @@ export function EditorContextProvider({
       setEditorProps,
       isLoading,
       getEditorMenuProps,
-      setEditorRef
+      setEditorRef,
     }),
     [
       savedContent,
@@ -138,7 +151,7 @@ export function EditorContextProvider({
       isLoading,
       getEditorMenuProps,
       theme,
-      setEditorRef
+      setEditorRef,
     ],
   );
 

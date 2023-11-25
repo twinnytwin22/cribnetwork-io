@@ -12,7 +12,7 @@ import useEditorContext from "./context";
 import { FileDocumentProps, HTML } from "./lib";
 import { useEditorStore } from "./store";
 
-const Component: any  = Editor;
+const Component: any = Editor;
 
 export default function TextEditor() {
   const editorRef = useRef<TinyMCEEditor | null>(null);
@@ -30,14 +30,10 @@ export default function TextEditor() {
     mounted,
     editorProps,
     getEditorMenuProps,
-    savedContent
+    savedContent,
   } = useEditorContext();
 
-  console.log(savedContent)
-  
-
-
-
+  console.log(savedContent);
 
   const editorMenuProps = getEditorMenuProps(editorRef);
   if (!mounted) {
@@ -70,9 +66,8 @@ export default function TextEditor() {
               <EditorMenu {...editorMenuProps} />
               <div className="w-full">
                 <Component
-                  initialValue={savedContent || "" }
+                  initialValue={savedContent || ""}
                   onEditorChange={setSavedContent}
-                  
                   //tinymceScriptSrc="/tinymce/tinymce.min.js"
                   onInit={(evt: any, editor: TinyMCEEditor | null) =>
                     (editorRef.current = editor)

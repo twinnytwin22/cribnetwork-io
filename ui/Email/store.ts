@@ -10,8 +10,8 @@ interface IEditorProps {
   fileManagerOpen: boolean;
   document: FileDocumentProps;
   documents: FileDocumentProps[];
-  editorRef: TinyMCEEditor | null
-  setEditorRef: (editorRef: TinyMCEEditor | null) => void
+  editorRef: TinyMCEEditor | null;
+  setEditorRef: (editorRef: TinyMCEEditor | null) => void;
   setFileManagerOpen: (fileManagerOpen: boolean) => void;
   setMounted: (mounted: boolean) => void;
   setSavedContent: (savedContent: any) => void;
@@ -32,7 +32,7 @@ export const useEditorStore = create<IEditorProps>((set) => ({
   title: null,
   fileManagerOpen: false,
   editorRef: null,
-  setEditorRef: (editorRef: TinyMCEEditor | null) => set({editorRef}),
+  setEditorRef: (editorRef: TinyMCEEditor | null) => set({ editorRef }),
   setDocuments: (documents: FileDocumentProps[]) => set({ documents }),
   setDocument: (document: FileDocumentProps) => set({ document }),
   setFileManagerOpen: (fileManagerOpen: boolean) => set({ fileManagerOpen }),

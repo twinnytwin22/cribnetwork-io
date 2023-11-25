@@ -121,5 +121,4 @@ export const setNewContent = (
   }
 };
 
-
-export const sendEmail = () => {}
+export const sendEmail = () => {};

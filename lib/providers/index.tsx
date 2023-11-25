@@ -20,7 +20,7 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
               enableSystem={true}
               attribute="class"
               defaultTheme="dark"
-             // disableTransitionOnChange
+              // disableTransitionOnChange
             >
               <InvoiceContextProvider>
                 <EditorContextProvider>{children}</EditorContextProvider>

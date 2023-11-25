@@ -13,7 +13,7 @@ const getApiKey = () => {
 const baseProps = {};
 
 export const editorProps = {
- // initialValue: "",
+  // initialValue: "",
   apiKey: getApiKey(),
   init: {
     height: 600,
@@ -39,7 +39,7 @@ export const editorProps = {
 };
 
 export const editorPropsDark = {
- // initialValue: "",
+  // initialValue: "",
   apiKey: getApiKey(),
   init: {
     height: 600,
