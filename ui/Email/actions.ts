@@ -120,3 +120,6 @@ export const setNewContent = (
     return option;
   }
 };
+
+
+export const sendEmail = () => {}

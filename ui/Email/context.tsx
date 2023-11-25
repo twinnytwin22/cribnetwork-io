@@ -5,6 +5,7 @@ import { UseThemeProps } from "next-themes/dist/types";
 import React, {
   ButtonHTMLAttributes,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -14,21 +15,61 @@ import { forceRerender, getExistingDocs } from "./actions";
 import { FileDocumentProps, getEditorProps } from "./lib";
 import { useEditorStore } from "./store";
 
-const store = useEditorStore.getState();
-const EditorContext = createContext<FileDocumentProps | any>(store);
+//const store = useEditorStore.getState();
+const EditorContext = createContext<FileDocumentProps | any>(null);
 export function EditorContextProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { theme, systemTheme }: UseThemeProps = useTheme();
+  const { theme, systemTheme, setTheme }: UseThemeProps = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
   const [mounted, setMounted] = useState<boolean>(false);
-  const [editorProps, setEditorProps] = useState<any>({});
 
-  useEffect(() => setMounted(true), []);
+  const {
+    savedContent,
+    setSavedContent,
+    title,
+    setTitle,
+    fileManagerOpen,
+    setFileManagerOpen,
+    document: doc,
+    setDocument,
+    documents,
+    setDocuments,
+    setEditorProps, 
+    editorProps,
+    setEditorRef, 
+    editorRef
+  } = useEditorStore();
+  const isLoading = !editorProps || !mounted || !documents;
 
-  const updateTitle = (e) => {
+  useEffect(() => {
+    setEditorProps(getEditorProps(currentTheme!));
+    forceRerender(setMounted);
+  }, [
+    theme,
+    mounted,
+    editorProps,
+    currentTheme,
+    setEditorProps,
+    setTheme,
+    forceRerender,
+    getEditorProps,
+  ]);
+  const getEditorMenuProps = useMemo(() => {
+    return (editorRef: any) => ({
+      setFileManagerOpen,
+      editorRef,
+      savedContent,
+      setSavedContent,
+      title,
+      doc,
+    });
+  }, [setFileManagerOpen, savedContent, setSavedContent, title, doc, isLoading]);
+  useEffect(() =>  editorProps && setMounted(true), [editorProps, getEditorProps,mounted]);
+
+  const updateTitle = useCallback((e: { target: React.ButtonHTMLAttributes<HTMLButtonElement>; }) => {
     const { value, name }: ButtonHTMLAttributes<HTMLButtonElement> = e.target;
     if (doc && value) {
       setTitle(value as string);
@@ -43,34 +84,7 @@ export function EditorContextProvider({
         id: null,
       });
     }
-  };
-
-  useEffect(() => {
-    setEditorProps(getEditorProps(currentTheme!));
-    forceRerender(setMounted);
-  }, [theme, mounted, editorProps, currentTheme, setEditorProps]);
-
-  const {
-    savedContent,
-    setSavedContent,
-    title,
-    setTitle,
-    fileManagerOpen,
-    setFileManagerOpen,
-    document: doc,
-    setDocument,
-    documents,
-    setDocuments,
-  } = useEditorStore();
-  const isLoading = !editorProps || !mounted || !documents;
-  const getEditorMenuProps = (editorRef: any) => ({
-    setFileManagerOpen,
-    editorRef,
-    savedContent,
-    setSavedContent,
-    title,
-    doc,
-  });
+  },  [setTitle, setDocument, doc]);
 
   const registerDocuments = async () => {
     const res = await getExistingDocs();
@@ -105,6 +119,7 @@ export function EditorContextProvider({
       setEditorProps,
       isLoading,
       getEditorMenuProps,
+      setEditorRef
     }),
     [
       savedContent,
@@ -122,7 +137,8 @@ export function EditorContextProvider({
       setEditorProps,
       isLoading,
       getEditorMenuProps,
-      theme
+      theme,
+      setEditorRef
     ],
   );
 
