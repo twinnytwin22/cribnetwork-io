@@ -3,13 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useTheme } from "next-themes";
 import { UseThemeProps } from "next-themes/dist/types";
 import React, {
-  ButtonHTMLAttributes,
   createContext,
-  useCallback,
   useContext,
   useEffect,
   useMemo,
-  useState,
+  useState
 } from "react";
 import { forceRerender, getExistingDocs } from "./actions";
 import { FileDocumentProps, getEditorProps } from "./lib";
@@ -79,25 +77,36 @@ export function EditorContextProvider({
     [editorProps, getEditorProps, mounted],
   );
 
-  const updateTitle = useCallback(
-    (e: { target: React.ButtonHTMLAttributes<HTMLButtonElement> }) => {
-      const { value, name }: ButtonHTMLAttributes<HTMLButtonElement> = e.target;
-      if (doc && value) {
-        setTitle(value as string);
+  const updateTitle = //useCallback(
+    (e: any) => {
+      const { value, name } = e.target;
+      if (doc && (value || value !== "")) {
+        setTitle(value);
         setDocument({
           ...doc,
-          title: value as string,
+          title: value,
         });
       }
-      if (!doc) {
+      if (!doc && (value || value !== "")) {
         setDocument({
-          title: value as string,
+          title: value,
           id: null,
         });
       }
-    },
-    [setTitle, setDocument, doc],
-  );
+
+      if ((!value || value === "")) {
+        setTitle(null);
+
+        setDocument({
+          title: null,
+          id: null,
+        });
+      }
+      
+    }
+  //   setTitle, setDocument, doc]
+  // );
+  
 
   const registerDocuments = async () => {
     const res = await getExistingDocs();

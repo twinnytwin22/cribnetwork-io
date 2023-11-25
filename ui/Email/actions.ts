@@ -113,7 +113,7 @@ export const setNewContent = (
     );
 
     if (editorRef.current && option) {
-      setTitle(option.title);
+      setTitle(option.title || "");
       setDocument(option);
       editorRef.current.setContent(option?.element!);
     }

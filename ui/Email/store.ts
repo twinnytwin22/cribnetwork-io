@@ -25,7 +25,7 @@ export const useEditorStore = create<IEditorProps>((set) => ({
   mounted: false,
   savedContent: null,
   document: {
-    title: "",
+    title: null,
   },
   documents: [],
   editorProps: {},
@@ -36,7 +36,7 @@ export const useEditorStore = create<IEditorProps>((set) => ({
   setDocuments: (documents: FileDocumentProps[]) => set({ documents }),
   setDocument: (document: FileDocumentProps) => set({ document }),
   setFileManagerOpen: (fileManagerOpen: boolean) => set({ fileManagerOpen }),
-  setTitle: (title) => set({ title }),
+  setTitle: (title: string | null) => set({ title: title || "" }),
   setMounted: (mounted) => set({ mounted }),
   setSavedContent: (savedContent: any) => set({ savedContent }),
   setEditorProps: (editorProps: any) => set({ editorProps }),

@@ -33,7 +33,7 @@ export default function TextEditor() {
     savedContent,
   } = useEditorContext();
 
-  console.log(savedContent);
+  //console.log(savedContent);
 
   const editorMenuProps = getEditorMenuProps(editorRef);
   if (!mounted) {
@@ -52,7 +52,7 @@ export default function TextEditor() {
                 type="text"
                 value={title || ""}
                 placeholder=""
-                onChange={updateTitle}
+                onChange={(e) => setTitle(e.target.value)}
                 // onBlur={() => console.log('blur blur blur')}
               />
               <label
@@ -66,7 +66,8 @@ export default function TextEditor() {
               <EditorMenu {...editorMenuProps} />
               <div className="w-full">
                 <Component
-                  initialValue={savedContent || ""}
+                value={savedContent}
+               //   initialValue={savedContent || ""}
                   onEditorChange={setSavedContent}
                   //tinymceScriptSrc="/tinymce/tinymce.min.js"
                   onInit={(evt: any, editor: TinyMCEEditor | null) =>
@@ -92,7 +93,7 @@ export default function TextEditor() {
               </h2>
               <p className="text-sm py-2">{option?.description}</p>
               <button
-                value={option.title}
+                value={option.title || ""}
                 className="dark:text-black mx-auto font-work-sans text-white bg-black hover:bg-zinc-800 focus:ring-4 focus:outline-none focus:ring-zinc-300 font-medium rounded text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-white dark:hover:bg-zinc-200 dark:focus:ring-zinc-800 ease-in-out duration-300"
                 onClick={(e) =>
                   setNewContent(
@@ -120,7 +121,7 @@ export default function TextEditor() {
               {existingDocs?.map((doc: FileDocumentProps) => (
                 <div className="relative p-4" key={doc.id}>
                   <button
-                    value={doc.title}
+                    value={doc.title || ""}
                     onClick={(e) =>
                       setNewContent(
                         e,
@@ -145,16 +146,18 @@ export default function TextEditor() {
   );
 }
 
-const EditorMenu = ({
-  setFileManagerOpen,
-  editorRef,
-  savedContent,
-  setSavedContent,
-  title,
-  doc,
-}: any) => {
+const EditorMenu = ({ editorRef, doc }: any) => {
   const router = useRouter();
-  const { documents, setDocument, setTitle, setDocuments } = useEditorStore();
+  const {
+    documents,
+    setDocument,
+    setTitle,
+    setDocuments,
+    title,
+    savedContent,
+    setFileManagerOpen,
+    setSavedContent,
+  } = useEditorStore();
   return (
     <div className="flex flex-col w-fit items-center space-y-4  px-4 font-extrabold -ml-14 invert">
       <button

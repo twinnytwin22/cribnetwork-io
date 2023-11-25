@@ -70,7 +70,7 @@ export const editorPropsDark = {
 };
 
 export interface FileDocumentProps {
-  title: string;
+  title: string | null;
   element?: string | null;
   description?: string | null;
   id?: string | null;
