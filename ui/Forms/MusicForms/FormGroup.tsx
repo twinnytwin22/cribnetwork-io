@@ -1,6 +1,7 @@
 "use client";
 import { useAuthProvider } from "@/app/context/auth";
 import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
+import PlaylistsSection from "@/ui/Sections/Music/Playlists/PlaylistsSection";
 import { deleteFile } from "@/utils/db";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -97,7 +98,19 @@ function FormGroup({ artists, songs }) {
                   Add Artist
                 </Link>
               </li>
-
+              <li hidden={userRole !== "admin"} className="mr-2">
+                <Link
+                  href={`${pathname}/?mode=playlists`}
+                  className={`inline-block p-4 rounded-t-lg ${
+                    mode === "playlists"
+                      ? "text-red-300 border-b-2 border-red-400 dark:text-red-300 dark:border-red-300"
+                      : "text-zinc-500 border-b-2 border-transparent hover:text-red-400 hover:border-red-100 dark:hover:text-zinc-300"
+                  }`}
+                  aria-current={mode === "playlists" ? "page" : undefined}
+                >
+Playlists
+                </Link>
+              </li>
               <li className="mr-2">
                 <Link
                   href="https://cribmusic.xyz/music"
@@ -114,6 +127,8 @@ function FormGroup({ artists, songs }) {
 
         {mode === "song" && !edit && <UploadSongForm artists={artists} />}
         {mode === "artist" && !edit && <AddArtistForm />}
+        {mode === "playlists" && !edit && <PlaylistsSection  {...queryProps} />}
+
         {homeProps.includes(mode) && !edit && (
           <div className="space-y-4 p-8">
             <div hidden={userRole !== "admin"}>
