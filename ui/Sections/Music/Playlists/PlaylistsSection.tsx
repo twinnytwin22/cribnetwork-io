@@ -70,18 +70,19 @@ const setSelectedSongs = (songs) => usePlaylistStore.setState({ selectedSongs: s
     createPlaylist,
     playlists,
   };
-
+  const cancelEdit = () => {
+    setEditingPlaylist(null);
+    setPlaylistName('')
+    setSelectedSongs([])
+    setShowCreateForm(false)
+};
   return (
     <React.Fragment>
       <div className="flex items-center gap-4">
         <button
           hidden={!showCreateForm || editingPlaylist!}
           className="bg-zinc-100 dark:hover:bg-zinc-950 dark:bg-black hover:bg-zinc-200 border border-zinc-200 dark:border-zinc-700 text-primary-800 ease-in-out duration-300 text-xs font-medium px-2 py-1.5 rounded relative top-4 left-4"
-          onClick={() => {
-            setShowCreateForm(false);
-            setSelectedSongs([]);
-            setEditingPlaylist(null)
-          }}
+          onClick={cancelEdit}
         >
           Cancel
         </button>

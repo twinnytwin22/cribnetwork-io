@@ -1,3 +1,4 @@
+'use client'
 import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
 import { useEffect } from "react";
 import { FaTrash } from "react-icons/fa6";
@@ -6,16 +7,15 @@ import usePlaylistStore from "./store";
 
 export const EditPlaylist = ({ playlists, songs, removeSongFromPlaylist, addSongToPlaylist }) => {
     const {
-        editedPlaylistName,
         editingPlaylist,
         editedSongs,
         setEditedPlaylistName,
-        setEditedSongs,
         setEditingPlaylist, 
         setPlaylistName, 
         selectedSongs, 
         playlistName, 
-        setSelectedSongs
+        setSelectedSongs,
+        setShowCreateForm
     } = usePlaylistStore()
     const playlist: any = editingPlaylist && playlists.find((playlist: { id: string }) => playlist.id === editingPlaylist)
 
@@ -25,9 +25,12 @@ export const EditPlaylist = ({ playlists, songs, removeSongFromPlaylist, addSong
         setSelectedSongs(playlist.ids) ///  set
     }
     },[editingPlaylist])
-    console.log(playlist)
+   // console.log(playlist)
     const cancelEdit = () => {
         setEditingPlaylist(null);
+        setPlaylistName('')
+        setSelectedSongs([])
+        setShowCreateForm(false)
     };
     const updatePlaylist = (updatedPlaylist) => playlists.map((p) =>
         p.id === updatedPlaylist.id ? updatedPlaylist : p
@@ -43,9 +46,11 @@ export const EditPlaylist = ({ playlists, songs, removeSongFromPlaylist, addSong
                 .from('playlists')
                 .update(updates)
                 .eq('id', editingPlaylist)
+                .select()
                 .single();
-
+                console.log(data)
             if (data) {
+              //  console.log('done')
                 toast.success('Playlist updated');
                 updatePlaylist(data);
             }
