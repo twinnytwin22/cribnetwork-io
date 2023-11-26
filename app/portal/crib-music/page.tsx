@@ -1,14 +1,23 @@
 import FormGroup from "@/ui/Forms/MusicForms/FormGroup";
 import { LoadingContainer } from "@/ui/Sections/LoadingContainer";
-import { getAllArtists, getAllSongs } from "@/utils/use-server";
+import {
+  getAllArtists,
+  getAllPlaylists,
+  getAllSongs,
+} from "@/utils/use-server";
 import { Suspense } from "react";
 export const dynamic = "force-dynamic";
 
 async function Page() {
-  const [artists, songs] = await Promise.all([getAllArtists(), getAllSongs()]);
+  const [artists, songs, playlists] = await Promise.all([
+    getAllArtists(),
+    getAllSongs(),
+    getAllPlaylists(),
+  ]);
   const props = {
     artists: artists?.artists,
     songs: songs?.songs,
+    playlists: playlists?.playlists,
   };
 
   return (

@@ -122,7 +122,29 @@ export const getAllArtists = async () => {
     throw error;
   }
 };
+export const getAllPlaylists = async () => {
+  try {
+    const res = await fetch(`${protocol}://${host}/api/v1/music/getAllPlaylists/`, {
+      method: "GET",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+        // "Access-Control-Allow-Origin": "*"
+      },
 
+      //  mode: 'no-cors',
+    });
+
+    if (res.ok) {
+      const playlists = await res.json();
+
+      //const data = playlists.json()
+      return playlists;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
 export const getAllSongs = async () => {
   try {
     const res = await fetch(`${protocol}://${host}/api/v1/music/getAllSongs/`, {

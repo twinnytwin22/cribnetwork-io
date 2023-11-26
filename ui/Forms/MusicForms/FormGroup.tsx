@@ -13,7 +13,7 @@ import EditArtistForm from "./EditArtist";
 import EditSongForm from "./EditSong";
 import UploadSongForm from "./UploadSong";
 
-function FormGroup({ artists, songs }) {
+function FormGroup({ artists, songs ,playlists }) {
   const { userRole, user } = useAuthProvider();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -50,6 +50,7 @@ function FormGroup({ artists, songs }) {
     artists,
     songs: userRole === "admin" ? songs : filteredSongs,
     id,
+    playlists
   };
   const homeProps = ["data", null];
   return (
