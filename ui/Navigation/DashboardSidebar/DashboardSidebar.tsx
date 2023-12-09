@@ -124,7 +124,7 @@ function DashboardSidebar() {
     {
       title: "Analytics",
       icon: <FaChartPie />,
-      href: analyticsUrl! as string,
+      href: '/analytics' as string,
       target: "_self",
       user_role: UserRoleTypes.admin, // admin | user
     },
@@ -230,11 +230,11 @@ function DashboardSidebar() {
 
   return (
     <aside
-      className="fixed  left-0 z-10 w-24 lg:w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-zinc-200 md:translate-x-0 dark:bg-black dark:border-zinc-800 font-work-sans"
+      className="fixed left-0  z-10 w-24 lg:w-64 h-screen py-14 transition-transform -translate-x-full bg-white border-r border-zinc-200 md:translate-x-0 dark:bg-black dark:border-zinc-800 font-work-sans"
       aria-label="SideNav"
       id="drawer-navigation"
     >
-      <div className="overflow-y-auto py-5 px-3 h-full ">
+      <div className="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-black ">
         {profile && (
           <div className="scale-75 -ml-2 hidden font-owners tracking-widest lg:block">
             <PortalPageTitle
@@ -259,12 +259,12 @@ function DashboardSidebar() {
           </div>
         )}
 
-        <ul className="space-y-2 mt-8 sm:ml-2 relative z-50 text-sm">
+        <ul className="space-y-2 mt-8 sm:ml-2 relative z-50 text-sm mb-10">
           {filteredSidebarItems}
         </ul>
       </div>
 
-      <div className="absolute bottom-14 p-4 left-0 text-xs text-zinc-700 dark:text-zinc-300">
+      <div className="absolute bottom-10 p-4 z-[999] left-0 text-xs bg-white dark:bg-black  text-zinc-700 dark:text-zinc-300">
         <ul>
           <li>
             <Link
@@ -289,7 +289,7 @@ function DashboardSidebar() {
           </li>
         </ul>
       </div>
-      <div className="hidden absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex bg-zinc-100 dark:bg-zinc-900 z-20 text-black dark:text-white border-t border-zinc-300 dark:border-zinc-700 duration-300 ease-in-out">
+      <div className="hidden z-[9999] absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex bg-zinc-100 dark:bg-zinc-900  text-black dark:text-white border-t border-zinc-300 dark:border-zinc-700 duration-300 ease-in-out">
         {socialRowItems.map((item) => (
           <Link key={item.title} href={item.href}>
             <div className=" hover:scale-110 ease-in-out duration-200">
