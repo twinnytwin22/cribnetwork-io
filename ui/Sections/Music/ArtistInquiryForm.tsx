@@ -333,7 +333,7 @@ const MusicianForm: React.FC = () => {
 
     const eventDates = [
       {
-        date: "December 3, 2023",
+        date: "January 7, 2023",
       },
     ];
 
