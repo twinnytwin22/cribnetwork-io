@@ -359,7 +359,7 @@ const MusicianForm: React.FC = () => {
               <h3 className="text-center font-medium">Upcoming Date:</h3>
               <p className="text-sm text-center mb-6"> {eventDates[0].date}</p>
               <div className="flex items-center justify-center mx-auto">
-                <Link href={"https://lu.ma/event/evt-kPpL1DxtCQp624U"}>
+                <Link href={"https://lu.ma/5bqynp8r"}>
                   <button className="bg-red-300 mx-auto text-black px-2.5 p-1 rounded hover:bg-red-400 text-sm font-medium flex items-center space-x-2 duration-300 ease-in-out">
                     RSVP
                   </button>
