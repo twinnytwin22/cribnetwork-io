@@ -124,8 +124,8 @@ function DashboardSidebar() {
     {
       title: "Analytics",
       icon: <FaChartPie />,
-      href: '/analytics' as string,
-      target: "_self",
+      href: 'https://vercel.com/thecrib/crib-netowork-q2-23/analytics' as string,
+      target: "_blank",
       user_role: UserRoleTypes.admin, // admin | user
     },
 
