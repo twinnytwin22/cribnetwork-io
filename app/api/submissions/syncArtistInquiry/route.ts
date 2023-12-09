@@ -242,7 +242,7 @@ export async function POST(req: Request) {
             </p>
       
             <p style="text-align: center">
-              <strong>Join us</strong> as we introduce Crib Music Global & the return of Sync Sunday on November 19th. We'll be
+              <strong>Join us</strong> as we introduce Crib Music Global & the return of Sync Sunday on Jth. We'll be
               reviewing music live and providing feedback and possible in the context of sync, and shot to get your music accepted into our sync library.
               </p>
               <p style="text-align: center"> 
@@ -277,11 +277,11 @@ export async function POST(req: Request) {
               <p>w/ Twinny Twin</p>
       
               <h3>Upcoming Date:</h3>
-              <p>November 19th, 2023</p>
+              <p>${updates.date}/p>
               <p>11am PST | 2pm EST</p>
               <br />
               <div><a target="_blank"
-                  href="https://lu.ma/event/evt-kPpL1DxtCQp624U"
+                  href=${updates.href}
       
                 ><button>
                   RSVP</button>

@@ -21,7 +21,12 @@ import { FiAlertCircle } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { SyncFormState, useSyncFormStore } from "./store";
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-
+const eventDates = [
+  {
+    date: "January 7, 2023",
+    href:"https://lu.ma/event/evt-kPpL1DxtCQp624U"
+  },
+];
 const MusicianForm: React.FC = () => {
   const router = useRouter();
   const { genres, initialState, step, cookieStatus, showShare } =
@@ -93,6 +98,8 @@ const MusicianForm: React.FC = () => {
         ...formData,
         genres: genres,
         form_type: "Sync Artist Inquiry",
+        date: eventDates[0].date,
+        href: eventDates[0].href
       };
       //  console.log(updates);
 
@@ -331,11 +338,7 @@ const MusicianForm: React.FC = () => {
   const renderStep3 = () => {
     const image = "/site_images/studio.jpg";
 
-    const eventDates = [
-      {
-        date: "January 7, 2023",
-      },
-    ];
+
 
     return (
       <div>
@@ -359,7 +362,7 @@ const MusicianForm: React.FC = () => {
               <h3 className="text-center font-medium">Upcoming Date:</h3>
               <p className="text-sm text-center mb-6"> {eventDates[0].date}</p>
               <div className="flex items-center justify-center mx-auto">
-                <Link href={"https://lu.ma/5bqynp8r"}>
+                <Link href={eventDates[0].href}>
                   <button className="bg-red-300 mx-auto text-black px-2.5 p-1 rounded hover:bg-red-400 text-sm font-medium flex items-center space-x-2 duration-300 ease-in-out">
                     RSVP
                   </button>
