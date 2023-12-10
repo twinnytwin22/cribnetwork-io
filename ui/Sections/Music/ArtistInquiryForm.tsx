@@ -24,7 +24,7 @@ const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const eventDates = [
   {
     date: "January 7, 2023",
-    href:"https://lu.ma/event/evt-kPpL1DxtCQp624U"
+    href:"https://lu.ma/5bqynp8r"
   },
 ];
 const MusicianForm: React.FC = () => {
