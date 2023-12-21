@@ -97,7 +97,7 @@ const AddArtistForm = () => {
         {
           //artist_id: 1,
           artist_name: formData.artist_name, // Map the artist_name to the form input
-          genres: genreArray, // Map the genre to the form input
+          genres: genreArray || [], // Map the genre to the form input
           biography: formData?.biography, // Map the biography to the form input
           image_url: formData?.image_url.trim(),
           contact_email: formData?.contact_email,
