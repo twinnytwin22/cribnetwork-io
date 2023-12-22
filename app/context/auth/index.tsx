@@ -109,8 +109,8 @@ export const AuthContextProvider = ({
 
   const value = useMemo(
     () => ({
-      user:  data?.user || null,
-      profile: data?.profile || null,
+      user: user || data?.user || null,
+      profile: profile || data?.profile || null,
       isLoading,
       signInWithGoogle,
       signInWithSpotify,
