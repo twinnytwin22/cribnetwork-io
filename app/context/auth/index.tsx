@@ -57,12 +57,16 @@ export const AuthContextProvider = ({
       supabase.auth.getSession(),
       supabaseAdmin.auth.onAuthStateChange(
         async (event: AuthChangeEvent, currentSession: Session | null) => {
+          if(event) {
+            console.log(event)
+          }
           if (currentSession && event === "SIGNED_IN") {
             const profile = await fetchProfile(currentSession?.user.id);
             useAuthStore.setState({ user: currentSession?.user, profile });
             router.refresh();
           } else if (event === "SIGNED_OUT") {
-            refresh();
+            console.log(event)
+            router.refresh();
           }
           if (event === "PASSWORD_RECOVERY") {
             const newPassword = prompt(
@@ -105,8 +109,8 @@ export const AuthContextProvider = ({
 
   const value = useMemo(
     () => ({
-      user: user || data?.user || null,
-      profile: profile || data?.profile || null,
+      user:  data?.user || null,
+      profile: data?.profile || null,
       isLoading,
       signInWithGoogle,
       signInWithSpotify,

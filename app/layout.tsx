@@ -3,7 +3,6 @@ import { getSiteSettings } from "@/lib/providers/sanity/sanity";
 import allKeywords from "@/lib/site/seoKeywords";
 import Footer from "@/ui/Navigation/Footer";
 import NavBar from "@/ui/Navigation/NavBar/NavBar";
-import { Analytics, } from '@vercel/analytics/react';
 import Script from "next/script";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -60,8 +59,6 @@ export default async function RootLayout({
             <NavBar settings={settings} />
             <main className="relative">
               {children}
-              <Analytics mode="production"/>
-
               <ToastContainer theme="dark" />
             </main>
 

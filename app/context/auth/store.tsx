@@ -78,9 +78,17 @@ export const useAuthStore = create<AuthState>((set) => ({
     }
   },
   signOut: async () => {
-    toast.info("Signing Out");
+    //console.log('Starting Signout')
+    //await supabase.auth.signOut();
+
     try {
-      await supabase.auth.signOut();
+      const { error } = await supabase.auth.signOut();
+      if (error){
+        console.log(error)
+        throw error
+      } else {
+        toast.info("Signing Out");
+      }
     } catch (error) {
       console.error("Error signing out:", error);
     }
