@@ -4,7 +4,7 @@ import { supabase } from "@/lib/site/constants";
 import { AuthChangeEvent, Session } from "@supabase/supabase-js";
 import { useQuery } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
-import React, { createContext, useContext, useMemo } from "react";
+import React, { createContext, useCallback, useContext, useMemo, useTransition } from "react";
 import { toast } from "react-toastify";
 import { AuthState, useAuthStore } from "./store";
 
@@ -13,18 +13,23 @@ const refresh = () => {
 };
 
 export const AuthContext = createContext<AuthState>(useAuthStore.getState());
-const fetchProfile = async (id: string) => {
+const fetchProfile = async (id: string, setProfile: (profile) => void) => {
+try {
   const { data, error } = await supabase
     .from("users")
     .select("*")
     .eq("id", id)
     .single();
+   // console.log(data, error)
   //console.log(data)
-  if (error) {
-    throw error;
-  }
+  setProfile(data)
 
   return data;
+} catch (err){
+  console.log(err)
+  setProfile(null)
+  throw new Error('Error fetching profile:')
+} 
 };
 
 export const AuthContextProvider = ({
@@ -43,10 +48,28 @@ export const AuthContextProvider = ({
     setUserRole,
     userRole,
   } = useAuthStore();
+  const setProfileState = (profile: any) => useAuthStore.setState({ profile })
 
+  const setProfile = useCallback((profile) => {
+    setProfileState(profile)
+  },[setProfileState])
+  //console.log(userRole)
   const router = useRouter();
   const pathname = usePathname();
+  const [startTransition, isPending] = useTransition()
+  // const {data:session} = useQuery({
+  //   queryKey: ['session'],
+  //   queryFn: () =>getSession()
+  
+  // })
+  const standInId = '77b9b52e-65f4-46cd-be3f-07f26829ad5b'
+  // console.log(session, 'context session')
+  const {data:userProfile } = useQuery({
+    queryKey:['userProfile'],
+    queryFn: () => 
+      fetchProfile(standInId, setProfile)})
 
+ // console.log(userProfile, 'user profile')
   const onAuthStateChange = async () => {
     const [
       { data: userSessionData },
@@ -57,16 +80,14 @@ export const AuthContextProvider = ({
       supabase.auth.getSession(),
       supabaseAdmin.auth.onAuthStateChange(
         async (event: AuthChangeEvent, currentSession: Session | null) => {
-          if(event) {
-            console.log(event)
+
+          if (event === "SIGNED_IN" || currentSession) {
+            useAuthStore.setState({ user: currentSession?.user });
+         //   router.refresh();
           }
-          if (currentSession && event === "SIGNED_IN") {
-            const profile = await fetchProfile(currentSession?.user.id);
-            useAuthStore.setState({ user: currentSession?.user, profile });
-            router.refresh();
-          } else if (event === "SIGNED_OUT") {
-            console.log(event)
-            router.refresh();
+          
+           if (event === "SIGNED_OUT") {
+
           }
           if (event === "PASSWORD_RECOVERY") {
             const newPassword = prompt(
@@ -89,8 +110,9 @@ export const AuthContextProvider = ({
       const { data: authUser } = await supabase.auth.getUser();
 
       if (authUser?.user) {
-        const profile = await fetchProfile(authUser.user.id);
+        const profile = await fetchProfile(authUser.user.id, setProfile);
         useAuthStore.setState({ profile });
+        useAuthStore.setState({userRole: profile.user_role})
         useAuthStore.setState({ user: authUser.user });
         subscriptionData?.unsubscribe();
 
@@ -106,6 +128,8 @@ export const AuthContextProvider = ({
     queryKey: ["user", "subscription", "subscriptionData", "authListener"],
     queryFn: () => onAuthStateChange(),
   });
+
+ // console.log(data, "QUERY DATA")
 
   const value = useMemo(
     () => ({

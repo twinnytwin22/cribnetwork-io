@@ -22,6 +22,7 @@ import { FaMusic, FaWpforms } from "react-icons/fa6";
 import { FiMail } from "react-icons/fi";
 function DashboardSidebar() {
   const { user, signOut, profile, userRole, setUserRole } = useAuthProvider();
+ // console.log(userRole)
   const [showTooltip, setShowTooltip] = useState("");
   const setOpen = useContactButtonStore((state: any) => state.setOpen);
   const handleOpenModal = () => {
@@ -43,6 +44,7 @@ function DashboardSidebar() {
       setUserRole(profile?.user_role);
     }
   }, [profile]);
+  //console.log(profile)
   const VercelIcon = () => (
     <svg
       className="w-4 h-4 "

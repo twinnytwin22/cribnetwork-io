@@ -11,7 +11,7 @@ export interface AuthState {
   user: any;
   profile: any;
   isLoading: boolean;
-  userRole: UserRoleTypes;
+  userRole: any;
   setUserRole: (userRole: string) => void;
   signInWithEmail: (email: string, password: string) => Promise<void>;
   signInWithGoogle: () => Promise<void>;
@@ -21,7 +21,7 @@ export interface AuthState {
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  userRole: UserRoleTypes.user,
+  userRole: null,
   user: null,
   profile: null,
   isLoading: false,
