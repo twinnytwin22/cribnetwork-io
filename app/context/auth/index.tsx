@@ -73,6 +73,7 @@ export const AuthContextProvider = ({
 
  // console.log(userProfile, 'user profile')
   const onAuthStateChange = async () => {
+    try {
     const [
       { data: userSessionData },
       {
@@ -124,6 +125,13 @@ export const AuthContextProvider = ({
     subscriptionData?.unsubscribe();
 
     return { subscription: subscriptionData };
+
+  }catch (error){
+    console.log(error)
+    throw new Error('Error completed auth')
+
+
+  }
   };
 
   const { data, isLoading } = useQuery({

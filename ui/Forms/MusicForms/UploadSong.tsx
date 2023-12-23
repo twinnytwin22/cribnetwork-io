@@ -209,6 +209,7 @@ const UploadSongForm = ({ artists }) => {
       className="w-full p-8 mx-auto z-[100] h-full isolate relative"
       style={{ position: "relative" }}
     >
+  
       {imagePreview && imagePreviewOpen && (
         <div className="absolute z-[9999] flex items-center mx-8 w-full left-0 right-0">
           <div className="fixed inset-0 bg-black opacity-50 w-full mx-auto left-0 right-0"></div>
@@ -255,6 +256,7 @@ const UploadSongForm = ({ artists }) => {
               Album
             </label>
             <input
+            required
               className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 "
               type="text"
               id="album"
@@ -273,6 +275,7 @@ const UploadSongForm = ({ artists }) => {
               Release Year
             </label>
             <input
+            required
               className="shadow-sm bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 text-black dark:text-white text-sm rounded-sm focus:ring-red-300 focus:border-red-300 focus:ring block w-full p-2.5 "
               type="text"
               id="release_year"
@@ -408,6 +411,7 @@ const UploadSongForm = ({ artists }) => {
                 type="file"
                 id="cover_art_url"
                 name="cover_art_url"
+                required
                 //   value={formData.cover_art_url || ''}
                 onChange={(e) => handleCoverUpload(e)}
               />
@@ -503,7 +507,12 @@ const UploadSongForm = ({ artists }) => {
             </div>
           </div>
         </div>
+        {!formData.instrumental && !formData.has_lyrics &&
+        <div className="w-full p-2.5 bg-red-200 rounded text-black">
+    <p>Please select one or your upload will error.</p>
+      </div>}
         <div className="flex items-center w-full space-x-4">
+          
           <div className="flex w-full items-center pl-4 border border-zinc-300 rounded dark:border-zinc-700">
             <input
               onChange={handleSongTypeChange}

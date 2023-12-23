@@ -1,9 +1,10 @@
 "use client";
 import { useAuthProvider } from "@/app/context/auth";
-import { UserRoleTypes } from "@/app/context/auth/store";
+import { UserRoleTypes, useAuthStore } from "@/app/context/auth/store";
 import { PortalPageTitle } from "@/lib/hooks/PortalPageTitle";
 import { useContactButtonStore } from "@/ui/Buttons/ContactButton/contactButtonStore";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BsGlobe2 } from "react-icons/bs";
 import {
@@ -22,6 +23,7 @@ import { FaMusic, FaWpforms } from "react-icons/fa6";
 import { FiMail } from "react-icons/fi";
 function DashboardSidebar() {
   const { user, signOut, profile, userRole, setUserRole } = useAuthProvider();
+  const router = useRouter()
  // console.log(userRole)
   const [showTooltip, setShowTooltip] = useState("");
   const setOpen = useContactButtonStore((state: any) => state.setOpen);
@@ -70,6 +72,14 @@ function DashboardSidebar() {
     user_role: UserRoleTypes;
     hidden?: boolean;
     onClick?: () => Promise<void>;
+  }
+  const logOut = async () => {
+     await signOut(), 
+     setTimeout(() => {
+      console.log('timing out');
+      useAuthStore.setState({user: null});
+      router.refresh()
+     },2000)
   }
   ///   console.log(user)
   const sidebarItems: ISideBarItems[] = [
@@ -156,7 +166,7 @@ function DashboardSidebar() {
     {
       title: "Sign Out",
       icon: <FaSignOutAlt />,
-      onClick: signOut,
+      onClick: () => logOut(),
       target: "_self",
       user_role: UserRoleTypes.user,
     },
