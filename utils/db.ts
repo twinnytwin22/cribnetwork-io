@@ -197,7 +197,8 @@ export async function deleteFile({
     // const url = URL.createObjectURL(data)
     return data;
   } catch (error) {
-    console.log("Error downloading image: ", error);
+    console.log("Error deleting image: ", error);
+    return error
   }
 }
 

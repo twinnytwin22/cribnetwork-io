@@ -283,6 +283,7 @@ const SongsTable = ({ router, pathname, createQueryString, songs }) => {
   });
 
   const handleDeleteSong = async (songId, path) => {
+    console.log('id:',songId, 'path:',path)
     try {
       let { error } = await supabaseAdmin
         .from("songs")

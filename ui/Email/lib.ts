@@ -10,7 +10,7 @@ const getApiKey = () => {
   throw Error("TinyMCE Key Not available");
 };
 
-const baseProps = {};
+const baseProps = "ai tinycomments mentions checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags autocorrect tinymcespellchecker powerpaste a11ychecker typography inlinecss";
 
 export const editorProps = {
   // initialValue: "",
@@ -18,7 +18,7 @@ export const editorProps = {
   init: {
     height: 600,
     plugins:
-      "save ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss",
+      "save anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount",
     toolbar:
       "save | undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
     tinycomments_mode: "embedded",
