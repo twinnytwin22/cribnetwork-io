@@ -4,8 +4,7 @@ import { getSession } from "@/lib/providers/supabase/supabase-server";
 import { supabase } from "@/lib/site/constants";
 import { AuthChangeEvent, Session } from "@supabase/supabase-js";
 import { useQuery } from "@tanstack/react-query";
-import { usePathname, useRouter } from "next/navigation";
-import React, { createContext, useCallback, useContext, useMemo, useTransition } from "react";
+import React, { createContext, useCallback, useContext, useMemo } from "react";
 import { toast } from "react-toastify";
 import { AuthState, useAuthStore } from "./store";
 
@@ -55,9 +54,9 @@ export const AuthContextProvider = ({
     setProfileState(profile)
   },[setProfileState])
   //console.log(userRole)
-  const router = useRouter();
-  const pathname = usePathname();
-  const [startTransition, isPending] = useTransition()
+  // const router = useRouter();
+  // const pathname = usePathname();
+  // const [startTransition, isPending] = useTransition()
    const {data:session} = useQuery({
      queryKey: ['session'],
      queryFn: () => getSession()
@@ -146,7 +145,7 @@ export const AuthContextProvider = ({
       user: user || data?.user || null,
       profile: profile || data?.profile || null,
       isLoading,
-      signInWithGoogle,
+      signInWithGoogle: (router) => signInWithGoogle(router),
       signInWithSpotify,
       signInWithEmail,
       signOut,

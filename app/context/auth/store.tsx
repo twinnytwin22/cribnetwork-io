@@ -1,3 +1,4 @@
+import { redirectUrl, supabaseAuth } from "@/lib/constants";
 import { supabase } from "@/lib/site/constants";
 import { toast } from "react-toastify";
 import { create } from "zustand";
@@ -14,7 +15,7 @@ export interface AuthState {
   userRole: any;
   setUserRole: (userRole: string) => void;
   signInWithEmail: (email: string, password: string) => Promise<void>;
-  signInWithGoogle: () => Promise<void>;
+  signInWithGoogle: (router: any) => Promise<void>;
   signInWithSpotify: () => Promise<void>;
   signOut: () => Promise<void>;
   unsubscribeAuthListener: () => void;
@@ -29,7 +30,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   signInWithEmail: async (email, password) => {
     toast.info("Signing In");
     try {
-      await supabase.auth.signInWithPassword({
+      await supabaseAuth.auth.signInWithPassword({
         email,
         password,
       });
@@ -40,12 +41,17 @@ export const useAuthStore = create<AuthState>((set) => ({
       );
     }
   },
-  signInWithGoogle: async () => {
+  signInWithGoogle: async (router:any) => {
     toast.info("Signing In");
     try {
-      await supabase.auth.signInWithOAuth({ provider: "google" });
+      await supabaseAuth.auth.signInWithOAuth({ provider: "google" ,  options :{
+        redirectTo: redirectUrl(location),
+      }});
     } catch (error) {
       console.error("Error signing in with Google:", error);
+    }
+    finally {
+      router.refresh()
     }
   },
   signInWithSpotify: async () => {
