@@ -1,3 +1,4 @@
+import GoogleAuthButton from "@/ui/Buttons/GoogleAuthButton/GoogleAuthButton";
 import Image from "next/image";
 import Link from "next/link";
 export const LoginForm = ({ logo }) => {
@@ -19,6 +20,7 @@ export const LoginForm = ({ logo }) => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-zinc-900 md:text-2xl dark:text-white">
               Sign in to your account
             </h1>
+            <GoogleAuthButton/>
             <form
               className="space-y-4 md:space-y-6"
               action="/auth/login"

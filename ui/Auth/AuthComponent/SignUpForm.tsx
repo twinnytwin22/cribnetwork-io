@@ -1,3 +1,4 @@
+import GoogleAuthButton from "@/ui/Buttons/GoogleAuthButton/GoogleAuthButton";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -25,6 +26,7 @@ export const SignUpForm = ({ logo }) => {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-zinc-900 md:text-2xl dark:text-white">
                 Register a new account
               </h1>
+              <GoogleAuthButton/>
               <form
                 className="space-y-4 md:space-y-6"
                 action="/auth/sign-up"
