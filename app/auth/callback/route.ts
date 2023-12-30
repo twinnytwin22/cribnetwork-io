@@ -7,13 +7,16 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const code = searchParams.get('code');
   const next = searchParams.get('next') ?? '/';
+  const requestUrl = new URL(req.url);
 
   if (code) {
     const cookieStore = cookies();
     const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      return NextResponse.redirect(new URL(`/${next.slice(1)}`, req.url));
+      return NextResponse.redirect(`${requestUrl.origin}/portal`, {
+        status: 301,
+      });
     }
   }
 
