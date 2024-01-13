@@ -1,11 +1,11 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 interface PlaylistStore {
   playlistName: string;
   selectedSongs: string[];
   showCreateForm: boolean;
-  editingPlaylist: null // | PlaylistType; // Replace PlaylistType with the actual type of your playlist object
-    editedPlaylistName: string;
+  editingPlaylist: null; // | PlaylistType; // Replace PlaylistType with the actual type of your playlist object
+  editedPlaylistName: string;
   editedSongs: string[];
   setPlaylistName: (playlistName: string) => void;
   setSelectedSongs: (selectedSongs: any) => void;
@@ -13,15 +13,14 @@ interface PlaylistStore {
   setEditingPlaylist: (editingPlaylist: any) => void;
   setEditedPlaylistName: (editedPlaylistName: string) => void;
   setEditedSongs: (editedSongs: string[]) => void;
-
 }
 
 const usePlaylistStore = create<PlaylistStore>((set) => ({
-  playlistName: '',
+  playlistName: "",
   selectedSongs: [],
   showCreateForm: false,
   editingPlaylist: null,
-  editedPlaylistName: '', // initial value
+  editedPlaylistName: "", // initial value
   editedSongs: [], // initial value
   setPlaylistName: (playlistName) => set({ playlistName }),
   setSelectedSongs: (selectedSongs) => set({ selectedSongs }),

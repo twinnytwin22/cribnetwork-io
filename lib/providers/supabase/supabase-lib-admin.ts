@@ -15,7 +15,7 @@ export const supabaseSRkey =
 
 export const supabaseAdmin = createClient(supabaseUrl, supabaseSRkey, {
   auth: {
-       flowType: 'pkce',
+    flowType: "pkce",
     storage: authStorage,
     //  persistSession: true
   },

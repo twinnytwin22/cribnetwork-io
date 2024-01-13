@@ -26,7 +26,7 @@ export const SignUpForm = ({ logo }) => {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-zinc-900 md:text-2xl dark:text-white">
                 Register a new account
               </h1>
-              <GoogleAuthButton/>
+              <GoogleAuthButton />
               <form
                 className="space-y-4 md:space-y-6"
                 action="/auth/sign-up"

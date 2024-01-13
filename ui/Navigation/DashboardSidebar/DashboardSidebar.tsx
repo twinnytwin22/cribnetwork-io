@@ -23,8 +23,8 @@ import { FaMusic, FaWpforms } from "react-icons/fa6";
 import { FiMail } from "react-icons/fi";
 function DashboardSidebar() {
   const { user, signOut, profile, userRole, setUserRole } = useAuthProvider();
-  const router = useRouter()
- // console.log(userRole)
+  const router = useRouter();
+  // console.log(userRole)
   const [showTooltip, setShowTooltip] = useState("");
   const setOpen = useContactButtonStore((state: any) => state.setOpen);
   const handleOpenModal = () => {
@@ -74,13 +74,13 @@ function DashboardSidebar() {
     onClick?: () => Promise<void>;
   }
   const logOut = async () => {
-     await signOut(), 
-     setTimeout(() => {
-      console.log('timing out');
-      useAuthStore.setState({user: null});
-      router.refresh()
-     },2000)
-  }
+    await signOut(),
+      setTimeout(() => {
+        console.log("timing out");
+        useAuthStore.setState({ user: null });
+        router.refresh();
+      }, 2000);
+  };
   ///   console.log(user)
   const sidebarItems: ISideBarItems[] = [
     {

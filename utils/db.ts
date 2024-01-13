@@ -198,7 +198,7 @@ export async function deleteFile({
     return data;
   } catch (error) {
     console.log("Error deleting image: ", error);
-    return error
+    return error;
   }
 }
 

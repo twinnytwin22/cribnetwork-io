@@ -7,7 +7,9 @@ export async function GET(request: Request) {
   //  const userId = searchParams.get("userId");
   try {
     if (request.method === "GET") {
-      const { data: playlists, error } = await supabaseAdmin.from("playlists").select();
+      const { data: playlists, error } = await supabaseAdmin
+        .from("playlists")
+        .select();
       //.eq('student_id', userId)
       // .limit(5)
       // console.log(playlists)

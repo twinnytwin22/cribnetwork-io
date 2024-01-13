@@ -24,7 +24,7 @@ const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const eventDates = [
   {
     date: "January 7, 2023",
-    href:"https://lu.ma/5bqynp8r"
+    href: "https://lu.ma/5bqynp8r",
   },
 ];
 const MusicianForm: React.FC = () => {
@@ -99,7 +99,7 @@ const MusicianForm: React.FC = () => {
         genres: genres,
         form_type: "Sync Artist Inquiry",
         date: eventDates[0].date,
-        href: eventDates[0].href
+        href: eventDates[0].href,
       };
       //  console.log(updates);
 
@@ -337,8 +337,6 @@ const MusicianForm: React.FC = () => {
 
   const renderStep3 = () => {
     const image = "/site_images/studio.jpg";
-
-
 
     return (
       <div>

@@ -14,22 +14,22 @@ const refresh = () => {
 
 export const AuthContext = createContext<AuthState>(useAuthStore.getState());
 const fetchProfile = async (id: string, setProfile: (profile) => void) => {
-try {
-  const { data, error } = await supabase
-    .from("users")
-    .select("*")
-    .eq("id", id)
-    .single();
-   // console.log(data, error)
-  //console.log(data)
-  setProfile(data)
+  try {
+    const { data, error } = await supabase
+      .from("users")
+      .select("*")
+      .eq("id", id)
+      .single();
+    // console.log(data, error)
+    //console.log(data)
+    setProfile(data);
 
-  return data;
-} catch (err){
-  console.log(err)
-  setProfile(null)
-  throw new Error('Error fetching profile:')
-} 
+    return data;
+  } catch (err) {
+    console.log(err);
+    setProfile(null);
+    throw new Error("Error fetching profile:");
+  }
 };
 
 export const AuthContextProvider = ({
@@ -48,89 +48,86 @@ export const AuthContextProvider = ({
     setUserRole,
     userRole,
   } = useAuthStore();
-  const setProfileState = (profile: any) => useAuthStore.setState({ profile })
+  const setProfileState = (profile: any) => useAuthStore.setState({ profile });
 
-  const setProfile = useCallback((profile) => {
-    setProfileState(profile)
-  },[setProfileState])
+  const setProfile = useCallback(
+    (profile) => {
+      setProfileState(profile);
+    },
+    [setProfileState],
+  );
   //console.log(userRole)
   // const router = useRouter();
   // const pathname = usePathname();
   // const [startTransition, isPending] = useTransition()
-   const {data:session} = useQuery({
-     queryKey: ['session'],
-     queryFn: () => getSession()
-  
-  })
- // const standInId = '77b9b52e-65f4-46cd-be3f-07f26829ad5b'
+  const { data: session } = useQuery({
+    queryKey: ["session"],
+    queryFn: () => getSession(),
+  });
+  // const standInId = '77b9b52e-65f4-46cd-be3f-07f26829ad5b'
   // console.log(session, 'context session')
-  const {data:userProfile } = useQuery({
-    queryKey:['userProfile', session],
-    queryFn: () => 
-      fetchProfile(session?.user.id!, setProfile),
-    enabled: !!session })
+  const { data: userProfile } = useQuery({
+    queryKey: ["userProfile", session],
+    queryFn: () => fetchProfile(session?.user.id!, setProfile),
+    enabled: !!session,
+  });
 
- // console.log(userProfile, 'user profile')
+  // console.log(userProfile, 'user profile')
   const onAuthStateChange = async () => {
     try {
-    const [
-      { data: userSessionData },
-      {
-        data: { subscription: subscriptionData },
-      },
-    ] = await Promise.all([
-      supabase.auth.getSession(),
-      supabaseAdmin.auth.onAuthStateChange(
-        async (event: AuthChangeEvent, currentSession: Session | null) => {
-
-          if (event === "SIGNED_IN" || currentSession) {
-            useAuthStore.setState({ user: currentSession?.user });
-         //   router.refresh();
-          }
-          
-           if (event === "SIGNED_OUT") {
-
-          }
-          if (event === "PASSWORD_RECOVERY") {
-            const newPassword = prompt(
-              "What would you like your new password to be?",
-            );
-            const { data, error } = await supabaseAdmin.auth.updateUser({
-              password: newPassword!,
-            });
-
-            if (data) toast.success("Password updated successfully!");
-            if (error)
-              toast.error("There was an error updating your password.");
-            console.log(error);
-          }
+      const [
+        { data: userSessionData },
+        {
+          data: { subscription: subscriptionData },
         },
-      ),
-    ]);
+      ] = await Promise.all([
+        supabase.auth.getSession(),
+        supabaseAdmin.auth.onAuthStateChange(
+          async (event: AuthChangeEvent, currentSession: Session | null) => {
+            if (event === "SIGNED_IN" || currentSession) {
+              useAuthStore.setState({ user: currentSession?.user });
+              //   router.refresh();
+            }
 
-    if (userSessionData && userSessionData.session) {
-      const { data: authUser } = await supabase.auth.getUser();
+            if (event === "SIGNED_OUT") {
+            }
+            if (event === "PASSWORD_RECOVERY") {
+              const newPassword = prompt(
+                "What would you like your new password to be?",
+              );
+              const { data, error } = await supabaseAdmin.auth.updateUser({
+                password: newPassword!,
+              });
 
-      if (authUser?.user) {
-        const profile = await fetchProfile(authUser.user.id, setProfile);
-        useAuthStore.setState({ profile });
-        useAuthStore.setState({userRole: profile.user_role})
-        useAuthStore.setState({ user: authUser.user });
-        subscriptionData?.unsubscribe();
+              if (data) toast.success("Password updated successfully!");
+              if (error)
+                toast.error("There was an error updating your password.");
+              console.log(error);
+            }
+          },
+        ),
+      ]);
 
-        return { user: authUser.user, profile };
+      if (userSessionData && userSessionData.session) {
+        const { data: authUser } = await supabase.auth.getUser();
+
+        if (authUser?.user) {
+          const profile = await fetchProfile(authUser.user.id, setProfile);
+          useAuthStore.setState({ profile });
+          useAuthStore.setState({ userRole: profile.user_role });
+          useAuthStore.setState({ user: authUser.user });
+          subscriptionData?.unsubscribe();
+
+          return { user: authUser.user, profile };
+        }
       }
+      subscriptionData?.unsubscribe();
+
+      return { subscription: subscriptionData };
+    } catch (error) {
+      console.log(error);
+      throw new Error("Error completed auth");
     }
-    subscriptionData?.unsubscribe();
-
-    return { subscription: subscriptionData };
-
-  }catch (error){
-    console.log(error)
-    throw new Error('Error completed auth')
-
-
-  }
   };
 
   const { data, isLoading } = useQuery({
@@ -138,7 +135,7 @@ export const AuthContextProvider = ({
     queryFn: () => onAuthStateChange(),
   });
 
- // console.log(data, "QUERY DATA")
+  // console.log(data, "QUERY DATA")
 
   const value = useMemo(
     () => ({

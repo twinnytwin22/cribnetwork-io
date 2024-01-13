@@ -32,7 +32,7 @@ export default function TextEditor() {
     editorProps,
     getEditorMenuProps,
     savedContent,
-    isLoading
+    isLoading,
   } = useEditorContext();
 
   //console.log(savedContent);
@@ -41,8 +41,8 @@ export default function TextEditor() {
   if (isLoading) {
     return (
       <div className="max-w-5xl mx-auto ">
-        <LoadingContainer/>
-        </div>
+        <LoadingContainer />
+      </div>
     );
   }
   return (
@@ -73,7 +73,7 @@ export default function TextEditor() {
               <div className="w-full will-change-auto">
                 <Component
                   value={savedContent}
-               //   initialValue={savedContent || ""}
+                  //   initialValue={savedContent || ""}
                   onEditorChange={setSavedContent}
                   //tinymceScriptSrc="/tinymce/tinymce.min.js"
                   onInit={(evt: any, editor: TinyMCEEditor | null) =>

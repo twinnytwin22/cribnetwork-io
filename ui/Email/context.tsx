@@ -7,7 +7,7 @@ import React, {
   useContext,
   useEffect,
   useMemo,
-  useState
+  useState,
 } from "react";
 import { forceRerender, getExistingDocs } from "./actions";
 import { FileDocumentProps, getEditorProps } from "./lib";
@@ -69,7 +69,7 @@ export function EditorContextProvider({
     setSavedContent,
     title,
     doc,
-  //  isLoading,
+    //  isLoading,
   ]);
   useEffect(
     () => editorProps && setMounted(true),
@@ -93,7 +93,7 @@ export function EditorContextProvider({
         });
       }
 
-      if ((!value || value === "")) {
+      if (!value || value === "") {
         setTitle(null);
 
         setDocument({
@@ -101,11 +101,9 @@ export function EditorContextProvider({
           id: null,
         });
       }
-      
-    }
+    };
   //   setTitle, setDocument, doc]
   // );
-  
 
   const registerDocuments = async () => {
     const res = await getExistingDocs();
@@ -117,11 +115,11 @@ export function EditorContextProvider({
     return docs;
   };
 
-  const { data,isLoading:loading } = useQuery({
+  const { data, isLoading: loading } = useQuery({
     queryKey: ["data"],
     queryFn: () => registerDocuments(),
   });
-  const isLoading = !editorProps || !mounted || !documents  || loading || !data;
+  const isLoading = !editorProps || !mounted || !documents || loading || !data;
 
   const values = useMemo(
     () => ({

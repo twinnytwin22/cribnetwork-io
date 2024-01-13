@@ -71,7 +71,7 @@ async function Portal({ searchParams }: { searchParams: { q: string } }) {
             </p>
             <p className="text-zinc-800 dark:text-zinc-300 text-center">{""}</p>
           </WelcomePanel>
-          {currentArtist &&  (
+          {currentArtist && (
             <MusiciansPanel href="/portal/crib-music">
               {currentArtistSongs.length > 0 ? (
                 <div className="space-y-2 p-1 ">

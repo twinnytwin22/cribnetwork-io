@@ -22,20 +22,27 @@ function PlaylistsSection({
     showCreateForm,
     editingPlaylist,
     setPlaylistName,
-   // setSelectedSongs,
+    // setSelectedSongs,
     setShowCreateForm,
     setEditingPlaylist,
   } = usePlaylistStore();
-const setSelectedSongs = (songs) => usePlaylistStore.setState({ selectedSongs: songs })
-  const addSongToPlaylist = useCallback((songId: string) => {
-    const songs = (prevSelectedSongs) => [...prevSelectedSongs, songId]
-    setSelectedSongs(songs(selectedSongs));
-  },[setSelectedSongs, selectedSongs]);
+  const setSelectedSongs = (songs) =>
+    usePlaylistStore.setState({ selectedSongs: songs });
+  const addSongToPlaylist = useCallback(
+    (songId: string) => {
+      const songs = (prevSelectedSongs) => [...prevSelectedSongs, songId];
+      setSelectedSongs(songs(selectedSongs));
+    },
+    [setSelectedSongs, selectedSongs],
+  );
 
-  const removeSongFromPlaylist = useCallback((songId: string) => {
-    const songs = selectedSongs.filter((id) => id !== songId)
-    setSelectedSongs(songs);
-  },[setSelectedSongs, selectedSongs]);
+  const removeSongFromPlaylist = useCallback(
+    (songId: string) => {
+      const songs = selectedSongs.filter((id) => id !== songId);
+      setSelectedSongs(songs);
+    },
+    [setSelectedSongs, selectedSongs],
+  );
   const createPlaylist = async () => {
     const updates = {
       // userId,
@@ -59,7 +66,6 @@ const setSelectedSongs = (songs) => usePlaylistStore.setState({ selectedSongs: s
     });
   };
 
- 
   const playListProps = {
     playlistName,
     setPlaylistName,
@@ -72,10 +78,10 @@ const setSelectedSongs = (songs) => usePlaylistStore.setState({ selectedSongs: s
   };
   const cancelEdit = () => {
     setEditingPlaylist(null);
-    setPlaylistName('')
-    setSelectedSongs([])
-    setShowCreateForm(false)
-};
+    setPlaylistName("");
+    setSelectedSongs([]);
+    setShowCreateForm(false);
+  };
   return (
     <React.Fragment>
       <div className="flex items-center gap-4">
@@ -95,7 +101,9 @@ const setSelectedSongs = (songs) => usePlaylistStore.setState({ selectedSongs: s
         </button>
       </div>
       {!editingPlaylist && showCreateForm && <CreateTable {...playListProps} />}
-      {!editingPlaylist && !showCreateForm && <PlaylistTable {...playListProps} />}
+      {!editingPlaylist && !showCreateForm && (
+        <PlaylistTable {...playListProps} />
+      )}
 
       {editingPlaylist && <EditPlaylist {...playListProps} />}
     </React.Fragment>

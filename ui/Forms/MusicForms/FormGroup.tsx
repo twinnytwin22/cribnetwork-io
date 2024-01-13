@@ -1,6 +1,7 @@
 "use client";
 import { useAuthProvider } from "@/app/context/auth";
 import { supabaseAdmin } from "@/lib/providers/supabase/supabase-lib-admin";
+import { supabase } from "@/lib/site/constants";
 import PlaylistsSection from "@/ui/Sections/Music/Playlists/PlaylistsSection";
 import { deleteFile } from "@/utils/db";
 import Link from "next/link";
@@ -13,7 +14,7 @@ import EditArtistForm from "./EditArtist";
 import EditSongForm from "./EditSong";
 import UploadSongForm from "./UploadSong";
 
-function FormGroup({ artists, songs ,playlists }) {
+function FormGroup({ artists, songs, playlists }) {
   const { userRole, user } = useAuthProvider();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -50,7 +51,7 @@ function FormGroup({ artists, songs ,playlists }) {
     artists,
     songs: userRole === "admin" ? songs : filteredSongs,
     id,
-    playlists
+    playlists,
   };
   const homeProps = ["data", null];
   return (
@@ -109,7 +110,7 @@ function FormGroup({ artists, songs ,playlists }) {
                   }`}
                   aria-current={mode === "playlists" ? "page" : undefined}
                 >
-Playlists
+                  Playlists
                 </Link>
               </li>
               <li className="mr-2">
@@ -128,7 +129,7 @@ Playlists
 
         {mode === "song" && !edit && <UploadSongForm artists={artists} />}
         {mode === "artist" && !edit && <AddArtistForm />}
-        {mode === "playlists" && !edit && <PlaylistsSection  {...queryProps} />}
+        {mode === "playlists" && !edit && <PlaylistsSection {...queryProps} />}
 
         {homeProps.includes(mode) && !edit && (
           <div className="space-y-4 p-8">
@@ -283,20 +284,23 @@ const SongsTable = ({ router, pathname, createQueryString, songs }) => {
   });
 
   const handleDeleteSong = async (songId, path) => {
-    console.log('id:',songId, 'path:',path)
+    console.log("id:", songId, "path:", path);
     try {
-      let { error } = await supabaseAdmin
+      const { error } = await supabase
         .from("songs")
         .delete()
         .eq("id", songId);
       if (error) {
         throw new Error(JSON.stringify(error));
+      } else {
+        await deleteFile({ path, bucket: "tracks" });
+        router.refresh();
+  
       }
-      await deleteFile({ path, bucket: "tracks" });
+    
     } catch (error) {
       throw error;
     } finally {
-      router.refresh();
     }
   };
   return (

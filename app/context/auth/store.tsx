@@ -41,17 +41,19 @@ export const useAuthStore = create<AuthState>((set) => ({
       );
     }
   },
-  signInWithGoogle: async (router:any) => {
+  signInWithGoogle: async (router: any) => {
     toast.info("Signing In");
     try {
-      await supabaseAuth.auth.signInWithOAuth({ provider: "google" ,  options :{
-        redirectTo: redirectUrl(location),
-      }});
+      await supabaseAuth.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: redirectUrl(location),
+        },
+      });
     } catch (error) {
       console.error("Error signing in with Google:", error);
-    }
-    finally {
-      router.refresh()
+    } finally {
+      router.refresh();
     }
   },
   signInWithSpotify: async () => {
@@ -89,9 +91,9 @@ export const useAuthStore = create<AuthState>((set) => ({
 
     try {
       const { error } = await supabase.auth.signOut();
-      if (error){
-        console.log(error)
-        throw error
+      if (error) {
+        console.log(error);
+        throw error;
       } else {
         toast.info("Signing Out");
       }
