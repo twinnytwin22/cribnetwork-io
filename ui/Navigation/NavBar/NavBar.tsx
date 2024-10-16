@@ -127,7 +127,7 @@ function NavBar({ settings }: { settings: any }) {
                       Digital Marketing
                     </Link>
                     <Link
-                      href="/music"
+                      href="https://cribmusic.xyz"
                       className="block px-4 py-2 text-zinc-900 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:text-zinc-500 dark:hover:bg-transparent"
                     >
                       Music Services

@@ -1,7 +1,6 @@
-import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
+import { Kafka } from "@upstash/kafka";
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import { v4 as uuid } from "uuid";
-import { Kafka } from "@upstash/kafka";
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
   let cookie = req.cookies.getAll();
@@ -30,11 +29,8 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     );
   }
   //console.log(nonce);
-  const supabase = createMiddlewareClient({ req, res });
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+
   //console.log(session);
 
   const cspHeaderValue =
@@ -74,13 +70,16 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
     return NextResponse.next();
   }
 
-  if (pathname.startsWith("/login") && session) {
-    return NextResponse.redirect(new URL("/portal", req.url));
-  }
+  //return await updateSession(req)
 
-  if (pathname.startsWith("/portal") && !session) {
-    return NextResponse.redirect(new URL("/login", req.url));
-  }
+
+  // if (pathname.startsWith("/login") && session) {
+  //   return NextResponse.redirect(new URL("/portal", req.url));
+  // }
+
+  // if (pathname.startsWith("/portal") && !session) {
+  //   return NextResponse.redirect(new URL("/login", req.url));
+  // }
 
   // if (session) {
   //   return user;

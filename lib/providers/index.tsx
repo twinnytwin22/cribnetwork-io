@@ -7,6 +7,7 @@ import SiteContextProvider from "@/app/context/siteContext";
 import { EditorContextProvider } from "@/ui/Email/context";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
+
 import { Suspense } from "react";
 const queryClient = new QueryClient();
 
