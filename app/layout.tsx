@@ -46,14 +46,17 @@ export default async function RootLayout({
   return (
     settings && (
       <html lang="en" suppressHydrationWarning>
-        {process.env.NODE_ENV !== "development" && (
-          <Script
-            defer
-            src="https://unpkg.com/@tinybirdco/flock.js"
-            data-host="https://api.us-east.tinybird.co"
-            data-token={process.env.NEXT_PUBLIC_TINYBIRD_TRACKER_TOKEN}
-          ></Script>
-        )}{" "}
+        <head>
+          <meta name='impact-site-verification' content='1a4e5631-8eef-447d-b4f9-2a40d96cd69f'/>
+          {process.env.NODE_ENV !== "development" && (
+            <Script
+              defer
+              src="https://unpkg.com/@tinybirdco/flock.js"
+              data-host="https://api.us-east.tinybird.co"
+              data-token={process.env.NEXT_PUBLIC_TINYBIRD_TRACKER_TOKEN}
+            ></Script>
+          )}
+        </head>
         <body className="max-w-screen w-full relative bg-white dark:bg-black">
           <Providers>
             <NavBar settings={settings} />
