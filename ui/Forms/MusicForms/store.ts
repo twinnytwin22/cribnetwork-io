@@ -42,7 +42,7 @@ export const useMusicFormStore = create<UploadMusicFormProps>((set) => ({
     title: "",
     artist_id: "",
     album: "",
-    release_year: 2023,
+    release_year: 2025,
     genres: [],
     lyrics: "",
     artist_name: "",

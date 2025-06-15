@@ -182,7 +182,7 @@ export async function POST(req: Request) {
            <div class="logo">
                 <img src="https://cdn.sanity.io/images/6d8w1e5g/production/b9657d582fceef81348198cd3d0aa9bb853729d4-748x167.png" alt="CRIB Network Logo">
             </div>
-            <p>&copy; 2023 CRIB Network. All rights reserved.</p>
+            <p>&copy; 2025 CRIB Network. All rights reserved.</p>
             <p><a href="https://cribnetwork.io/">cribnetwork.io</a></p>
         </div>
     </body>
